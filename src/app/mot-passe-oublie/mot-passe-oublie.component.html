@@ -1,0 +1,47 @@
+   <div class="back_page">
+   <div fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex="40" class="card mt-5">
+      <mat-card class="creationCpte mat-elevation-z8">
+        <mat-card-header fxLayout="row">
+          <h4 class="pt-2">Mot de passe oublie</h4>
+        </mat-card-header>
+        <mat-card-content>
+          <div fxLayout="column">
+            <div >
+              <img src="assets/images/logoCSS.png" height="40px" width="80px" alt="">
+            </div>
+            &nbsp;
+            <h5 class="title ml-5">Changer mot de passe e-portail CSS</h5>
+          </div>
+          <div fxLayout="row">
+          <form [formGroup]="motPassOublForm"  fxLayout="column" fxFlex>
+             <mat-form-field appearance="outline" class="pl-5 pr-5">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput formControlName="email" required />
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error>Champ obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="pl-5 pr-5">
+              <mat-label>Mot De Passe</mat-label>
+              <input type="password" matInput formControlName="password" required />
+              <mat-icon matSuffix>lock</mat-icon>
+              <mat-error>Champ obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="pl-5 pr-5">
+              <mat-label>Confirmer Mot De Passe</mat-label>
+              <input type="password" matInput formControlName="passwordConf" required />
+              <mat-icon matSuffix>lock</mat-icon>
+              <mat-error>Champ obligatoire</mat-error>
+            </mat-form-field>
+            <div fxLayout="column" class="pb-5" fxLayoutAlign="center center">
+              <button fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
+                Envoyer
+              </button>
+            </div>
+          </form>
+        </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    </div>
+  </div>

@@ -1,0 +1,27 @@
+
+   <mat-toolbar class="mat-elevation-z8"> 
+   <div fxFlex fxLayout="row" fxLayoutGap="10%">
+   <div fxFlex="80%">
+
+    <img src="assets/images/logoCSS.png" class="mt-2" height="50" width="100" alt="">
+    <img src="assets/images/logoIPRES.png" class="mt-2" height="50" width="100" alt="">
+    <button mat-button  routerLink="/accueil"> <mat-icon>business</mat-icon>
+     Accueil</button> 
+    <button mat-button ><mat-icon>folder_open</mat-icon>Demarches</button>
+    <button mat-button><mat-icon>people_outlined</mat-icon>Qui nous sommes</button>
+    <button mat-button ><mat-icon>map</mat-icon>Contacts</button>
+   </div>
+    <div fxFlex="10%" class="mt-2">
+      <button mat-button mat-raised-button routerLink="/espaceEmploye"><mat-icon>person_outlined</mat-icon>
+      Acceder a mon espace</button>
+   </div>
+   <div fxFlex="10%"  fxLayout="column" class="mt-2">
+      <button  mat-icon-button [matMenuTriggerFor]="menu" ><span>AC</span><br>
+      <mat-icon class="keyboard">keyboard_arrow_down</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item><mat-icon>person_outlined</mat-icon>Nouveau mot de passe</button>
+        <button mat-menu-item><mat-icon>logout</mat-icon>Deconnexion</button>
+     </mat-menu>                  
+   </div> 
+</div>
+</mat-toolbar> 

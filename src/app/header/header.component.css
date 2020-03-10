@@ -1,0 +1,63 @@
+mat-toolbar{
+    background-color: #FFFFFF;
+}
+
+.menu{
+    float: right;
+}
+mat-icon{
+    font-size:20px;
+    /* margin-top:5px; */
+}
+a{
+    text-decoration: none;
+}
+
+.mat-button{
+    color:#615f5f;
+}
+.mat-icon{
+    color:#615f5f;
+}
+.mat-raised-button{
+border: 2px solid;
+border-color: rgb(255, 104, 49);
+color:rgb(255, 104, 49);
+
+}
+.mat-raised-button mat-icon{
+    color:rgb(255, 104, 49); 
+}
+
+.mat-icon-button{
+    border:#CCCCCC 2px solid;
+    background-color: #F2F2F2;
+
+}
+.mat-icon-button {
+    min-height: 40px;
+    min-width: 40px;
+}
+.keyboard{
+    margin-top: -60px;
+}
+button {
+  color: #4a4a4a;
+  font-weight: 200;
+}
+button:hover{
+    background: rgb(255, 104, 49);
+    color: #ffffff;
+
+}
+button:hover mat-icon{
+    color:#ffffff;
+}
+
+button:visited{
+    background: rgb(255, 104, 49);
+    color: #ffffff;
+}
+button:visited mat-icon{
+    color:#ffffff;
+}

@@ -1,0 +1,118 @@
+
+<!-- <div class="center">
+<mat-progress-spinner diameter=50 mode="indeterminate"color="primary">
+</mat-progress-spinner>
+</div> --> 
+<mat-drawer-container class="example-container mat-typography" autosize>
+  <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+    <button mat-mini-fab (click)="isExpanded = !isExpanded" color="warn" style="margin: 10px;">
+      <mat-icon aria-label="Menu">menu</mat-icon>
+    </button>
+
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon mat-list-icon>person</mat-icon>
+        <h4 mat-line *ngIf="isExpanded">Immatrculation</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <h4 mat-line *ngIf="isExpanded">Declaration</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>domain</mat-icon>
+        <h4 mat-line *ngIf="isExpanded">Documents</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>folder_shared</mat-icon>
+        <h4 mat-line *ngIf="isExpanded">Paramtres</h4>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <mat-card  class="mat-elevation-z8 ml-1 card_client">
+      <h4 >Votre Espace Client</h4>
+      <mat-divider class="mt-1"></mat-divider> 
+       <mat-card-content>
+         
+          <div fxFlex fxFlex="80" fxLayout="column">
+              <div fxFlex fxLayout="row" fxLayoutGap="5%">
+                <mat-card class="immatCard mt-5">
+                  <mat-card-content>
+                    <img fxLayoutAlgin="center" src="assets/images/neurotech.png" alt="" height="100px" width="100px">
+                    <span class="text-success" fxLayoutAlign="center"><mat-icon>done</mat-icon>Valide</span>
+                    <span *ngIf="validated" class="text-danger" fxLayoutAlign="center"><mat-icon>done</mat-icon>Valide</span>
+                  </mat-card-content>
+                </mat-card>
+                <mat-card class="immatCard mt-5">
+                  <mat-card-content>
+                    <img src="assets/images/neurotech.png" alt="" height="100px" width="100px">
+                    <span class="text-success" fxLayoutAlign="center"><mat-icon>done</mat-icon>Valide</span>
+                  </mat-card-content>
+                </mat-card>
+                <mat-card class="immatCard mt-5" >
+                  <mat-card-content>
+                    <img src="assets/images/neurotech.png" alt="" height="100px" width="100px">
+                    <span class="text-danger" fxLayoutAlign="center"><mat-icon>clear</mat-icon>Rejete</span>
+                  </mat-card-content>
+                </mat-card>
+                <mat-card class="immatCard mt-5" >
+                  <mat-card-content>
+                    <div  class="addImmButt">
+                    <button (click)="openImmatPopup(choiceTemplate)" mat-fab color="primary">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                    </div>
+                    <span>Nouvelle immatriculation</span>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div fxFlex fxFlex="100" fxLayoutGap="1%">
+              
+              <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="nom">
+                  <th mat-header-cell *matHeaderCellDef> Nom </th>
+                  <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+                </ng-container>
+                <ng-container matColumnDef="prenom">
+                  <th mat-header-cell *matHeaderCellDef> Prenom </th>
+                  <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+                </ng-container>
+                <ng-container matColumnDef="icn">
+                  <th mat-header-cell *matHeaderCellDef> Num Piece d'identite </th>
+                  <td mat-cell *matCellDef="let element"> {{element.icn}} </td>
+                </ng-container>
+                <ng-container matColumnDef="num_secu">
+                  <th mat-header-cell *matHeaderCellDef> Numero de secuite sociale </th>
+                  <td mat-cell *matCellDef="let element"> {{element.num_secu}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+            
+          </div>  
+         
+       </mat-card-content>
+     </mat-card>
+
+  </div>
+</mat-drawer-container>
+
+
+<div>
+  <ng-template #choiceTemplate>
+ 
+      <div>
+      <mat-radio-group aria-label="Type d'immatriculation" fxFlex="column" fxFlex="row">
+        <mat-radio-button (click)="openImmatDialog()" value="1">Nouvelle Immatriculation</mat-radio-button><br>
+        <mat-radio-button (click)="openImmatDialogExist()" value="2" class="mt-1">Immatriculation Existante</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  
+</ng-template>
+</div>
+ 
+
+
+

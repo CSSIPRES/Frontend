@@ -1,0 +1,355 @@
+<!-- 
+<div class="back_color">
+ 
+
+  <div fxLayout="row">
+    <div fxFlex="15">
+    </div>
+    <div fxFlex="70"> -->
+      
+     <!--  <div class="center">
+        <mat-progress-spinner diameter=50 mode="indeterminate"color="primary">
+        </mat-progress-spinner>
+      </div> -->
+      <h1 mat-dialog-title>Demande d'immatriculation</h1>
+      <div mat-dialog-content>
+      <mat-horizontal-stepper #stepper class="mt-1">
+        <mat-step [stepControl]="infoGenForm" label="Step 1" state="phone">
+      <div class="mt-5">
+      <form action="" [formGroup]="infoGenForm">
+        <ng-template matStepLabel>Information General</ng-template>
+        
+        <div fxLayout="row" fxLayoutGap="10%">
+      <mat-form-field appearance="outline">
+        <mat-label>Type Employeur</mat-label>
+        <mat-select>
+          <mat-option>Type1</mat-option>
+          <mat-option>Type1</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Raison Sociale</mat-label>
+        <input matInput required />
+        <!-- <mat-icon matSuffix>people</mat-icon> -->
+        
+        <mat-icon matSuffix>supervisor_account</mat-icon>
+      </mat-form-field>
+     </div>
+     <div fxLayout="row" fxLayoutGap="10%">
+      <mat-form-field appearance="outline">
+        <mat-label>Type d'etabilssement</mat-label>
+        <mat-select>
+          <mat-option>Type1</mat-option>
+          <mat-option>Type1</mat-option>
+        </mat-select>
+        <mat-icon matSuffix> business</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Date ouverture etablissement</mat-label>
+        <input matInput [matDatepicker]="dateOuverture">
+        <mat-datepicker-toggle matSuffix [for]="dateOuverture"></mat-datepicker-toggle>
+        <mat-datepicker #dateOuverture></mat-datepicker>
+      </mat-form-field>
+     </div>
+     <div fxLayout="row" fxLayoutGap="10%">
+      <mat-form-field appearance="outline">
+        <mat-label>Activite principale</mat-label>
+        <mat-select>
+          <mat-option>Activite1</mat-option>
+          <mat-option>Activite2</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>work_outline</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Secteur d'Activite</mat-label>
+        <mat-select>
+          <mat-option>Sect Activite1</mat-option>
+          <mat-option>Sect Activite2</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>view_quilt</mat-icon>
+      </mat-form-field>
+     </div>
+     <div fxLayout="row" fxLayoutGap="10%">
+      <mat-form-field appearance="outline">
+        <mat-label >Siege sociale</mat-label>
+        <input matInput required>
+        <mat-icon matSuffix> place</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Adresse</mat-label>
+        <input matInput required>
+        <mat-icon matSuffix> place</mat-icon>
+      </mat-form-field>
+     </div>
+     <div fxLayout="row" fxLayoutGap="10%">
+      <mat-form-field appearance="outline">
+        <mat-label>Email entreprise</mat-label>
+        <input matInput required>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Telephone Entreprise</mat-label>
+        <input matInput required>
+        <mat-icon matSuffix> phone</mat-icon>
+      </mat-form-field>
+     
+     </div>
+     <div fxLayoutAlign="end" fxLayoutGap="10%" >
+      <button mat-raised-button matStepperPrevious>Precedent</button>
+      <button class="submit-button" mat-raised-button matStepperNext>Suivant</button>
+    </div>
+    </form>
+  </div>
+  </mat-step>
+  <mat-step [stepControl]="infoJuridiqueForm" label="Step 2" state="chat">
+    <div class="mt-5">
+    <form action="" [formGroup]="infoJuridiqueForm">
+      <ng-template matStepLabel>Information juridique et administrative</ng-template>
+      <div fxLayout="row" fxLayoutGap="10%">
+        <mat-form-field appearance="outline">
+          <mat-label>Ninea</mat-label>
+          <input matInput required>
+          <mat-icon matSuffix> short_text</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Ninet</mat-label>
+          <input matInput required>
+          <mat-icon matSuffix> short_text</mat-icon>
+        </mat-form-field>
+       </div>
+       <div fxLayout="row" fxLayoutGap="10%">
+        <mat-form-field appearance="outline">
+          <mat-label>Code Identification Fiscale</mat-label>
+          <input matInput required>
+          <mat-icon matSuffix>drag_handle</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date Identification Fiscale</mat-label>
+          <input matInput [matDatepicker]="dateIdFiscale">
+          <mat-datepicker-toggle matSuffix [for]="dateIdFiscale"></mat-datepicker-toggle>
+          <mat-datepicker #dateIdFiscale></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10%">
+        <mat-form-field appearance="outline">
+          <mat-label>Registre De Commerce</mat-label>
+          <mat-select>
+            <mat-option>Registre1</mat-option>
+            <mat-option>Registre2</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>people_outline</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date Immatriculation Registre De Commerce</mat-label>
+          <input matInput [matDatepicker]="dateImCom">
+          <mat-datepicker-toggle matSuffix [for]="dateImCom"></mat-datepicker-toggle>
+          <mat-datepicker #dateImCom></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10%">
+        <mat-form-field appearance="outline">
+          <mat-label>Adresse Representant Legale</mat-label>
+          <input matInput required>
+          <mat-icon matSuffix>person_outline</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Type d'identite</mat-label>
+          <mat-select>
+            <mat-option>TypeId1</mat-option>
+            <mat-option>TypeId2</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10%">
+        <mat-form-field appearance="outline">
+          <mat-label>Numero Piece d'Identite</mat-label>
+          <input matInput required>
+          <mat-icon matSuffix>check_circle_outline</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date Delivrance</mat-label>
+          <input matInput [matDatepicker]="dateDelivrance">
+          <mat-datepicker-toggle matSuffix [for]="dateDelivrance"></mat-datepicker-toggle>
+          <mat-datepicker #dateDelivrance></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10%">  
+        <mat-form-field appearance="outline">
+          <mat-label>Date Expiration</mat-label>
+          <input matInput [matDatepicker]="dateExpiration">
+          <mat-datepicker-toggle matSuffix [for]="dateExpiration"></mat-datepicker-toggle>
+          <mat-datepicker #dateExpiration></mat-datepicker>
+        </mat-form-field>
+      </div>
+        <div fxLayoutAlign="end" fxLayoutGap="10%">
+          <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+          <button class="submit-button" mat-button matStepperNext>Suivant</button>
+        </div> 
+    </form>
+  </div>
+    </mat-step>
+    <mat-step [stepControl]="repLegal" label="Step 3" state="person_outlined">
+      <div class="mt-5">
+      <form action="" [formGroup]="repLegalForm">
+        <ng-template matStepLabel>Representant legale</ng-template>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline" >
+            <mat-label>Nom</mat-label>
+            <input matInput required>
+            <mat-icon matSuffix>person_outlined</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Prenom</mat-label>
+            <input matInput required>
+            <mat-icon matSuffix>person_outlined</mat-icon>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Date Naissance</mat-label>
+            <input matInput [matDatepicker]="dateNaissance">
+            <mat-datepicker-toggle matSuffix [for]="dateNaissance"></mat-datepicker-toggle>
+            <mat-datepicker #dateNaissance></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Lieu de Naissance</mat-label>
+            <input matInput required>
+            <mat-icon matSuffix>map</mat-icon>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Email Representant Legale</mat-label>
+            <input matInput required>
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Telephone</mat-label>
+            <input matInput required>
+            <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Adresse Representant Legale</mat-label>
+            <input matInput required>
+            <mat-icon matSuffix>map</mat-icon>
+          </mat-form-field>
+        </div>
+         <div fxLayoutAlign="end" fxLayoutGap="10%">
+          <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+          <button class="submit-button"  mat-button matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </div>
+    </mat-step>
+    <mat-step [stepControl]="infoSalarieForm"  label="Step 4" state="money">
+      <div class="mt-5">
+      <form action="" [formGroup]="infoSalarieForm">
+        <ng-template matStepLabel>Information Salaries</ng-template>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre De Salarie Regime General</mat-label>
+            <input matInput required>
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Etes-vous Au Moins Un Salarie Cadre</mat-label>
+            <mat-select>
+              <mat-option>Oui</mat-option>
+              <mat-option>Non</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>people</mat-icon>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre Salaries regime cadre</mat-label>
+            <input matInput required>
+            <mat-icon matSuffix>people</mat-icon>
+          </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date Embauche Du 1er Salarie Cadre</mat-label>
+          <input matInput [matDatepicker]="dateEmbaucheCad" required>
+          <mat-datepicker-toggle matSuffix [for]="dateEmbaucheCad"></mat-datepicker-toggle>
+          <mat-datepicker #dateEmbaucheCad></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Date Embauche Du 1er Salarie</mat-label>
+        <input matInput [matDatepicker]="dateEmbaucheSal">
+        <mat-datepicker-toggle matSuffix [for]="dateEmbaucheSal"></mat-datepicker-toggle>
+        <mat-datepicker #dateEmbaucheSal></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div fxLayoutAlign="end" fxLayoutGap="10%">
+      <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+      <button class="submit-button" mat-button matStepperNext>Suivant</button>
+    </div>
+        </form>
+      </div>
+      </mat-step> 
+      <mat-step [stepControl]="infoSalarieForm"  label="Step 5" state="folder_open">
+        <div class="mt-5">
+        <form action="" [formGroup]="infoSalarieForm">
+          <ng-template matStepLabel>Document A Joindre</ng-template>
+           <div fxLayout="row" fxLayoutGap="5%">
+            <div fxFlex="row" fxLayoutGap="5%">
+              <!-- <mat-form-field appearance="outline"> -->
+              <button type="button" mat-raised-button (click)="fileInput.click()">Demande ecrite</button>
+              <input hidden  (change)="onFileSelected()" #fileInput type="file" id="file">            
+            <!-- </mat-form-field> -->
+            <!-- <mat-form-field appearance="outline"> -->
+              <button type="button" mat-raised-button (click)="fileInput.click()"> 
+                   Demande d'adhesion dument remplie
+              </button>
+              <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+            <!-- </mat-form-field> -->
+            </div>
+            <div fxLayoutAlign="end" fxLayoutGap="10%">
+              <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+              <button class="submit-button" mat-button matStepperNext>Suivant</button>
+            </div>
+          </div> 
+        </form>
+
+      </div>
+      </mat-step>
+   
+        <mat-step [stepControl]="infoSalarieForm" editable="false" label="Step 6" state="done_all">
+          <ng-template matStepLabel>Comfirmation</ng-template> 
+      </mat-step>
+         <ng-template matStepperIcon="phone">
+          <mat-icon>create_new_folder</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="chat">
+          <mat-icon>library_books</mat-icon>
+        </ng-template> 
+        <ng-template matStepperIcon="person_outlined">
+          <mat-icon>person_outlined</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="folder_open">
+          <mat-icon>folder_open</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="folder">
+          <mat-icon>file</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="done_all">
+          <mat-icon>done_all</mat-icon>
+        </ng-template>
+  </mat-horizontal-stepper>
+</div>
+  
+   <!--  </div>
+    <div fxFlex="15">
+     
+    </div>
+    
+  </div>
+</div>
+
+
+ -->

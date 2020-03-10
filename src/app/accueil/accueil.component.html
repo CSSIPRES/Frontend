@@ -1,0 +1,145 @@
+
+<div fxLayout="row" class="back_page pl-5 pr-5">
+  <div fxFlex="65" class="backImg" >
+    <img class="mat-elevation-z8" src="assets/images/homeCSS.jpg" 
+    height="600" width="900">
+  </div>
+  <div fxFlex fxFlex="35" *ngIf="connection">
+    <mat-card class="mat-elevation-z8 login">
+      <mat-card-header class="mb-1" fxLayout="row" 
+      fxLayoutAlign="space-between center">
+        <h4 class="pt-2 card_title" >Connexion</h4>
+        <button mat-icon-button (click)="close_conn()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <div fxLayout="column">
+        <div >
+        <img class="imgLogo"  src="assets/images/logoCSS.png" 
+        height="60px" width="110px">
+        </div>
+         <h4 class="title">Connection e-portail CSS</h4>
+        </div>
+        <div>
+        <form [formGroup]="loginForm" class="loginForm"  fxLayout="column" fxFlex>
+          <mat-form-field fxFlex="70" appearance="outline">
+            <mat-label>Nom de l'utilisateur</mat-label>
+            <input matInput  formControlName="username" required />
+            <mat-icon matSuffix>person_outlined</mat-icon>
+            <mat-error>Champ obligatoire</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="70" appearance="outline">
+            <mat-label>Mot de passe</mat-label>
+            <input formControlName="password" matInput type="password" required />
+            <mat-icon matSuffix>security</mat-icon>
+            <mat-error>Champ obligatoire</mat-error>
+          </mat-form-field>
+          <!-- </div> -->
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <button fxLayoutAlign="center" mat-raised-button 
+            class="submit-button1" aria-label="CONNEXION">
+              Connexion
+            </button>
+             <span routerLink="/motPasseOublie" fxLayoutAlign="center center" 
+             class="forget_pw mb-5">Mot de passe oublié 
+             <mat-icon>arrow_right_alt</mat-icon> </span>
+          </div>
+        </form>
+      </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="30" *ngIf="newAccout">
+    <mat-card class="mat-elevation-z8 card_portail">
+      <mat-card-header>
+        <h4>Portail au service de la sécurité sociale au Senegal</h4>
+      </mat-card-header>
+      <mat-card-content class="pt-1">
+        <div fxLayout  fxLayout="column" >
+        <span fxFlex="100">Imatriculer votre entreprise et déclarez les salaires de vos employés
+          a travers une plateforme unique sans vous déplacer.
+        </span>
+        <div fxFlex="100" fxLayoutAlign="center center">
+          <button routerLink="/creationCompte" mat-raised-button 
+          class="submit-button" aria-label="CONNEXION"
+              fxLayoutAlign="center center">
+              Créer un compte
+            </button>
+        </div>
+      </div>
+      <div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="inscrit">Etes-vous dejà inscrit ?</span>
+          <strong class="conn" fxLayoutAlign="center" (click)="conn_account()">
+            Connectez-vous <mat-icon>arrow_right_alt</mat-icon></strong>
+        </div>
+      </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  
+</div>
+
+<div fxLayout="row" fxLayoutGap="0.5%" class="mt-5 mb-5">
+  <div fxFlex="25" fxLayout="column">
+    <h4 class="ml-2">
+      Des informations pour mieux vous aider à comprendre votre statut
+    </h4><br />
+    <span class="ml-2 info">Trouver des informations par rapports à votre 
+      statut et des documents importants à fournir.
+    </span>
+  </div>
+  <div fxFlex="25">
+    <mat-card class="card_info mat-elevation-z8 ">
+      <mat-card-header>
+        <h2>
+          Espace <br> Employeur
+        </h2>
+      </mat-card-header>
+      <mat-card-content class="pb-5 pt-2" fxLayout="column" 
+      fxLayoutAlign="start center">
+        <span>Informations et tous les documents à fournir pour toutes demarches
+          de l'employeur
+        </span>
+        <span class="details pt-3" fxLayoutAlign="center">Voire les détails 
+          <mat-icon>arrow_right_alt</mat-icon></span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25">
+    <mat-card class="card_info1 mat-elevation-z8">
+      <mat-card-header>
+        <h2>
+          Espace <br> Salarié
+        </h2>
+      </mat-card-header>
+      <mat-card-content class="pb-5 pt-2" fxLayout="column" fxLayoutAlign="center">
+        <span>Droits et devoirs de salarié, informations retraites et 
+          documents à fournir
+        </span>
+        <span class="details pt-3" fxLayoutAlign="center">Voire les détails <mat-icon>arrow_right_alt</mat-icon></span> 
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25">
+    <mat-card class="card_info2 mat-elevation-z8">
+      <mat-card-header>
+        <h2>
+          Espace <br> Allocataire
+        </h2>
+      </mat-card-header>
+      <mat-card-content class="pb-5 pt-2" fxLayout="column" fxLayoutAlign="center">
+        <span>Informations et document à fournir pour allocataires
+        </span>
+        <span class="details pt-3" fxLayoutAlign="center">Voire les détails <mat-icon>arrow_right_alt</mat-icon></span> 
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}">
+  <button mat-raised-button (click)="scrollToTop()">
+       <mat-icon>keyboard_arrow_up</mat-icon> 
+  </button>
+</div>

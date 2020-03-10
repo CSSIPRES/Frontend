@@ -1,0 +1,55 @@
+table{
+    width: 100%;
+}
+  mat-sidenav:not(.mat-drawer-opened) {
+    transform: translate3d(0, 0, 0) !important;
+    visibility: visible !important;
+    width: 60px !important;
+    overflow:hidden;
+  }
+  mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
+    width: 40px; margin: 16px 0 0px 0;
+  }
+  mat-sidenav:not(.mat-drawer-opened) .navTitle,
+  mat-sidenav:not(.mat-drawer-opened) .profileTitle {
+    display: none;
+  }
+  .example-sidenav-content{
+      height: 800px;
+  }
+
+  mat-list-item mat-icon{
+      color:#999999;
+      border:1px solid #999999;
+      border-radius: 50%;
+      background-color: #f2f2f2;
+      font-size: 12px;
+  }
+
+  .immatCard{
+      /* margin-top: 20px; */
+      width: 150px;
+      height: 150px;
+      border:1px solid #f2f2f2;
+  }
+  span mat-icon{
+    font-size: 16px;
+  }
+  .addImmButt button {
+      margin-left: 30px; 
+      margin-top:30px; 
+      background-color:#f2f2f2;
+      border:2px solid #999999;
+      color:#999999;
+  }
+  .immatCard span{
+      font-size:9px;
+      color:#999999;
+      text-align: center;
+  }
+  .mat-horizontal-stepper-header .mat-stepper-horizontal-line {
+    /* padding: 0 8px 0 16px !important; */
+   
+        border-top-color: rgba(37, 82, 245, 0.54) !important;
+    }
+ 

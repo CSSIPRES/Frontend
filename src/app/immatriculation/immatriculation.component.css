@@ -1,0 +1,90 @@
+
+/*+++++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++*/
+.submit-button{
+  background-color: rgb(255, 104, 49);
+  color:#ffffff;
+
+   }
+mat-horizontal-stepper{
+  border-radius: 5px;  
+  height: auto;
+ }
+::ng-deep .mat-step-header .mat-step-icon {
+  background-color: #999999;
+  width: 30px;
+  height: 30px;
+}
+::ng-deep  .mat-step-header .mat-step-label{
+color: #999999 !important;
+}
+
+
+::ng-deep .mat-horizontal-stepper-header {
+    box-sizing: border-box;
+    flex-direction: column-reverse !important;
+    height: auto;
+   
+}
+::ng-deep .mat-horizontal-stepper-header .mat-step-label {
+    padding: 0px 0px 10px !important;
+    font-size:12px;
+}
+::ng-deep .mat-horizontal-stepper-header-container{
+  padding-top:30px;
+}
+  ::ng-deep .mat-step-header .mat-step-icon-selected, 
+  .mat-step-header .mat-step-iconstate-done,
+  .mat-step-header .mat-step-icon-state-edit {
+    background-color: rgb(240, 60, 15)!important;
+   }
+   
+   ::ng-deep  .mat-step-label .mat-step-label-active .mat-step-label-selected{
+    color:rgb(251, 73, 29)!important;
+    font-weight: bold;
+  }
+
+ 
+  /*++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++++++++++*/
+                                        /*------End------*/
+                                        
+  /*++++++++++++++++++++++++++++++++Customer Input Fields+++++++++++++++++++++++++*/
+    .mat-form-field{
+    max-width: 45%;
+    min-width: 45%;
+   }
+
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color:#f8f8f8;
+    border: #e6e6e6 1px solid;
+    border-radius: 5px;
+   } 
+   ::ng-deep .mat-form-field.mat-focused .mat-form-field-outline {
+    color: #999999!important;
+    background-color: #ffffff;
+   }
+   ::ng-deep .mat-form-field-appearance-outline.mat-focused 
+   .mat-form-field-outline-thick {
+   color: #999999!important;
+   }
+   ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: rgba(0,0,0,.6)!important;
+   }
+   ::ng-deep .mat-input-element {
+    caret-color: rgba(0,0,0,.6)!important;
+   }
+   
+/*++++++++++++++++++++++++++++++++Customer Input Fields+++++++++++++++++++++++++*/
+                                   /*------End------*/
+
+/*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/
+                               
+   .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+/*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/
+                              /*------End------*/

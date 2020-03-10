@@ -1,0 +1,57 @@
+.back_page{
+    background-color: #f2f2f2;
+    height: 100%;
+}
+.mat-raised-button{
+    width: 70%;
+    background-color: rgb(255, 104, 49);
+    color:#ffffff;
+}
+.creationCpte{
+    padding: 0;
+}
+.creationCpte mat-card-header {
+    background-color: rgb(255, 104, 49);
+    color:#ffffff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+mat-card{
+    
+    border:1px solid rgb(255, 104, 49);
+    border-radius: 5px;
+}
+img{
+    margin-left:40px; 
+    margin-top:20px;  
+}
+.title{
+    color:#a5a5a5;
+    margin-top:-20px;
+}
+
+.mat-form-field{
+    max-width: 100%;
+    min-width: 100%;
+   }
+
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color:#f8f8f8;
+    border: #e6e6e6 1px solid;
+    border-radius: 5px;
+   } 
+   ::ng-deep .mat-form-field.mat-focused .mat-form-field-outline {
+    color: #999999!important;
+    background-color: #ffffff;
+   }
+   ::ng-deep .mat-form-field-appearance-outline.mat-focused 
+   .mat-form-field-outline-thick {
+   color: #999999!important;
+   }
+   ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: rgba(0,0,0,.6)!important;
+   }
+   ::ng-deep .mat-input-element {
+    caret-color: rgba(0,0,0,.6)!important;
+   }
