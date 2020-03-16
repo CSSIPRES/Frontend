@@ -38,14 +38,16 @@ export class EspaceEmployeComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    this.dialog.open(template, dialogConfig);
+    this.dialog.open(template, dialogConfig,
+      );
   }
 
   openImmatDialogExist(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    this.dialog.open(ImmatriculationExistComponent, dialogConfig);
+    this.dialog.open(ImmatriculationExistComponent, 
+      {width: '900px'});
   }
   openImmatDialog(){
     const dialogConfig = new MatDialogConfig();

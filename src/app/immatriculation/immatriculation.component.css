@@ -1,5 +1,15 @@
 
 /*+++++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++*/
+.mat-dialog-content{
+  width:900px;
+  background-color: #f2f2f2;
+  height: auto;
+}
+.mat-dialog-title{
+  color: #999999;
+}
+
+
 .submit-button{
   background-color: rgb(255, 104, 49);
   color:#ffffff;
@@ -88,3 +98,31 @@ color: #999999 !important;
 }
 /*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/
                               /*------End------*/
+b{
+color: #292929;
+}
+.report_infoFen{
+  border:2px solid #f2f2f2;
+  border-radius: 5px;
+  padding:20px;
+}
+.report_infoFen h5,.report_infoEmpl h5,
+.report_repLeagl h5{
+  color: #999999;
+}
+.icon{
+  color: #999999;
+}
+.report_infoEmpl{
+
+  border:2px solid #f2f2f2;;
+  border-radius: 5px;
+  padding:5px;
+  margin-top:20px;
+}
+.report_repLeagl{
+  border:2px solid #f2f2f2;;
+  border-radius: 5px;
+  padding:5px;
+  margin-top:20px;
+}

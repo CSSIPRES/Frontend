@@ -48,8 +48,6 @@ table{
       text-align: center;
   }
   .mat-horizontal-stepper-header .mat-stepper-horizontal-line {
-    /* padding: 0 8px 0 16px !important; */
-   
-        border-top-color: rgba(37, 82, 245, 0.54) !important;
-    }
+      border-top-color: rgba(37, 82, 245, 0.54) !important;
+  }
  

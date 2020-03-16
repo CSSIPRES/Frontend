@@ -32,8 +32,15 @@ import { ImmatriculationComponent } from './immatriculation/immatriculation.comp
 import { ImmatriculationExistComponent } from './immatriculation-exist/immatriculation-exist.component';
 import { RecapChaDirective } from './recap-cha.directive';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: false,
+  scrollXMarginOffset:300,
+  suppressScrollY:false
+};
 
 @NgModule({
   declarations: [
@@ -83,19 +90,24 @@ import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaModule, RecaptchaFormsM
     MatProgressSpinnerModule,
     MatListModule,
     MatTableModule,
-    MatDialogModule  
+    MatDialogModule,
+    PerfectScrollbarModule  
   ],
 
   exports:[
         
   ],
   providers: [{
+    
     provide: RECAPTCHA_SETTINGS,
     useValue: {
       siteKey: '6LdA-t4UAAAAAO-kSP9_OplH2qJz354Je7bzgKS5', 
       secretKey:'6LdA-t4UAAAAAOC3C__w4pGDHltQCxkfKRc6rNob'
-
     } as RecaptchaSettings,
+  },
+  {
+    provide: PERFECT_SCROLLBAR_CONFIG,
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
   }],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent]
