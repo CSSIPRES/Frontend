@@ -18,7 +18,8 @@ MatDatepickerModule, MatNativeDateModule, MatDividerModule,
 MatStepperModule, MatSliderModule, MatDrawerContainer, MatSidenavModule,
 MatProgressSpinnerModule, MatNavList, MatListModule, MatDialogModule, 
 MatTableModule, 
-MatRadioModule}
+MatRadioModule,
+MatSnackBarModule}
 from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DocumentComponent } from './document/document.component';
@@ -35,6 +36,7 @@ import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaModule, RecaptchaFormsM
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { DeclarationComponent } from './declaration/declaration.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -59,7 +61,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MotPasseOublieComponent,
     EspaceEmployeComponent,
     ImmatriculationExistComponent,
-    RecapChaDirective
+    RecapChaDirective,
+    DeclarationComponent
     
   ],
   imports: [
@@ -91,7 +94,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatListModule,
     MatTableModule,
     MatDialogModule,
-    PerfectScrollbarModule  
+    PerfectScrollbarModule,
+    MatSnackBarModule
+      
   ],
 
   exports:[

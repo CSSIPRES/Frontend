@@ -15,55 +15,53 @@
         &nbsp;
         <h4 class="page_createCpt">Creation compte e-portail CSS</h4>
       </div>
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayoutGap="10%">
         <form [formGroup]="creationCpteForm" class="mt-5" fxFlex fxLayout="column">
           <div fxLayout="row">
           <mat-form-field  appearance="outline" class="pl-5 pr-5">
             <mat-label>Nom</mat-label>
-            <input type="text" matInput formControlName="nom" required />
+            <input type="text" matInput formControlName="firstName" required />
             <mat-icon matSuffix>person_outlined</mat-icon>
             <mat-error>Champ obligatoire</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline" class="pl-5 pr-5">
             <mat-label>Prenom</mat-label>
-            <input type="text" matInput formControlName="prenom"  required />
+            <input type="text" matInput formControlName="lastName"  required />
             <mat-icon matSuffix>person_outlined</mat-icon>
             <mat-error>Champ obligatoire</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row">
-          <mat-form-field appearance="outline"  class="pl-5 pr-5">
+          <mat-form-field appearance="outline" class="pl-5 pr-5" >
             <mat-label>Email</mat-label>
             <input type="email"  matInput formControlName="email" required />
             <mat-icon matSuffix>person_outlined</mat-icon>
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
-          <mat-form-field  appearance="outline"   class="pl-5 pr-5">
-            <mat-label>Numero Piece D'Identite</mat-label>
-            <input type="text"  matInput formControlName="icn" required />
+          <mat-form-field appearance="outline" class="pl-5 pr-5" >
+            <mat-label>Login</mat-label>
+            <input type="email"  matInput formControlName="login" required />
             <mat-icon matSuffix>person_outlined</mat-icon>
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
+          
         </div>
         <div fxLayout="row">
-          <mat-form-field appearance="outline" class="pl-5 pr-5">
-            <mat-label>Mot De Passe</mat-label>
+          <mat-form-field appearance="outline" class="pl-5 pr-5" >
+            <mat-label>Mot de passe</mat-label>
             <input type="password"  matInput formControlName="password" required />
+            <mat-icon matSuffix>person_outlined</mat-icon>
+            <mat-error>Ce champ est obligatoire</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="pl-5 pr-5">
+            <mat-label>Confirmer mot de passe</mat-label>
+            <input type="password"  matInput required />
             <mat-icon matSuffix>lock</mat-icon>
             <mat-error>Champ obligatoire</mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline"  class="pl-5 pr-5">
-            <mat-label>Confirmer Mot De Passe</mat-label>
-            <input type="password"   matInput formControlName="passwordConf" required />
-            <mat-icon matSuffix>lock</mat-icon>
-            <mat-error>Champ obligatoire</mat-error>
-          </mat-form-field>
-        </div>
-        <div fxLayout="row" class="pl-5">
-        <re-captcha formControlName="recaptcha"></re-captcha>
         </div>
           <div fxLayout="column" class="mb-4 mt-2" fxLayoutAlign="center center">
-            <button fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
+            <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
               Envoyer
             </button>
           </div>

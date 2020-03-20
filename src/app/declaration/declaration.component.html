@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Effectuez une declaration</h1>
+       <div mat-dialog-content>
+        <form action="" [formGroup]="input">
+            <div fxLayout="row" fxLayoutGap="10%">
+                <mat-form-field  appearance="outline">
+                  <mat-label>Nom de l'entreprise</mat-label>
+                  <input matInput formControlName="shortName" required />
+                  <mat-icon matSuffix>company</mat-icon>
+                  <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+                <mat-form-field  appearance="outline">
+                  <mat-label>Principal secteur d'activite</mat-label>
+                  <mat-select formControlName="mainLineOfBusiness" required>
+                  </mat-select>
+                  <mat-icon matSuffix>perm_identity</mat-icon>
+                  <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+            </div>    
+        </form>
+</div>

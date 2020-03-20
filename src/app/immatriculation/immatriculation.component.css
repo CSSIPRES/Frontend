@@ -1,5 +1,12 @@
 
 /*+++++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++*/
+.mat-form-field-invalid .mat-hint {
+  display: none;
+}
+.mat-form-field-invalid .mat-hint {
+  margin-top: 20px;
+}
+
 .mat-dialog-content{
   width:900px;
   background-color: #f2f2f2;
@@ -8,7 +15,6 @@
 .mat-dialog-title{
   color: #999999;
 }
-
 
 .submit-button{
   background-color: rgb(255, 104, 49);
@@ -95,6 +101,10 @@ color: #999999 !important;
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
+    z-index: 1001;
+}
+mat-progress-spinner{
+  color:rgb(251, 73, 29)!important;
 }
 /*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/
                               /*------End------*/

@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
+import { LoginService } from '../login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accueil',
@@ -12,7 +14,8 @@ export class AccueilComponent implements OnInit {
   connection:boolean=false;
   newAccout:boolean=true;
 
-  constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document) { }
+  constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
+  private login: LoginService,private router:Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -23,6 +26,14 @@ export class AccueilComponent implements OnInit {
      password:new FormControl('', Validators.required)
     })
 
+  }
+  authenticate(){
+    this.login.authenticate(this.loginForm.value).subscribe(
+      (resp:any)=>{
+      if(resp.id_token!=undefined) 
+            this.router.navigate['/accueil'];
+      }     
+    )
   }
   conn_account(){
      this.newAccout=false; 
