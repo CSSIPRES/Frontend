@@ -1,16 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
-import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialogConfig, MatDialog, MatSnackBar, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material';
 import { ImmatriculationService } from '../immatriculation.service';
+import { formatDate } from '@angular/common';
+
+export class AppDateAdapter extends NativeDateAdapter {
+  format(date: Date, displayFormat: Object): string {
+    if (displayFormat === 'input') {
+      let day: string = date.getDate().toString();
+      day = +day < 10 ? '0' + day : day;
+      let month: string = (date.getMonth() + 1).toString();
+      month = +month < 10 ? '0' + month : month;
+      let year = date.getFullYear();
+      return `${year}-${month}-${day}`;
+    }
+    return date.toDateString();
+  }
+}
+export const APP_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+  },
+  display: {
+    dateInput: 'input',
+    monthYearLabel: { year: 'numeric', month: 'numeric' },
+    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric'
+    },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  }
+};
 
 @Component({
   selector: 'app-immatriculation',
   templateUrl: './immatriculation.component.html',
   styleUrls: ['./immatriculation.component.css'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
-  }]
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}},
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}]
   })
 export class ImmatriculationComponent implements OnInit {
   listAct:any=[];
@@ -37,84 +65,124 @@ export class ImmatriculationComponent implements OnInit {
   listSector:any=[];
   listMainSector:any=[];
   ninea:any=[];
+  loader:boolean=false;
   
   nineaExist:boolean=false;
   validICN:boolean=false;
   validPassport:boolean=false;
+  validDateNaiss:boolean=false;
   snackBar:boolean=true;
 
   srcResult:any;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  icnpattern = ".{13,19}";
+  icnpattern = "^[1,2][0-9]{12,13}";
+  phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
   
    addImmatriculation(){
-    this.immService.addImmatriculation(this.input.value).subscribe(res=>{
-      this.snackBar==true
+    this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
+      console.log(resp);
+      this.loader=true;
+      if(resp.value.output.employerRegistrationFormId!=0){
+        this.dialog.closeAll();
+        this.snackBar==true
+        
+        this.loader=false;
+        this.snackB.open("Demande Immatriculation envoye avec succes","Ok", {
+          duration: 10000,
+          panelClass: ['my-snack-bar','mat-success']
+       });
+      }
+      
+    }, error =>{
+      if(error.status==500){
+        this.snackB.open("Eurreur d'envoi veiller reessayer","Ok", {
+          duration: 10000,
+          panelClass: ['my-snack-bar1', "mat-warn"]
+       })
+      }
+      
     })
     
    
   } 
-  input=new FormGroup ({
+
+  immatForm=new FormGroup({
+  input:new FormGroup ({
     mainRegistrationForm:new FormGroup({
-    dateOfInspection:new FormControl('', Validators.required),
-    dateOfFirstHire:new FormControl('', Validators.required),
-    shortName:new FormControl('', Validators.required),
+    dateOfInspection:new FormControl('2020-01-01', Validators.required),
+    dateOfFirstHire:new FormControl('2020-01-01', Validators.required),
+    shortName:new FormControl(''),
     businessSector:new FormControl('', Validators.required),
     mainLineOfBusiness:new FormControl('', Validators.required),
     region:new FormControl('', Validators.required),
     department:new FormControl('', Validators.required),
     arondissement:new FormControl('', Validators.required),
     commune:new FormControl('', Validators.required),
-    qartier:new FormControl('', Validators.required),
-    address:new FormControl('', Validators.required),
-    telephone:new FormControl('', Validators.required),
-    email:new FormControl('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
-    website:new FormControl('', Validators.required),
-    noOfWorkersInBasicScheme:new FormControl('', Validators.required),
-    noOfWorkersInGenScheme:new FormControl('', Validators.required)
+    qartier:new FormControl('AMITIE II', Validators.required),
+    address:new FormControl('Dakar', Validators.required),
+    telephone:new FormControl('774142082', Validators.required),
+    email:new FormControl('aloucams2@gmail.com', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
+    website:new FormControl(''),
+    noOfWorkersInBasicScheme:new FormControl('1', Validators.required),
+    noOfWorkersInGenScheme:new FormControl('1', Validators.required),
+    postboxNo:new FormControl('', Validators.required),
+    sectorCss:new FormControl('', Validators.required),
+    sectorIpres:new FormControl('', Validators.required),
+    zoneCss:new FormControl('', Validators.required),
+    zoneIpres:new FormControl('', Validators.required),
   }),
     employerQuery:new FormGroup({
-      employerType:new FormControl('', Validators.required),
-      legalStatus: new FormControl('',Validators.required),
-      typeEtablissement:new FormControl('', Validators.required),
+      employerType:new FormControl('PVT', Validators.required),
+      legalStatus: new FormControl('CONC',Validators.required),
+      typeEtablissement:new FormControl('HDQT', Validators.required),
       employerName:new FormControl('', Validators.required),
-      nineaNumber:new FormControl('',[ Validators.required,Validators.maxLength(9)]),
-      regType:new FormControl('', Validators.required) 
+      nineaNumber:new FormControl('501752818',[Validators.required,Validators.maxLength(9)]),
+      ninetNumber:new FormControl(''),
+      regType:new FormControl('BVOLN', Validators.required),
+      taxId:new FormControl('2G3'),
+      taxIdDate:new FormControl('2020-01-01',Validators.required),
+      tradeRegisterDate: new FormControl('2020-01-01',Validators.required),
+      tradeRegisterNumber:new FormControl('SN.APL.2020.C.45322',Validators.required),
     }),
     legalRepresentativeForm:new FormGroup({
-      lastName:new FormControl('', Validators.required),
-      firstName:new FormControl('', Validators.required),
-      birthdate:new FormControl('', Validators.required),
-      nationality:new FormControl('', Validators.required),
-      nin:new FormControl('', Validators.required),
-      placeOfBirth:new FormControl('', Validators.required),
-      cityOfBirth:new FormControl('', Validators.required),
-      typeOfIdentity:new FormControl('', Validators.required),
+      lastName:new FormControl('Al Hassane', Validators.required),
+      firstName:new FormControl('CAMARA', Validators.required),
+      birthdate:new FormControl('1991-11-11', Validators.required),
+      nationality:new FormControl('SEN', Validators.required),
+      nin:new FormControl('1548119104473', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.icnpattern)]}),
+      placeOfBirth:new FormControl('Dakar', Validators.required),
+      cityOfBirth:new FormControl('Dakar', Validators.required),
+      typeOfIdentity:new FormControl('NIN', Validators.required),
       ninCedeo:new FormControl('', Validators.required),
-      issuedDate:new FormControl('', Validators.required),
-      expiryDate:new FormControl('', Validators.required),
-      region:new FormControl('', Validators.required),
-      department:new FormControl('', Validators.required),
-      arondissement:new FormControl('', Validators.required),
-      commune:new FormControl('', Validators.required),
-      qartier:new FormControl('', Validators.required),
-      address:new FormControl('', Validators.required),
-      mobileNumber:new FormControl('', Validators.required),
-      email:new FormControl('',{ updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
-    }),
-     employeList: new  FormArray([this.createItem()])
-
-    
+      issuedDate:new FormControl('2030-01-10', Validators.required),
+      landLineNumber:new FormControl('784142082', Validators.required),
+      expiryDate:new FormControl('2020-01-10', Validators.required),
+      region:new FormControl('Dakar', Validators.required),
+      department:new FormControl('Dakar', Validators.required),
+      arondissement:new FormControl('Almadies', Validators.required),
+      commune:new FormControl('Dakar', Validators.required),
+      qartier:new FormControl('Dakar', Validators.required),
+      address:new FormControl('Dakar', Validators.required),
+      mobileNumber:new FormControl('7841412082', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
+      email:new FormControl('aloucams1@gmail.com', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
+      identityIdNumber:new FormControl(''),
+      legalRepPerson:new  FormControl(''),
+    })
+     /* employeList: new  FormArray([this.createItem()]) */
   })
-  
+})
   
   constructor(private fb:FormBuilder,private dialog:MatDialog,
-    private immService:ImmatriculationService,private snackB: MatSnackBar) {}
-     openSnackbar() {
+    private immService:ImmatriculationService,private snackB: MatSnackBar) {
+     
+    }
+   
+    openSnackbar() {
       this.snackB.open("ok");
     }
   ngOnInit() {
+    console.log(this.immatForm.value);
     
    this.initlistDept={
   "items":
@@ -679,19 +747,23 @@ this.listMainActivities();
     return ((d2.getTime() - d1.getTime()) / 31536000000);
   }
   listMainActivities(){
-
-    for(let i=0;i<this.listactivitePrincipal.items.length;i++){
-        if(this.listactivitePrincipal.items[i].secteuractivites
-          !=this.listactivitePrincipal.items[i+1].secteuractivites){
-              this.listSector.push(this.listactivitePrincipal.items[i]);     
+  
+     for(let i=0;i<this.listactivitePrincipal.items.length;i++){
+      for(let j=0;j<this.listactivitePrincipal.items.length;j++){
+        if(this.listactivitePrincipal.items[j].secteuractivites!=
+          this.listactivitePrincipal.items[i].secteuractivites){
+            j++;
       }
-      
-        console.log(this.listSector);
+      else{
+        this.listSector.push(this.listactivitePrincipal.items[i])
+      }  
+    } 
     }  
+    console.log(this.listSector) 
   }
   compareDate(event){
-    let date_insp:Date=this.input.get('mainRegistrationForm').get('dateOfInspection').value;
-    let date_ouv:Date=this.input.get('mainRegistrationForm').get('dateOfFirstHire').value;
+    let date_insp:Date=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
+    let date_ouv:Date=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value;
     let diffYears: number = this.dateDiff1(new Date(date_insp),new Date(date_ouv));
     console.log(diffYears);
     if(diffYears<0){
@@ -705,10 +777,10 @@ this.listMainActivities();
   validationPiece(event){
     this.validPassport=false;
     this.validICN=false;
-    let d1:Date=this.input.get('legalRepresentativeForm').get('issuedDate').value;
-    let d2:Date=this.input.get('legalRepresentativeForm').get('expiryDate').value;
+    let d1:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('issuedDate').value;
+    let d2:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value;
     let d3: number = this.dateDiff1(new Date(d1),new Date(d2));
-    if(this.input.get('legalRepresentativeForm').get('typeOfIdentity').value==1){
+    if(this.immatForm.get('legalRepresentativeForm').get('typeOfIdentity').value==1){
     if(d3< 10 || d3> 10.008219178082191){
       this.validICN=true;
       console.log(this.validICN)
@@ -729,10 +801,36 @@ this.listMainActivities();
   }
    
   }
-  
-
+/*   validDateNaissance(event){
+    let d=this.input.get('legalRepresentativeForm').get('birthdate').value/ 31536000000;
+    let d3= this.dateDiff1(new Date(d),new Date());
+    if(d3<18.008219178082191){
+      this.validDateNaiss=true;
+      console.log(d3);
+      console.log(this.validDateNaiss);
+    }
+    else{
+      this.validDateNaiss=false;
+    }
+  } */ 
+  validDateNaissance(event){
+    let param=this.immatForm.get('input').get('legalRepresentativeForm').get('birthdate').value;
+    let current_date = new Date();
+    let birth_date = new Date(param);
+    let age = current_date.getFullYear() - birth_date.getFullYear();
+    let month_age = current_date.getMonth() - birth_date.getMonth();
+    if (month_age < 0 || (month_age === 0 && current_date.getDate() < current_date.getDate())) {
+        age--;
+    }
+    if(age < 18){
+      this.validDateNaiss = true;
+    }
+    else{
+      this.validDateNaiss = false;
+    }
+  }
  getNineaNumber(){
-   this.immService.getNineaNumber(this.input.get('employerQuery').get('nineaNumber').value).subscribe(
+   this.immService.getNineaNumber(this.immatForm.get('input').get('employerQuery').get('nineaNumber').value).subscribe(
      (resp:any)=>{
        console.log(resp);
        if(resp.status!="200"){
@@ -772,15 +870,16 @@ this.listMainActivities();
   });
   }
   addItem(): void {
-    this.employeList = this.input.get('employeList') as FormArray;
+    
+    this.employeList = this.immatForm.get('input').get('employeList') as FormArray;
     this.employeList.push(this.createItem());
     console.log(this.employeList);
   }
 selectRegion(event){
 this.listDepartments=[];
 this.initlistDept.items.forEach(element => {
-  let region=this.input.get('mainRegistrationForm').get('region').value;
-  let region1=this.input.get('legalRepresentativeForm').get('region').value
+  let region=this.immatForm.get('input').get('mainRegistrationForm').get('region').value;
+  let region1=this.immatForm.get('input').get('legalRepresentativeForm').get('region').value
   if(element.rgion==region||element.rgion==region1){
     this.listDepartments.push(element); 
   }
@@ -789,8 +888,8 @@ this.initlistDept.items.forEach(element => {
 }
 selectDepartement(event){
   this.listArrondissements=[];
-  let d1= this.input.get('mainRegistrationForm').get('department').value;
-  let d2=this.input.get('legalRepresentativeForm').get('department').value
+  let d1= this.immatForm.get('input').get('mainRegistrationForm').get('department').value;
+  let d2=this.immatForm.get('input').get('legalRepresentativeForm').get('department').value
   this.listArrondissemnt.items.forEach(element => {
     if(element.departement==d1||element.departement==d2){
       this.listArrondissements.push(element);
@@ -801,8 +900,8 @@ selectDepartement(event){
   }
   selectArrondissement(event){
     this.listCommunes=[];
-    let c1= this.input.get('mainRegistrationForm').get('arondissement').value;
-    let c2= this.input.get('legalRepresentativeForm').get('arondissement').value;
+    let c1= this.immatForm.get('input').get('mainRegistrationForm').get('arondissement').value;
+    let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value;
     this.listCommune.items.forEach(element => {
       if(element.arrondissement==c1||element.arrondissement==c2){
         this.listCommunes.push(element);
@@ -812,7 +911,7 @@ selectDepartement(event){
   }
   selectSector(event){
     this.listMainSector=[];
-    let c1= this.input.get('mainRegistrationForm').get('businessSector').value;
+    let c1= this.immatForm.get('input').get('mainRegistrationForm').get('businessSector').value;
     this.listactivitePrincipal.items.forEach(element => {
       if(element.secteuractivites==c1){
         this.listMainSector.push(element);
@@ -821,6 +920,7 @@ selectDepartement(event){
       }
     ); 
   }
+ 
 
  /*  onFileSelected() {
     const inputNode: any = document.querySelector('#file');
@@ -835,121 +935,121 @@ selectDepartement(event){
     }
   } */
   get dateOfInspection() {
-    return this.input.get('mainRegistrationForm').get('dateOfInspection');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection');
   }
   get dateOfFirstHire() {
-    return this.input.get('mainRegistrationForm').get('dateOfFirstHire');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire');
   }
   get shortName() {
-    return this.input.get('mainRegistrationForm').get('shortName');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('shortName');
   }
   get businessSector() {
-    return this.input.get('mainRegistrationForm').get('businessSector');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('businessSector');
   }
   get mainLineOfBusiness() {
-    return this.input.get('mainRegistrationForm').get('mainLineOfBusiness');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness');
   }
   get region() {
-    return this.input.get('mainRegistrationForm').get('region');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('region');
   }
   get department() {
-    return this.input.get('mainRegistrationForm').get('department');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('department');
   }
   get arondissement() {
-    return this.input.get('mainRegistrationForm').get('arondissement');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('arondissement');
   }
   get commune() {
-    return this.input.get('mainRegistrationForm').get('arondissement');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('arondissement');
   }
   get qartier() {
-    return this.input.get('mainRegistrationForm').get('qartier');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('qartier');
   }
   get address() {
-    return this.input.get('mainRegistrationForm').get('address');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('address');
   }
   get telephone() {
-    return this.input.get('mainRegistrationForm').get('telephone');
+    return this.immatForm.get('mainRegistrationForm').get('telephone');
   }
   get email() {
-    return this.input.get('mainRegistrationForm').get('email');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('email');
   }
   get website() {
-    return this.input.get('mainRegistrationForm').get('website');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('website');
   }
   get employerType() {
-    return this.input.get('employerQuery').get('employerType');
+    return this.immatForm.get('employerQuery').get('employerType');
   }
   get typeEtablissement() {
-    return this.input.get('employerQuery').get('typeEtablissement');
+    return this.immatForm.get('input').get('employerQuery').get('typeEtablissement');
   }
   get employerName() {
-    return this.input.get('employerQuery').get('employerName');
+    return this.immatForm.get('input').get('employerQuery').get('employerName');
   }
   get nineaNumber() {
-    return this.input.get('employerQuery').get('nineaNumber');
+    return this.immatForm.get('input').get('employerQuery').get('nineaNumber');
   }
   get ninetNumber() {
-    return this.input.get('employerQuery').get('ninetNumber');
+    return this.immatForm.get('input').get('employerQuery').get('ninetNumber');
   }
   get companyOriginId() {
-    return this.input.get('employerQuery').get('companyOriginId');
+    return this.immatForm.get('input').get('employerQuery').get('companyOriginId');
   }
   get firtName() {
-    return this.input.get('repLegalForm').get('firtName');
+    return this.immatForm.get('input').get('repLegalForm').get('firtName');
   }
   get lastName() {
-    return this.input.get('repLegalForm').get('lastName');
+    return this.immatForm.get('input').get('repLegalForm').get('lastName');
   }
   get birthdate() {
-    return this.input.get('repLegalForm').get('birthdate');
+    return this.immatForm.get('input').get('repLegalForm').get('birthdate');
   }
   get nationality() {
-    return this.input.get('repLegalForm').get('nationality');
+    return this.immatForm.get('input').get('repLegalForm').get('nationality');
   }
   get nin() {
-    return this.input.get('repLegalForm').get('nin');
+    return this.immatForm.get('input').get('repLegalForm').get('nin');
   }
   get placeOfBirth() {
-    return this.input.get('repLegalForm').get('placeOfBirth');
+    return this.immatForm.get('input').get('repLegalForm').get('placeOfBirth');
   }
   get cityOfBirth() {
-    return this.input.get('repLegalForm').get('cityOfBirth');
+    return this.immatForm.get('input').get('repLegalForm').get('cityOfBirth');
   }
   get typeOfIdentity() {
-    return this.input.get('repLegalForm').get('typeOfIdentity');
+    return this.immatForm.get('input').get('repLegalForm').get('typeOfIdentity');
   }
   get ninCedeo() {
-    return this.input.get('repLegalForm').get('ninCedeo');
+    return this.immatForm.get('input').get('repLegalForm').get('ninCedeo');
   }
   get issuedDate() {
-    return this.input.get('repLegalForm').get('issuedDate');
+    return this.immatForm.get('input').get('repLegalForm').get('issuedDate');
   }
   get expiryDate() {
-    return this.input.get('repLegalForm').get('expiryDate');
+    return this.immatForm.get('input').get('repLegalForm').get('expiryDate');
   }
   get region1() {
-    return this.input.get('repLegalForm').get('region');
+    return this.immatForm.get('input').get('repLegalForm').get('region');
   }
   get department1() {
-    return this.input.get('repLegalForm').get('department');
+    return this.immatForm.get('input').get('repLegalForm').get('department');
   }
   get arondissement1() {
-    return this.input.get('repLegalForm').get('arondissement');
+    return this.immatForm.get('input').get('repLegalForm').get('arondissement');
   }
   get commune1() {
-    return this.input.get('repLegalForm').get('commune');
+    return this.immatForm.get('input').get('repLegalForm').get('commune');
   }
   get qartier1() {
-    return this.input.get('repLegalForm').get('qartier');
+    return this.immatForm.get('input').get('repLegalForm').get('qartier');
   }
   get address1() {
-    return this.input.get('repLegalForm').get('address');
+    return this.immatForm.get('input').get('repLegalForm').get('address');
   }
   get mobileNumber() {
-    return this.input.get('repLegalForm').get('mobileNumber');
+    return this.immatForm.get('input').get('repLegalForm').get('mobileNumber');
   }
   get email1() {
-    return this.input.get('repLegalForm').get('email');
+    return this.immatForm.get('input').get('repLegalForm').get('email');
   }
 }
 

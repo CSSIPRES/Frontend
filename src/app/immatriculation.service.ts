@@ -7,13 +7,14 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-
-export class ImmatriculationService {
+/* ""
+ */export class ImmatriculationService {
 
   constructor(private http:HttpClient) { }
   
 addImmatriculation(immatriculation){
-return this.http.post(environment.BASE_URL + 'immatriculation', immatriculation)
+return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
+{headers: new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU4NTEzMjgwOX0.bh6XbTN6YxUihiEgrcNbd2MkfyOg3gZRW2fhnUBoQObVPGVXtO0CIVnANiqomIAp0b2wZjOqkqHVow-2czrEDg')})
   }
  getNineaNumber(id){
    return this.http.get(environment.BASE_URL +'checkExistEmployer/' +id);

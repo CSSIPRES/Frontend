@@ -1,5 +1,5 @@
 
-<!-- <div class="center">
+<!--  <div *ngIf="loader" class="center">
 <mat-progress-spinner diameter=50 mode="indeterminate"color="primary">
 </mat-progress-spinner>
 </div> --> 
@@ -104,7 +104,8 @@
       <div>
       <mat-radio-group aria-label="Type d'immatriculation" fxFlex="column" fxFlex="row">
         <mat-radio-button color="default" (click)="openImmatDialog()" value="1">Nouvelle Immatriculation</mat-radio-button><br>
-        <mat-radio-button (click)="openImmatDialogExist()" value="2" class="mt-1">Immatriculation Existante</mat-radio-button>
+        <mat-radio-button (click)="openImmatDialogExist()" value="2" class="mt-1">Immatriculation Existante</mat-radio-button><br>
+        <mat-radio-button (click)="openDeclarationDialog()">Declaration</mat-radio-button>    
       </mat-radio-group>
     </div>
   

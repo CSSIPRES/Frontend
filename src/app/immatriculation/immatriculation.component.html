@@ -1,24 +1,24 @@
 
        
-      <!-- <div class="center">
+     <div *ngIf="laoder" class="center">
         <mat-progress-spinner diameter=40 mode="indeterminate">
         </mat-progress-spinner>
-      </div> -->
+      </div> 
     
-   <h1 mat-dialog-title>
-   
-   Demande d'Immatriculation</h1>
+  <h1 mat-dialog-title>
+   Demande d'Immatriculation
+  </h1>
       <div mat-dialog-content>
-        <form action="" [formGroup]="input">
+      <form action="" [formGroup]="immatForm">
+      <div formGroupName="input">
       <mat-horizontal-stepper #stepper class="mt-1">
-        <mat-step formGroupName="mainRegistrationForm" [stepControl]="input.get('mainRegistrationForm')" label="Step 1" state="phone">
+        <mat-step formGroupName="mainRegistrationForm" [stepControl]="mainRegistrationForm" label="Step 1" state="phone">
       <div class="mt-5">
-     
       <ng-template matStepLabel>Information General</ng-template> 
       <div fxLayout="row" fxLayoutGap="10%">
       <mat-form-field  appearance="outline">
         <mat-label>Nom de l'entreprise</mat-label>
-        <input matInput formControlName="shortName" required />
+        <input matInput formControlName="shortName"/>
         <mat-icon matSuffix>company</mat-icon>
         <mat-error>Ce champ est obligatoire</mat-error>
       </mat-form-field>
@@ -74,7 +74,8 @@
       <mat-form-field  appearance="outline">
         <mat-label>Region</mat-label>
         <mat-select (selectionChange)="selectRegion($event)"  formControlName="region" required>
-          <mat-option  *ngFor="let r of listRegions.items" [value]="r.region">{{r.region | lowercase}}</mat-option>
+          <mat-option  *ngFor="let r of listRegions.items"
+           [value]="r.region">{{r.region | lowercase}}</mat-option>
         </mat-select>
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
@@ -111,54 +112,63 @@
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Quartie</mat-label>
+        <input matInput formControlName="qartier" required>
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error>
+          Ce champ est obligatoire.</mat-error>
+      </mat-form-field>
+     </div>
+     <div fxLayout="row" fxLayoutGap="10%">
       <mat-form-field appearance="outline">
         <mat-label>Email entreprise</mat-label>
         <input matInput formControlName="email" required>
         <mat-icon matSuffix>email</mat-icon>
-        <mat-error *ngIf="input.get('mainRegistrationForm').get('email').hasError('required')">
+        <mat-error *ngIf="email.hasError('required')">
           Ce champ est obligatoire.</mat-error>
-        <mat-error *ngIf="input.get('mainRegistrationForm').get('email').hasError('pattern')" >
+        <mat-error *ngIf="email.hasError('pattern')" >
           Addresse email invalide.</mat-error>
       </mat-form-field>
-     </div>
-     <div fxLayout="row" fxLayoutGap="10%">
       <mat-form-field appearance="outline">
         <mat-label>Telephone Entreprise</mat-label>
         <input matInput formControlName="telephone" required>
         <mat-icon matSuffix> phone</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
+     </div>
+     <div fxLayout="row" fxLayoutGap="10%">
+     
       <mat-form-field appearance="outline">
         <mat-label>Site web</mat-label>
-        <input matInput formControlName="website" required>
+        <input matInput formControlName="website">
         <mat-icon matSuffix>email</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
-     </div>
-     <div fxLayout="row" fxLayoutGap="10%">
       <mat-form-field appearance="outline">
         <mat-label>Addresse de l'entreprise</mat-label>
         <input matInput formControlName="address" required>
         <mat-icon matSuffix>email</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
+     </div>
+     <div fxLayout="row" fxLayoutGap="10%">
+     
       <mat-form-field  appearance="outline">
         <mat-label>Aucun travailleur en chaine basic</mat-label>
         <mat-select formControlName="noOfWorkersInBasicScheme" required>
-          <mat-option value="0">Oui</mat-option>
-          <mat-option value="1">Non</mat-option>
+          <mat-option value="1">Oui</mat-option>
+          <mat-option value="0">Non</mat-option>
         </mat-select>
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
-    
-    </div>
-    <div fxLayout="row" fxLayoutGap="10%">
       <mat-form-field  appearance="outline">
         <mat-label>Aucun travailleur chiane schema</mat-label>
         <mat-select formControlName="noOfWorkersInGenScheme" required>
-          <mat-option value="0">Oui</mat-option>
-          <mat-option value="1">Non</mat-option>
+          <mat-option value="1">Oui</mat-option>
+          <mat-option value="0">Non</mat-option>
           
         </mat-select>
         <mat-icon matSuffix>work_outline</mat-icon>
@@ -167,32 +177,33 @@
     </div>
      <div fxLayoutAlign="end" fxLayoutGap="10%" >
       <button mat-raised-button matStepperPrevious>Precedent</button>
-      <button class="submit-button" mat-raised-button matStepperNext>Suivant</button>
+      <button  class="submit-button" mat-raised-button matStepperNext>Suivant</button>
     </div>
    
   </div>
   </mat-step>
-  <mat-step formGroupName="employerQuery" [stepControl]="input.get('employerQuery')" label="Step 2" state="chat">
+  <mat-step formGroupName="employerQuery" [stepControl]="employerQuery" label="Step 2" state="chat">
     <div class="mt-5">
       <ng-template matStepLabel>Information Employeur</ng-template>
       <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field  appearance="outline">
           <mat-label>Type employeur</mat-label>
           <mat-select formControlName="employerType" required>
-            <mat-option value="Association">Association</mat-option>
-            <mat-option value="Cooperation">Cooperation</mat-option>
-            <mat-option value="Dommestique">Dommestique</mat-option>
-            <mat-option value="Entreprise individuelle">Entreprise individuelle</mat-option>
+            <mat-option value="PVT">Société privée</mat-option>
+            <mat-option value="TIND">Travailleur indépendant</mat-option>
+            <mat-option value="REP_DIP">Représentation diplomatique</mat-option>
+            <mat-option value="PUB_PARA">Structure publique et parapublique</mat-option>
+            <mat-option value="PROJ">Société privée</mat-option>
+            <mat-option value="NGO">ONG</mat-option>
+            <mat-option value="MAIN">Maintien Affiliation</mat-option>
+            <mat-option value="ASSO">Profession Libérale</mat-option>
+            <mat-option value="LIB">Association</mat-option>
+            <mat-option value="INDV">Entreprise Individuelle</mat-option>
             <mat-option value="GIE">GIE</mat-option>
-            <mat-option value="Maintient d'affilisation">Maintient d'affilisation</mat-option>
+            <mat-option value="DOM">Domestique</mat-option>
             <mat-option value="ONG">ONG</mat-option>
-            <mat-option value="Profession liberale">Profession libérale</mat-option>
-            <mat-option value="Projet">Projet</mat-option>
-            <mat-option value="Représentant diplomatique">Représentant diplomatique</mat-option>
-            <mat-option value="Societe privée">Societe privée</mat-option>
-            <mat-option value="Structure publique et parapublique">Structure publique et parapublique</mat-option>
-            <mat-option value="Travailleur indépendant">Travailleur indépendant</mat-option>
-
+            <mat-option value="COOP">Coopérative</mat-option>
+            <mat-option value="ASSO">Association</mat-option>  
           </mat-select>
           <mat-icon matSuffix>work_outline</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
@@ -206,32 +217,43 @@
        </div>
        <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field appearance="outline">
-          <mat-label>Prenom de l'employeur</mat-label>
-          <input matInput formControlName="legalStatus" required>
+          <mat-label>Statut legale</mat-label>
+          <mat-select formControlName="legalStatus" required>
+            <mat-option value="CONC">GIE</mat-option>
+            <mat-option value="DEVP">Projet de développement</mat-option>
+            <mat-option value="DIPR">Représentant diplomatique / Organisation International</mat-option>
+            <mat-option value="ENTE">SA</mat-option>
+            <mat-option value="LIBP">Profession Libérale</mat-option>
+            <mat-option value="LOCE">SARL</mat-option>
+            <mat-option value="PHYP">SUARL</mat-option>
+            <mat-option value="PUB">Société en commandite</mat-option>
+            <mat-option value="PUBP">Etablissement publique et parapublique</mat-option>
+          </mat-select> 
           <mat-icon matSuffix>drag_handle</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
+          <mat-error >Ce champ est obligatoire.</mat-error>
         </mat-form-field>
         <mat-form-field  appearance="outline">
           <mat-label>Ninea Number</mat-label>
-          <input type="number" (blur)="getNineaNumber()"   matInput formControlName="nineaNumber" required>
+          <input matInput (blur)="getNineaNumber()" formControlName="nineaNumber" required>
           <mat-icon matSuffix> short_text</mat-icon>
-          <mat-error>Ce champs est obligatoire.</mat-error>
-          <mat-hint *ngIf="nineaExist" class="text-danger">Ce ninea existe deja.</mat-hint>
-          <!-- <mat-hint class="text-danger" *ngIf="!input.get('employerQuery').get('nineaNumber').errors.maxlength">Ninea invalide.</mat-hint> -->     
+          <mat-error *ngIf="nineaNumber.hasError('required')">Ce champs est obligatoire.</mat-error>
+         <mat-error  
+         *ngIf="nineaNumber.hasError('maxLength')">Ninea invalide.</mat-error>     
         </mat-form-field>
+        <mat-hint *ngIf="nineaExist" class="text-danger">Ce ninea existe deja.</mat-hint>
        
       </div>
       <div fxLayout="row" fxLayoutGap="10%">
-      <mat-form-field appearance="outline">
+       <mat-form-field appearance="outline">
         <mat-label>Type etablissement</mat-label>
         <mat-select formControlName="typeEtablissement" required>
-          <mat-option value="Agence/Succursale">Agence/Succursale</mat-option>
-          <mat-option value="Chantier">Chantier</mat-option>
-          <mat-option value="Siège">Siège</mat-option>
+          <mat-option value="HDQT">Siége</mat-option>
+          <mat-option value="BRNC">Agence/Sucursale</mat-option>
+          <mat-option value="CNST">Chantier</mat-option>
         </mat-select>
         <mat-icon matSuffix>people_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
-      </mat-form-field>
+      </mat-form-field> 
       <mat-form-field appearance="outline">
         <mat-label>Type registre</mat-label>
         <input matInput formControlName="regType" required>
@@ -239,50 +261,43 @@
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
       </div>
-    <!--  <div fxLayout="row" fxLayoutGap="10%">
+      <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field appearance="outline">
-          <mat-label>Adresse Representant Legale</mat-label>
-          <input matInput required>
-          <mat-icon matSuffix>person_outline</mat-icon>
+          <mat-label>Date taxe</mat-label>
+          <input matInput formControlName="taxIdDate" required [matDatepicker]="taxIdDate">
+          <mat-datepicker-toggle matSuffix [for]="taxIdDate"></mat-datepicker-toggle>
+          <mat-datepicker #taxIdDate></mat-datepicker>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Type d'identite</mat-label>
-          <mat-select>
-            <mat-option value="TypeId1">TypeId1</mat-option>
-            <mat-option value="TypeId2">TypeId2</mat-option>
-          </mat-select>
-          <mat-icon matSuffix>person</mat-icon>
-        </mat-form-field>
-      </div>
-       <div fxLayout="row" fxLayoutGap="10%">
-        <mat-form-field appearance="outline">
-          <mat-label>Numero Piece d'Identite</mat-label>
-          <input matInput required>
-          <mat-icon matSuffix>check_circle_outline</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Date Delivrance</mat-label>
-          <input matInput [matDatepicker]="dateDelivrance">
-          <mat-datepicker-toggle matSuffix [for]="dateDelivrance"></mat-datepicker-toggle>
-          <mat-datepicker #dateDelivrance></mat-datepicker>
+          <mat-label>Date registre de commerce</mat-label>
+          <input matInput formControlName="tradeRegisterDate" required [matDatepicker]="tradeRegisterDate">
+          <mat-datepicker-toggle matSuffix [for]="tradeRegisterDate"></mat-datepicker-toggle>
+          <mat-datepicker #tradeRegisterDate></mat-datepicker>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </div>
-      <div fxLayout="row" fxLayoutGap="10%">  
+      <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field appearance="outline">
-          <mat-label>Date Expiration</mat-label>
-          <input matInput [matDatepicker]="dateExpiration">
-          <mat-datepicker-toggle matSuffix [for]="dateExpiration"></mat-datepicker-toggle>
-          <mat-datepicker #dateExpiration></mat-datepicker>
-        </mat-form-field>
-      </div> -->
+          <mat-label>Numero registre de commerce</mat-label>
+          <input matInput formControlName="tradeRegisterNumber" required>
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field> 
+        <mat-form-field appearance="outline">
+          <mat-label>Ninet</mat-label>
+          <input matInput formControlName="ninetNumber">
+          
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field> 
+      </div>
         <div fxLayoutAlign="end" fxLayoutGap="10%">
           <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button class="submit-button" mat-button matStepperNext>Suivant</button>
+          <button  class="submit-button" mat-button matStepperNext>Suivant</button>
         </div> 
     
   </div>
     </mat-step>
-    <mat-step formGroupName="legalRepresentativeForm" [stepControl]="input.get('legalRepresentativeForm')" label="Step 3" state="person_outlined">
+    <mat-step formGroupName="legalRepresentativeForm" [stepControl]="legalRepresentativeForm" label="Step 3" state="person_outlined">
       <div class="mt-5">
         <ng-template matStepLabel>Representant legale</ng-template>
         <div fxLayout="row" fxLayoutGap="10%">
@@ -302,10 +317,11 @@
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
             <mat-label>Date Naissance</mat-label>
-            <input matInput formControlName="birthdate" required [matDatepicker]="birthdate">
+            <input (dateChange)="validDateNaissance($event)" matInput formControlName="birthdate" required [matDatepicker]="birthdate">
             <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
             <mat-datepicker #birthdate></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
+            <mat-hint class="text-danger" *ngIf="validDateNaiss">Date de naissance invalide.</mat-hint>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Nationalite</mat-label>
@@ -317,7 +333,6 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
-        
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
             <mat-label>Lieu de naissance</mat-label>
@@ -325,8 +340,8 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Ville de Naissance</mat-label>
-            <input matInput formControlName="placeOfBirth" required>
+            <mat-label>Ville de naissance</mat-label>
+            <input matInput formControlName="cityOfBirth" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
@@ -334,15 +349,30 @@
           <mat-form-field  appearance="outline">
             <mat-label>Type de piece</mat-label>
             <mat-select (selectionChange)="validationPiece($event)" formControlName="typeOfIdentity" required>
-              <mat-option [value]="1">NIN</mat-option>
-              <mat-option [value]="2">Passport</mat-option>
+              <mat-option value="NIN">Carte national d'identite</mat-option>
+              <mat-option value="CDEAO">Carte identité CDEAO</mat-option>
+              <mat-option value="CONC">Carte Consulaire</mat-option>
+              <mat-option value="PASS">Passport</mat-option>
+             <!--  <mat-option [value]="2">Passport</mat-option>
+              <mat-option [value]="3" >Carte consulaire</mat-option>
+              <mat-option [value]="4" >Carte d'identite CEDEAO</mat-option> -->
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
+            
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Numero de piece d'identite</mat-label>
-            <input matInput formControlName="nin" required>
+            <input type="number" matInput formControlName="nin" required>
+            <mat-error *ngIf="immatForm.get('input').get('legalRepresentativeForm').get('nin').hasError('required')">Ce champ est obligatoire.</mat-error>
+            <mat-error *ngIf="immatForm.get('input').get('legalRepresentativeForm').get('nin').hasError('pattern')">
+              Numero de piece d'identite invalide</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Numero de telephone</mat-label>
+            <input type="number" matInput formControlName="landLineNumber" required/>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
@@ -425,26 +455,29 @@
           <mat-label>Email representant legal</mat-label>
           <input matInput formControlName="email" required>
           <mat-icon matSuffix>email</mat-icon>
-          <mat-error *ngIf="input.get('legalRepresentativeForm').get('email').hasError('required')">
+          <mat-error *ngIf="immatForm.get('input').get('legalRepresentativeForm').get('email').hasError('required')">
             Ce champ est obligatoire.</mat-error>
-          <mat-error *ngIf="input.get('legalRepresentativeForm').get('email').hasError('pattern')" >
+          <mat-error *ngIf="immatForm.get('input').get('legalRepresentativeForm').get('email').hasError('pattern')" >
             Addresse email invalide.</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Telephone Entreprise</mat-label>
           <input matInput formControlName="mobileNumber" required>
           <mat-icon matSuffix> phone</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
+          <mat-error *ngIf="immatForm.get('input').get('legalRepresentativeForm').get('mobileNumber').hasError('required')">Ce champ est obligatoire.</mat-error>
+          <mat-error *ngIf="immatForm.get('input').get('legalRepresentativeForm').get('mobileNumber').hasError('pattern')">
+            Ce numero de telephone est invalide.
+          </mat-error>
         </mat-form-field>
        </div>
       <div fxLayoutAlign="end" fxLayoutGap="10%">
           <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button  class="submit-button"  mat-button matStepperNext>Suivant</button>
+          <button class="submit-button" mat-raised-button matStepperNext matStepperNext>Suivant</button>
       </div>
       
     </div>
     </mat-step>
-    <mat-step formGroupName="employeList" [stepControl]="input.get('employeList')" label="Ajouter salaries" state="person_outlined">
+    <!-- <mat-step formGroupName="employeList" [stepControl]="immatForm.get('input').get('employeList')" label="Ajouter salaries" state="person_outlined">
       <div *ngFor="let item of input.get('employeList').controls; let i = index;">
          <div [formGroupName]="i">
           <div fxLayout="row" fxLayoutGap="10%">
@@ -535,8 +568,9 @@
           <mat-form-field appearance="outline">
             <mat-label>Type piece</mat-label>
             <mat-select formControlName="sexe" required>
-              <mat-option >NIN</mat-option>
-              <mat-option >Passport</mat-option>
+              <mat-option [value]="HOMME" >Homme</mat-option>
+              <mat-option [value]="FEMME" >Femme</mat-option>
+             
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -685,7 +719,7 @@
       <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
       <button  class="submit-button"  mat-button matStepperNext>Suivant</button>
   </div>
-    </mat-step>
+    </mat-step> -->
       <mat-step [stepControl]="infoSalarieForm" editable="false" label="Step 6" state="done_all">
           <ng-template matStepLabel>Comfirmation</ng-template> 
           <h4 class="mt-2 mb-2">Confirmation Demande</h4><br>
@@ -694,74 +728,74 @@
          <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Nom de l'entreprise:</span>
-               <b>{{input.get('mainRegistrationForm').get('shortName').value}}</b>
+               <b>{{immatForm.get('input').get('mainRegistrationForm').get('shortName').value}}</b>
             </div>
             <div fxFlex="50">
                 <span>Principal Secteur d'activite:</span>
-                <b> {{input.get('mainRegistrationForm').get('mainLineOfBusiness').value | lowercase}}</b>
+                <b> {{immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value | lowercase}}</b>
             </div>     
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Secteur d'activite:</span>
-             <b> {{input.get('mainRegistrationForm').get('businessSector').value}}</b>
+             <b> {{immatForm.get('input').get('mainRegistrationForm').get('businessSector').value}}</b>
           </div>
            <div fxFlex="50">
               <span>Date d'inspection:</span>
-               <b> {{input.get('mainRegistrationForm').get('dateOfInspection').value | date:'shortDate'}}</b>
+               <b> {{immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value | date:'shortDate'}}</b>
             </div> 
           </div>
           
          <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
               <div fxFlex="50">
                 <span>Date d'ouverture:</span>
-                <b>{{input.get('mainRegistrationForm').get('dateOfFirstHire').value | date:'shortDate'}}</b>
+                <b>{{immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value | date:'shortDate'}}</b>
               </div>
           <div fxFlex="50">
               <span>Region:</span>
-              <b> {{input.get('mainRegistrationForm').get('region').value | lowercase}}</b>
+              <b> {{immatForm.get('input').get('mainRegistrationForm').get('region').value | lowercase}}</b>
             </div> 
           </div>
            <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Departement:</span>
-              <b> {{input.get('mainRegistrationForm').get('department').value | lowercase}}</b>
+              <b> {{immatForm.get('input').get('mainRegistrationForm').get('department').value | lowercase}}</b>
             </div>
             <div fxFlex="50">
                 <span>Arrondissement:</span>
-                <b> {{input.get('mainRegistrationForm').get('arondissement').value | lowercase}}</b>
+                <b> {{immatForm.get('input').get('mainRegistrationForm').get('arondissement').value | lowercase}}</b>
             </div>   
           </div>
         
          <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Commune:</span>
-              <b> {{input.get('mainRegistrationForm').get('commune').value | lowercase}}</b>
+              <b> {{immatForm.get('input').get('mainRegistrationForm').get('commune').value | lowercase}}</b>
           </div> 
             <div fxFlex="50">
               <span>Quartie:</span>
-              <b> {{input.get('mainRegistrationForm').get('qartier').value}}</b>
+              <b> {{immatForm.get('input').get('mainRegistrationForm').get('qartier').value}}</b>
             </div>
             
           </div>
            <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Adresse:</span>
-              <b>  {{input.get('mainRegistrationForm').get('address').value}}</b>
+              <b>  {{immatForm.get('input').get('mainRegistrationForm').get('address').value}}</b>
             </div>  
           <div fxFlex="50">
             <span>Telephone:</span>
-            <b> {{input.get('mainRegistrationForm').get('telephone').value}}</b>
+            <b> {{immatForm.get('input').get('mainRegistrationForm').get('telephone').value}}</b>
         </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Email entreprise:</span>
-             <b> {{input.get('mainRegistrationForm').get('email').value}}</b>
+             <b> {{immatForm.get('input').get('mainRegistrationForm').get('email').value}}</b>
             </div>
             <div fxFlex="50">
               <span>Site Web:</span>&nbsp;
-               <b> {{input.get('mainRegistrationForm').get('website').value}}</b>
+               <b> {{immatForm.get('input').get('mainRegistrationForm').get('website').value}}</b>
             </div>
           </div>
         </div>
@@ -771,29 +805,29 @@
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
              <div fxFlex="50">
               <span>Type Employeur:</span>
-            <b> {{input.get('employerQuery').get('employerType').value}}</b> 
+            <b> {{immatForm.get('input').get('employerQuery').get('employerType').value}}</b> 
             </div> 
             <div fxFlex="50">
               <span>Type Etablissement:</span>
-              <b>{{input.get('employerQuery').get('typeEtablissement').value}}</b>
+              <b>{{immatForm.get('input').get('employerQuery').get('typeEtablissement').value}}</b>
             </div>
           </div>
         
          <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Nom Employeur:</span>
-              <b>{{input.get('employerQuery').get('employerName').value}}</b>
+              <b>{{immatForm.get('input').get('employerQuery').get('employerName').value}}</b>
             </div>
             <div fxFlex="50">
               <span>Numero Ninea:</span>
-              <b>{{input.get('employerQuery').get('nineaNumber').value}}</b>
+              <b>{{immatForm.get('input').get('employerQuery').get('nineaNumber').value}}</b>
             </div>
           </div>
         
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Numero Ninet:</span>
-             <b> {{input.get('employerQuery').get('regType').value}}</b>
+             <b> {{immatForm.get('input').get('employerQuery').get('regType').value}}</b>
             </div>
           </div>
 
@@ -803,98 +837,98 @@
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Nom:</span>
-             <b> {{input.get('legalRepresentativeForm').get('lastName').value}} </b>
+             <b> {{immatForm.get('input').get('legalRepresentativeForm').get('lastName').value}} </b>
             </div>
             <div fxFlex="50">
               <span>Prenom:</span>
-              <b>  {{input.get('legalRepresentativeForm').get('firstName').value}}</b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('firstName').value}}</b>
             </div>
           </div>
        
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Date de naissance:</span>
-             <b> {{input.get('legalRepresentativeForm').get('birthdate').value | date:'shortDate'}}</b>
+             <b> {{immatForm.get('input').get('legalRepresentativeForm').get('birthdate').value | date:'shortDate'}}</b>
             </div>
             <div fxFlex="50">
               <span>Naionalite:</span>
-              <b>  {{input.get('legalRepresentativeForm').get('nationality').value | lowercase}}</b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('nationality').value | lowercase}}</b>
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Lieu de naissance:</span>
-            <b>  {{input.get('legalRepresentativeForm').get('placeOfBirth').value }}</b>
+            <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('placeOfBirth').value }}</b>
             </div>
             <div fxFlex="50">
               <span>Ville de Naissance:</span>
-              <b>  {{input.get('legalRepresentativeForm').get('cityOfBirth').value}}</b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('cityOfBirth').value}}</b>
             </div>
           </div>
            <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Type de piece:</span>
-            <b>  {{input.get('legalRepresentativeForm').get('typeOfIdentity').value}}</b>
+            <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('typeOfIdentity').value}}</b>
             </div>
             <div fxFlex="50">
               <span>Numero piece d'identite:</span>
-              <b>  {{input.get('legalRepresentativeForm').get('nin').value}} </b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('nin').value}} </b>
             </div>
           </div> 
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>NIN CEDEAO:</span>
-             <b> {{input.get('legalRepresentativeForm').get('ninCedeo').value}} </b>
+             <b> {{immatForm.get('input').get('legalRepresentativeForm').get('ninCedeo').value}} </b>
             </div>
             <div fxFlex="50">
               <span>Date delivrance:</span>
-              <b>  {{input.get('legalRepresentativeForm').get('issuedDate').value | date:'shortDate'}} </b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('issuedDate').value | date:'shortDate'}} </b>
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Date d'expiration:</span>
-            <b> {{input.get('legalRepresentativeForm').get('expiryDate').value | date:'shortDate'}}</b> 
+            <b> {{immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value | date:'shortDate'}}</b> 
             </div>
             <div fxFlex="50">
               <span>Region:</span>
-              <b>  {{input.get('legalRepresentativeForm').get('region').value | lowercase}}</b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('region').value | lowercase}}</b>
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Department:</span>
-            <b>  {{input.get('legalRepresentativeForm').get('department').value | lowercase}}</b>
+            <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('department').value | lowercase}}</b>
             </div>
             <div fxFlex="50">
               <span>Arondissement:</span>
-              <b> {{input.get('legalRepresentativeForm').get('arondissement').value | lowercase}}</b> 
+              <b> {{immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value | lowercase}}</b> 
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Commune:</span>
-            <b>  {{input.get('legalRepresentativeForm').get('commune').value | lowercase}}</b>
+            <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('commune').value | lowercase}}</b>
             </div>
             <div fxFlex="50">
               <span>quartier:</span>
-              <b>  {{input.get('legalRepresentativeForm').get('qartier').value}}</b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('qartier').value}}</b>
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Email:</span>
-              <b> {{input.get('legalRepresentativeForm').get('email').value}}</b>
+              <b> {{immatForm.get('input').get('legalRepresentativeForm').get('email').value}}</b>
             </div>
             <div fxFlex="50">
               <span>Numero Telephone:</span>
-               <b> {{input.get('legalRepresentativeForm').get('mobileNumber').value}}</b>
+               <b> {{immatForm.get('input').get('legalRepresentativeForm').get('mobileNumber').value}}</b>
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>addresse:</span>
-             <b> {{input.get('legalRepresentativeForm').get('address').value}}</b>
+             <b> {{immatForm.get('input').get('legalRepresentativeForm').get('address').value}}</b>
             </div>
           </div> 
         </div> 
@@ -924,6 +958,7 @@
           <mat-icon>done_all</mat-icon>
         </ng-template>
   </mat-horizontal-stepper>
+</div>
 </form>
 </div>
  

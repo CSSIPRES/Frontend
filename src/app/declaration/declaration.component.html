@@ -1,20 +1,73 @@
 <h1 mat-dialog-title>Effectuez une declaration</h1>
        <div mat-dialog-content>
-        <form action="" [formGroup]="input">
+        <form [formGroup]="declarationForm">
             <div fxLayout="row" fxLayoutGap="10%">
-                <mat-form-field  appearance="outline">
-                  <mat-label>Nom de l'entreprise</mat-label>
-                  <input matInput formControlName="shortName" required />
-                  <mat-icon matSuffix>company</mat-icon>
+              <mat-form-field  appearance="outline">
+                <mat-label>Type identifiant</mat-label>
+                <mat-select required>
+                  <mat-option [value]="1">Ninea</mat-option>
+                  <mat-option [value]="2">Ninet</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>perm_identity</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+              <mat-form-field  appearance="outline">
+                  <mat-label>Numero identifiant</mat-label>
+                  <input matInput required/>
+                  <mat-icon matSuffix>email</mat-icon>
                   <mat-error>Ce champ est obligatoire</mat-error>
-                </mat-form-field>
-                <mat-form-field  appearance="outline">
-                  <mat-label>Principal secteur d'activite</mat-label>
-                  <mat-select formControlName="mainLineOfBusiness" required>
-                  </mat-select>
-                  <mat-icon matSuffix>perm_identity</mat-icon>
-                  <mat-error>Ce champ est obligatoire</mat-error>
-                </mat-form-field>
-            </div>    
+              </mat-form-field>
+              
+            </div>
+            <div fxLayout="row" fxLayoutGap="10%">
+              <mat-form-field  appearance="outline">
+                <mat-label>Raison social</mat-label>
+                <input matInput required/>
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field  appearance="outline">
+              <mat-label>Adresse</mat-label>
+              <input matInput required/>
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error>Ce champ est obligatoire</mat-error>
+          </mat-form-field>
+            </div>  
+            <div fxLayout="row" fxLayoutGap="10%">
+              <mat-form-field  appearance="outline">
+                <mat-label>Periode cotisation</mat-label>
+                <mat-select required>
+                  <mat-option [value]="1">Semestre</mat-option>
+                  <mat-option [value]="2">Trimestre</mat-option>
+                  <mat-option [value]="3">Mensuel</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>perm_identity</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Date debut periode cotisation</mat-label>
+                <input (dateChange)="compareDate($event)" matInput formControlName="startDateCot" required [matDatepicker]="startCot">
+                <mat-datepicker-toggle matSuffix [for]="startCot"></mat-datepicker-toggle>
+                <mat-datepicker #startCot></mat-datepicker>
+                <mat-error>Ce champ est obligatoire.</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10%">
+              <mat-form-field appearance="outline">
+                <mat-label>Date fin periode cotisation</mat-label>
+                <input (dateChange)="compareDate($event)" matInput formControlName="endDateCot" required [matDatepicker]="endCot">
+                <mat-datepicker-toggle matSuffix [for]="endCot"></mat-datepicker-toggle>
+                <mat-datepicker #endCot></mat-datepicker>
+                <mat-error>Ce champ est obligatoire.</mat-error>
+                <mat-hint class="text-danger" *ngIf="dateErrors">
+                  La date fin de cotisation doit etre superieur a la date debut de cotisation
+                </mat-hint>
+              </mat-form-field>
+
+            </div>
+            <div fxLayoutAlign="end" fxLayoutGap="10%">
+              <button mat-raised-button mat-button>Annuler</button>
+              <button  class="submit-button"  mat-button>Declarer</button>
+          </div>  
         </form>
 </div>

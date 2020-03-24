@@ -1,5 +1,10 @@
 
 /*+++++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++*/
+.mat-autocomplete-panel.overflow-hidden {
+  overflow: hidden !important;
+  position: relative !important;
+
+}
 .mat-form-field-invalid .mat-hint {
   display: none;
 }
@@ -135,4 +140,12 @@ color: #292929;
   border-radius: 5px;
   padding:5px;
   margin-top:20px;
+}
+::ng-deep .my-snack-bar {
+  background-color: rgb(31, 139, 4);
+  color: #E8EAF6;
+}
+::ng-deep .my-snack-bar1{
+  background-color: rgb(187, 2, 18);
+  color: #E8EAF6;
 }

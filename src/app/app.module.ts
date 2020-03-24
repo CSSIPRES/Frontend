@@ -115,6 +115,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
   }],
   bootstrap: [AppComponent],
-  entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent]
+  entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
+  DeclarationComponent]
 })
 export class AppModule { }

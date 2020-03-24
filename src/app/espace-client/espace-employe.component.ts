@@ -3,6 +3,7 @@ import { MatSidenav, MatDialog, MatDialogConfig } from '@angular/material';
 import { ImmatriculationComponent } from '../immatriculation/immatriculation.component';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { ImmatriculationExistComponent } from '../immatriculation-exist/immatriculation-exist.component';
+import { DeclarationComponent } from '../declaration/declaration.component';
 
 export interface PeriodicElement {
   nom: string;
@@ -27,6 +28,7 @@ export class EspaceEmployeComponent implements OnInit {
   displayedColumns: string[] = ['nom', 'prenom', 'num_secu', 'icn'];
   dataSource = ELEMENT_DATA;
   title:string;
+  loader:boolean=false;
 
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
@@ -57,8 +59,19 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.data={
         title:this.title,
        
-      }
+      } 
+     
      this.dialog.open(ImmatriculationComponent, dialogConfig);
+  }
+  openDeclarationDialog(){
+    const dialogConfig = new MatDialogConfig();
+
+      dialogConfig.disableClose = false;
+      dialogConfig.autoFocus = true;
+      dialogConfig.data={
+        title:this.title, 
+      }
+     this.dialog.open(DeclarationComponent, dialogConfig);
   }
  
 }
