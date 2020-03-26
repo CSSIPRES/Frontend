@@ -13,7 +13,7 @@
 }
 
 .mat-dialog-content{
-  width:900px;
+  width:1000px;
   background-color: #f2f2f2;
   height: auto;
 }
@@ -106,7 +106,7 @@ color: #999999 !important;
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    z-index: 1001;
+    z-index: 2000;
 }
 mat-progress-spinner{
   color:rgb(251, 73, 29)!important;
@@ -149,3 +149,20 @@ color: #292929;
   background-color: rgb(187, 2, 18);
   color: #E8EAF6;
 }
+::ng-deep .mat-simple-snackbar-action button {
+  color: white;
+  }
+  .mat-progress-spinner::ng-deep circle {
+    stroke: rgb(251, 73, 29)!important;
+
+    }
+
+    /* .overlay{
+      height:100vh;
+      width:100%;
+      background-color:rgba(0, 0, 0, 0.286);
+      z-index: 10;
+      top: 0;
+      left: 0;
+      position: fixed;
+      } */

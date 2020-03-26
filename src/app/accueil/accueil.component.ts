@@ -29,11 +29,15 @@ export class AccueilComponent implements OnInit {
   }
   authenticate(){
     this.login.authenticate(this.loginForm.value).subscribe(
+     
       (resp:any)=>{
-      if(resp.id_token!=undefined) 
-            this.router.navigate['/accueil'];
-      }     
-    )
+     
+      console.log(resp.id_token);
+      if(resp.id_token!=null) {
+            this.router.navigate(['/espaceEmploye']);
+            window.localStorage.setItem("token",resp.id_token );
+          }
+      })
   }
   conn_account(){
      this.newAccout=false; 

@@ -28,7 +28,7 @@ export class EspaceEmployeComponent implements OnInit {
   displayedColumns: string[] = ['nom', 'prenom', 'num_secu', 'icn'];
   dataSource = ELEMENT_DATA;
   title:string;
-  loader:boolean=false;
+  loader:boolean=true;
 
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 

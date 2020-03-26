@@ -10,6 +10,6 @@ export class LoginService {
   constructor(private httpCli:HttpClient) { }
 
   authenticate(user){
-   return this.httpCli.post(environment.BASE_URL1 + "/authenticate", user )
+   return this.httpCli.post(environment.BASE_URL + "authenticate", user )
   }
 }

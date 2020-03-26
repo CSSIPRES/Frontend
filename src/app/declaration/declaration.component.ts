@@ -7,16 +7,49 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./declaration.component.css']
 })
 export class DeclarationComponent implements OnInit {
-declarationForm=new FormGroup({
-  typeIdentifiant:new FormControl('', Validators.required),
-  identifiantNumber:new FormControl('', Validators.required),
-  raison_social:new FormControl('', Validators.required),
-  adress:new FormControl('', Validators.required),
-  startDateCot:new FormControl('', Validators.required),
-  endDateCot:new FormControl('', Validators.required) 
-}
 
-)
+  declarationForm=new FormGroup({
+  input:new FormGroup ({
+  informationEmployeur:new FormGroup ({
+  typeIdentifiant:new FormControl('', Validators.required),
+  idIdentifiant:new FormControl('', Validators.required),
+  raisonSociale:new FormControl('', Validators.required),
+  adresse:new FormControl('', Validators.required),
+  typeDeclaration:new FormControl('', Validators.required),
+  dateDebutCotisation:new FormControl('', Validators.required),
+  dateFinCotisation:new FormControl('', Validators.required),
+   
+}),
+/* synthese:new FormGroup({
+  totalNouvSalaries:new FormControl(''),
+  totalSalaries:new FormControl(''),
+}), */
+informationSalariesList:new FormGroup({
+  numeroAssureSocial:new FormControl(''),
+  nom:new FormControl(''),
+  prenom:new FormControl(''), 
+  dateDeNaisssance:new FormControl(''),
+  typePieceIdentite:new FormControl(''),
+  numeroPieceIdentite:new FormControl(''),
+  typeContrat:new FormControl(''),
+  dateEntree:new FormControl(''),
+  dateSortie:new FormControl(''),
+  motifSortie:new FormControl(''),
+  nombreHeures1:new FormControl(''),
+  tempsTravail1:new FormControl(''),
+  trancheTravail1:new FormControl(''),
+  regimeGeneral1:new FormControl(''),
+  dateEffetRegimeCadre1:new FormControl(''),
+  totSalAssCssPf2:new FormControl(''),
+  totSalAssCssAtmp2:new FormControl(''),
+  totSalAssIpresRg2:new FormControl(''),
+  totSalAssIpresRcc2:new FormControl(''),
+  salaireBrut2:new FormControl(''),
+  nombreJours2:new FormControl(''),
+  nombreHeures2:new FormControl(''),
+})
+})
+  })
 dateErrors:boolean=false;
   constructor() { }
 
@@ -38,5 +71,25 @@ dateErrors:boolean=false;
       this.dateErrors=false;
     }
   }
-
+  get typeIdentifiant() {
+    return this.declarationForm.get('input').get('informationEmployeur').get('typeIdentifiant');
+  }
+  get idIdentifiant() {
+    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+  }
+  get raisonSociale() {
+    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+  }
+  get adresse() {
+    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+  }
+  get typeDeclaration() {
+    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+  }
+  get dateDebutCotisation() {
+    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+  }
+  get dateFinCotisation() {
+    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+  }
 }

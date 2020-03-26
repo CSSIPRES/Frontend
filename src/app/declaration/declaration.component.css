@@ -8,3 +8,8 @@
 h1{
     color:#999999;
 }
+.mat-dialog-content{
+    width:1000px;
+    background-color: #f2f2f2;
+    height: auto;
+  }

@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Effectuez une declaration</h1>
+<h1 mat-dialog-title>Declaration</h1>
        <div mat-dialog-content>
         <form [formGroup]="declarationForm">
-            <div fxLayout="row" fxLayoutGap="10%">
+           <!--  <div fxLayout="row" fxLayoutGap="10%">
               <mat-form-field  appearance="outline">
                 <mat-label>Type identifiant</mat-label>
                 <mat-select required>
@@ -68,6 +68,186 @@
             <div fxLayoutAlign="end" fxLayoutGap="10%">
               <button mat-raised-button mat-button>Annuler</button>
               <button  class="submit-button"  mat-button>Declarer</button>
-          </div>  
+          </div>   -->
+          
+            
+              <mat-horizontal-stepper formGroupName="input"  #stepper class="mt-1">
+                <mat-step formGroupName="informationEmployeur" [stepControl]="informationEmployeur" 
+                label="Information Employeur" state="phone">
+                <ng-template matStepLabel>Information General</ng-template> 
+                <div fxLayout="row" fxLayoutGap="10%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Type identifiant</mat-label>
+                    <mat-select formControlName="typeIdentifiant" required>
+                      <mat-option value="NIN">Carte national d'identie</mat-option>
+                      <mat-option value="PASS">Passport</mat-option>
+                      <mat-option value="PASS">Carte CEDEAO</mat-option>
+                    </mat-select>
+                    <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                  </mat-form-field>
+                  <mat-form-field   appearance="outline">
+                      <mat-label>Numero identifiant</mat-label>
+                      <input  matInput formControlName="raisonSociale" required/>
+                     <!--  <mat-icon matSuffix>email</mat-icon> -->
+                     <mat-error>Ce champ est obligatoire</mat-error> 
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Adresse</mat-label>
+                    <input matInput formControlName="adresse" required/>
+                    <!-- <mat-icon matSuffix>email</mat-icon> -->
+                 <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                <mat-form-field   appearance="outline">
+                  <mat-label>Type declaration</mat-label>
+                  <mat-select  formControlName="typeDeclaration" required>
+                    <mat-option>TRIMESTRIEL</mat-option>
+                    <mat-option>MENSUEL</mat-option>
+                  </mat-select>
+                  <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
+                  <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10%">
+                  <mat-form-field  appearance="outline">
+                    <mat-label>Date d'inscription</mat-label>
+                    <input  matInput formControlName="dateDebutCotisation"  required
+                    [matDatepicker]="dateDebutCotisation">
+                    <mat-datepicker-toggle matSuffix [for]="dateDebutCotisation"></mat-datepicker-toggle>
+                    <mat-datepicker #dateDebutCotisation></mat-datepicker>
+                    <mat-error>
+                      Ce champs est obligatoire 
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field  appearance="outline">
+                    <mat-label>Date debut cotisation</mat-label>
+                    <input  matInput formControlName="dateFinCotisation"  required
+                    [matDatepicker]="dateFinCotisation">
+                    <mat-datepicker-toggle matSuffix [for]="dateFinCotisation"></mat-datepicker-toggle>
+                    <mat-datepicker #dateFinCotisation></mat-datepicker>
+                    <mat-error>
+                      Ce champs est obligatoire 
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                 <div fxLayoutAlign="end" fxLayoutGap="10%">
+                  <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+                  <button  class="submit-button" mat-button matStepperNext>Suivant</button>
+                </div>
+               </mat-step> 
+               <mat-step formGroupName="informationSalariesList" [stepControl]="informationSalariesList" 
+                label="Information Liste salaries" state="phone">
+                <div fxLayout="row" fxLayoutGap="10%">
+              <mat-form-field   appearance="outline">
+                    <mat-label>Numero assurance social</mat-label>
+                    <input formControlName="numeroAssureSocial" matInput required/>
+                    <!-- <mat-icon matSuffix>email</mat-icon> -->
+                 <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+              <mat-form-field   appearance="outline">
+                  <mat-label>Nom</mat-label>
+                  <input formControlName="nom" matInput required/>
+                  <!-- <mat-icon matSuffix>email</mat-icon> -->
+               <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Prenom</mat-label>
+                    <input formControlName="prenom" matInput required/>
+                    <!-- <mat-icon matSuffix>email</mat-icon> -->
+                 <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                <mat-form-field  appearance="outline">
+                  <mat-label>Date naissance</mat-label>
+                  <input  matInput formControlName="dateDeNaisssance"  required
+                  [matDatepicker]="dateDeNaisssance">
+                  <mat-datepicker-toggle matSuffix [for]="dateDeNaisssance"></mat-datepicker-toggle>
+                  <mat-datepicker #dateDeNaisssance></mat-datepicker>
+                  <mat-error>
+                    Ce champs est obligatoire 
+                  </mat-error>
+                </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Type identifiant</mat-label>
+                    <mat-select formControlName="typePieceIdentite" required>
+                      <mat-option value="NIN">Carte national d'identite</mat-option>
+                      <mat-option value="PASS">Passport</mat-option>
+                      <mat-option value="CDAO">Carte CEDEAO</mat-option>
+                      <mat-option value="CONC">Carte consulaire</mat-option>
+                    </mat-select>
+                    <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                  </mat-form-field>
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Numero identifiant</mat-label>
+                    <input formControlName="numeroPieceIdentite" matInput required/>
+                    <!-- <mat-icon matSuffix>email</mat-icon> -->
+                 <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Type contrat</mat-label>
+                    <mat-select formControlName="typeContrat" required>
+                      <mat-option value="CDD">Contrat à durée determiné</mat-option>
+                      <mat-option value="CDI">Contrat à durée indeterminé</mat-option>
+                      <mat-option value="JOU">Journalier</mat-option>
+                      <mat-option value="STA">Contrat de stage</mat-option>
+                      <mat-option value="SPE">Contrat Spécial</mat-option>
+                    </mat-select>
+                    <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                  </mat-form-field>
+                  <mat-form-field  appearance="outline">
+                    <mat-label>Date entree</mat-label>
+                    <input  matInput formControlName="dateEntree"  required
+                    [matDatepicker]="dateEntree">
+                    <mat-datepicker-toggle matSuffix [for]="dateEntree"></mat-datepicker-toggle>
+                    <mat-datepicker #dateEntree></mat-datepicker>
+                    <mat-error>
+                      Ce champs est obligatoire 
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10%">
+                  <mat-form-field  appearance="outline">
+                    <mat-label>Date sortie</mat-label>
+                    <input  matInput formControlName="dateSortie"  required
+                    [matDatepicker]="dateSortie">
+                    <mat-datepicker-toggle matSuffix [for]="dateSortie"></mat-datepicker-toggle>
+                    <mat-datepicker #dateSortie></mat-datepicker>
+                    <mat-error>
+                      Ce champs est obligatoire 
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Motif sortie</mat-label>
+                    <mat-select formControlName="motifSortie" required>
+                      <mat-option value="EXPIRATION_DE_CONTRAT">Expiration contrat</mat-option>
+                      <mat-option value="DEMISSION">Demission</mat-option>
+                      <mat-option value="LICENCIEMENT">Licenciement</mat-option>
+                      <mat-option value="ABANDON_DE_POSTE">Abandon de poste</mat-option>
+                      <mat-option value="MUTATION">Mutation</mat-option>
+                      <mat-option value="RETRAITE">Retraite</mat-option>
+                      <mat-option value="DECES">Deces</mat-option>
+                    </mat-select>
+                    <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10%">
+
+                </div>
+                <div fxLayoutAlign="end" fxLayoutGap="10%">
+                  <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+                  <button  class="submit-button" mat-button matStepperNext>Suivant</button>
+                </div>
+               </mat-step>
+              </mat-horizontal-stepper>  
         </form>
 </div>

@@ -1,17 +1,18 @@
 
        
-     <div *ngIf="laoder" class="center">
-        <mat-progress-spinner diameter=40 mode="indeterminate">
-        </mat-progress-spinner>
-      </div> 
+
     
   <h1 mat-dialog-title>
    Demande d'Immatriculation
   </h1>
       <div mat-dialog-content>
-      <form action="" [formGroup]="immatForm">
-      <div formGroupName="input">
-      <mat-horizontal-stepper #stepper class="mt-1">
+      <div *ngIf="loader"  class="center">
+          <mat-progress-spinner strokeWidth="3" diameter=40 mode="indeterminate"color="primary">
+          </mat-progress-spinner>
+      </div> 
+      <form [formGroup]="immatForm">
+       
+      <mat-horizontal-stepper formGroupName="input"  #stepper class="mt-1">
         <mat-step formGroupName="mainRegistrationForm" [stepControl]="mainRegistrationForm" label="Step 1" state="phone">
       <div class="mt-5">
       <ng-template matStepLabel>Information General</ng-template> 
@@ -25,7 +26,7 @@
       <mat-form-field  appearance="outline">
         <mat-label>Secteur d'activite</mat-label>
         <mat-select (selectionChange)="selectSector($event)" formControlName="businessSector" required>
-        <mat-option *ngFor="let sector of listactivitePrincipal.items" [value]="sector.secteuractivites">{{ sector.secteuractivites }}</mat-option>
+        <mat-option *ngFor="let sector of listSectors.items" [value]="sector.secteuractivites">{{ sector.secteuractivites }}</mat-option>
         </mat-select>
         <mat-icon matSuffix>perm_identity</mat-icon>
         <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
@@ -375,8 +376,6 @@
             <input type="number" matInput formControlName="landLineNumber" required/>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
             <mat-label>Date Delivrance</mat-label>
             <input (dateChange)="validationPiece($event)" matInput formControlName="issuedDate" required [matDatepicker]="issuedDate">
@@ -384,6 +383,9 @@
             <mat-datepicker #issuedDate></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+         
           <mat-form-field appearance="outline">
             <mat-label>Date Expiration</mat-label>
             <input (dateChange)="validationPiece($event)"  matInput formControlName="expiryDate" required [matDatepicker]="expiryDate">
@@ -398,16 +400,16 @@
               La duree de validite du <b class="text-danger">passport</b> doit etre 5 et 10 ans.
             </mat-hint>
           </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label>Region</mat-label>
+            <mat-select (selectionChange)="selectRegion(event)" formControlName="region" required>
+              <mat-option *ngFor="let r of listRegions.items" [value]="r.region">{{r.region | lowercase}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
         </div> 
        <div fxLayout="row" fxLayoutGap="10%">
-        <mat-form-field  appearance="outline">
-          <mat-label>Region</mat-label>
-          <mat-select (selectionChange)="selectRegion(event)" formControlName="region" required>
-            <mat-option *ngFor="let r of listRegions.items" [value]="r.region">{{r.region | lowercase}}</mat-option>
-          </mat-select>
-          <mat-icon matSuffix>work_outline</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
         <mat-form-field  appearance="outline">
           <mat-label>Department</mat-label>
           <mat-select (selectionChange)="selectDepartement(event)"  formControlName="department" required>
@@ -417,8 +419,6 @@
           <mat-icon matSuffix>work_outline</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
-       </div>
-       <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field  appearance="outline">
           <mat-label>Arondissement</mat-label>
           <mat-select (selectionChange)=" selectArrondissement(event)" formControlName="arondissement" required>
@@ -427,6 +427,9 @@
           <mat-icon matSuffix>work_outline</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
+
+       </div>
+       <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field  appearance="outline">
           <mat-label>Commune</mat-label>
           <mat-select formControlName="commune" required>
@@ -435,22 +438,21 @@
           <mat-icon matSuffix>work_outline</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
-       </div>
-       <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field appearance="outline">
           <mat-label>Quartie</mat-label>
           <input matInput formControlName="qartier" required>
           <mat-icon matSuffix>email</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
+       </div>
+       <div fxLayout="row" fxLayoutGap="10%">
+        
         <mat-form-field appearance="outline">
           <mat-label>Adresse</mat-label>
           <input matInput formControlName="address" required>
           <mat-icon matSuffix>email</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field> 
-       </div>
-       <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field appearance="outline">
           <mat-label>Email representant legal</mat-label>
           <input matInput formControlName="email" required>
@@ -460,6 +462,8 @@
           <mat-error *ngIf="immatForm.get('input').get('legalRepresentativeForm').get('email').hasError('pattern')" >
             Addresse email invalide.</mat-error>
         </mat-form-field>
+       </div>
+       <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field appearance="outline">
           <mat-label>Telephone Entreprise</mat-label>
           <input matInput formControlName="mobileNumber" required>
@@ -477,9 +481,9 @@
       
     </div>
     </mat-step>
-    <!-- <mat-step formGroupName="employeList" [stepControl]="immatForm.get('input').get('employeList')" label="Ajouter salaries" state="person_outlined">
-      <div *ngFor="let item of input.get('employeList').controls; let i = index;">
-         <div [formGroupName]="i">
+       <mat-step formArrayName="employeList" [stepControl]="employeList" label="Ajouter salaries" state="person_outlined">
+          <div *ngFor="let item of immatForm.get('input').get('employeList').controls; let i = index;">  
+           <div [formGroupName]="i">
           <div fxLayout="row" fxLayoutGap="10%">
            <mat-form-field appearance="outline">
              <mat-label>Nom Employeur</mat-label>
@@ -494,12 +498,12 @@
              <mat-error>Ce champ est obligatoire.</mat-error>
            </mat-form-field>
           </div>
-          <div fxLayout="row" fxLayoutGap="10%">
+           <div fxLayout="row" fxLayoutGap="10%">
            <mat-form-field appearance="outline">
               <mat-label>Sexe</mat-label>
               <mat-select formControlName="sexe" required>
                 <mat-option [value]="HOMME" >HOMME</mat-option>
-                <mat-option >FEMME</mat-option>
+                <mat-option [value]="FEMME" >FEMME</mat-option>
               </mat-select>
               <mat-icon matSuffix>work_outline</mat-icon>
               <mat-error>Ce champ est obligatoire.</mat-error>
@@ -508,13 +512,11 @@
               <mat-label>Etat civil</mat-label>
               <mat-select formControlName="etatCivil" required>
                 <mat-option value="CEL" >CEL</mat-option>
-                <mat-option >FEMME</mat-option>
               </mat-select>
               <mat-icon matSuffix>email</mat-icon>
               <mat-error>Ce champ est obligatoire.</mat-error>
             </mat-form-field>
         </div>
-       
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
             <mat-label>Date Naissance</mat-label>
@@ -533,6 +535,14 @@
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field  appearance="outline">
+            <mat-label>Type identite</mat-label>
+            <mat-select formControlName="typePieceIdentite" required>
+              <mat-option value="NIN">Carte national d'identite</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Date Delivrance</mat-label>
             <input matInput formControlName="delivreLe" required [matDatepicker]="delivreLe">
@@ -540,6 +550,8 @@
             <mat-datepicker #delivreLe></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
             <mat-label>Date Expiration</mat-label>
             <input matInput formControlName="expireLe" required [matDatepicker]="expireLe">
@@ -547,180 +559,190 @@
             <mat-datepicker #expireLe></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Numero piece</mat-label>
+            <input matInput formControlName="nin" required>
+            
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+        </div>
+       <div fxLayout="row" fxLayoutGap="10%">
+        <mat-form-field appearance="outline">
+          <mat-label>Lieu delivrance</mat-label>
+          <input matInput formControlName="lieuDelivrance" required>
+          
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Ville de naissance</mat-label>
+          <input matInput formControlName="villeNaissance" required>
+         
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field>
+         
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
-          <mat-form-field appearance="outline">
-            <mat-label>Ville de Naissance</mat-label>
-            <input matInput formControlName="villeNaissance" required>
-            <mat-icon matSuffix>email</mat-icon>
+          <mat-form-field  appearance="outline">
+            <mat-label>Pays</mat-label>
+            <mat-select formControlName="pays" required>
+              <mat-option>Senegal</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
-            <mat-label>Pays de Naissance</mat-label>
-            <mat-select formControlName="paysNaissance" required>
-              <mat-option *ngFor="let listPay of listPays.items" value="listPay.descr">{{listPay.descr}}</mat-option>
+            <mat-label>Region</mat-label>
+            <mat-select formControlName="region" required>
+              <mat-option>Region</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
-          <mat-form-field appearance="outline">
-            <mat-label>Type piece</mat-label>
-            <mat-select formControlName="sexe" required>
-              <mat-option [value]="HOMME" >Homme</mat-option>
-              <mat-option [value]="FEMME" >Femme</mat-option>
-             
-            </mat-select>
-            <mat-icon matSuffix>work_outline</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Lieu de naissance</mat-label>
-            <input matInput formControlName="paysNaissance" required>
-            <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutGap="10%">
-          <mat-form-field appearance="outline">
-            <mat-label>Pays</mat-label>
-            <mat-select formControlName="paysNaissance">
-              <mat-option *ngFor="let listPay of listPays.items" value="listPay.descr">{{listPay.descr}}</mat-option>
-            </mat-select>
-            <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
+          <mat-form-field  appearance="outline">
             <mat-label>Departement</mat-label>
-            <mat-select  formControlName="departement">
-              <mat-option [value]="Podor">Podor</mat-option>
+            <mat-select formControlName="departement" required>
+              <mat-option>Region</mat-option>
             </mat-select>
-            <mat-icon matSuffix>email</mat-icon>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label>Arrondissement</mat-label>
+            <mat-select formControlName="arrondissement" required>
+              <mat-option>Ngekhokh</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
-          <mat-form-field appearance="outline">
+          <mat-form-field  appearance="outline">
             <mat-label>Commune</mat-label>
-            <mat-select  formControlName="commune">
-              <mat-option [value]="Podor">Podor</mat-option>
-              <mat-option [value]="Guede">Guede</mat-option>
+            <mat-select formControlName="commune" required>
+              <mat-option>Region</mat-option>
             </mat-select>
-            <mat-icon matSuffix>email</mat-icon>
+            <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Arrondissement</mat-label>
-            <mat-select  formControlName="arrondissement">
-              <mat-option [value]="Podor">Podor</mat-option>
-              <mat-option [value]="Guede">Guede</mat-option>
-            </mat-select>
-            <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-          
-        </div>
-        <div fxLayout="row" fxLayoutGap="10%">
-          <mat-form-field appearance="outline">
-            <mat-label>Arrondissement</mat-label>
-            <mat-select  formControlName="arrondissement">
-              <mat-option value="Podor">Podor</mat-option>
-              <mat-option value="Guede">Guede</mat-option>
-            </mat-select>
-            <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Quartie</mat-label>
-          <input matInput formControlName="quartier" required>
-          <mat-icon matSuffix>email</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutGap="10%">
-          <mat-form-field appearance="outline">
-            <mat-label>Adresse</mat-label>
-            <input matInput formControlName="adresse" required>
-            <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Nature Contrat</mat-label>
-            <mat-select formControlName="natureContrat">
-              <mat-option>Embauche</mat-option>
-            </mat-select>
-            <mat-icon matSuffix>email</mat-icon>
+            <mat-label>Quartie</mat-label>
+            <input matInput formControlName="quartier" required>
+            
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
-            <mat-label>Nature Contrat</mat-label>
-            <mat-select formControlName="natureContrat">
-              <mat-option>contrat spécial</mat-option>
-              <mat-option>contrat de stage</mat-option>
+            <mat-label>Boite postal</mat-label>
+            <input matInput formControlName="boitePostale" required>
+            
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label>Type mouvement</mat-label>
+            <mat-select formControlName="typeMouvement" required>
+              <mat-option value="EMBAUCHE">EMBAUCHE</mat-option>
             </mat-select>
-            <mat-icon matSuffix>email</mat-icon>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field  appearance="outline">
+            <mat-label>Nature contrat</mat-label>
+            <mat-select formControlName="natureContrat" required>
+              <mat-option value="CDD">CDD</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Date Debut Contrat</mat-label>
+            <mat-label>Date debut contrat</mat-label>
             <input matInput formControlName="dateDebutContrat" required [matDatepicker]="dateDebutContrat">
-            <mat-datepicker-toggle matSuffix [for]="dateDebutContrat"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="delivreLe"></mat-datepicker-toggle>
             <mat-datepicker #dateDebutContrat></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
-            <mat-label>Date Fin de contrat</mat-label>
+            <mat-label>Date fin contrat</mat-label>
             <input matInput formControlName="dateFinContrat" required [matDatepicker]="dateFinContrat">
             <mat-datepicker-toggle matSuffix [for]="dateFinContrat"></mat-datepicker-toggle>
-            <mat-datepicker #dateDebutContrat></mat-datepicker>
+            <mat-datepicker #dateFinContrat></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Convention applicable</mat-label>
-            <input matInput formControlName="conventionApplicable" required>
-            <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutGap="10%">
-          <mat-form-field appearance="outline">
-            <mat-label>Convention applicable</mat-label>
-            <input matInput formControlName="conventionApplicable" required>
-            <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Sallaire contratuel</mat-label>
-            <input matInput formControlName="salaireContractuel" required>
-            <mat-icon matSuffix>email</mat-icon>
+            <mat-label>Profession</mat-label>
+            <input matInput formControlName="profession" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
-            <mat-label>Categorie de salaire</mat-label>
-            <mat-select formControlName="categorie">
-              <mat-option [value]="cdi">categorie cdi</mat-option>
-              <mat-option [value]="cdd">categorie cdd</mat-option>
+            <mat-label>Emploi</mat-label>
+            <input matInput formControlName="emploi" required>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Non Cadre</mat-label>
+            <input matInput formControlName="nonCadre" required>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Oui Cadre</mat-label>
+            <input matInput formControlName="ouiCadre" required>
+           
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label>Convention applicable</mat-label>
+            <mat-select formControlName="conventionApplicable" required>
+              <mat-option value="CC1">CC1</mat-option>
             </mat-select>
-            <mat-icon matSuffix>email</mat-icon>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Salaire contractuel</mat-label>
+            <input matInput formControlName="salaireContractuel" required>
+            
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label>Temps de travail</mat-label>
+            <mat-select formControlName="tempsTravail" required>
+              <mat-option value="TPS_PLEIN">Temps plein</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field  appearance="outline">
+            <mat-label>Categorie</mat-label>
+            <mat-select formControlName="categorie" required>
+              <mat-option value="9B">Categorie 9B</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
            <button mat-button (click)="addItem()">Ajouter salarie</button>
       </div>
-    </div>
+  </div>  
     <div fxLayoutAlign="end" fxLayoutGap="10%">
       <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
       <button  class="submit-button"  mat-button matStepperNext>Suivant</button>
   </div>
     </mat-step> -->
-      <mat-step [stepControl]="infoSalarieForm" editable="false" label="Step 6" state="done_all">
+      <mat-step [stepControl]="infoSalarieForm" editable="false" label="Step 6" class="mt-1" state="done_all">
           <ng-template matStepLabel>Comfirmation</ng-template> 
           <h4 class="mt-2 mb-2">Confirmation Demande</h4><br>
           <div class="report_infoFen">
@@ -958,7 +980,6 @@
           <mat-icon>done_all</mat-icon>
         </ng-template>
   </mat-horizontal-stepper>
-</div>
 </form>
 </div>
  
