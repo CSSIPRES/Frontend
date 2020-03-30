@@ -1,4 +1,11 @@
 
+.cdk-overlay-pane{
+  background-color: #999999;
+}
+.mat-dialog-content{
+
+}
+.flex-container { display: flex;}
 /*+++++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++*/
 .mat-autocomplete-panel.overflow-hidden {
   overflow: hidden !important;
@@ -13,9 +20,10 @@
 }
 
 .mat-dialog-content{
-  width:1000px;
+ 
   background-color: #f2f2f2;
-  height: auto;
+  /* height: auto; */
+  height: 800px;
 }
 .mat-dialog-title{
   color: #999999;
@@ -37,8 +45,12 @@ mat-horizontal-stepper{
 }
 ::ng-deep  .mat-step-header .mat-step-label{
 color: #999999 !important;
-}
 
+}
+::ng-deep  .mat-step-header .mat-step-label-focused{
+  color: rgb(240, 60, 15)!important;
+
+  }
 
 ::ng-deep .mat-horizontal-stepper-header {
     box-sizing: border-box;
@@ -59,10 +71,14 @@ color: #999999 !important;
     background-color: rgb(240, 60, 15)!important;
    }
    
-   ::ng-deep  .mat-step-label .mat-step-label-active .mat-step-label-selected{
-    color:rgb(251, 73, 29)!important;
+   ::ng-deep  .mat-step-label  .mat-step-label-selected{
     font-weight: bold;
   }
+    ::ng-deep   .mat-step-header .mat-step-icon {
+      
+      color: #fff;
+  }
+
 
  
   /*++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++++++++++*/
@@ -100,16 +116,21 @@ color: #999999 !important;
 /*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/
                                
    .center {
-    position: absolute;
+    position: absolute; 
     top: 50%;
-    left: 50%;
+    left: 50%; 
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%); 
     z-index: 2000;
+    background-color: #1818183a;
+    height:100%;
+    width:100%;
 }
-mat-progress-spinner{
-  color:rgb(251, 73, 29)!important;
+::ng-deep mat-progress-spinner{
+ /*  top: 100px; */
+ top:50%;
+ left:600px;
 }
 /*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/
                               /*------End------*/
@@ -153,8 +174,9 @@ color: #292929;
   color: white;
   }
   .mat-progress-spinner::ng-deep circle {
-    stroke: rgb(251, 73, 29)!important;
-
+    stroke: rgb(240, 60, 15)!important;
+   
+   
     }
 
     /* .overlay{

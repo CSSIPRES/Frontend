@@ -50,4 +50,6 @@ table{
   .mat-horizontal-stepper-header .mat-stepper-horizontal-line {
       border-top-color: rgba(37, 82, 245, 0.54) !important;
   }
-  
+.example-sidenav-content h2{
+  color: #999999;
+}

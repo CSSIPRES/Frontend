@@ -20,3 +20,7 @@ mat-form-field mat-icon{
     margin-top:2px;
     font-size: 14px;
 }
+button:focus, button:active:focus, button.active:focus {
+    outline: none !important;
+    outline-style: none !important;
+    }

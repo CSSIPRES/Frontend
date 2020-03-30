@@ -72,8 +72,7 @@
           
             
               <mat-horizontal-stepper formGroupName="input"  #stepper class="mt-1">
-                <mat-step formGroupName="informationEmployeur" [stepControl]="informationEmployeur" 
-                label="Information Employeur" state="phone">
+                <mat-step formGroupName="informationEmployeur" [stepControl]="informationEmployeur" label="Information General" state="genInfo">
                 <ng-template matStepLabel>Information General</ng-template> 
                 <div fxLayout="row" fxLayoutGap="10%">
                   <mat-form-field   appearance="outline">
@@ -103,8 +102,8 @@
                 <mat-form-field   appearance="outline">
                   <mat-label>Type declaration</mat-label>
                   <mat-select  formControlName="typeDeclaration" required>
-                    <mat-option>TRIMESTRIEL</mat-option>
-                    <mat-option>MENSUEL</mat-option>
+                    <mat-option value="TRIMESTRIEL">Trimestre</mat-option>
+                    <mat-option value="MENSUEL">Mensuel</mat-option>
                   </mat-select>
                   <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
                   <mat-error>Ce champ est obligatoire</mat-error>
@@ -136,27 +135,96 @@
                   <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
                   <button  class="submit-button" mat-button matStepperNext>Suivant</button>
                 </div>
-               </mat-step> 
-               <mat-step formGroupName="informationSalariesList" [stepControl]="informationSalariesList" 
-                label="Information Liste salaries" state="phone">
-                <div fxLayout="row" fxLayoutGap="10%">
-              <mat-form-field   appearance="outline">
-                    <mat-label>Numero assurance social</mat-label>
-                    <input formControlName="numeroAssureSocial" matInput required/>
-                    <!-- <mat-icon matSuffix>email</mat-icon> -->
+               </mat-step>
+               <mat-step class="synthese" formGroupName="synthese" [stepControl]="synthese" 
+               label="Synthese" state="synthese">
+                <div fxLayout="row" fxLayoutGap="5%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Total nouveau salarie</mat-label>
+                    <input formControlName="totalNouvSalaries" matInput required/>
+                     
                  <mat-error>Ce champ est obligatoire</mat-error> 
                 </mat-form-field>
+                <mat-form-field   appearance="outline">
+                  <mat-label>Total salarie</mat-label>
+                  <input formControlName="totalSalaries" matInput required/>
+               <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="5%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Total des salaires assujettis IPRES RG</mat-label>
+                    <input formControlName="cumulTotSalAssIpresRg" matInput required/>
+                 <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                <mat-form-field   appearance="outline">
+                  <mat-label>Total des salaires assujettis IPRES RCC</mat-label>
+                  <input formControlName="cumulTotSalAssIpresRcc" matInput required/>
+               <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
+            </div>
+              <div fxLayout="row" fxLayoutGap="5%">
+                <mat-form-field   appearance="outline">
+                  <mat-label>Total des salaire assujettis CSS PF</mat-label>
+                  <input formControlName="cumulTotSalAssCssPf" matInput required/>
+               <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
+              <mat-form-field   appearance="outline">
+                <mat-label>Total des salaire assujettis CSS AT/MP</mat-label>
+                <input formControlName="cumulTotSalAssCssAtmp" matInput required/>
+             <mat-error>Ce champ est obligatoire</mat-error> 
+            </mat-form-field>
+              </div>
+                
+                <div fxLayout="row" fxLayoutGap="5%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label>Montant cotisation PF</mat-label>
+                    <input formControlName="mntCotPfCalcParEmployeur" matInput required/>
+                 <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                <mat-form-field   appearance="outline">
+                  <mat-label> Montant cotisation AT/MP</mat-label>
+                  <input formControlName="mntCotAtMpCalcParEmployeur" matInput required/>
+               <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="5%">
+                  <mat-form-field   appearance="outline">
+                    <mat-label> Montant cotisation RG</mat-label>
+                    <input formControlName="mntCotRgCalcParEmployeur" matInput required/>
+                 <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                <mat-form-field   appearance="outline">
+                  <mat-label> Montant cotisation RCC</mat-label>
+                  <input formControlName="mntCotRccCalcParEmployeur" matInput required/>
+               <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
+                </div>
+                <div fxLayoutAlign="end" fxLayoutGap="10%">
+                  <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+                  <button  class="submit-button" mat-button matStepperNext>Suivant</button>
+                </div>
+               </mat-step> 
+               <mat-step formGroupName="informationSalariesList" [stepControl]="informationSalariesList" 
+                label="Information Liste salaries" state="infoSalList">
+                <div fxLayout="row" fxLayoutGap="10%">            
               <mat-form-field   appearance="outline">
                   <mat-label>Nom</mat-label>
                   <input formControlName="nom" matInput required/>
                   <!-- <mat-icon matSuffix>email</mat-icon> -->
                <mat-error>Ce champ est obligatoire</mat-error> 
               </mat-form-field>
+              <mat-form-field   appearance="outline">
+                <mat-label>Prenom</mat-label>
+                <input formControlName="prenom" matInput required/>
+                <!-- <mat-icon matSuffix>email</mat-icon> -->
+             <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
                 </div>
                 <div fxLayout="row" fxLayoutGap="10%">
                   <mat-form-field   appearance="outline">
-                    <mat-label>Prenom</mat-label>
-                    <input formControlName="prenom" matInput required/>
+                    <mat-label>Numero assurance social</mat-label>
+                    <input formControlName="numeroAssureSocial" matInput required/>
                     <!-- <mat-icon matSuffix>email</mat-icon> -->
                  <mat-error>Ce champ est obligatoire</mat-error> 
                 </mat-form-field>
@@ -240,14 +308,62 @@
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                 </div>
-                <div fxLayout="row" fxLayoutGap="10%">
-
-                </div>
+              <div fxLayout="row" fxLayoutGap="10%">
+                <mat-form-field   appearance="outline">
+                    <mat-label>Nombre de jour</mat-label>
+                    <input formControlName="nombreJours1" matInput required/>
+                    <!-- <mat-icon matSuffix>email</mat-icon> -->
+                 <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                <mat-form-field   appearance="outline">
+                  <mat-label>Nombre d'heure</mat-label>
+                  <input formControlName="nombreHeures1" matInput required/>
+                  <!-- <mat-icon matSuffix>email</mat-icon> -->
+               <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
+              </div>
+              <div fxLayout="row" fxLayoutGap="10%">
+                <mat-form-field   appearance="outline">
+                  <mat-label>Temps de travail</mat-label>
+                  <mat-select formControlName="motifSortie" required>
+                    <mat-option value="TPS_PARTIEL">Temps partiel</mat-option>
+                    <mat-option value="TPS_PLEIN">Temps plein</mat-option>
+                    <mat-option value="LICENCIEMENT">Licenciement</mat-option>
+                    <mat-option value="ABANDON_DE_POSTE">Abandon de poste</mat-option>
+                    <mat-option value="MUTATION">Mutation</mat-option>
+                    <mat-option value="RETRAITE">Retraite</mat-option>
+                    <mat-option value="DECES">Deces</mat-option>
+                  </mat-select>
+                  <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
+                  <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+              </div>
                 <div fxLayoutAlign="end" fxLayoutGap="10%">
                   <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
                   <button  class="submit-button" mat-button matStepperNext>Suivant</button>
                 </div>
-               </mat-step>
+              </mat-step>
+              <mat-step class="confirmation" formGroupName="confirmation" [stepControl]="confirmation" 
+               label="Confirmation" state="confirmation">
+               <div fxLayoutAlign="end" fxLayoutGap="10%">
+                <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+                <button  class="submit-button" mat-button matStepperNext>Envoyer</button>
+              </div>
+              </mat-step>
+              
+              <ng-template matStepperIcon="genInfo">
+               <mat-icon>create_new_folder</mat-icon>
+             </ng-template>
+             <ng-template matStepperIcon="synthese">
+               <mat-icon>library_books</mat-icon>
+             </ng-template> 
+             <ng-template matStepperIcon="infoSalList">
+               <mat-icon>person_outlined</mat-icon>
+             </ng-template>
+             <ng-template matStepperIcon="confirmation">
+               <mat-icon>done_all</mat-icon>
+             </ng-template>
+            
               </mat-horizontal-stepper>  
         </form>
 </div>

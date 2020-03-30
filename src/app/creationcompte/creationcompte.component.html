@@ -8,15 +8,17 @@
         <h4 class="pt-2">Creation Compte</h4>
       </mat-card-header>
       <mat-card-content>
-      <div fxLayout="row">
-        <div>
-          <img src="assets/images/logoCSS.png" height="60px" width="120px" alt="">
-        </div>
-        &nbsp;
-        <h4 class="page_createCpt">Creation compte e-portail CSS</h4>
+      <div fxLayout="column">
+          <div >
+          <img class="imgLogo"  src="assets/images/logoCSS.png" 
+          height="55px" width="105px">
+          <img src="assets/images/logoIPRES.png" 
+          height="55" width="85">
+          </div>
+           <h4 class="title">Creation compte e-portail CSS</h4>
       </div>
       <div fxLayout="row" fxLayoutGap="10%">
-        <form [formGroup]="creationCpteForm" class="mt-5" fxFlex fxLayout="column">
+        <form [formGroup]="creationCpteForm" class="mt-1" fxFlex fxLayout="column">
           <div fxLayout="row">
           <mat-form-field  appearance="outline" class="pl-5 pr-5">
             <mat-label>Nom</mat-label>
@@ -35,13 +37,13 @@
           <mat-form-field appearance="outline" class="pl-5 pr-5" >
             <mat-label>Email</mat-label>
             <input type="email"  matInput formControlName="email" required />
-            <mat-icon matSuffix>person_outlined</mat-icon>
+            <mat-icon matSuffix>email</mat-icon>
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="pl-5 pr-5" >
             <mat-label>Login</mat-label>
             <input type="email"  matInput formControlName="login" required />
-            <mat-icon matSuffix>person_outlined</mat-icon>
+            <mat-icon matSuffix>email</mat-icon>
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
           
@@ -50,7 +52,7 @@
           <mat-form-field appearance="outline" class="pl-5 pr-5" >
             <mat-label>Mot de passe</mat-label>
             <input type="password"  matInput formControlName="password" required />
-            <mat-icon matSuffix>person_outlined</mat-icon>
+            <mat-icon matSuffix>lock</mat-icon>
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="pl-5 pr-5">
@@ -61,8 +63,15 @@
           </mat-form-field>
         </div>
           <div fxLayout="column" class="mb-4 mt-2" fxLayoutAlign="center center">
-            <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
+           <!--  <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
               Envoyer
+            </button> -->
+            <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button 
+            class="submit-button1" aria-label="CONNEXION">
+             <div *ngIf="!loader"> Envoyer </div>
+             <div>  
+               <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+            </div> 
             </button>
           </div>
         </form>

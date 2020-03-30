@@ -1,19 +1,26 @@
 
        
-
-    
-  <h1 mat-dialog-title>
+ 
+ <!--  <h1 mat-dialog-title>
    Demande d'Immatriculation
-  </h1>
-      <div mat-dialog-content>
+  </h1> -->
+  <div  fxLayoutAlign="space-between center">
+    <h1 mat-dialog-title>Demande d'Immatriculation</h1>
+     <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
+          <mat-icon color="warn">close</mat-icon>
+      </button>
+  </div>
+ 
+      <div  mat-dialog-content>
       <div *ngIf="loader"  class="center">
-          <mat-progress-spinner strokeWidth="3" diameter=40 mode="indeterminate"color="primary">
+          <mat-progress-spinner strokeWidth="3" diameter=35 mode="indeterminate"color="primary">
           </mat-progress-spinner>
       </div> 
+     
       <form [formGroup]="immatForm">
        
       <mat-horizontal-stepper formGroupName="input"  #stepper class="mt-1">
-        <mat-step formGroupName="mainRegistrationForm" [stepControl]="mainRegistrationForm" label="Step 1" state="phone">
+        <mat-step formGroupName="mainRegistrationForm" [stepControl]="mainRegistrationForm" label="Information General" state="phone">
       <div class="mt-5">
       <ng-template matStepLabel>Information General</ng-template> 
       <div fxLayout="row" fxLayoutGap="10%">
@@ -38,9 +45,9 @@
       <mat-form-field  appearance="outline">
         <mat-label>Principal secteur d'activite</mat-label>
         <mat-select formControlName="mainLineOfBusiness" required>
-          <perfect-scrollbar style="width: 100%; ">
-          <mat-option *ngFor="let mainSector of listMainSector" [value]="mainSector.activitesprincipal">{{ mainSector.activitesprincipal | lowercase }}</mat-option>
-        </perfect-scrollbar>
+        
+          <mat-option *ngFor="let mainSector of listMainSector" [value]="mainSector.activitesprincipal">{{ mainSector.activitesprincipal | titlecase }}</mat-option>
+      
         </mat-select>
         <mat-icon matSuffix>perm_identity</mat-icon>
         <mat-error>Ce champ est obligatoire</mat-error>
@@ -76,7 +83,7 @@
         <mat-label>Region</mat-label>
         <mat-select (selectionChange)="selectRegion($event)"  formControlName="region" required>
           <mat-option  *ngFor="let r of listRegions.items"
-           [value]="r.region">{{r.region | lowercase}}</mat-option>
+           [value]="r.region">{{ r.region | titlecase }}</mat-option>
         </mat-select>
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
@@ -88,7 +95,7 @@
         <mat-label>Department</mat-label>
         <mat-select (selectionChange)="selectDepartement($event)"   formControlName="department" required>
           <mat-option *ngFor="let d of listDepartments" [value]="d.departement">
-            {{d.departement | lowercase }}</mat-option>
+            {{d.departement | titlecase }}</mat-option>
         </mat-select>
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
@@ -96,7 +103,8 @@
       <mat-form-field  appearance="outline">
         <mat-label>Arondissement</mat-label>
         <mat-select (selectionChange)="selectArrondissement($event)" formControlName="arondissement" required>
-          <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">{{ar.arrondissement | lowercase}}</mat-option>
+          <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">
+            {{ar.arrondissement | titlecase}}</mat-option>
           
         </mat-select>
         <mat-icon matSuffix>work_outline</mat-icon>
@@ -108,7 +116,7 @@
       <mat-form-field  appearance="outline">
         <mat-label>Commune</mat-label>
         <mat-select formControlName="commune" required>
-          <mat-option *ngFor="let c of listCommunes" [value]="c.commune">{{c.commune | lowercase}}</mat-option>
+          <mat-option *ngFor="let c of listCommunes" [value]="c.commune">{{c.commune | titlecase}}</mat-option>
         </mat-select>
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
@@ -178,12 +186,12 @@
     </div>
      <div fxLayoutAlign="end" fxLayoutGap="10%" >
       <button mat-raised-button matStepperPrevious>Precedent</button>
-      <button  class="submit-button" mat-raised-button matStepperNext>Suivant</button>
+      <button [disabled]="!immatForm.get('input').get('mainRegistrationForm').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant</button>
     </div>
    
   </div>
   </mat-step>
-  <mat-step formGroupName="employerQuery" [stepControl]="employerQuery" label="Step 2" state="chat">
+  <mat-step formGroupName="employerQuery" [stepControl]="employerQuery" label="Information Employeur" state="chat">
     <div class="mt-5">
       <ng-template matStepLabel>Information Employeur</ng-template>
       <div fxLayout="row" fxLayoutGap="10%">
@@ -235,14 +243,14 @@
         </mat-form-field>
         <mat-form-field  appearance="outline">
           <mat-label>Ninea Number</mat-label>
-          <input matInput (blur)="getNineaNumber()" formControlName="nineaNumber" required>
+          <input type="number" matInput formControlName="nineaNumber" required>
           <mat-icon matSuffix> short_text</mat-icon>
-          <mat-error *ngIf="nineaNumber.hasError('required')">Ce champs est obligatoire.</mat-error>
-         <mat-error  
-         *ngIf="nineaNumber.hasError('maxLength')">Ninea invalide.</mat-error>     
+         <mat-error *ngIf="nineaNumber.hasError('required')">Ce champs est obligatoire.</mat-error>
+          <mat-error   
+          *ngIf="nineaNumber.hasError('maxlength')">
+          Le ninea doit etre de 9 chiffres.</mat-error>     
         </mat-form-field>
-        <mat-hint *ngIf="nineaExist" class="text-danger">Ce ninea existe deja.</mat-hint>
-       
+        <!-- <mat-hint *ngIf="nineaExist" class="text-danger">Ce ninea existe deja.</mat-hint> -->
       </div>
       <div fxLayout="row" fxLayoutGap="10%">
        <mat-form-field appearance="outline">
@@ -293,12 +301,12 @@
       </div>
         <div fxLayoutAlign="end" fxLayoutGap="10%">
           <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button  class="submit-button" mat-button matStepperNext>Suivant</button>
+          <button [disabled]="!immatForm.get('input').get('employerQuery').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant</button>
         </div> 
     
   </div>
     </mat-step>
-    <mat-step formGroupName="legalRepresentativeForm" [stepControl]="legalRepresentativeForm" label="Step 3" state="person_outlined">
+    <mat-step formGroupName="legalRepresentativeForm" [stepControl]="legalRepresentativeForm" label="Representant legale" state="person_outlined">
       <div class="mt-5">
         <ng-template matStepLabel>Representant legale</ng-template>
         <div fxLayout="row" fxLayoutGap="10%">
@@ -328,7 +336,7 @@
             <mat-label>Nationalite</mat-label>
             <mat-select formControlName="nationality" required>
               <!-- <mat-option  value="SA">SN</mat-option> -->
-              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | lowercase}}</mat-option>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>people_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -403,7 +411,7 @@
           <mat-form-field  appearance="outline">
             <mat-label>Region</mat-label>
             <mat-select (selectionChange)="selectRegion(event)" formControlName="region" required>
-              <mat-option *ngFor="let r of listRegions.items" [value]="r.region">{{r.region | lowercase}}</mat-option>
+              <mat-option *ngFor="let r of listRegions.items" [value]="r.region">{{r.region | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -411,18 +419,18 @@
         </div> 
        <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field  appearance="outline">
-          <mat-label>Department</mat-label>
+          <mat-label>Departement</mat-label>
           <mat-select (selectionChange)="selectDepartement(event)"  formControlName="department" required>
             <mat-option *ngFor="let d of listDepartments" [value]="d.departement">
-              {{d.departement | lowercase}}</mat-option>
+              {{d.departement | titlecase}}</mat-option>
           </mat-select>
           <mat-icon matSuffix>work_outline</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
         <mat-form-field  appearance="outline">
-          <mat-label>Arondissement</mat-label>
+          <mat-label>Arrondissement</mat-label>
           <mat-select (selectionChange)=" selectArrondissement(event)" formControlName="arondissement" required>
-            <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">{{ar.arrondissement | lowercase}}</mat-option>
+            <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
           </mat-select>
           <mat-icon matSuffix>work_outline</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
@@ -433,7 +441,7 @@
         <mat-form-field  appearance="outline">
           <mat-label>Commune</mat-label>
           <mat-select formControlName="commune" required>
-            <mat-option *ngFor="let c of listCommunes" [value]="c.commune">{{c.commune | lowercase}}</mat-option>
+            <mat-option *ngFor="let c of listCommunes" [value]="c.commune">{{c.commune | titlecase}}</mat-option>
           </mat-select>
           <mat-icon matSuffix>work_outline</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
@@ -476,7 +484,7 @@
        </div>
       <div fxLayoutAlign="end" fxLayoutGap="10%">
           <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button class="submit-button" mat-raised-button matStepperNext matStepperNext>Suivant</button>
+          <button [disabled]="!immatForm.get('input').get('legalRepresentativeForm').valid" class="submit-button" mat-raised-button matStepperNext matStepperNext>Suivant</button>
       </div>
       
     </div>
@@ -502,8 +510,8 @@
            <mat-form-field appearance="outline">
               <mat-label>Sexe</mat-label>
               <mat-select formControlName="sexe" required>
-                <mat-option [value]="HOMME" >HOMME</mat-option>
-                <mat-option [value]="FEMME" >FEMME</mat-option>
+                <mat-option value="HOMME" >HOMME</mat-option>
+                <mat-option value="FEMME" >FEMME</mat-option>
               </mat-select>
               <mat-icon matSuffix>work_outline</mat-icon>
               <mat-error>Ce champ est obligatoire.</mat-error>
@@ -511,7 +519,10 @@
             <mat-form-field appearance="outline">
               <mat-label>Etat civil</mat-label>
               <mat-select formControlName="etatCivil" required>
-                <mat-option value="CEL" >CEL</mat-option>
+                <mat-option value="MAR" >Marié</mat-option>
+                <mat-option value="CEL" >Célibataire</mat-option>
+                <mat-option value="DIV" >Divorcé</mat-option>
+                <mat-option value="VEU" >Veuf/Veuve</mat-option>
               </mat-select>
               <mat-icon matSuffix>email</mat-icon>
               <mat-error>Ce champ est obligatoire.</mat-error>
@@ -528,7 +539,7 @@
           <mat-form-field  appearance="outline">
             <mat-label>Nationalite</mat-label>
             <mat-select formControlName="nationalite" required>
-              <mat-option>Senegalais</mat-option>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -539,6 +550,9 @@
             <mat-label>Type identite</mat-label>
             <mat-select formControlName="typePieceIdentite" required>
               <mat-option value="NIN">Carte national d'identite</mat-option>
+              <mat-option value="PASS">Passport</mat-option>
+              <mat-option value="NIN">Carte CDEAO</mat-option>
+              <mat-option value="CONC">Carte Consulaire</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -561,7 +575,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Numero piece</mat-label>
-            <input matInput formControlName="nin" required>
+            <input matInput formControlName="nin">
             
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
@@ -582,54 +596,70 @@
          
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
+          <mat-form-field appearance="outline">
+            <mat-label>Pays de naissance</mat-label>
+            <input matInput formControlName="paysNaissance" required>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Pays</mat-label>
             <mat-select formControlName="pays" required>
-              <mat-option>Senegal</mat-option>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+         
           <mat-form-field  appearance="outline">
             <mat-label>Region</mat-label>
-            <mat-select formControlName="region" required>
-              <mat-option>Region</mat-option>
+            <mat-select (selectionChange)="selectRegion($event)"  formControlName="region" required>
+              <mat-option  *ngFor="let r of listRegions.items"
+               [value]="r.region">{{r.region | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field  appearance="outline">
             <mat-label>Departement</mat-label>
-            <mat-select formControlName="departement" required>
-              <mat-option>Region</mat-option>
-            </mat-select>
-            <mat-icon matSuffix>work_outline</mat-icon>
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field>
-          <mat-form-field  appearance="outline">
-            <mat-label>Arrondissement</mat-label>
-            <mat-select formControlName="arrondissement" required>
-              <mat-option>Ngekhokh</mat-option>
+            <mat-select (selectionChange)="selectDepartement(event)"  formControlName="departement" required>
+              <mat-option *ngFor="let d of listDepartments" [value]="d.departement">
+                {{d.departement | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
+          
           <mat-form-field  appearance="outline">
-            <mat-label>Commune</mat-label>
-            <mat-select formControlName="commune" required>
-              <mat-option>Region</mat-option>
+            <mat-label>Arrondissement</mat-label>
+            <mat-select (selectionChange)=" selectArrondissement(event)" formControlName="arrondissement" required>
+              <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label>Commune</mat-label>
+            <mat-select (selectionChange)=" selectArrondissement(event)" formControlName="commune" required>
+              <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          
           <mat-form-field appearance="outline">
             <mat-label>Quartie</mat-label>
             <input matInput formControlName="quartier" required>
-            
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Adresse</mat-label>
+            <input matInput formControlName="adresse" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
@@ -637,7 +667,6 @@
           <mat-form-field appearance="outline">
             <mat-label>Boite postal</mat-label>
             <input matInput formControlName="boitePostale" required>
-            
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
@@ -648,12 +677,17 @@
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+         
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field  appearance="outline">
             <mat-label>Nature contrat</mat-label>
             <mat-select formControlName="natureContrat" required>
-              <mat-option value="CDD">CDD</mat-option>
+              <mat-option value="CDD">Contrat à durée determiné</mat-option>
+              <mat-option value="CDI">Contrat à durée indeterminé</mat-option>
+              <mat-option value="JOU">Journalier</mat-option>
+              <mat-option value="SPE">Contrat Spécial</mat-option>
+              <mat-option value="STA">Contrat de stage</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -661,10 +695,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Date debut contrat</mat-label>
             <input matInput formControlName="dateDebutContrat" required [matDatepicker]="dateDebutContrat">
-            <mat-datepicker-toggle matSuffix [for]="delivreLe"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="dateDebutContrat"></mat-datepicker-toggle>
             <mat-datepicker #dateDebutContrat></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+          
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
@@ -679,6 +714,7 @@
             <input matInput formControlName="profession" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+          
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
@@ -688,41 +724,46 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Non Cadre</mat-label>
-            <input matInput formControlName="nonCadre" required>
+            <input matInput formControlName="nonCadre">
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+          
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
             <mat-label>Oui Cadre</mat-label>
             <input matInput formControlName="ouiCadre" required>
-           
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Convention applicable</mat-label>
             <mat-select formControlName="conventionApplicable" required>
-              <mat-option value="CC1">CC1</mat-option>
+              <mat-option value="CC1">CC des entreprises d'assurance, 30 juillet 1977</mat-option>
+              <mat-option value="CC2">CC du transport aérien, 08 novembre 1965</mat-option>
+              <mat-option value="CC3">CC des industries fédérales du vêtement, 10 janvier 1963</mat-option>
+              <mat-option value="CC4">CC du transport routier professionnel, 17 décembre 1959</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+          
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline">
             <mat-label>Salaire contractuel</mat-label>
             <input matInput formControlName="salaireContractuel" required>
-            
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Temps de travail</mat-label>
             <mat-select formControlName="tempsTravail" required>
               <mat-option value="TPS_PLEIN">Temps plein</mat-option>
+              <mat-option value="TPS_PARTIEL">Temps partiel</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
+          
         </div>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field  appearance="outline">
@@ -739,10 +780,10 @@
   </div>  
     <div fxLayoutAlign="end" fxLayoutGap="10%">
       <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-      <button  class="submit-button"  mat-button matStepperNext>Suivant</button>
+      <button [disabled]="!immatForm.get('input').get('employeList').valid"  class="submit-button"  mat-button matStepperNext>Suivant</button>
   </div>
-    </mat-step> -->
-      <mat-step [stepControl]="infoSalarieForm" editable="false" label="Step 6" class="mt-1" state="done_all">
+    </mat-step> 
+      <mat-step [stepControl]="infoSalarieForm" editable="false" label="Comfirmation" class="mt-1" state="done_all">
           <ng-template matStepLabel>Comfirmation</ng-template> 
           <h4 class="mt-2 mb-2">Confirmation Demande</h4><br>
           <div class="report_infoFen">
@@ -754,7 +795,7 @@
             </div>
             <div fxFlex="50">
                 <span>Principal Secteur d'activite:</span>
-                <b> {{immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value | lowercase}}</b>
+                <b> {{immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value | titlecase}}</b>
             </div>     
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
@@ -775,24 +816,24 @@
               </div>
           <div fxFlex="50">
               <span>Region:</span>
-              <b> {{immatForm.get('input').get('mainRegistrationForm').get('region').value | lowercase}}</b>
+              <b> {{immatForm.get('input').get('mainRegistrationForm').get('region').value | titlecase}}</b>
             </div> 
           </div>
            <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Departement:</span>
-              <b> {{immatForm.get('input').get('mainRegistrationForm').get('department').value | lowercase}}</b>
+              <b> {{immatForm.get('input').get('mainRegistrationForm').get('department').value | titlecase}}</b>
             </div>
             <div fxFlex="50">
                 <span>Arrondissement:</span>
-                <b> {{immatForm.get('input').get('mainRegistrationForm').get('arondissement').value | lowercase}}</b>
+                <b> {{immatForm.get('input').get('mainRegistrationForm').get('arondissement').value | titlecase}}</b>
             </div>   
           </div>
         
          <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Commune:</span>
-              <b> {{immatForm.get('input').get('mainRegistrationForm').get('commune').value | lowercase}}</b>
+              <b> {{immatForm.get('input').get('mainRegistrationForm').get('commune').value | titlecase}}</b>
           </div> 
             <div fxFlex="50">
               <span>Quartie:</span>
@@ -874,7 +915,7 @@
             </div>
             <div fxFlex="50">
               <span>Naionalite:</span>
-              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('nationality').value | lowercase}}</b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('nationality').value | titlecase}}</b>
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
@@ -914,23 +955,23 @@
             </div>
             <div fxFlex="50">
               <span>Region:</span>
-              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('region').value | lowercase}}</b>
+              <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('region').value | titlecase}}</b>
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Department:</span>
-            <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('department').value | lowercase}}</b>
+            <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('department').value | titlecase}}</b>
             </div>
             <div fxFlex="50">
               <span>Arondissement:</span>
-              <b> {{immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value | lowercase}}</b> 
+              <b> {{immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value | titlecase}}</b> 
             </div>
           </div>
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>Commune:</span>
-            <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('commune').value | lowercase}}</b>
+            <b>  {{immatForm.get('input').get('legalRepresentativeForm').get('commune').value | titlecase}}</b>
             </div>
             <div fxFlex="50">
               <span>quartier:</span>
@@ -959,8 +1000,8 @@
             <button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Confirmer</button>
           </div>
           
-        
-      </mat-step>
+        </mat-step>
+      
          <ng-template matStepperIcon="phone">
           <mat-icon>create_new_folder</mat-icon>
         </ng-template>
@@ -979,7 +1020,10 @@
         <ng-template matStepperIcon="done_all">
           <mat-icon>done_all</mat-icon>
         </ng-template>
+      
   </mat-horizontal-stepper>
 </form>
+
 </div>
- 
+
+

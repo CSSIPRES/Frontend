@@ -239,6 +239,9 @@ mat-card-header strong{
        background-color: rgb(255, 104, 49);
        opacity: .7;
    }
+ 
+
+  
    .show-scrollTop {
     opacity: 1;
     transition: all .2s ease-in-out;
@@ -248,14 +251,18 @@ mat-card-header strong{
     margin-top:-20px;
     margin-left: -90px;
 }
+.titleforum{
+    font-size:14px;
+}
 .imgLogo{
     margin-left:10px; 
     margin-top:10px;  
     margin-bottom: 20px;
 }
 
-
-  
+.mat-progress-spinner::ng-deep circle {
+    stroke: #ffffff!important;
+}
 
 .mat-form-field{
     max-width: 100%;
@@ -281,4 +288,4 @@ mat-card-header strong{
    ::ng-deep .mat-input-element {
     caret-color: rgba(0,0,0,.6)!important;
    }
-  
+   

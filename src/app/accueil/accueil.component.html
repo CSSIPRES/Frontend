@@ -4,6 +4,7 @@
   <div fxFlex="65" class="backImg" >
     <img class="mat-elevation-z8" src="assets/images/homeCSS.jpg" 
     height="600" width="900">
+   
   </div>
   <div fxFlex fxFlex="35" *ngIf="connection">
     <mat-card class="mat-elevation-z8 login">
@@ -18,7 +19,9 @@
         <div fxLayout="column">
         <div >
         <img class="imgLogo"  src="assets/images/logoCSS.png" 
-        height="60px" width="110px">
+        height="55px" width="105px">
+        <img src="assets/images/logoIPRES.png" 
+        height="55" width="85">
         </div>
          <h4 class="title">Connection e-portail CSS</h4>
         </div>
@@ -28,19 +31,23 @@
             <mat-label>Nom de l'utilisateur</mat-label>
             <input matInput  formControlName="username" required />
             <mat-icon matSuffix>person_outlined</mat-icon>
-            <mat-error>Champ obligatoire</mat-error>
+            <mat-error>Saisir votre nom d'utilsateur</mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="70" appearance="outline">
             <mat-label>Mot de passe</mat-label>
             <input formControlName="password" matInput type="password" required />
-            <mat-icon matSuffix>security</mat-icon>
-            <mat-error>Champ obligatoire</mat-error>
+            <mat-icon matSuffix>lock</mat-icon>
+            <mat-error>Saisir votre mot de passe </mat-error>
+            <mat-hint *ngIf="errorMess" class="text-danger">Veiller verifier vos identifiant</mat-hint>
           </mat-form-field>
           <!-- </div> -->
           <div fxLayout="column" fxLayoutAlign="center center">
             <button (click)="authenticate()" fxLayoutAlign="center" mat-raised-button 
             class="submit-button1" aria-label="CONNEXION">
-              Connexion
+             <div *ngIf="!loader"> Connexion </div>
+             <div>  
+               <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+            </div> 
             </button>
              <span routerLink="/motPasseOublie" fxLayoutAlign="center center" 
              class="forget_pw mb-5">Mot de passe oublié 
@@ -139,8 +146,119 @@
     </mat-card>
   </div>
 </div>
+<div fxLayout="row" fxLayoutGap="5%" class="mt-5 mb-5">
+  <div fxFlex="60" fxLayout="column">
+     <mat-card class="mat-elevation-z8 ml-5">
+      <mat-card-title>
+        <mat-icon style="color:#9c9c9c85;font-size: 35px;">help_outline</mat-icon>
+        <h2 style="color:rgb(255, 104, 49);">Foire aux questions 
+          </h2>
+          <span class="titleforum">Trouver des reponses aux questions frequemment pose</span>
+      </mat-card-title> 
+       <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel  (opened)="panelOpenState1 = true"
+          (closed)="panelOpenState1 = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+               <h5 [ngStyle]="{'color':panelOpenState1 === true ? 'rgb(255, 104, 49);' : '' }"> Comment adherer a l'IPRES ? </h5>
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+        
+           <span>Des que votre entreprise est contitue et que vous avec 
+             emabauche un nouveau salarie vous devez venir a l'IPRES faire votre adhesion.
+           </span>
+          </mat-expansion-panel>
+          <mat-expansion-panel  (opened)="panelOpenState2 = true"
+          (closed)="panelOpenState2 = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+             <h5 [class.t2]="panelOpenState2 == 'true'"> Qu'est qu'un participant ? </h5>
+            </mat-panel-title>
+            <mat-panel-description>
+             
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <span>Response</span>
+        </mat-expansion-panel>
+        <mat-expansion-panel  (opened)="panelOpenState2 = true"
+        (closed)="panelOpenState2 = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           <h5 [class.t2]="panelOpenState2 == 'true'"> Comment faire les cotisation ? </h5>
+          </mat-panel-title>
+          <mat-panel-description>
+           
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <span>Response</span>
+      </mat-expansion-panel>
+      <mat-expansion-panel  (opened)="panelOpenState2 = true"
+      (closed)="panelOpenState2 = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+         <h5 [class.t2]="panelOpenState2 == 'true'"> Comment faire les cotisation ? </h5>
+        </mat-panel-title>
+        <mat-panel-description>
+         
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <span>Response</span>
+    </mat-expansion-panel>
+    <mat-expansion-panel  (opened)="panelOpenState2 = true"
+    (closed)="panelOpenState2 = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+       <h5 [class.t2]="panelOpenState2 == 'true'"> Comment obtenir son releve de points 
+         et sa carte affilisation ? </h5>
+      </mat-panel-title>
+      <mat-panel-description>
+       
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <span>Response</span>
+  </mat-expansion-panel>
+
+            
+        </mat-accordion>
+       </mat-card-content>
+     </mat-card>
+  </div>
+  <div fxFlex="30" fxLayout="column">
+    <mat-card class="mat-elevation-z8 mr-5">
+      <mat-card-title>
+        <mat-icon style="color:#9c9c9c85;font-size: 35px;">folder_open</mat-icon>
+        <h2 style="color:rgb(255, 104, 49);">Document a telecharger
+          </h2>
+         
+      </mat-card-title> 
+       <mat-card-content>
+         <div>
+         <span>Revalorisation des affaire familiale</span>
+        </div>
+          <mat-divider inset="true"></mat-divider>
+          <div class="mt-2">
+            <span>Statut de l'integration de prevoyance retraite de Senegal IPRES </span>
+           </div>
+           <mat-divider inset="true"></mat-divider>
+           <div class="mt-2">
+            <span>Loi n 75-50 du 3 Avril relative au institutions de prevoyance sociale </span>
+           </div>
+           <mat-divider inset="true"></mat-divider>
+           <div class="mt-2">
+            <span>Demande d'assurance volontaire </span>
+           </div>
+           <mat-divider inset="true"></mat-divider>
+       </mat-card-content>
+      
+    </mat-card>
+  </div>
+</div>
 <div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}">
   <button mat-raised-button (click)="scrollToTop()">
        <mat-icon>keyboard_arrow_up</mat-icon> 
   </button>
 </div>
+

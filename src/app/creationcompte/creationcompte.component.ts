@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from
 import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { CreationCompteService } from '../creation-compte.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-creationcompte',
@@ -14,7 +15,7 @@ export class CreationcompteComponent implements OnInit {
 creationCpteForm:FormGroup;
 loader:boolean;
   constructor(private fb:FormBuilder,private creCompteServ:CreationCompteService,
-   private router:Router,private routerActive:ActivatedRoute) { }
+   private router:Router,private routerActive:ActivatedRoute,private snackB: MatSnackBar) { }
    key:string;
   ngOnInit() {
     this.initForm();
@@ -41,14 +42,36 @@ getKey(){
     })
   }
   creationCompte(){
+    this.loader=true;
+    if(this.creationCpteForm.invalid==true){
+      this.loader=false;
+    }
    this.creCompteServ.creationCompte(this.creationCpteForm.value).subscribe(
      resp=>{
       console.log(resp);
      if(resp==200){
-       this.router.navigate(['/accueil']);
-       this.creationCpteForm.reset();
-      
+       /* this.router.navigate(['/accueil']); */
+       this.creationCpteForm.reset(); 
+       this.snackB.open("Votre compte a été crée  succés","Fermer", {
+        duration: 10000,
+        panelClass: ['my-snack-bar3','mat-success'],
+        verticalPosition: 'bottom',
+        horizontalPosition:'left',
+     });
      }
-    })
+    
+    },error =>{
+      this.loader=false;
+      if(error.status==0){
+        this.loader=false;
+        this.snackB.open("Eurreur d'envoi veiller réessayer","", {
+          duration: 5000,
+          panelClass: ['my-snack-bar4', "mat-warn"],
+          verticalPosition: 'bottom',
+          horizontalPosition:'left',
+       })
+      }
+    }
+    )
   }
 }

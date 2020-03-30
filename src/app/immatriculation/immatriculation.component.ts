@@ -1,44 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
-import { MatDialogConfig, MatDialog, MatSnackBar, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material';
+import { MatDialogConfig, MatDialog, MatSnackBar, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_DATE_LOCALE} from '@angular/material';
 import { ImmatriculationService } from '../immatriculation.service';
-import { formatDate } from '@angular/common';
+ import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter'; 
 
-export class AppDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
-    if (displayFormat === 'input') {
-      let day: string = date.getDate().toString();
-      day = +day < 10 ? '0' + day : day;
-      let month: string = (date.getMonth() + 1).toString();
-      month = +month < 10 ? '0' + month : month;
-      let year = date.getFullYear();
-      return `${year}-${month}-${day}`;
-    }
-    return date.toDateString();
-  }
-}
-export const APP_DATE_FORMATS: MatDateFormats = {
-  parse: {
-    dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
-  },
+import { AppDateAdapter, APP_DATE_FORMATS } from 'src/format-datepicker';
+import { DatePipe } from '@angular/common';
+
+export const PICK_FORMATS = {
+  parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
   display: {
-    dateInput: 'input',
-    monthYearLabel: { year: 'numeric', month: 'numeric' },
-    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric'
-    },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+      dateInput: 'input',
+      monthYearLabel: {year: 'numeric', month: 'short'},
+      dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+      monthYearA11yLabel: {year: 'numeric', month: 'long'}
   }
 };
+class PickDateAdapter extends NativeDateAdapter {
+  format(date: Date, displayFormat: Object): string {
+      if (displayFormat === 'input') {
+          return new DatePipe('en-FR').transform(date, 'yyyy-MM-dd');
+      } else {
+          return date.toDateString();
+      }
+  }
+}
+
+
 
 @Component({
   selector: 'app-immatriculation',
   templateUrl: './immatriculation.component.html',
   styleUrls: ['./immatriculation.component.css'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}},
-    {provide: DateAdapter, useClass: AppDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}]
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}
+ /*  ,{provide: DateAdapter, useClass: PickDateAdapter},
+  {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS} */,
+  {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+  ]
   })
 export class ImmatriculationComponent implements OnInit {
   listAct:any=[];
@@ -77,34 +77,41 @@ export class ImmatriculationComponent implements OnInit {
   srcResult:any;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  icnpattern = "^[1,2][0-9]{12,13}";
+  icnpattern = "^[1,2][0-9]{12}";
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
+     addImmatriculation(){
+    
   
-   addImmatriculation(){
-    this.loader=true;
+     this.loader=true;
     this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
       if(resp.value.output.employerRegistrationFormId!=0){
         this.loader=false;
         this.dialog.closeAll();
         this.snackB.open("Demande immatriculation envoyée avec succes","Fermer", {
           duration: 10000,
-          panelClass: ['my-snack-bar','mat-success']
+          panelClass: ['my-snack-bar','mat-success'],
+          verticalPosition: 'bottom',
+          horizontalPosition:'left'
        });
       }
       
     }, error =>{
       if(error.status==500){
         this.loader=false;
-        this.snackB.open("Eurreur d'envoi veiller réessayer","", {
+        this.snackB.open("Eureur d'envoi veiller réessayer","Fermer", {
           duration: 5000,
-          panelClass: ['my-snack-bar1', "mat-warn"]
+          panelClass: ['my-snack-bar1', "mat-warn"],
+          verticalPosition: 'bottom',
+          horizontalPosition:'left'
        })
       }
       else if(error.status==0){
          this.loader=false;  
-        this.snackB.open("Eurreur d'envoi veiller vérifier la connection","", {
+        this.snackB.open("Eureur d'envoi veiller vérifier la connection","Fermer", {
           duration: 5000,
-          panelClass: ['my-snack-bar1', "mat-warn"]
+          panelClass: ['my-snack-bar1', "mat-warn"],
+          verticalPosition: 'bottom',
+          horizontalPosition:'left'
        })
       }
       
@@ -112,6 +119,7 @@ export class ImmatriculationComponent implements OnInit {
     
    
   } 
+  
 
   /* immatForm=new FormGroup({
   input:new FormGroup ({
@@ -187,54 +195,55 @@ export class ImmatriculationComponent implements OnInit {
     dateOfInspection:new FormControl('2020-01-01', Validators.required),
     dateOfFirstHire:this.fb.control('2020-01-01', Validators.required),
     shortName:this.fb.control(''),
-    businessSector:this.fb.control('Activités de fabrication', Validators.required),
-    mainLineOfBusiness:this.fb.control('ABATTAGE BETAIL', Validators.required),
-    region:this.fb.control('DAKAR', Validators.required),
-    department:this.fb.control('RUFISQUE', Validators.required),
-    arondissement:this.fb.control('RUFISQUE', Validators.required),
-    commune:this.fb.control('RUFISQUE EST', Validators.required),
-    qartier:this.fb.control('KEURY KAW', Validators.required),
-    address:this.fb.control('KEURY KAW lot 123 B', Validators.required),
-    telephone:this.fb.control('774142082', Validators.required),
-    email:this.fb.control('aloucams2@gmail.com', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
+    businessSector:this.fb.control('', Validators.required),
+    mainLineOfBusiness:this.fb.control('', Validators.required),
+    region:this.fb.control('', Validators.required),
+    department:this.fb.control('', Validators.required),
+    arondissement:this.fb.control('', Validators.required),
+    commune:this.fb.control('', Validators.required),
+    qartier:this.fb.control('', Validators.required),
+    address:this.fb.control('', Validators.required),
+    telephone:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
+    email:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
     website:this.fb.control(''),
     noOfWorkersInBasicScheme:this.fb.control('1', Validators.required),
     noOfWorkersInGenScheme:this.fb.control('1', Validators.required)
       }),
       employerQuery:this.fb.group({
-        employerType:this.fb.control('PVT', Validators.required),
-        legalStatus: this.fb.control('CONC',Validators.required),
-        typeEtablissement:this.fb.control('HDQT', Validators.required),
-        employerName:this.fb.control('KB REST WS', Validators.required),
-        nineaNumber:this.fb.control('505750888',[Validators.required,Validators.maxLength(9)]),
+        employerType:this.fb.control('', Validators.required),
+        legalStatus: this.fb.control('',Validators.required),
+        typeEtablissement:this.fb.control('', Validators.required),
+        employerName:this.fb.control('', Validators.required),
+        nineaNumber:this.fb.control('',[Validators.required,Validators.maxLength(9)]),
         ninetNumber:this.fb.control(''),
         regType:this.fb.control('BVOLN', Validators.required),
         taxId:this.fb.control('2G3'),
         taxIdDate:this.fb.control('2020-01-01',Validators.required),
         tradeRegisterDate: this.fb.control('2020-01-01',Validators.required),
-        tradeRegisterNumber:this.fb.control('SN.AKH.2020.C.13312',Validators.required),
+        tradeRegisterNumber:this.fb.control('',Validators.required),
       }),
       legalRepresentativeForm:new FormGroup({
-        lastName:this.fb.control('Al Hassane', Validators.required),
-        firstName:this.fb.control('CAMARA', Validators.required),
+        lastName:this.fb.control('', Validators.required),
+        firstName:this.fb.control('', Validators.required),
         birthdate:this.fb.control('1991-11-11', Validators.required),
-        nationality:this.fb.control('SEN', Validators.required),
-        nin:this.fb.control('1548119104473', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.icnpattern)]}),
-        placeOfBirth:this.fb.control('Dakar', Validators.required),
-        cityOfBirth:this.fb.control('Dakar', Validators.required),
-        typeOfIdentity:this.fb.control('NIN', Validators.required),
-        ninCedeo:this.fb.control('', Validators.required),
-        issuedDate:this.fb.control('2030-01-10', Validators.required),
-        landLineNumber:this.fb.control('77147628', Validators.required),
-        expiryDate:this.fb.control('2020-01-10', Validators.required),
-        region:this.fb.control('Dakar', Validators.required),
-        department:this.fb.control('Dakar', Validators.required),
-        arondissement:this.fb.control('Almadies', Validators.required),
-        commune:this.fb.control('Dakar', Validators.required),
-        qartier:this.fb.control('Dakar', Validators.required),
-        address:this.fb.control('Dakar', Validators.required),
-        mobileNumber:this.fb.control('784142082', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
-        email:this.fb.control('kebe1702@gmail.com', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
+        nationality:this.fb.control('', Validators.required),
+        nin:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.icnpattern)]}),
+        placeOfBirth:this.fb.control('', Validators.required),
+        cityOfBirth:this.fb.control('', Validators.required),
+        typeOfIdentity:this.fb.control('', Validators.required),
+        /* ninCedeo:this.fb.control('', Validators.required),  */
+        ninCedeo:this.fb.control(''),
+        issuedDate:this.fb.control('2020-01-10', Validators.required),
+        landLineNumber:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
+        expiryDate:this.fb.control('2030-01-10', Validators.required),
+        region:this.fb.control('', Validators.required),
+        department:this.fb.control('', Validators.required),
+        arondissement:this.fb.control('', Validators.required),
+        commune:this.fb.control('', Validators.required),
+        qartier:this.fb.control('', Validators.required),
+        address:this.fb.control('', Validators.required),
+        mobileNumber:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
+        email:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
         identityIdNumber:this.fb.control(''),
         legalRepPerson:this.fb.control(''),
       }),
@@ -1327,7 +1336,7 @@ this.listMainActivities();
     let d1:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('issuedDate').value;
     let d2:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value;
     let d3: number = this.dateDiff1(new Date(d1),new Date(d2));
-    if(this.immatForm.get('legalRepresentativeForm').get('typeOfIdentity').value==1){
+    if(this.immatForm.get('input').get('legalRepresentativeForm').get('typeOfIdentity').value=="NIN"){
     if(d3< 10 || d3> 10.008219178082191){
       this.validICN=true;
       console.log(this.validICN)
@@ -1348,18 +1357,7 @@ this.listMainActivities();
   }
    
   }
-/*   validDateNaissance(event){
-    let d=this.input.get('legalRepresentativeForm').get('birthdate').value/ 31536000000;
-    let d3= this.dateDiff1(new Date(d),new Date());
-    if(d3<18.008219178082191){
-      this.validDateNaiss=true;
-      console.log(d3);
-      console.log(this.validDateNaiss);
-    }
-    else{
-      this.validDateNaiss=false;
-    }
-  } */ 
+ 
   validDateNaissance(event){
     let param=this.immatForm.get('input').get('legalRepresentativeForm').get('birthdate').value;
     let current_date = new Date();
@@ -1376,7 +1374,7 @@ this.listMainActivities();
       this.validDateNaiss = false;
     }
   }
- getNineaNumber(){
+/*  getNineaNumber(){
    this.immService.getNineaNumber(this.immatForm.get('input').get('employerQuery').get('nineaNumber').value).subscribe(
      (resp:any)=>{
        console.log(resp);
@@ -1386,52 +1384,52 @@ this.listMainActivities();
        }
      }
    )
- }
+ } */
 
   createItem() {
     return this.fb.group({
       rechercheEmploye: this.fb.control(''),
-      nomEmploye:  this.fb.control(''),
-      prenomEmploye:  this.fb.control(''),
-      sexe:  this.fb.control(''),
-      etatCivil:  this.fb.control(''),
-      dateNaissance:  this.fb.control(''),
+      nomEmploye:  this.fb.control('KEBSON'),
+      prenomEmploye:  this.fb.control('ELHADJI'),
+      sexe:  this.fb.control('HOMME'),
+      etatCivil:  this.fb.control('CEL'),
+      dateNaissance:  this.fb.control('1991-11-11'),
       numRegNaiss:  this.fb.control(''),
       nomPere:  this.fb.control(''),
       prenomPere:  this.fb.control(''),
       nomMere:  this.fb.control(''),
       prenomMere:  this.fb.control(''),
-      nationalite:  this.fb.control(''),
-      typePieceIdentite:  this.fb.control(''),
-      nin:  this.fb.control(''),
+      nationalite:  this.fb.control('SEN'),
+      typePieceIdentite:  this.fb.control('NIN'),
+      nin:  this.fb.control('1549199114278'),
       ninCedeao:  this.fb.control(''),
       numPieceIdentite:  this.fb.control(''),
-      delivreLe:  this.fb.control(''),
-      LieuDelivrance: this.fb.control(''),
-      expireLe:  this.fb.control(''),
-      villeNaissance:  this.fb.control(''),
-      paysNaissance:  this.fb.control(''),
+      delivreLe:  this.fb.control('2020-01-01'),
+      lieuDelivrance: this.fb.control('SEN'),
+      expireLe:  this.fb.control('2030-01-01'),
+      villeNaissance:  this.fb.control('DAKAR'),
+      paysNaissance:  this.fb.control('SEN'),
       employeurPrec: this.fb.control(''),
-      pays:  this.fb.control(''),
-      region: this.fb.control(''),
-      departement:  this.fb.control(''),
-      arrondissement:  this.fb.control(''),
-      commune:  this.fb.control(''),
-      quartier:  this.fb.control(''),
-      adresse:  this.fb.control(''),
-      boitePostale:  this.fb.control(''),
-      typeMouvement:  this.fb.control(''),
-      natureContrat:  this.fb.control(''),
-      dateDebutContrat:  this.fb.control(''),
-      dateFinContrat: this.fb.control(''),
-      profession: this.fb.control(''),
-      emploi: this.fb.control(''),
+      pays:  this.fb.control('SEN'),
+      region: this.fb.control('DAKAR'),
+      departement:  this.fb.control('RUFISQUE'),
+      arrondissement:  this.fb.control('RUFISQUE EST'),
+      commune:  this.fb.control('RUFISQUE'),
+      quartier:  this.fb.control('KEURY KAW'),
+      adresse:  this.fb.control('DAKAR'),
+      boitePostale:  this.fb.control('12345'),
+      typeMouvement:  this.fb.control('EMBAUCHE'),
+      natureContrat:  this.fb.control('CDD'),
+      dateDebutContrat:  this.fb.control('2020-01-01'),
+      dateFinContrat: this.fb.control('2031-01-01'),
+      profession: this.fb.control('Acheteurs'),
+      emploi: this.fb.control('TESTEUR'),
       nonCadre: this.fb.control(''),
-      ouiCadre: this.fb.control(''),
-      conventionApplicable:  this.fb.control(''),
-      salaireContractuel:  this.fb.control(''),
-      tempsTravail:  this.fb.control(''),
-      categorie:  this.fb.control(''),
+      ouiCadre: this.fb.control('true'),
+      conventionApplicable:  this.fb.control('CC1'),
+      salaireContractuel:  this.fb.control('900000'),
+      tempsTravail:  this.fb.control('TPS_PLEIN'),
+      categorie:  this.fb.control('9B')
      
   });
   }

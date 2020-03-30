@@ -19,7 +19,8 @@ MatStepperModule, MatSliderModule, MatDrawerContainer, MatSidenavModule,
 MatProgressSpinnerModule, MatNavList, MatListModule, MatDialogModule, 
 MatTableModule, 
 MatRadioModule,
-MatSnackBarModule}
+MatSnackBarModule,
+MatExpansionModule}
 from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DocumentComponent } from './document/document.component';
@@ -95,7 +96,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatTableModule,
     MatDialogModule,
     PerfectScrollbarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule
       
   ],
 

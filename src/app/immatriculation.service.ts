@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
 const token=window.localStorage.getItem("token");
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class ImmatriculationService {
 addImmatriculation(immatriculation){
 
 return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
-{headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+token)})
+{headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+window.localStorage.getItem("token"))})
   }
  getNineaNumber(id){
    return this.http.get(environment.BASE_URL +'checkExistEmployer/' +id);

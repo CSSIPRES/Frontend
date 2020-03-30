@@ -13,6 +13,8 @@ export class AccueilComponent implements OnInit {
   loginForm:FormGroup;
   connection:boolean=false;
   newAccout:boolean=true;
+  loader:boolean=false;
+  errorMess:boolean=false;
 
   constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
   private login: LoginService,private router:Router) { }
@@ -28,15 +30,26 @@ export class AccueilComponent implements OnInit {
 
   }
   authenticate(){
+    this.loader=true;
+    if(this.loginForm.invalid==true){
+      this.loader=false;
+    }
     this.login.authenticate(this.loginForm.value).subscribe(
      
       (resp:any)=>{
      
       console.log(resp.id_token);
       if(resp.id_token!=null) {
+            this.loader=false;
             this.router.navigate(['/espaceEmploye']);
-            window.localStorage.setItem("token",resp.id_token );
+             window.localStorage.setItem("token",resp.id_token ); 
           }
+       else{
+         this.errorMess=true;
+       }   
+      },error=>{
+        this.loader=false;
+        this.errorMess=true;
       })
   }
   conn_account(){

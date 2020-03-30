@@ -41,6 +41,7 @@ export class EspaceEmployeComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     this.dialog.open(template, dialogConfig,
+     
       );
   }
 
@@ -54,14 +55,17 @@ export class EspaceEmployeComponent implements OnInit {
   openImmatDialog(){
     const dialogConfig = new MatDialogConfig();
 
-      dialogConfig.disableClose = false;
+      dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.data={
-        title:this.title,
-       
+        title:this.title
       } 
+      dialogConfig.width='1000px',
+      dialogConfig.height='600px'
      
-     this.dialog.open(ImmatriculationComponent, dialogConfig);
+     this.dialog.open(ImmatriculationComponent,
+      
+      dialogConfig);
   }
   openDeclarationDialog(){
     const dialogConfig = new MatDialogConfig();
@@ -71,6 +75,8 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.data={
         title:this.title, 
       }
+      dialogConfig.width='1000px',
+      dialogConfig.height='600px'
      this.dialog.open(DeclarationComponent, dialogConfig);
   }
  

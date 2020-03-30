@@ -1,0 +1,11 @@
+
+mat-toolbar{
+    border-top:1px solid rgb(255, 104, 49);
+    background-color: #f2f2f2;
+    min-height: 250px;
+}
+mat-toolbar span{
+    color:#999999;
+    font-weight: 100;
+    font-size:14px;
+}

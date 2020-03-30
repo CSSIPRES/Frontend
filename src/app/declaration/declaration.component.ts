@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 
 @Component({
   selector: 'app-declaration',
   templateUrl: './declaration.component.html',
-  styleUrls: ['./declaration.component.css']
+  styleUrls: ['./declaration.component.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}]
+  
 })
+
 export class DeclarationComponent implements OnInit {
 
   declarationForm=new FormGroup({
@@ -20,10 +26,20 @@ export class DeclarationComponent implements OnInit {
   dateFinCotisation:new FormControl('', Validators.required),
    
 }),
-/* synthese:new FormGroup({
+ synthese:new FormGroup({
   totalNouvSalaries:new FormControl(''),
   totalSalaries:new FormControl(''),
-}), */
+  cumulTotSalAssIpresRg:new FormControl(''),
+  cumulTotSalAssIpresRcc:new FormControl(''),
+  cumulTotSalAssCssPf:new FormControl(''),
+  cumulTotSalAssCssAtmp:new FormControl(''),
+  totalSalVerses:new FormControl(''),
+  mntCotPfCalcParEmployeur:new FormControl(''),
+  mntCotAtMpCalcParEmployeur:new FormControl(''),
+  mntCotRgCalcParEmployeur:new FormControl(''),
+  mntCotRccCalcParEmployeur:new FormControl(''),
+  
+}), 
 informationSalariesList:new FormGroup({
   numeroAssureSocial:new FormControl(''),
   nom:new FormControl(''),
@@ -36,6 +52,7 @@ informationSalariesList:new FormGroup({
   dateSortie:new FormControl(''),
   motifSortie:new FormControl(''),
   nombreHeures1:new FormControl(''),
+  nombreJours1:new FormControl(''),
   tempsTravail1:new FormControl(''),
   trancheTravail1:new FormControl(''),
   regimeGeneral1:new FormControl(''),
