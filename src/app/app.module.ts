@@ -97,7 +97,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatDialogModule,
     PerfectScrollbarModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
       
   ],
 

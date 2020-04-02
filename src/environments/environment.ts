@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   /* BASE_URL:'http://192.168.125.252:8080/api/', */
-  BASE_URL:'http://192.168.125.252:8080/api/',
+    BASE_URL:'http://192.168.125.252:8080/api/',  
   /* BASE_URL1:'http://192.168.5.208:8080' */
 };
 

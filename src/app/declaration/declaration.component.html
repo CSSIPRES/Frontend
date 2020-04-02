@@ -72,7 +72,7 @@
           
             
               <mat-horizontal-stepper formGroupName="input"  #stepper class="mt-1">
-                <mat-step formGroupName="informationEmployeur" [stepControl]="informationEmployeur" label="Information General" state="genInfo">
+                <mat-step formGroupName="informationEmployeur" label="Information General" state="genInfo">
                 <ng-template matStepLabel>Information General</ng-template> 
                 <div fxLayout="row" fxLayoutGap="10%">
                   <mat-form-field   appearance="outline">
@@ -136,7 +136,7 @@
                   <button  class="submit-button" mat-button matStepperNext>Suivant</button>
                 </div>
                </mat-step>
-               <mat-step class="synthese" formGroupName="synthese" [stepControl]="synthese" 
+               <mat-step class="synthese" formGroupName="synthese"  
                label="Synthese" state="synthese">
                 <div fxLayout="row" fxLayoutGap="5%">
                   <mat-form-field   appearance="outline">
@@ -205,7 +205,7 @@
                   <button  class="submit-button" mat-button matStepperNext>Suivant</button>
                 </div>
                </mat-step> 
-               <mat-step formGroupName="informationSalariesList" [stepControl]="informationSalariesList" 
+               <mat-step formGroupName="informationSalariesList"  
                 label="Information Liste salaries" state="infoSalList">
                 <div fxLayout="row" fxLayoutGap="10%">            
               <mat-form-field   appearance="outline">
@@ -343,7 +343,7 @@
                   <button  class="submit-button" mat-button matStepperNext>Suivant</button>
                 </div>
               </mat-step>
-              <mat-step class="confirmation" formGroupName="confirmation" [stepControl]="confirmation" 
+              <mat-step class="confirmation" 
                label="Confirmation" state="confirmation">
                <div fxLayoutAlign="end" fxLayoutGap="10%">
                 <button mat-raised-button mat-button matStepperPrevious>Precedent</button>

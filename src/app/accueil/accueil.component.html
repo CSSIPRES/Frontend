@@ -90,7 +90,7 @@
   
 </div>
 
-<div fxLayout="row" fxLayoutGap="0.5%" class="mt-5 mb-5">
+<div class="container" fxLayout="row" fxLayoutGap="0.5%" class="mt-5 mb-5">
   <div fxFlex="25" fxLayout="column">
     <h4 class="ml-2">
       Des informations pour mieux vous aider à comprendre votre statut
@@ -146,7 +146,7 @@
     </mat-card>
   </div>
 </div>
-<div fxLayout="row" fxLayoutGap="5%" class="mt-5 mb-5">
+<div  fxLayout="row" fxLayoutGap="5%" class="mt-5 mb-5">
   <div fxFlex="60" fxLayout="column">
      <mat-card class="mat-elevation-z8 ml-5">
       <mat-card-title>
@@ -157,8 +157,9 @@
       </mat-card-title> 
        <mat-card-content>
         <mat-accordion>
-          <mat-expansion-panel  (opened)="panelOpenState1 = true"
-          (closed)="panelOpenState1 = false">
+        <!--   <mat-expansion-panel  (opened)="panelOpenState2 = true"
+        (closed)="panelOpenState2 = false"> -->
+          <mat-expansion-panel >
             <mat-expansion-panel-header>
               <mat-panel-title>
                <h5 [ngStyle]="{'color':panelOpenState1 === true ? 'rgb(255, 104, 49);' : '' }"> Comment adherer a l'IPRES ? </h5>
@@ -171,11 +172,12 @@
              emabauche un nouveau salarie vous devez venir a l'IPRES faire votre adhesion.
            </span>
           </mat-expansion-panel>
-          <mat-expansion-panel  (opened)="panelOpenState2 = true"
-          (closed)="panelOpenState2 = false">
+          <!-- <mat-expansion-panel  (opened)="panelOpenState2 = true"
+          (closed)="panelOpenState2 = false"> -->
+          <mat-expansion-panel  >
           <mat-expansion-panel-header>
             <mat-panel-title>
-             <h5 [class.t2]="panelOpenState2 == 'true'"> Qu'est qu'un participant ? </h5>
+             <h5> Qu'est qu'un participant ? </h5>
             </mat-panel-title>
             <mat-panel-description>
              
@@ -183,11 +185,12 @@
           </mat-expansion-panel-header>
           <span>Response</span>
         </mat-expansion-panel>
-        <mat-expansion-panel  (opened)="panelOpenState2 = true"
-        (closed)="panelOpenState2 = false">
+       <!--  <mat-expansion-panel  (opened)="panelOpenState2 = true"
+        (closed)="panelOpenState2 = false"> -->
+        <mat-expansion-panel >
         <mat-expansion-panel-header>
           <mat-panel-title>
-           <h5 [class.t2]="panelOpenState2 == 'true'"> Comment faire les cotisation ? </h5>
+           <h5> Comment faire les cotisation ? </h5>
           </mat-panel-title>
           <mat-panel-description>
            
@@ -195,11 +198,10 @@
         </mat-expansion-panel-header>
         <span>Response</span>
       </mat-expansion-panel>
-      <mat-expansion-panel  (opened)="panelOpenState2 = true"
-      (closed)="panelOpenState2 = false">
+      <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-         <h5 [class.t2]="panelOpenState2 == 'true'"> Comment faire les cotisation ? </h5>
+         <h5> Comment faire les cotisation ? </h5>
         </mat-panel-title>
         <mat-panel-description>
          
@@ -207,11 +209,10 @@
       </mat-expansion-panel-header>
       <span>Response</span>
     </mat-expansion-panel>
-    <mat-expansion-panel  (opened)="panelOpenState2 = true"
-    (closed)="panelOpenState2 = false">
+    <mat-expansion-panel  >
     <mat-expansion-panel-header>
       <mat-panel-title>
-       <h5 [class.t2]="panelOpenState2 == 'true'"> Comment obtenir son releve de points 
+       <h5> Comment obtenir son releve de points 
          et sa carte affilisation ? </h5>
       </mat-panel-title>
       <mat-panel-description>

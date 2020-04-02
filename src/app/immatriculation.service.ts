@@ -9,14 +9,15 @@ const token=window.localStorage.getItem("token");
   providedIn: 'root'
 })
 export class ImmatriculationService {
-
-  constructor(private http:HttpClient) { }
+  
+  constructor(private http:HttpClient) {
+    
+   }
   
 addImmatriculation(immatriculation){
-
 return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
-{headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+window.localStorage.getItem("token"))})
-  }
+{headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+token)})
+}
  getNineaNumber(id){
    return this.http.get(environment.BASE_URL +'checkExistEmployer/' +id);
  } 

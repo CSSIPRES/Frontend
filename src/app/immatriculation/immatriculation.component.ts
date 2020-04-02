@@ -1,43 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
-import { MatDialogConfig, MatDialog, MatSnackBar, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_DATE_LOCALE} from '@angular/material';
-import { ImmatriculationService } from '../immatriculation.service';
- import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter'; 
+import {  MatDialog, MatSnackBar,  NativeDateAdapter, MatTableDataSource, MatDatepickerInputEvent} from '@angular/material';
+import { ImmatriculationService } from '../immatriculation.service'; 
 
-import { AppDateAdapter, APP_DATE_FORMATS } from 'src/format-datepicker';
-import { DatePipe } from '@angular/common';
-
-export const PICK_FORMATS = {
-  parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
-  display: {
-      dateInput: 'input',
-      monthYearLabel: {year: 'numeric', month: 'short'},
-      dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-      monthYearA11yLabel: {year: 'numeric', month: 'long'}
-  }
-};
-class PickDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
-      if (displayFormat === 'input') {
-          return new DatePipe('en-FR').transform(date, 'yyyy-MM-dd');
-      } else {
-          return date.toDateString();
-      }
-  }
-}
-
-
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-immatriculation',
   templateUrl: './immatriculation.component.html',
   styleUrls: ['./immatriculation.component.css'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}
- /*  ,{provide: DateAdapter, useClass: PickDateAdapter},
-  {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS} */,
-  {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}},
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ]
   })
 export class ImmatriculationComponent implements OnInit {
@@ -73,120 +49,63 @@ export class ImmatriculationComponent implements OnInit {
   validDateNaiss:boolean=false;
   snackBar:boolean=true;
   immatForm:FormGroup;
-
+  mainRegistrationForm:FormGroup;
   srcResult:any;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   icnpattern = "^[1,2][0-9]{12}";
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
-     addImmatriculation(){
-    
+  dataSource: MatTableDataSource<any>;
+  displayedColumns = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance']
   
-     this.loader=true;
-    this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
-      if(resp.value.output.employerRegistrationFormId!=0){
-        this.loader=false;
-        this.dialog.closeAll();
-        this.snackB.open("Demande immatriculation envoyée avec succes","Fermer", {
-          duration: 10000,
-          panelClass: ['my-snack-bar','mat-success'],
-          verticalPosition: 'bottom',
-          horizontalPosition:'left'
-       });
-      }
-      
-    }, error =>{
-      if(error.status==500){
-        this.loader=false;
-        this.snackB.open("Eureur d'envoi veiller réessayer","Fermer", {
-          duration: 5000,
-          panelClass: ['my-snack-bar1', "mat-warn"],
-          verticalPosition: 'bottom',
-          horizontalPosition:'left'
-       })
-      }
-      else if(error.status==0){
-         this.loader=false;  
-        this.snackB.open("Eureur d'envoi veiller vérifier la connection","Fermer", {
-          duration: 5000,
-          panelClass: ['my-snack-bar1', "mat-warn"],
-          verticalPosition: 'bottom',
-          horizontalPosition:'left'
-       })
-      }
-      
-    })
-    
-   
-  } 
   
 
-  /* immatForm=new FormGroup({
-  input:new FormGroup ({
-    mainRegistrationForm:new FormGroup({
-    dateOfInspection:new FormControl('2020-01-01', Validators.required),
-    dateOfFirstHire:new FormControl('2020-01-01', Validators.required),
-    shortName:new FormControl(''),
-    businessSector:new FormControl('Activités de fabrication', Validators.required),
-    mainLineOfBusiness:new FormControl('ABATTAGE BETAIL', Validators.required),
-    region:new FormControl('DAKAR', Validators.required),
-    department:new FormControl('RUFISQUE', Validators.required),
-    arondissement:new FormControl('RUFISQUE', Validators.required),
-    commune:new FormControl('RUFISQUE EST', Validators.required),
-    qartier:new FormControl('KEURY KAW', Validators.required),
-    address:new FormControl('KEURY KAW lot 123 B', Validators.required),
-    telephone:new FormControl('774142082', Validators.required),
-    email:new FormControl('aloucams2@gmail.com', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
-    website:new FormControl(''),
-    noOfWorkersInBasicScheme:new FormControl('1', Validators.required),
-    noOfWorkersInGenScheme:new FormControl('1', Validators.required)
-  }),
-    employerQuery:new FormGroup({
-      employerType:new FormControl('PVT', Validators.required),
-      legalStatus: new FormControl('CONC',Validators.required),
-      typeEtablissement:new FormControl('HDQT', Validators.required),
-      employerName:new FormControl('KB REST WS', Validators.required),
-      nineaNumber:new FormControl('505750888',[Validators.required,Validators.maxLength(9)]),
-      ninetNumber:new FormControl(''),
-      regType:new FormControl('BVOLN', Validators.required),
-      taxId:new FormControl('2G3'),
-      taxIdDate:new FormControl('2020-01-01',Validators.required),
-      tradeRegisterDate: new FormControl('2020-01-01',Validators.required),
-      tradeRegisterNumber:new FormControl('SN.AKH.2020.C.13312',Validators.required),
-    }),
-    legalRepresentativeForm:new FormGroup({
-      lastName:new FormControl('Al Hassane', Validators.required),
-      firstName:new FormControl('CAMARA', Validators.required),
-      birthdate:new FormControl('1991-11-11', Validators.required),
-      nationality:new FormControl('SEN', Validators.required),
-      nin:new FormControl('1548119104473', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.icnpattern)]}),
-      placeOfBirth:new FormControl('Dakar', Validators.required),
-      cityOfBirth:new FormControl('Dakar', Validators.required),
-      typeOfIdentity:new FormControl('NIN', Validators.required),
-      ninCedeo:new FormControl('', Validators.required),
-      issuedDate:new FormControl('2030-01-10', Validators.required),
-      landLineNumber:new FormControl('77147628', Validators.required),
-      expiryDate:new FormControl('2020-01-10', Validators.required),
-      region:new FormControl('Dakar', Validators.required),
-      department:new FormControl('Dakar', Validators.required),
-      arondissement:new FormControl('Almadies', Validators.required),
-      commune:new FormControl('Dakar', Validators.required),
-      qartier:new FormControl('Dakar', Validators.required),
-      address:new FormControl('Dakar', Validators.required),
-      mobileNumber:new FormControl('784142082', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
-      email:new FormControl('kebe1702@gmail.com', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
-      identityIdNumber:new FormControl(''),
-      legalRepPerson:new  FormControl(''),
-    })
-       employeList: new FormArray([this.createItem()])  
-  })
-}) */
-  
+
   constructor(private fb:FormBuilder,private dialog:MatDialog,
     private immService:ImmatriculationService,private snackB: MatSnackBar) {
       
      
     }
+    addImmatriculation(){
+     let d=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
+     console.log(moment.utc(d).format('YYYY-MM-DD'));
+    this.loader=true;
+     this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
+       if(resp.value.output.employerRegistrationFormId!=0){
+         this.loader=false;
+         this.dialog.closeAll();
+         this.snackB.open("Demande immatriculation envoyée avec succes","Fermer", {
+           duration: 10000,
+           panelClass: ['my-snack-bar','mat-success'],
+           verticalPosition: 'bottom',
+           horizontalPosition:'left'
+        });
+       }
+       
+     }, error =>{
+       if(error.status==500){
+         this.loader=false;
+         this.snackB.open("Eureur d'envoi veiller réessayer","Fermer", {
+           duration: 5000,
+           panelClass: ['my-snack-bar1', "mat-warn"],
+           verticalPosition: 'bottom',
+           horizontalPosition:'left'
+        })
+       }
+       else if(error.status==0){
+          this.loader=false;  
+         this.snackB.open("Eureur d'envoi veiller vérifier la connection","Fermer", {
+           duration: 5000,
+           panelClass: ['my-snack-bar1', "mat-warn"],
+           verticalPosition: 'bottom',
+           horizontalPosition:'left'
+        })
+       }
+       
+     })
+     
+    
+   } 
    
    initImmatForm(){
      this.immatForm=this.fb.group({
@@ -1449,7 +1368,7 @@ this.initlistDept.items.forEach(element => {
   }
   }
 ); 
-}
+  }
 selectDepartement(event){
   this.listArrondissements=[];
   let d1= this.immatForm.get('input').get('mainRegistrationForm').get('department').value;
@@ -1484,8 +1403,24 @@ selectDepartement(event){
       }
     ); 
   }
- 
+  addTableEmploye(){
+    this.dataSource = new MatTableDataSource(
+      (this.immatForm.get('input').get('employeList') as FormArray).controls)
+      console.log(this.dataSource);
+  }
+  @Input() private format = 'YYYY/MM/DD HH:mm:ss';
+addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.dateValue = moment(event.value, this.format);
+}
+@Input() _dateValue: string = null;
 
+get dateValue() {
+    return moment(this._dateValue, this.format);
+}
+
+set dateValue(val) {
+    this._dateValue = moment(val).format(this.format);
+}
  /*  onFileSelected() {
     const inputNode: any = document.querySelector('#file');
   
@@ -1623,3 +1558,85 @@ selectDepartement(event){
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* immatForm=new FormGroup({
+  input:new FormGroup ({
+    mainRegistrationForm:new FormGroup({
+    dateOfInspection:new FormControl('2020-01-01', Validators.required),
+    dateOfFirstHire:new FormControl('2020-01-01', Validators.required),
+    shortName:new FormControl(''),
+    businessSector:new FormControl('Activités de fabrication', Validators.required),
+    mainLineOfBusiness:new FormControl('ABATTAGE BETAIL', Validators.required),
+    region:new FormControl('DAKAR', Validators.required),
+    department:new FormControl('RUFISQUE', Validators.required),
+    arondissement:new FormControl('RUFISQUE', Validators.required),
+    commune:new FormControl('RUFISQUE EST', Validators.required),
+    qartier:new FormControl('KEURY KAW', Validators.required),
+    address:new FormControl('KEURY KAW lot 123 B', Validators.required),
+    telephone:new FormControl('774142082', Validators.required),
+    email:new FormControl('aloucams2@gmail.com', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
+    website:new FormControl(''),
+    noOfWorkersInBasicScheme:new FormControl('1', Validators.required),
+    noOfWorkersInGenScheme:new FormControl('1', Validators.required)
+  }),
+    employerQuery:new FormGroup({
+      employerType:new FormControl('PVT', Validators.required),
+      legalStatus: new FormControl('CONC',Validators.required),
+      typeEtablissement:new FormControl('HDQT', Validators.required),
+      employerName:new FormControl('KB REST WS', Validators.required),
+      nineaNumber:new FormControl('505750888',[Validators.required,Validators.maxLength(9)]),
+      ninetNumber:new FormControl(''),
+      regType:new FormControl('BVOLN', Validators.required),
+      taxId:new FormControl('2G3'),
+      taxIdDate:new FormControl('2020-01-01',Validators.required),
+      tradeRegisterDate: new FormControl('2020-01-01',Validators.required),
+      tradeRegisterNumber:new FormControl('SN.AKH.2020.C.13312',Validators.required),
+    }),
+    legalRepresentativeForm:new FormGroup({
+      lastName:new FormControl('Al Hassane', Validators.required),
+      firstName:new FormControl('CAMARA', Validators.required),
+      birthdate:new FormControl('1991-11-11', Validators.required),
+      nationality:new FormControl('SEN', Validators.required),
+      nin:new FormControl('1548119104473', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.icnpattern)]}),
+      placeOfBirth:new FormControl('Dakar', Validators.required),
+      cityOfBirth:new FormControl('Dakar', Validators.required),
+      typeOfIdentity:new FormControl('NIN', Validators.required),
+      ninCedeo:new FormControl('', Validators.required),
+      issuedDate:new FormControl('2030-01-10', Validators.required),
+      landLineNumber:new FormControl('77147628', Validators.required),
+      expiryDate:new FormControl('2020-01-10', Validators.required),
+      region:new FormControl('Dakar', Validators.required),
+      department:new FormControl('Dakar', Validators.required),
+      arondissement:new FormControl('Almadies', Validators.required),
+      commune:new FormControl('Dakar', Validators.required),
+      qartier:new FormControl('Dakar', Validators.required),
+      address:new FormControl('Dakar', Validators.required),
+      mobileNumber:new FormControl('784142082', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
+      email:new FormControl('kebe1702@gmail.com', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
+      identityIdNumber:new FormControl(''),
+      legalRepPerson:new  FormControl(''),
+    })
+       employeList: new FormArray([this.createItem()])  
+  })
+}) */
+  

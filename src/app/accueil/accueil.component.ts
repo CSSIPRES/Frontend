@@ -15,6 +15,7 @@ export class AccueilComponent implements OnInit {
   newAccout:boolean=true;
   loader:boolean=false;
   errorMess:boolean=false;
+  panelOpenState1:boolean=false;
 
   constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
   private login: LoginService,private router:Router) { }

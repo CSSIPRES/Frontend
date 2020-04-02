@@ -11,11 +11,11 @@
     <button mat-button><mat-icon>people_outlined</mat-icon>Qui nous sommes</button>
     <button mat-button ><mat-icon>map</mat-icon>Contacts</button>
    </div>
-    <div fxFlex="10%" class="mt-2">
+    <div *ngIf="checkConn" fxFlex="10%" class="mt-2">
       <button mat-button mat-raised-button routerLink="/espaceEmploye"><mat-icon>person_outlined</mat-icon>
       Acceder a mon espace</button>
    </div>
-   <div fxFlex="10%"  fxLayout="column" class="mt-2">
+   <div *ngIf="checkConn" fxFlex="10%"  fxLayout="column" class="mt-2">
       <button  mat-icon-button [matMenuTriggerFor]="menu" ><span>AC</span><br>
       <mat-icon class="keyboard">keyboard_arrow_down</mat-icon></button>
       <mat-menu #menu="matMenu">

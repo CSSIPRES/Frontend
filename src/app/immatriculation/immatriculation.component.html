@@ -1,11 +1,9 @@
 
-       
- 
- <!--  <h1 mat-dialog-title>
+<!--  <h1 mat-dialog-title>
    Demande d'Immatriculation
   </h1> -->
   <div  fxLayoutAlign="space-between center">
-    <h1 mat-dialog-title>Demande d'Immatriculation</h1>
+    <h1 mat-dialog-title>Demande d'immatriculation</h1>
      <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
           <mat-icon color="warn">close</mat-icon>
       </button>
@@ -20,9 +18,11 @@
       <form [formGroup]="immatForm">
        
       <mat-horizontal-stepper formGroupName="input"  #stepper class="mt-1">
-        <mat-step formGroupName="mainRegistrationForm" [stepControl]="mainRegistrationForm" label="Information General" state="phone">
+        <mat-step formGroupName="mainRegistrationForm"  label="Information General" state="phone">
       <div class="mt-5">
-      <ng-template matStepLabel>Information General</ng-template> 
+      <ng-template matStepLabel>
+        <span [ngStyle]="{'color': immatForm.get('input').get('mainRegistrationForm').valid ? 'rgb(14, 189, 8)' : ''}">Information General</span>
+      </ng-template> 
       <div fxLayout="row" fxLayoutGap="10%">
       <mat-form-field  appearance="outline">
         <mat-label>Nom de l'entreprise</mat-label>
@@ -191,9 +191,12 @@
    
   </div>
   </mat-step>
-  <mat-step formGroupName="employerQuery" [stepControl]="employerQuery" label="Information Employeur" state="chat">
+  <mat-step formGroupName="employerQuery" label="Information Employeur" state="chat">
     <div class="mt-5">
-      <ng-template matStepLabel>Information Employeur</ng-template>
+      <ng-template matStepLabel>
+        <span [ngStyle]="{'color': immatForm.get('input').get('employerQuery').valid ? 'rgb(14, 189, 8)' : ''}">Information Employeur
+        </span>
+      </ng-template>
       <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field  appearance="outline">
           <mat-label>Type employeur</mat-label>
@@ -306,9 +309,11 @@
     
   </div>
     </mat-step>
-    <mat-step formGroupName="legalRepresentativeForm" [stepControl]="legalRepresentativeForm" label="Representant legale" state="person_outlined">
+    <mat-step formGroupName="legalRepresentativeForm"  label="Representant legale" state="person_outlined">
       <div class="mt-5">
-        <ng-template matStepLabel>Representant legale</ng-template>
+        <ng-template matStepLabel>
+          
+         <span [ngStyle]="{'color': immatForm.get('input').get('legalRepresentativeForm').valid ? 'rgb(14, 189, 8)' : ''}"> Representant legale</span></ng-template>
         <div fxLayout="row" fxLayoutGap="10%">
           <mat-form-field appearance="outline" >
             <mat-label>Nom</mat-label>
@@ -410,7 +415,7 @@
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Region</mat-label>
-            <mat-select (selectionChange)="selectRegion(event)" formControlName="region" required>
+            <mat-select (selectionChange)="selectRegion($event)" formControlName="region" required>
               <mat-option *ngFor="let r of listRegions.items" [value]="r.region">{{r.region | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
@@ -420,7 +425,7 @@
        <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field  appearance="outline">
           <mat-label>Departement</mat-label>
-          <mat-select (selectionChange)="selectDepartement(event)"  formControlName="department" required>
+          <mat-select (selectionChange)="selectDepartement($event)"  formControlName="department" required>
             <mat-option *ngFor="let d of listDepartments" [value]="d.departement">
               {{d.departement | titlecase}}</mat-option>
           </mat-select>
@@ -429,7 +434,7 @@
         </mat-form-field>
         <mat-form-field  appearance="outline">
           <mat-label>Arrondissement</mat-label>
-          <mat-select (selectionChange)=" selectArrondissement(event)" formControlName="arondissement" required>
+          <mat-select (selectionChange)=" selectArrondissement($event)" formControlName="arondissement" required>
             <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
           </mat-select>
           <mat-icon matSuffix>work_outline</mat-icon>
@@ -489,10 +494,15 @@
       
     </div>
     </mat-step>
-       <mat-step formArrayName="employeList" [stepControl]="employeList" label="Ajouter salaries" state="person_outlined">
-          <div *ngFor="let item of immatForm.get('input').get('employeList').controls; let i = index;">  
+       <mat-step formArrayName="employeList" label="Ajouter salaries" state="person_outlined">
+        <div class="mt-5">
+          <ng-template matStepLabel>
+            <span [ngStyle]="{'color': immatForm.get('input').get('employeList').valid ? 'rgb(14, 189, 8)' : ''}">Liste des employes
+            </span>
+          </ng-template>
+        <div *ngFor="let item of immatForm.get('input').get('employeList')['controls']; let i = index;">  
            <div [formGroupName]="i">
-          <div fxLayout="row" fxLayoutGap="10%">
+          <div  fxLayout="row" fxLayoutGap="10%">
            <mat-form-field appearance="outline">
              <mat-label>Nom Employeur</mat-label>
              <input matInput formControlName="nomEmploye" required>
@@ -623,7 +633,7 @@
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Departement</mat-label>
-            <mat-select (selectionChange)="selectDepartement(event)"  formControlName="departement" required>
+            <mat-select (selectionChange)="selectDepartement($event)"  formControlName="departement" required>
               <mat-option *ngFor="let d of listDepartments" [value]="d.departement">
                 {{d.departement | titlecase}}</mat-option>
             </mat-select>
@@ -635,7 +645,7 @@
           
           <mat-form-field  appearance="outline">
             <mat-label>Arrondissement</mat-label>
-            <mat-select (selectionChange)=" selectArrondissement(event)" formControlName="arrondissement" required>
+            <mat-select (selectionChange)=" selectArrondissement($event)" formControlName="arrondissement" required>
               <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
@@ -643,7 +653,7 @@
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Commune</mat-label>
-            <mat-select (selectionChange)=" selectArrondissement(event)" formControlName="commune" required>
+            <mat-select (selectionChange)=" selectArrondissement($event)" formControlName="commune" required>
               <mat-option *ngFor="let ar of listArrondissements" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
@@ -775,16 +785,21 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
         </div>
-           <button mat-button (click)="addItem()">Ajouter salarie</button>
+          <button mat-button (click)="addItem()">Ajouter salarie</button>
+          <!-- <button mat-button (click)="addTableEmploye()">Ajouter salarie</button> -->   
       </div>
   </div>  
     <div fxLayoutAlign="end" fxLayoutGap="10%">
       <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-      <button [disabled]="!immatForm.get('input').get('employeList').valid"  class="submit-button"  mat-button matStepperNext>Suivant</button>
+      <button [disabled]="!immatForm.get('input').get('employeList').valid"  class="submit-button"  mat-button matStepperNext>
+        Suivant
+      </button> 
   </div>
-    </mat-step> 
-      <mat-step [stepControl]="infoSalarieForm" editable="false" label="Comfirmation" class="mt-1" state="done_all">
-          <ng-template matStepLabel>Comfirmation</ng-template> 
+</div>
+</mat-step> 
+      <mat-step editable="false" label="Comfirmation" class="mt-1" state="done_all">
+          <ng-template matStepLabel>
+           <span [ngStyle]="{'color': immatForm.get('input').valid ? 'rgb(14, 189, 8)' : ''}"> Comfirmation</span></ng-template> 
           <h4 class="mt-2 mb-2">Confirmation Demande</h4><br>
           <div class="report_infoFen">
          <mat-icon class="icon">person_outline</mat-icon> <h5 >Information General</h5><br>
@@ -1002,8 +1017,8 @@
           
         </mat-step>
       
-         <ng-template matStepperIcon="phone">
-          <mat-icon>create_new_folder</mat-icon>
+        <ng-template matStepperIcon="phone">
+               <mat-icon> create_new_folder</mat-icon>
         </ng-template>
         <ng-template matStepperIcon="chat">
           <mat-icon>library_books</mat-icon>

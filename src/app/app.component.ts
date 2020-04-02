@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {  WelcomeService } from './welcome.service';
 
 import 'hammerjs'; 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

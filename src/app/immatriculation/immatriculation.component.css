@@ -39,18 +39,21 @@ mat-horizontal-stepper{
   height: auto;
  }
 ::ng-deep .mat-step-header .mat-step-icon {
-  background-color: #999999;
+  background-color:#f2f2f2;
+  color:#999999;
+  border:2px solid  #d8d8d8;
   width: 30px;
   height: 30px;
 }
+ 
+::ng-deep .mat-step-header .mat-step-icon-state-done{
+  background-color:rgb(14, 189, 8);
+  color:#ffffff;
+  border:none;
+}
 ::ng-deep  .mat-step-header .mat-step-label{
 color: #999999 !important;
-
 }
-::ng-deep  .mat-step-header .mat-step-label-focused{
-  color: rgb(240, 60, 15)!important;
-
-  }
 
 ::ng-deep .mat-horizontal-stepper-header {
     box-sizing: border-box;
@@ -65,19 +68,17 @@ color: #999999 !important;
 ::ng-deep .mat-horizontal-stepper-header-container{
   padding-top:30px;
 }
-  ::ng-deep .mat-step-header .mat-step-icon-selected, 
-  .mat-step-header .mat-step-iconstate-done,
-  .mat-step-header .mat-step-icon-state-edit {
+  ::ng-deep .mat-step-header .mat-step-icon-selected {
     background-color: rgb(240, 60, 15)!important;
+    color:#ffffff;
+    border:none;
    }
    
-   ::ng-deep  .mat-step-label  .mat-step-label-selected{
-    font-weight: bold;
+   ::ng-deep .mat-step-header  .mat-step-label-selected{
+    
+    color: rgb(240, 60, 15)!important;
   }
-    ::ng-deep   .mat-step-header .mat-step-icon {
-      
-      color: #fff;
-  }
+    
 
 
  
@@ -162,6 +163,22 @@ color: #292929;
   padding:5px;
   margin-top:20px;
 }
+h1{
+  /* font-weight: 300; */
+  display: inline-block;
+  padding-bottom: 5px;
+  position: relative;
+  font-size:25px;
+}
+h1:before{
+  content: "";
+  position: absolute;
+  width: 20%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 3px solid rgba(255, 66, 19, 0.822)!important;
+}
 ::ng-deep .my-snack-bar {
   background-color: rgb(31, 139, 4);
   color: #E8EAF6;
@@ -176,8 +193,7 @@ color: #292929;
   .mat-progress-spinner::ng-deep circle {
     stroke: rgb(240, 60, 15)!important;
    
-   
-    }
+  }
 
     /* .overlay{
       height:100vh;
@@ -187,4 +203,21 @@ color: #292929;
       top: 0;
       left: 0;
       position: fixed;
+      } */
+      ::ng-deep    .mat-horizontal-stepper-header{
+       /*  margin-bottom: 45px; */
+      }
+/*       ::ng-deep      .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before { 
+        border-top-width: 4px;
+        border-top-color: blue;
+      }
+      
+      ::ng-deep  .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after {
+        border-top-width: 4px;
+        border-top-color: blue;
+      }
+      
+      ::ng-deep   .mat-stepper-horizontal-line {
+        border-top-width: 4px;
+        border-top-color: blue;
       } */

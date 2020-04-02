@@ -17,6 +17,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {nom: 'CAMARA', prenom: 'Al Hassane', num_secu:'332423', icn: '11323'},
   {nom: 'DIOP', prenom: 'Ousmane', num_secu:'122323', icn: '344232'}, 
 ];
+
 @Component({
   selector: 'app-espace-client',
   templateUrl: './espace-employe.component.html',
@@ -25,6 +26,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class EspaceEmployeComponent implements OnInit {
   validated:boolean=false;
+  isExpanded:boolean=false;
   displayedColumns: string[] = ['nom', 'prenom', 'num_secu', 'icn'];
   dataSource = ELEMENT_DATA;
   title:string;
@@ -32,9 +34,12 @@ export class EspaceEmployeComponent implements OnInit {
 
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
-  constructor(private dialog:MatDialog) { }
+  constructor(private dialog:MatDialog) {
+   
+   }
 
   ngOnInit() {
+    
   }
   openImmatPopup(template:TemplateRef<any>){
     const dialogConfig = new MatDialogConfig();
@@ -69,7 +74,6 @@ export class EspaceEmployeComponent implements OnInit {
   }
   openDeclarationDialog(){
     const dialogConfig = new MatDialogConfig();
-
       dialogConfig.disableClose = false;
       dialogConfig.autoFocus = true;
       dialogConfig.data={

@@ -1,11 +1,18 @@
 
 mat-toolbar{
-    border-top:1px solid rgb(255, 104, 49);
+    border-top:2px solid rgb(255, 104, 49);
     background-color: #f2f2f2;
     min-height: 250px;
+    /* border-bottom:1px solid rgb(255, 104, 49); */
 }
 mat-toolbar span{
-    color:#999999;
+    color:#9c9c9c;
     font-weight: 100;
     font-size:14px;
 }
+mat-toolbar h5{
+    color:rgb(58, 58, 58);
+}
+/* mat-card{
+    height: 50px;
+} */
