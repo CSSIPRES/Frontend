@@ -20,7 +20,8 @@ MatProgressSpinnerModule, MatNavList, MatListModule, MatDialogModule,
 MatTableModule, 
 MatRadioModule,
 MatSnackBarModule,
-MatExpansionModule}
+MatExpansionModule,
+MatTabsModule}
 from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DocumentComponent } from './document/document.component';
@@ -38,6 +39,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeclarationComponent } from './declaration/declaration.component';
+import { SuiviDemandeComponent } from './suivi-demande/suivi-demande.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -63,7 +65,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EspaceEmployeComponent,
     ImmatriculationExistComponent,
     RecapChaDirective,
-    DeclarationComponent
+    DeclarationComponent,
+    SuiviDemandeComponent
     
   ],
   imports: [
@@ -98,7 +101,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     MatSnackBarModule,
     MatExpansionModule,
-    MatTableModule
+    MatTabsModule
       
   ],
 
@@ -119,6 +122,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   }],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
-  DeclarationComponent]
+  DeclarationComponent,SuiviDemandeComponent]
 })
 export class AppModule { }

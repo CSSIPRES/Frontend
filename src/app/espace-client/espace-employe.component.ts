@@ -4,6 +4,7 @@ import { ImmatriculationComponent } from '../immatriculation/immatriculation.com
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { ImmatriculationExistComponent } from '../immatriculation-exist/immatriculation-exist.component';
 import { DeclarationComponent } from '../declaration/declaration.component';
+import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
 
 export interface PeriodicElement {
   nom: string;
@@ -82,6 +83,21 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.width='1000px',
       dialogConfig.height='600px'
      this.dialog.open(DeclarationComponent, dialogConfig);
+  }
+
+
+
+
+  openDemandeAttestationDialog(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+      dialogConfig.data={
+        title:this.title, 
+      }
+      dialogConfig.width='800px',
+      dialogConfig.height='400px'
+     this.dialog.open(SuiviDemandeComponent, dialogConfig);
   }
  
 }
