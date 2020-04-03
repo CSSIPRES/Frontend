@@ -1,4 +1,9 @@
-<h1 mat-dialog-title>Declaration</h1>
+<div  fxLayoutAlign="space-between center">
+  <h1 mat-dialog-title>Declaration</h1>
+   <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
+        <mat-icon color="warn">close</mat-icon>
+    </button>
+</div>
        <div mat-dialog-content>
         <form [formGroup]="declarationForm">
            <!--  <div fxLayout="row" fxLayoutGap="10%">
@@ -72,8 +77,10 @@
           
             
               <mat-horizontal-stepper formGroupName="input"  #stepper class="mt-1">
+                
                 <mat-step formGroupName="informationEmployeur" label="Information General" state="genInfo">
-                <ng-template matStepLabel>Information General</ng-template> 
+                  <div class="mt-2">
+                  <ng-template matStepLabel>Information General</ng-template> 
                 <div fxLayout="row" fxLayoutGap="10%">
                   <mat-form-field   appearance="outline">
                     <mat-label>Type identifiant</mat-label>
@@ -135,7 +142,10 @@
                   <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
                   <button  class="submit-button" mat-button matStepperNext>Suivant</button>
                 </div>
+              </div>
                </mat-step>
+              
+              
                <mat-step class="synthese" formGroupName="synthese"  
                label="Synthese" state="synthese">
                 <div fxLayout="row" fxLayoutGap="5%">

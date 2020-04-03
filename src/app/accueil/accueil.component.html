@@ -1,5 +1,4 @@
 
-
 <div fxLayout="row" class="back_page pl-5 pr-5">
   <div fxFlex="65" class="backImg" >
     <img class="mat-elevation-z8" src="assets/images/homeCSS.jpg" 
@@ -59,7 +58,7 @@
     </mat-card>
   </div>
   <div fxFlex="30" *ngIf="newAccout">
-    <mat-card class="mat-elevation-z8 card_portail">
+    <mat-card class="mat-elevation-z8 card_portail wow fadeInDown" data-wow-delay="1s">
       <mat-card-header>
         <h4>Portail au service de la sécurité sociale au Senegal</h4>
       </mat-card-header>
@@ -90,7 +89,8 @@
   
 </div>
 
-<div class="container" fxLayout="row" fxLayoutGap="0.5%" class="mt-5 mb-5">
+<div class="container" fxLayout="row" fxLayoutGap="2%" class="mt-5 mb-5">
+  
   <div fxFlex="25" fxLayout="column">
     <h4 class="ml-2">
       Des informations pour mieux vous aider à comprendre votre statut
@@ -99,8 +99,9 @@
       statut et des documents importants à fournir.
     </span>
   </div>
+  <mat-divider [vertical]="true"></mat-divider>
   <div fxFlex="25">
-    <mat-card class="card_info mat-elevation-z8 ">
+    <mat-card class="card_info mat-elevation-z4 ">
       <mat-card-header>
         <h2>
           Espace <br> Employeur
@@ -116,8 +117,9 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <mat-divider [vertical]="true"></mat-divider>
   <div fxFlex="25">
-    <mat-card class="card_info1 mat-elevation-z8">
+    <mat-card class="card_info1 mat-elevation-z4">
       <mat-card-header>
         <h2>
           Espace <br> Salarié
@@ -131,8 +133,9 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <mat-divider [vertical]="true"></mat-divider>
   <div fxFlex="25">
-    <mat-card class="card_info2 mat-elevation-z8">
+    <mat-card class="card_info2 mat-elevation-z4">
       <mat-card-header>
         <h2>
           Espace <br> Allocataire

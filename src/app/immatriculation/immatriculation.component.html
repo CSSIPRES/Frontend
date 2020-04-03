@@ -287,6 +287,7 @@
           <mat-datepicker-toggle matSuffix [for]="tradeRegisterDate"></mat-datepicker-toggle>
           <mat-datepicker #tradeRegisterDate></mat-datepicker>
           <mat-error>Ce champ est obligatoire.</mat-error>
+          
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayoutGap="10%">
@@ -294,6 +295,7 @@
           <mat-label>Numero registre de commerce</mat-label>
           <input matInput formControlName="tradeRegisterNumber" required>
           <mat-error>Ce champ est obligatoire.</mat-error>
+          <mat-error *ngIf="immatForm.get('input').get('employerQuery').get('tradeRegisterNumber').hasError('pattern')">Numero de registre de commerce.</mat-error>
         </mat-form-field> 
         <mat-form-field appearance="outline">
           <mat-label>Ninet</mat-label>
@@ -1035,7 +1037,6 @@
         <ng-template matStepperIcon="done_all">
           <mat-icon>done_all</mat-icon>
         </ng-template>
-      
   </mat-horizontal-stepper>
 </form>
 

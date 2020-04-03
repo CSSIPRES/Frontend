@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { DOCUMENT } from '@angular/common';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
+import { NgwWowService } from 'ngx-wow';
 
 @Component({
   selector: 'app-accueil',
@@ -18,10 +19,13 @@ export class AccueilComponent implements OnInit {
   panelOpenState1:boolean=false;
 
   constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
-  private login: LoginService,private router:Router) { }
+  private login: LoginService,private router:Router,private wowService: NgwWowService) {
+    
+   }
 
   ngOnInit() {
     this.initForm();
+    this.wowService.init();
   }
   initForm(){
     this.loginForm=this.fb.group({
