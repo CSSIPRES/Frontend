@@ -55,17 +55,12 @@ export class ImmatriculationComponent implements OnInit {
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   icnpattern = "^[1,2][0-9]{12}";
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
+  registreComPattern:"^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]+$"
   dataSource: MatTableDataSource<any>;
   displayedColumns = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance']
-  
-  
-
 
   constructor(private fb:FormBuilder,private dialog:MatDialog,
-    private immService:ImmatriculationService,private snackB: MatSnackBar) {
-      
-     
-    }
+    private immService:ImmatriculationService,private snackB: MatSnackBar) {}
     addImmatriculation(){
      let d=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
      console.log(moment.utc(d).format('YYYY-MM-DD'));
@@ -139,7 +134,7 @@ export class ImmatriculationComponent implements OnInit {
         taxId:this.fb.control('2G3'),
         taxIdDate:this.fb.control('2020-01-01',Validators.required),
         tradeRegisterDate: this.fb.control('2020-01-01',Validators.required),
-        tradeRegisterNumber:this.fb.control('',Validators.required),
+        tradeRegisterNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.registreComPattern)]}),
       }),
       legalRepresentativeForm:new FormGroup({
         lastName:this.fb.control('', Validators.required),
@@ -1487,6 +1482,9 @@ set dateValue(val) {
   get nineaNumber() {
     return this.immatForm.get('input').get('employerQuery').get('nineaNumber');
   }
+  get tradeRegisterNumber() {
+    return this.immatForm.get('input').get('employerQuery').get('tradeRegisterNumber');
+  }
   get ninetNumber() {
     return this.immatForm.get('input').get('employerQuery').get('ninetNumber');
   }
@@ -1556,6 +1554,7 @@ set dateValue(val) {
   get employeList() {
     return this.immatForm.get('input').get('employeList') as FormArray;
   }
+  
 }
 
 

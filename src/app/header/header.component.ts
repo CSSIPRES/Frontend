@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AstTransformer } from '@angular/compiler/src/output/output_ast';
 
 const user=window.localStorage.getItem("token");
 @Component({
@@ -9,14 +10,14 @@ const user=window.localStorage.getItem("token");
 })
 export class HeaderComponent implements OnInit {
 checkConn:boolean=false;
-  constructor() {
-    
+  constructor(private ref: ChangeDetectorRef) {
    }
+  
   getUser(){
     if(user!=null){
-    this.checkConn=true
-    console.log(this.checkConn);
-  }
+    this.checkConn=true;
+    this.ref.detectChanges();
+    }
   }
   ngOnInit() {
     this.getUser();

@@ -1,22 +1,23 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { MatSidenav, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatSidenav, MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
 import { ImmatriculationComponent } from '../immatriculation/immatriculation.component';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { ImmatriculationExistComponent } from '../immatriculation-exist/immatriculation-exist.component';
 import { DeclarationComponent } from '../declaration/declaration.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
 
-export interface PeriodicElement {
-  nom: string;
-  prenom: string;
-  num_secu: string;
-  icn: string;
+export interface Declaration {
+  num_id: string;
+  type_declaration: string;
+  total_sal: number;
+  mtn_cot: number;
 }
 
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {nom: 'CAMARA', prenom: 'Al Hassane', num_secu:'332423', icn: '11323'},
-  {nom: 'DIOP', prenom: 'Ousmane', num_secu:'122323', icn: '344232'}, 
+
+const ELEMENT_DATA: Declaration[] = [
+  {num_id: "12220300033", type_declaration: 'D1', total_sal: 1.0079, mtn_cot: 1223098376564},
+  {num_id: "KANE", type_declaration: 'D2', total_sal: 1.0079, mtn_cot: 2430053734563}
 ];
 
 @Component({
@@ -29,7 +30,8 @@ export class EspaceEmployeComponent implements OnInit {
   validated:boolean=false;
   isExpanded:boolean=false;
   displayedColumns: string[] = ['nom', 'prenom', 'num_secu', 'icn'];
-  dataSource = ELEMENT_DATA;
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  
   title:string;
   loader:boolean=true;
 
@@ -75,7 +77,7 @@ export class EspaceEmployeComponent implements OnInit {
   }
   openDeclarationDialog(){
     const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = false;
+      dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.data={
         title:this.title, 
