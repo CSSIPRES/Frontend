@@ -25,7 +25,7 @@
       </ng-template> 
       <div fxLayout="row" fxLayoutGap="10%">
       <mat-form-field  appearance="outline">
-        <mat-label>Nom de l'entreprise</mat-label>
+        <mat-label>Raison sociale</mat-label>
         <input matInput formControlName="shortName"/>
         <mat-icon matSuffix>company</mat-icon>
         <mat-error>Ce champ est obligatoire</mat-error>
@@ -43,11 +43,9 @@
      </div>
      <div fxLayout="row" fxLayoutGap="10%">
       <mat-form-field  appearance="outline">
-        <mat-label>Principal secteur d'activite</mat-label>
+        <mat-label>Activite principale </mat-label>
         <mat-select formControlName="mainLineOfBusiness" required>
-        
           <mat-option *ngFor="let mainSector of listMainSector" [value]="mainSector.activitesprincipal">{{ mainSector.activitesprincipal | titlecase }}</mat-option>
-      
         </mat-select>
         <mat-icon matSuffix>perm_identity</mat-icon>
         <mat-error>Ce champ est obligatoire</mat-error>
@@ -163,26 +161,19 @@
       </mat-form-field>
      </div>
      <div fxLayout="row" fxLayoutGap="10%">
-     
       <mat-form-field  appearance="outline">
-        <mat-label>Aucun travailleur en chaine basic</mat-label>
-        <mat-select formControlName="noOfWorkersInBasicScheme" required>
-          <mat-option value="1">Oui</mat-option>
-          <mat-option value="0">Non</mat-option>
-        </mat-select>
+        <mat-label>Nombre d'employes au regime general</mat-label>
+        <input matInput formControlName="noOfWorkersInGenScheme" required>
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
       <mat-form-field  appearance="outline">
-        <mat-label>Aucun travailleur chiane schema</mat-label>
-        <mat-select formControlName="noOfWorkersInGenScheme" required>
-          <mat-option value="1">Oui</mat-option>
-          <mat-option value="0">Non</mat-option>
-          
-        </mat-select>
+        <mat-label>Nombre d'employes au regime cadre</mat-label>
+        <input (blur)="validateNumbEmployee()" matInput formControlName="noOfWorkersInBasicScheme" required>
         <mat-icon matSuffix>work_outline</mat-icon>
-        <mat-error>Ce champ est obligatoire.</mat-error>
-      </mat-form-field>
+        <mat-error  *ngIf="noOfWorkersInGenScheme.hasError('required')">Ce champ est obligatoire.</mat-error>
+        <mat-hint class="text-danger" *ngIf="validNumbOfworker">Nombre d'employes au regime general doit etre superieur au ombre d'employes au regime cadre.</mat-hint>
+      </mat-form-field> 
     </div>
      <div fxLayoutAlign="end" fxLayoutGap="10%" >
       <button mat-raised-button matStepperPrevious>Precedent</button>
@@ -221,7 +212,7 @@
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Nom de l'employeur</mat-label>
+          <mat-label>Raison sociale</mat-label>
           <input matInput formControlName="employerName" required>
           <mat-icon matSuffix>drag_handle</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
@@ -229,7 +220,7 @@
        </div>
        <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field appearance="outline">
-          <mat-label>Statut legale</mat-label>
+          <mat-label>Statut juridique</mat-label>
           <mat-select formControlName="legalStatus" required>
             <mat-option value="CONC">GIE</mat-option>
             <mat-option value="DEVP">Projet de développement</mat-option>
@@ -246,12 +237,12 @@
         </mat-form-field>
         <mat-form-field  appearance="outline">
           <mat-label>Ninea Number</mat-label>
-          <input type="number" matInput formControlName="nineaNumber" required>
+          <input matInput formControlName="nineaNumber" required>
           <mat-icon matSuffix> short_text</mat-icon>
          <mat-error *ngIf="nineaNumber.hasError('required')">Ce champs est obligatoire.</mat-error>
           <mat-error   
-          *ngIf="nineaNumber.hasError('maxlength')">
-          Le ninea doit etre de 9 chiffres.</mat-error>     
+          *ngIf="(nineaNumber.hasError('maxlength'))||(nineaNumber.hasError('minlength'))">
+          Le NINEA doit etre de 9 chiffres.</mat-error>     
         </mat-form-field>
         <!-- <mat-hint *ngIf="nineaExist" class="text-danger">Ce ninea existe deja.</mat-hint> -->
       </div>
@@ -267,20 +258,22 @@
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field> 
       <mat-form-field appearance="outline">
-        <mat-label>Type registre</mat-label>
+        <mat-label>Date taxe</mat-label>
+        <input matInput formControlName="taxIdDate" required [matDatepicker]="taxIdDate">
+        <mat-datepicker-toggle matSuffix [for]="taxIdDate"></mat-datepicker-toggle>
+        <mat-datepicker #taxIdDate></mat-datepicker>
+        <mat-error>Ce champ est obligatoire.</mat-error>
+      </mat-form-field>
+     <!--  <mat-form-field appearance="outline">
+        <mat-label>Type d'immatriculation</mat-label>
         <input matInput formControlName="regType" required>
         <mat-icon matSuffix> short_text</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
+
       </div>
       <div fxLayout="row" fxLayoutGap="10%">
-        <mat-form-field appearance="outline">
-          <mat-label>Date taxe</mat-label>
-          <input matInput formControlName="taxIdDate" required [matDatepicker]="taxIdDate">
-          <mat-datepicker-toggle matSuffix [for]="taxIdDate"></mat-datepicker-toggle>
-          <mat-datepicker #taxIdDate></mat-datepicker>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
+        
         <mat-form-field appearance="outline">
           <mat-label>Date registre de commerce</mat-label>
           <input matInput formControlName="tradeRegisterDate" required [matDatepicker]="tradeRegisterDate">
@@ -289,18 +282,22 @@
           <mat-error>Ce champ est obligatoire.</mat-error>
           
         </mat-form-field>
-      </div>
-      <div fxLayout="row" fxLayoutGap="10%">
         <mat-form-field appearance="outline">
           <mat-label>Numero registre de commerce</mat-label>
-          <input matInput formControlName="tradeRegisterNumber" required>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-          <mat-error *ngIf="immatForm.get('input').get('employerQuery').get('tradeRegisterNumber').hasError('pattern')">Numero de registre de commerce.</mat-error>
-        </mat-form-field> 
+          <input type="text" matInput formControlName="tradeRegisterNumber" required>
+          <mat-error *ngIf="tradeRegisterNumber.hasError('required')">
+            Ce champ est obligatoire.
+          </mat-error>
+          <mat-error *ngIf="tradeRegisterNumber.hasError('pattern')">
+            Numero de registre de commerce invalide.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div *ngIf="immatForm.get('input').get('employerQuery').get('typeEtablissement').value=='BRNC'
+      ||immatForm.get('input').get('employerQuery').get('typeEtablissement').value=='CNST'" fxLayout="row" fxLayoutGap="10%"> 
         <mat-form-field appearance="outline">
           <mat-label>Ninet</mat-label>
           <input matInput formControlName="ninetNumber">
-          
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field> 
       </div>
@@ -803,6 +800,10 @@
           <ng-template matStepLabel>
            <span [ngStyle]="{'color': immatForm.get('input').valid ? 'rgb(14, 189, 8)' : ''}"> Comfirmation</span></ng-template> 
           <h4 class="mt-2 mb-2">Confirmation Demande</h4><br>
+          <div class="mb-5" fxLayoutAlign="end" fxLayoutGap="10%">
+            <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+            <button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Confirmer</button>
+          </div>
           <div class="report_infoFen">
          <mat-icon class="icon">person_outline</mat-icon> <h5 >Information General</h5><br>
          <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
@@ -1012,10 +1013,7 @@
             </div>
           </div> 
         </div> 
-          <div class="mt-5" fxLayoutAlign="end" fxLayoutGap="10%">
-            <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-            <button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Confirmer</button>
-          </div>
+        
           
         </mat-step>
       

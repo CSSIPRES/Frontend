@@ -19,21 +19,21 @@ export class AccueilComponent implements OnInit {
   panelOpenState1:boolean=false;
 
   constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
-  private login: LoginService,private router:Router,private wowService: NgwWowService) {
+  private login: LoginService,private router:Router) {
     
    }
 
   ngOnInit() {
     this.initForm();
-    this.wowService.init();
+    /* this.wowService.init(); */
   }
   initForm(){
     this.loginForm=this.fb.group({
      username:new FormControl('', Validators.required),
      password:new FormControl('', Validators.required)
     })
-
   }
+  
   authenticate(){
     this.loader=true;
     if(this.loginForm.invalid==true){
