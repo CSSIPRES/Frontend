@@ -51,11 +51,13 @@ export class ImmatriculationComponent implements OnInit {
   immatForm:FormGroup;
   mainRegistrationForm:FormGroup;
   srcResult:any;
+  validNumbOfworker:boolean=false;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  icnpattern = "^[1,2][0-9]{12}";
+  icnpattern = "^[1,2][0-9]{12,13}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
-  registreComPattern:"^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]+$"
+ 
+   registreComPattern="^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]{1,5}$"
   dataSource: MatTableDataSource<any>;
   displayedColumns = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance']
 
@@ -120,15 +122,15 @@ export class ImmatriculationComponent implements OnInit {
     telephone:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
     email:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
     website:this.fb.control(''),
-    noOfWorkersInBasicScheme:this.fb.control('1', Validators.required),
-    noOfWorkersInGenScheme:this.fb.control('1', Validators.required)
+    noOfWorkersInBasicScheme:this.fb.control('', Validators.required),
+    noOfWorkersInGenScheme:this.fb.control('', Validators.required)
       }),
       employerQuery:this.fb.group({
         employerType:this.fb.control('', Validators.required),
         legalStatus: this.fb.control('',Validators.required),
         typeEtablissement:this.fb.control('', Validators.required),
         employerName:this.fb.control('', Validators.required),
-        nineaNumber:this.fb.control('',[Validators.required,Validators.maxLength(9)]),
+        nineaNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}),
         ninetNumber:this.fb.control(''),
         regType:this.fb.control('BVOLN', Validators.required),
         taxId:this.fb.control('2G3'),
@@ -1288,7 +1290,16 @@ this.listMainActivities();
       this.validDateNaiss = false;
     }
   }
-/*  getNineaNumber(){
+  validateNumbEmployee(){
+    let n1=this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInGenScheme').value;
+    let n2=this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInBasicScheme').value;
+    if(n1>n2){
+      
+      this.validNumbOfworker=true;
+      console.log(this.validNumbOfworker);
+    }
+  }
+/* getNineaNumber(){
    this.immService.getNineaNumber(this.immatForm.get('input').get('employerQuery').get('nineaNumber').value).subscribe(
      (resp:any)=>{
        console.log(resp);
@@ -1466,6 +1477,12 @@ set dateValue(val) {
   }
   get email() {
     return this.immatForm.get('input').get('mainRegistrationForm').get('email');
+  }
+  get noOfWorkersInBasicScheme() {
+    return this.immatForm.get('mainRegistrationForm').get('noOfWorkersInBasicScheme');
+  }
+  get noOfWorkersInGenScheme() {
+    return this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInGenScheme');
   }
   get website() {
     return this.immatForm.get('input').get('mainRegistrationForm').get('website');

@@ -85,6 +85,7 @@
                   <mat-form-field   appearance="outline">
                     <mat-label>Type identifiant</mat-label>
                     <mat-select formControlName="typeIdentifiant" required>
+                      <mat-option value="SCI">NINEA</mat-option>
                       <mat-option value="NIN">Carte national d'identie</mat-option>
                       <mat-option value="PASS">Passport</mat-option>
                       <mat-option value="PASS">Carte CEDEAO</mat-option>
@@ -109,8 +110,8 @@
                 <mat-form-field   appearance="outline">
                   <mat-label>Type declaration</mat-label>
                   <mat-select  formControlName="typeDeclaration" required>
-                    <mat-option value="TRIMESTRIEL">Trimestre</mat-option>
                     <mat-option value="MENSUEL">Mensuel</mat-option>
+                    <mat-option value="TRIMESTRIEL">Trimestre</mat-option> 
                   </mat-select>
                   <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
                   <mat-error>Ce champ est obligatoire</mat-error>
@@ -118,7 +119,7 @@
                 </div>
                 <div fxLayout="row" fxLayoutGap="10%">
                   <mat-form-field  appearance="outline">
-                    <mat-label>Date d'inscription</mat-label>
+                    <mat-label>Date debut cotisation</mat-label>
                     <input  matInput formControlName="dateDebutCotisation"  required
                     [matDatepicker]="dateDebutCotisation">
                     <mat-datepicker-toggle matSuffix [for]="dateDebutCotisation"></mat-datepicker-toggle>
@@ -128,7 +129,7 @@
                     </mat-error>
                   </mat-form-field>
                   <mat-form-field  appearance="outline">
-                    <mat-label>Date debut cotisation</mat-label>
+                    <mat-label>Date fin cotisation</mat-label>
                     <input  matInput formControlName="dateFinCotisation"  required
                     [matDatepicker]="dateFinCotisation">
                     <mat-datepicker-toggle matSuffix [for]="dateFinCotisation"></mat-datepicker-toggle>
