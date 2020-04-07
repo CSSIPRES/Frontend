@@ -70,6 +70,7 @@ export class ImmatriculationComponent implements OnInit {
      this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
        console.log(resp);
        localStorage.setItem('employerData', JSON.stringify(resp.value.output));
+       localStorage.setItem('employerDataInput', JSON.stringify(resp.value.input));
        if(resp.value.output.employerRegistrationFormId!=0){
          this.loader=false;
          this.dialog.closeAll();
