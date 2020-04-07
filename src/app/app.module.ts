@@ -40,6 +40,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeclarationComponent } from './declaration/declaration.component';
 import { SuiviDemandeComponent } from './suivi-demande/suivi-demande.component';
+import { ViewPdfComponent } from './view-pdf/view-pdf.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -66,7 +67,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ImmatriculationExistComponent,
     RecapChaDirective,
     DeclarationComponent,
-    SuiviDemandeComponent
+    SuiviDemandeComponent,
+    ViewPdfComponent
     
   ],
   imports: [
@@ -122,6 +124,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   }],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
-  DeclarationComponent,SuiviDemandeComponent]
+  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent]
 })
 export class AppModule { }

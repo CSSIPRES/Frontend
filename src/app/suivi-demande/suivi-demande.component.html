@@ -85,14 +85,15 @@
         <div class="file-label" fxLayout="row" fxLayoutGap="5%">
          <span> <mat-icon>picture_as_pdf</mat-icon> </span>
          <span class="first">  ATTESTATION DE REGULARITE   </span> 
+       
          <p *ngIf="urlAtt != ''">
-          <a href="{{ urlAtt }}">
+          <a href="{{ urlAtt }}" target="_blank">
          <button mat-button class="icon-file-dowload">
           <mat-icon>visibility</mat-icon> Voir 
          </button> 
         </a> 
-        <a href="{{ urlAtt }}"> 
-         <button class="icon-file-dowload" mat-button> 
+        <a> 
+         <button (click)="openViewPDFDialog('Attestation de régularité',urlAtt)" class="icon-file-dowload" mat-button> 
            <mat-icon>cloud_download</mat-icon> Télécharger 
           </button>
         </a>
@@ -110,15 +111,30 @@
         <div class="file-label" fxLayout="row" fxLayoutGap="5%">
           <span> <mat-icon>picture_as_pdf</mat-icon> </span>
           <span>  CERTIFICAT D'IMMATRICULATION </span> 
-          <p>
+          <mat-spinner *ngIf="urlImmat == ''" strokeWidth="2" [diameter]="34" ></mat-spinner>
+          <p *ngIf="urlImmat != ''">
+            <a href="{{ urlImmat }}" target="_blank">
             <button mat-button class="icon-file-dowload">
               <mat-icon>visibility</mat-icon> Voir
             </button> 
-            <button class="icon-file-dowload" mat-button> 
+            </a>
+            
+            <a>
+            <button (click)="openViewPDFDialog('Certificat d\'immatriculation',urlImmat)" class="icon-file-dowload" mat-button> 
               <mat-icon>cloud_download</mat-icon> Télécharger
              </button>
+            </a>
            </p>
          </div>
+            <div class="file-label" fxLayout="row" fxLayoutGap="5%">
+          <span><mat-icon>crop_rotate</mat-icon> </span>
+          <span class="first">  Statut   </span> 
+          <mat-spinner *ngIf="statutImm===''" strokeWidth="2" [diameter]="34" ></mat-spinner>
+          <span>{{statutImm}}</span>
+
+         </div>
+
+ 
        
   </mat-expansion-panel>
   <!--

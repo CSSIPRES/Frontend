@@ -9,6 +9,10 @@ const token=window.localStorage.getItem("token");
   providedIn: 'root'
 })
 export class ImmatriculationService {
+
+   
+  attestationType:string = "";
+  urlAttestation:string = "";
   
   constructor(private http:HttpClient) {
     
@@ -59,7 +63,19 @@ return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
   {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
 }
 
+
+getStatutCertificatImmat(idDossier){
+  return this.http.get(environment.BASE_URL+"statutDossierImmatriculation/"+idDossier,
+  {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+}
+
+getUrlCertificatImmat(idDossier){
+  return this.http.get(environment.BASE_URL+"certificatImmatriculation/"+idDossier,
+  {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+}
+
  
+
 
 
   

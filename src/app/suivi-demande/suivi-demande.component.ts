@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ImmatriculationService } from '../immatriculation.service';
 
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialogConfig, MatDialog } from '@angular/material';
+import { ViewPdfComponent } from '../view-pdf/view-pdf.component';
 
 
 @Component({
@@ -20,11 +21,30 @@ export class SuiviDemandeComponent implements OnInit {
 
   idDossierAtt:string = '';
   statutAtt:string = '';
+  statutImm:string = '';
   urlAtt:string = '';
+  urlImmat:string = '';
+  idDossierImmat;
   loader:boolean = false;
   panelOpenState = true;
   step = 0;
-  constructor(private immatriculationService:ImmatriculationService,private snackB: MatSnackBar) { }
+  constructor(private immatriculationService:ImmatriculationService,private snackB: MatSnackBar,private dialog:MatDialog) {
+      
+        this.idDossierImmat = JSON.parse(localStorage.getItem("employerData")).processFlowId;
+        this.immatriculationService.getStatutCertificatImmat(this.idDossierImmat)
+        .subscribe(
+          (data:any)=>{
+                    this.statutImm =  data.value.output.description;
+                    this.immatriculationService.getUrlCertificatImmat(this.idDossierImmat)
+                    .subscribe(
+                      (data:any)=>{
+                        this.urlImmat = data.value.output.url;
+                      }
+                    )
+          }
+        )
+       
+   }
  
   ngOnInit() {
     this.loader = false;
@@ -99,4 +119,19 @@ export class SuiviDemandeComponent implements OnInit {
 
   }
 
+
+
+  openViewPDFDialog(titre,url){
+    this.immatriculationService.attestationType = titre;
+    this.immatriculationService.urlAttestation = url;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+      dialogConfig.data={
+        title:titre, 
+      }
+      dialogConfig.width='1000px',
+      dialogConfig.height='800px'
+     this.dialog.open(ViewPdfComponent, dialogConfig);
+  }
 }
