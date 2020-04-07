@@ -56,18 +56,20 @@ export class ImmatriculationComponent implements OnInit {
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   icnpattern = "^[1,2][0-9]{12,13}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
- 
-   registreComPattern="^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]{1,5}$"
+  registreComPattern="^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]{1,5}$"
   dataSource: MatTableDataSource<any>;
   displayedColumns = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance']
 
   constructor(private fb:FormBuilder,private dialog:MatDialog,
     private immService:ImmatriculationService,private snackB: MatSnackBar) {}
+
     addImmatriculation(){
      let d=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
      console.log(moment.utc(d).format('YYYY-MM-DD'));
     this.loader=true;
      this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
+       console.log(resp);
+       localStorage.setItem('employerData', JSON.stringify(resp.value.output));
        if(resp.value.output.employerRegistrationFormId!=0){
          this.loader=false;
          this.dialog.closeAll();
@@ -97,11 +99,8 @@ export class ImmatriculationComponent implements OnInit {
            verticalPosition: 'bottom',
            horizontalPosition:'left'
         })
-       }
-       
+       } 
      })
-     
-    
    } 
    
    initImmatForm(){

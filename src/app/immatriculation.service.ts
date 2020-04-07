@@ -44,10 +44,6 @@ return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
     ))
   }
 
-
-
-
-
   createAttestationRegularite(typeIdentifiant:string,identifiant:string){
      return this.http.get(environment.BASE_URL+"/attestation/create/"+typeIdentifiant+"/"+identifiant);
   }
