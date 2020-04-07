@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { DeclarationService } from '../declaration.service';
 
 @Component({
   selector: 'app-declaration',
@@ -13,14 +14,25 @@ import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 })
 
 export class DeclarationComponent implements OnInit {
-
-  declarationForm=new FormGroup({
+  emp:any;
+  preDnsObject:any={
+    dateDebutCotisation: "",
+    dateFinPeriodeCotisation: "",
+    raisonSociale: "",
+    typeDeclaration: "",
+    typeIdentifiant: "",
+   idIdentifiant: "",
+    adresse: ""
+  };
+  declarationForm:FormGroup;
+  initForm(){
+  this.declarationForm=new FormGroup({
   input:new FormGroup ({
   informationEmployeur:new FormGroup ({
-  typeIdentifiant:new FormControl('', Validators.required),
-  idIdentifiant:new FormControl('', Validators.required),
+  typeIdentifiant:new FormControl(this.emp.legalRepresentativeForm.typeOfIdentity, Validators.required),
+  idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required),
   raisonSociale:new FormControl('', Validators.required),
-  adresse:new FormControl('', Validators.required),
+  adresse:new FormControl(this.emp.legalRepresentativeForm.address, Validators.required),
   typeDeclaration:new FormControl('', Validators.required),
   dateDebutCotisation:new FormControl('', Validators.required),
   dateFinCotisation:new FormControl('', Validators.required),
@@ -67,10 +79,85 @@ informationSalariesList:new FormGroup({
 })
 })
   })
+}
 dateErrors:boolean=false;
-  constructor() { }
+  constructor(private fb:FormBuilder, private decService:DeclarationService) { 
+
+  }
 
   ngOnInit() {
+  this.emp= JSON.parse(window.localStorage.getItem('employerDataInput')) 
+    console.log(this.emp.legalRepresentativeForm.typeOfIdentity);
+    this.initForm();
+  }
+  preDns(){
+    this.preDnsObject.dateDebutCotisation="2020-02-01";
+    this.preDnsObject.dateFinPeriodeCotisation="2020-02-29";
+    this.preDnsObject.raisonSociale=this.emp.legalRepresentativeForm.raisonSociale;
+    this.preDnsObject.typeDeclaration=this.emp.legalRepresentativeForm.typeDeclaration;
+    this.preDnsObject.typeIdentifiant="SCI";
+    this.preDnsObject.idIdentifiant=589834288;
+    this.preDnsObject.adresse=this.emp.legalRepresentativeForm.address;
+   let prDns= JSON.stringify(this.preDnsObject);
+    JSON.stringify(this.preDnsObject) 
+    console.log(this.preDnsObject);
+    this.decService.preDns(prDns).subscribe(
+       (resp:any)=>{
+        this.declarationForm=new FormGroup({
+          input:new FormGroup ({
+          informationEmployeur:new FormGroup ({
+          typeIdentifiant:new FormControl(this.emp.legalRepresentativeForm.typeOfIdentity, Validators.required),
+          idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required),
+          raisonSociale:new FormControl('', Validators.required),
+          adresse:new FormControl(this.emp.legalRepresentativeForm.address, Validators.required),
+          typeDeclaration:new FormControl('', Validators.required),
+          dateDebutCotisation:new FormControl('', Validators.required),
+          dateFinCotisation:new FormControl('', Validators.required),
+           
+        }),
+         synthese:new FormGroup({
+          totalNouvSalaries:new FormControl(''),
+          totalSalaries:new FormControl(''),
+          cumulTotSalAssIpresRg:new FormControl(resp.value.cumulTotSalAssIpresRg),
+          cumulTotSalAssIpresRcc:new FormControl(''),
+          cumulTotSalAssCssPf:new FormControl(''),
+          cumulTotSalAssCssAtmp:new FormControl(''),
+          totalSalVerses:new FormControl(''),
+          mntCotPfCalcParEmployeur:new FormControl(''),
+          mntCotAtMpCalcParEmployeur:new FormControl(''),
+          mntCotRgCalcParEmployeur:new FormControl(''),
+          mntCotRccCalcParEmployeur:new FormControl(''),
+          
+        }), 
+        informationSalariesList:new FormGroup({
+          numeroAssureSocial:new FormControl(''),
+          nom:new FormControl(''),
+          prenom:new FormControl(''), 
+          dateDeNaisssance:new FormControl(''),
+          typePieceIdentite:new FormControl(''),
+          numeroPieceIdentite:new FormControl(''),
+          typeContrat:new FormControl(''),
+          dateEntree:new FormControl(''),
+          dateSortie:new FormControl(''),
+          motifSortie:new FormControl(''),
+          nombreHeures1:new FormControl(''),
+          nombreJours1:new FormControl(''),
+          tempsTravail1:new FormControl(''),
+          trancheTravail1:new FormControl(''),
+          regimeGeneral1:new FormControl(''),
+          dateEffetRegimeCadre1:new FormControl(''),
+          totSalAssCssPf2:new FormControl(''),
+          totSalAssCssAtmp2:new FormControl(''),
+          totSalAssIpresRg2:new FormControl(''),
+          totSalAssIpresRcc2:new FormControl(''),
+          salaireBrut2:new FormControl(''),
+          nombreJours2:new FormControl(''),
+          nombreHeures2:new FormControl(''),
+        })
+        })
+          })
+       }
+     )
   }
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);

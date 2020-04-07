@@ -86,16 +86,13 @@
                     <mat-label>Type identifiant</mat-label>
                     <mat-select formControlName="typeIdentifiant" required>
                       <mat-option value="SCI">NINEA</mat-option>
-                      <mat-option value="NIN">Carte national d'identie</mat-option>
-                      <mat-option value="PASS">Passport</mat-option>
-                      <mat-option value="PASS">Carte CEDEAO</mat-option>
+                      <mat-option value="NIN">NIN</mat-option>
                     </mat-select>
-                    <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                   <mat-form-field   appearance="outline">
                       <mat-label>Numero identifiant</mat-label>
-                      <input  matInput formControlName="raisonSociale" required/>
+                      <input  matInput formControlName="idIdentifiant" required/>
                      <!--  <mat-icon matSuffix>email</mat-icon> -->
                      <mat-error>Ce champ est obligatoire</mat-error> 
                   </mat-form-field>
@@ -103,31 +100,38 @@
                 <div fxLayout="row" fxLayoutGap="10%">
                   <mat-form-field   appearance="outline">
                     <mat-label>Adresse</mat-label>
-                    <input matInput formControlName="adresse" required/>
+                    <input matInput formControlName="raisonSociale" required/>
                     <!-- <mat-icon matSuffix>email</mat-icon> -->
                  <mat-error>Ce champ est obligatoire</mat-error> 
-                </mat-form-field>
+                </mat-form-field>  
+                <mat-form-field   appearance="outline">
+                  <mat-label>Adresse</mat-label>
+                  <input matInput formControlName="adresse" required/>
+                  <!-- <mat-icon matSuffix>email</mat-icon> -->
+               <mat-error>Ce champ est obligatoire</mat-error> 
+              </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10%">   
                 <mat-form-field   appearance="outline">
                   <mat-label>Type declaration</mat-label>
                   <mat-select  formControlName="typeDeclaration" required>
                     <mat-option value="MENSUEL">Mensuel</mat-option>
                     <mat-option value="TRIMESTRIEL">Trimestre</mat-option> 
                   </mat-select>
-                  <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
                   <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+                <mat-form-field  appearance="outline">
+                  <mat-label>Date debut cotisation</mat-label>
+                  <input  matInput formControlName="dateDebutCotisation"  required
+                  [matDatepicker]="dateDebutCotisation">
+                  <mat-datepicker-toggle matSuffix [for]="dateDebutCotisation"></mat-datepicker-toggle>
+                  <mat-datepicker #dateDebutCotisation></mat-datepicker>
+                  <mat-error>
+                    Ce champs est obligatoire 
+                  </mat-error>
                 </mat-form-field>
                 </div>
                 <div fxLayout="row" fxLayoutGap="10%">
-                  <mat-form-field  appearance="outline">
-                    <mat-label>Date debut cotisation</mat-label>
-                    <input  matInput formControlName="dateDebutCotisation"  required
-                    [matDatepicker]="dateDebutCotisation">
-                    <mat-datepicker-toggle matSuffix [for]="dateDebutCotisation"></mat-datepicker-toggle>
-                    <mat-datepicker #dateDebutCotisation></mat-datepicker>
-                    <mat-error>
-                      Ce champs est obligatoire 
-                    </mat-error>
-                  </mat-form-field>
                   <mat-form-field  appearance="outline">
                     <mat-label>Date fin cotisation</mat-label>
                     <input  matInput formControlName="dateFinCotisation"  required
@@ -140,7 +144,7 @@
                   </mat-form-field>
                 </div>
                  <div fxLayoutAlign="end" fxLayoutGap="10%">
-                  <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+                  <button (click)="preDns()" mat-raised-button mat-button matStepperPrevious>PreDNS</button>
                   <button  class="submit-button" mat-button matStepperNext>Suivant</button>
                 </div>
               </div>
