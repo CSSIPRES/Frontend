@@ -45,6 +45,22 @@ return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
   }
 
   createAttestationRegularite(typeIdentifiant:string,identifiant:string){
-     return this.http.get(environment.BASE_URL+"/attestation/create/"+typeIdentifiant+"/"+identifiant);
+     return this.http.get(environment.BASE_URL+"attestation/create/"+typeIdentifiant+"/"+identifiant,
+     {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
   }
+
+  getStatusAttestationRegularite(idDossier:string){
+    return this.http.get(environment.BASE_URL+"statutDossierImmatriculation/"+idDossier,
+    {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+ }
+
+ getUrlAttestationRegularite(idDossier:string){
+  return this.http.get(environment.BASE_URL+"attestation/getUrl/"+idDossier,
+  {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+}
+
+ 
+
+
+  
 }

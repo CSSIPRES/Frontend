@@ -16,5 +16,26 @@
     background-color: rgb(255, 104, 49);
     color:#ffffff;
     height: 58px;
+    width: 200px;
     margin-top: 4px;
  }
+
+ .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.file-label{
+  margin-left: 40px;
+}
+.file-label p{
+  border: 1px solid #bbbbbb;
+  margin-left: 15%;
+}
+
+.file-label .first{
+  padding-right: 20px;
+}
+.icon-file-dowload{
+ 
+  
+}

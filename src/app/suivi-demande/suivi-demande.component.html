@@ -2,12 +2,35 @@
 
 
 <div  fxLayoutAlign="space-between center">
-    <h1 mat-dialog-title>Attestation de régularité</h1>
+    <h1 mat-dialog-title>Demande de Service</h1>
      <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
           <mat-icon color="warn">close</mat-icon>
       </button>
   </div>
- 
+  <form class="tab-create-dossier" [formGroup]="attestationForm">
+  <div fxLayout="row" fxLayoutGap="5%">
+  
+            <mat-form-field   appearance="outline">
+              <mat-label>Type identifiant</mat-label>
+              <mat-select formControlName="typeIdentifiant" required>
+                <mat-option value="SCI">NINEA</mat-option>
+          
+              </mat-select>
+              <mat-error>Ce champ est obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field   appearance="outline">
+                <mat-label>Numéro NINEA</mat-label>
+                <input  matInput formControlName="identifiant" required/>
+              <mat-error>Ce champ est obligatoire</mat-error> 
+            </mat-form-field>
+            <button (click)="createAttestationregularite()" class="submit-button" mat-button [disabled]="loader">Valider</button>
+   
+            <div>  
+              <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+           </div> 
+  </div>
+</form>
+  <!--
 <div mat-dialog-content>
     <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Chargement attestation de régularité">
@@ -20,13 +43,11 @@
                         <mat-option value="PASS">Passport</mat-option>
                         <mat-option value="CDEAO">Carte CEDEAO</mat-option>
                       </mat-select>
-                      <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
                       <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                     <mat-form-field   appearance="outline">
                         <mat-label>Identifiant</mat-label>
                         <input  matInput formControlName="identifiant" required/>
-                       <!--  <mat-icon matSuffix>email</mat-icon> -->
                        <mat-error>Ce champ est obligatoire</mat-error> 
                     </mat-form-field>
                     <button (click)="createAttestationregularite()" class="submit-button" mat-button>Valider</button>
@@ -50,3 +71,69 @@
         </mat-tab>
       </mat-tab-group>
 </div>
+-->
+
+<mat-accordion>
+  <mat-expansion-panel [expanded]="step === 0" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h6> DOCUMENT(S) </h6>
+      </mat-panel-title>
+      
+    </mat-expansion-panel-header>
+      
+        <div class="file-label" fxLayout="row" fxLayoutGap="5%">
+         <span> <mat-icon>picture_as_pdf</mat-icon> </span>
+         <span class="first">  ATTESTATION DE REGULARITE   </span> 
+         <p *ngIf="urlAtt != ''">
+          <a href="{{ urlAtt }}">
+         <button mat-button class="icon-file-dowload">
+          <mat-icon>visibility</mat-icon> Voir 
+         </button> 
+        </a> 
+        <a href="{{ urlAtt }}"> 
+         <button class="icon-file-dowload" mat-button> 
+           <mat-icon>cloud_download</mat-icon> Télécharger 
+          </button>
+        </a>
+        </p>
+        
+        </div>
+        <div class="file-label" fxLayout="row" fxLayoutGap="5%">
+          <span><mat-icon>crop_rotate</mat-icon> </span>
+          <span class="first">  Statut   </span> 
+          <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+          <span>{{statutAtt}}</span>
+
+         </div>
+        <hr>
+        <div class="file-label" fxLayout="row" fxLayoutGap="5%">
+          <span> <mat-icon>picture_as_pdf</mat-icon> </span>
+          <span>  CERTIFICAT D'IMMATRICULATION </span> 
+          <p>
+            <button mat-button class="icon-file-dowload">
+              <mat-icon>visibility</mat-icon> Voir
+            </button> 
+            <button class="icon-file-dowload" mat-button> 
+              <mat-icon>cloud_download</mat-icon> Télécharger
+             </button>
+           </p>
+         </div>
+       
+  </mat-expansion-panel>
+  <!--
+
+    
+
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+       <h6> MODIFICATION(S) </h6>
+      </mat-panel-title>
+      
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel>
+    -->
+</mat-accordion>

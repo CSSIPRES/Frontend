@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AstTransformer } from '@angular/compiler/src/output/output_ast';
+import { LoginService } from '../login.service';
 
 const user=window.localStorage.getItem("token");
 @Component({
@@ -10,7 +11,7 @@ const user=window.localStorage.getItem("token");
 })
 export class HeaderComponent implements OnInit {
 checkConn:boolean=false;
-  constructor(private ref: ChangeDetectorRef) {
+  constructor(private ref: ChangeDetectorRef,private loginService:LoginService) {
    }
   
   getUser(){
@@ -21,6 +22,11 @@ checkConn:boolean=false;
   }
   ngOnInit() {
     this.getUser();
+  }
+
+  logout(){
+    this.checkConn = false;
+    this.loginService.logout();
   }
 
 }
