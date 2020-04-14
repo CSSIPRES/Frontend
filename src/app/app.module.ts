@@ -41,6 +41,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeclarationComponent } from './declaration/declaration.component';
 import { SuiviDemandeComponent } from './suivi-demande/suivi-demande.component';
 import { ViewPdfComponent } from './view-pdf/view-pdf.component';
+import { PaiementComponent } from './paiement/paiement.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -68,7 +69,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RecapChaDirective,
     DeclarationComponent,
     SuiviDemandeComponent,
-    ViewPdfComponent
+    ViewPdfComponent,
+    PaiementComponent
     
   ],
   imports: [
@@ -104,7 +106,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatSnackBarModule,
     MatExpansionModule,
     MatTabsModule
-      
   ],
 
   exports:[
@@ -124,6 +125,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   }],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
-  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent]
+  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent]
 })
 export class AppModule { }

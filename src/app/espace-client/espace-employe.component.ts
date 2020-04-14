@@ -5,6 +5,7 @@ import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { ImmatriculationExistComponent } from '../immatriculation-exist/immatriculation-exist.component';
 import { DeclarationComponent } from '../declaration/declaration.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
+import { PaiementComponent } from '../paiement/paiement.component';
 
 export interface Declaration {
   num_id: string;
@@ -100,6 +101,21 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.width='800px',
       dialogConfig.height='400px'
      this.dialog.open(SuiviDemandeComponent, dialogConfig);
+  }
+
+
+
+
+  openPaiementDialog(titre,url){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+      dialogConfig.data={
+        title:titre, 
+      }
+      dialogConfig.width='800px',
+      dialogConfig.height='400px'
+     this.dialog.open(PaiementComponent, dialogConfig);
   }
  
 }
