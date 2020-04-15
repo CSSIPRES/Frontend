@@ -1,0 +1,64 @@
+[
+    {
+        "items":[
+      {"secteuractivites":"Agriculture, sylviculture et pêche","activitesprincipal":"ACTIVITES ANNEXES DE L'AGRICULTURE","version":1}
+      ,{"secteuractivites":"Agriculture, sylviculture et pêche","activitesprincipal":"CHASSE ET PROTECTION DU GIBIER","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"ABATTAGE BETAIL","version":1}
+      ,{"secteuractivites":"Agriculture, sylviculture et pêche","activitesprincipal":"SYLVICUTURE","version":1}
+      ,{"secteuractivites":"Agriculture, sylviculture et pêche","activitesprincipal":"EXPLOITATION","version":1}
+      ,{"secteuractivites":"Agriculture, sylviculture et pêche","activitesprincipal":"PECHE","version":1}
+      ,{"secteuractivites":"Activités extractives","activitesprincipal":"CHARBON","version":1}
+      ,{"secteuractivites":"Production et distribution d'électricité, de gaz, de vapeur et climatisation"
+      ,"activitesprincipal":"PETROLE BRUT ET GAZ NATUREL","version":1}
+      ,{"secteuractivites":"Activités extractives","activitesprincipal":"MINERAIS METALLIQUES","version":1}
+      ,{"secteuractivites":"Activités extractives","activitesprincipal":"AUTRES MINERAUX","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIES ALIMENTAIRES","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INSDUTRIE ALIMENTAIRE INDUSTRIE FROID","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRIQUE DE BOISSON","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIE TABAC ALLUMETTE","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIES TEXTILES","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRIQUE ARTICLES HABILLEMENT","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRIQUES CHAUSSURES","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIE ARTICLE CUIR PLASTIQUE FOURRAGE CA","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIE BOIS","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIE DE MEUBLES(EN BOIS)","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRIQUE DE PAPIER","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"IMPRIMERIE EDITION","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIE","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIES CHIMIQUES CORPS GRAS","version":1}
+      ,{"secteuractivites":"Activités extractives","activitesprincipal":"RAFFINERIE DE PETROLE","version":1}
+      ,{"secteuractivites":"Activités extractives","activitesprincipal":"FABRICATION MATIERE PLASTIQUE (DERIVE PETROLE\/CA","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIE DU CAOUTCHOUC","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRICATION DES OBJETS EN PLASTIQUE","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRICATION  DE FAIENCE PORCELAINE","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"INDUSTRIE DU VERRE","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"SIDERURGIE(ACIER FONTE FER)","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRICATION OUVRAGES METAUX SAUF MA§MA","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRICATION MACHINES NON ELECTRIQUES","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRICATION MACHINES ET APPAR ELECTRIQUES","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRICATION MATERIEL DE TRANSPORT","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRICATION MATERIEL DE PRECISION","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRICATION MATIERES PREMIERES BATIMENTS","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"FABRIQUE EXPLOSIFS","version":1}
+      ,{"secteuractivites":"Production et distribution d'électricité, de gaz, de vapeur et climatisation","activitesprincipal":"ELECTRICITE GAZ","version":1}
+      ,{"secteuractivites":"Production et distribution d'électricité, de gaz, de vapeur et climatisation","activitesprincipal":"DISTRIBUTION PUBLIQUE","version":1}
+      ,{"secteuractivites":"Construction","activitesprincipal":"TRAVAUX PUBLICS","version":1}
+      ,{"secteuractivites":"Transport et entreposage","activitesprincipal":"MANUTENTION PORTUAIRE MARITIME","version":1}
+      ,{"secteuractivites":"Construction","activitesprincipal":"BATIMENT-CONSTRUTION-RAVALEMENT","version":1}
+      ,{"secteuractivites":"Commerce de gros et de de?tail; re?parations de ve?hicules automobiles et de motocycles","activitesprincipal":"COMMERCE DE GROS ET 1\/2 GROS","version":1}
+      ,{"secteuractivites":"Commerce de gros et de de?tail; re?parations de ve?hicules automobiles et de motocycles","activitesprincipal":"COMMERCE DE DETAIL","version":1}
+      ,{"secteuractivites":"Commerce de gros et de de?tail; re?parations de ve?hicules automobiles et de motocycles","activitesprincipal":"COMMERCE HYDROCARBURE STATIONS","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"BOULANGERIE PATISSERIE","version":1}
+      ,{"secteuractivites":"Activités de fabrication","activitesprincipal":"COMMERCE DE DETAIL SANS LIVRAISON","version":1}
+      ,{"secteuractivites":"Transport et entreposage","activitesprincipal":"AGENCE DE VOYAGE ET TOURISME","version":1}
+      ,{"secteuractivites":"Activités d'hébergement et de restauration","activitesprincipal":"RESTAURANTS -BARS-DEBITS","version":1}
+      ,{"secteuractivites":"Activités d'hébergement et de restauration","activitesprincipal":"HOTELS-RESTAURANTS-MEUBLES","version":1}
+      ,{"secteuractivites":"Transport et entreposage","activitesprincipal":"TRANSPORTS TERRESTRE","version":1}
+      ,{"secteuractivites":"Transport et entreposage","activitesprincipal":"TRANSPORT PAR EAU","version":1}
+      ,{"secteuractivites":"Transport et entreposage","activitesprincipal":"TRANSPORTS AERIENS","version":1}
+      ,{"secteuractivites":"Transport et entreposage","activitesprincipal":"SERVICES AUX DE TRANSPORT","version":1}
+      ,{"secteuractivites":"Information et communication","activitesprincipal":"TELECOMMUNICATIONS ET ACTIVITE","version":1}
+      ,{"secteuractivites":"Information et communication","activitesprincipal":"INSERTIONS PUBLICITAIRES, COMM","version":1}
+      ,{"secteuractivites":"Activités financières et d'assurances","activitesprincipal":"ETABLISSEMENTS FINANCIERS","version":1}
+      ]}
+]

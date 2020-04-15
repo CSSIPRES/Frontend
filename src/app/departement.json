@@ -1,0 +1,53 @@
+[
+    {
+        "items":
+        [
+        {"rgion":"EX REGION","departement":"EX DEPT","version":1}
+        ,{"rgion":"DIOURBEL","departement":"BAMBEY","version":1}
+        ,{"rgion":"KAOLACK","departement":"NIORO","version":1}
+        ,{"rgion":"FATICK","departement":"GOSSAS","version":1}
+        ,{"rgion":"KOLDA","departement":"MEDINA YORO FOULAH","version":1}
+        ,{"rgion":"LOUGA","departement":"LINGUERE","version":1}
+        ,{"rgion":"KAFFRINE","departement":"KOUNGHEUL","version":1}
+        ,{"rgion":"KOLDA","departement":"KOLDA","version":1}
+        ,{"rgion":"DAKAR","departement":"DAKAR","version":1}
+        ,{"rgion":"MATAM","departement":"KANEL","version":1}
+        ,{"rgion":"KEDOUGOU","departement":"SALEMATA","version":1}
+        ,{"rgion":"DIOURBEL","departement":"MBACKE","version":1}
+        ,{"rgion":"SAINT-LOUIS","departement":"PODOR","version":1}
+        ,{"rgion":"THIES","departement":"THIES","version":1}
+        ,{"rgion":"ZIGUINCHOR","departement":"BIGNONA","version":1}
+        ,{"rgion":"THIES","departement":"MBOUR","version":1}
+        ,{"rgion":"THIES","departement":"TIVAOUANE","version":1}
+        ,{"rgion":"ZIGUINCHOR","departement":"ZIGUINCHOR","version":1}
+        ,{"rgion":"KAOLACK","departement":"KAOLACK","version":1}
+        ,{"rgion":"SEDHIOU","departement":"BOUNKILING","version":1}
+        ,{"rgion":"KAFFRINE","departement":"BIRKELANE","version":1}
+        ,{"rgion":"MATAM","departement":"MATAM","version":1}
+        ,{"rgion":"TAMBACOUNDA","departement":"GOUDIRY","version":1}
+        ,{"rgion":"TAMBACOUNDA","departement":"KOUPENTOUM","version":1}
+        ,{"rgion":"KEDOUGOU","departement":"SARAYA","version":1}
+      ,{"rgion":"ZIGUINCHOR","departement":"OUSSOUYE","version":1}
+      ,{"rgion":"KAFFRINE","departement":"MALEM HODDAR","version":1}
+      ,{"rgion":"DAKAR","departement":"RUFISQUE","version":1}
+      ,{"rgion":"DAKAR","departement":"GUEDIAWAYE","version":1}
+      ,{"rgion":"TAMBACOUNDA","departement":"TAMBACOUNDA","version":1}
+      ,{"rgion":"KOLDA","departement":"VELINGARA","version":1}
+      ,{"rgion":"MATAM","departement":"RANEROU","version":1}
+      ,{"rgion":"DAKAR","departement":"PIKINE","version":1}
+      ,{"rgion":"LOUGA","departement":"LOUGA","version":1}
+      ,{"rgion":"KEDOUGOU","departement":"KEDOUGOU","version":1}
+      ,{"rgion":"SAINT-LOUIS","departement":"SAINT LOUIS","version":1}
+      ,{"rgion":"DIOURBEL","departement":"DIOURBEL","version":1}
+      ,{"rgion":"KAOLACK","departement":"GUINGUINEO","version":1}
+      ,{"rgion":"FATICK","departement":"FATICK","version":1}
+      ,{"rgion":"FATICK","departement":"FOUNDIOUGNE","version":1}
+      ,{"rgion":"KAFFRINE","departement":"KAFFRINE","version":1}
+      ,{"rgion":"SEDHIOU","departement":"GOUDOMP","version":1}
+      ,{"rgion":"TAMBACOUNDA","departement":"BAKEL","version":1}
+      ,{"rgion":"LOUGA","departement":"KEBEMER","version":1}
+      ,{"rgion":"SEDHIOU","departement":"SEDHIOU","version":1}
+      ,{"rgion":"SAINT-LOUIS","departement":"DAGANA","version":1}
+      ,{"rgion":"SEDHIOU","departement":"SEDHIOU DEPARTEMENT","version":1}
+        ]}
+]

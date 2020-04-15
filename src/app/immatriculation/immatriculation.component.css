@@ -87,8 +87,8 @@ color: #999999 !important;
                                         
   /*++++++++++++++++++++++++++++++++Customer Input Fields+++++++++++++++++++++++++*/
     .mat-form-field{
-    max-width: 45%;
-    min-width: 45%;
+    width: 50%;
+     min-width: 25%; 
    }
 
     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {

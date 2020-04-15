@@ -1,0 +1,246 @@
+[{
+    "items":
+  [
+  {"region":"DIOURBEL","departement":"DIOURBEL","arrondissement":"NDINDY","version":1}
+  ,{"region":"KAOLACK","departement":"KAOLACK","arrondissement":"COM. NDOFFANE","version":1}
+  ,{"region":"DIOURBEL","departement":"BAMBEY","arrondissement":"LAMBAYE","version":1}
+  ,{"region":"KAOLACK","departement":"GUINGUINEO","arrondissement":"MBADAKHOUNE","version":1}
+  ,{"region":"KAOLACK","departement":"NIORO","arrondissement":"COM. KEUR MADIABEL","version":1}
+  ,{"region":"FATICK","departement":"FATICK","arrondissement":"NDIOB","version":1}
+  ,{"region":"FATICK","departement":"GOSSAS","arrondissement":"COM. GOSSAS","version":1}
+  ,{"region":"LOUGA","departement":"LINGUERE","arrondissement":"BARKEDJI","version":1}
+  ,{"region":"LOUGA","departement":"KEBEMER","arrondissement":"COM. GUEOUL","version":1}
+  ,{"region":"SEDHIOU","departement":"BOUNKILING","arrondissement":"DIAROUME","version":1}
+  ,{"region":"KOLDA","departement":"MEDINA YORO FOULAH","arrondissement":"COM. MEDINA YORO FOULAH","version":1}
+  ,{"region":"SEDHIOU","departement":"SEDHIOU","arrondissement":"COM. SEDHIOU","version":1}
+  ,{"region":"SEDHIOU","departement":"GOUDOMP","arrondissement":"COM. GOUDOMP","version":1}
+  ,{"region":"KOLDA","departement":"KOLDA","arrondissement":"DIOULACOLON","version":1}
+  ,{"region":"KAFFRINE","departement":"KAFFRINE","arrondissement":"KATAKEL","version":1}
+  ,{"region":"KAFFRINE","departement":"MALEM HODDAR","arrondissement":"SAGNA","version":1}
+  ,{"region":"DAKAR","departement":"RUFISQUE","arrondissement":"RUFISQUE","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"COM. MBOUR","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. GUEDE CHANTIER","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"DAGANA","arrondissement":"NDIAYE","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. PODOR","version":1}
+  ,{"region":"LOUGA","departement":"LOUGA","arrondissement":"COM. LOUGA","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"OURO SIDY","version":1}
+  ,{"region":"LOUGA","departement":"LOUGA","arrondissement":"KEUR MOMAR SARR","version":1}
+  ,{"region":"MATAM","departement":"MATAM","arrondissement":"COM. THILOGNE","version":1}
+  ,{"region":"KEDOUGOU","departement":"SALEMATA","arrondissement":"COM. SALEMATA","version":1}
+  ,{"region":"THIES","departement":"THIES","arrondissement":"COM. KHOMBOLE","version":1}
+  ,{"region":"THIES","departement":"TIVAOUANE","arrondissement":"COM. MEKHE","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"TAMBACOUNDA","arrondissement":"MAKACOULIBANTANG","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"BIGNONA","arrondissement":"TENDOUCK","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"BIGNONA","arrondissement":"TENGHORY","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"BIGNONA","arrondissement":"SINDIAN","version":1}
+  ,{"region":"KAOLACK","departement":"KAOLACK","arrondissement":"NGOTHIE","version":1}
+  ,{"region":"DIOURBEL","departement":"BAMBEY","arrondissement":"COM. BAMBEY","version":1}
+  ,{"region":"DIOURBEL","departement":"MBACKE","arrondissement":"KAEL","version":1}
+  ,{"region":"KAOLACK","departement":"NIORO","arrondissement":"COM. NIORO","version":1}
+  ,{"region":"KAOLACK","departement":"GUINGUINEO","arrondissement":"NGUELOU","version":1}
+  ,{"region":"LOUGA","departement":"LINGUERE","arrondissement":"COM. DAHRA","version":1}
+  ,{"region":"SEDHIOU","departement":"BOUNKILING","arrondissement":"COM. MADINA WANDIFA","version":1}
+  ,{"region":"SEDHIOU","departement":"SEDHIOU","arrondissement":"COM. DIANAH MALARY","version":1}
+  ,{"region":"KOLDA","departement":"VELINGARA","arrondissement":"SARE COLY SALLE","version":1}
+  ,{"region":"KOLDA","departement":"MEDINA YORO FOULAH","arrondissement":"COM. PATA","version":1}
+  ,{"region":"KAFFRINE","departement":"KOUNGHEUL","arrondissement":"LOUR ESCALE","version":1}
+  ,{"region":"KOLDA","departement":"VELINGARA","arrondissement":"BONCONTO","version":1}
+  ,{"region":"KAFFRINE","departement":"BIRKELANE","arrondissement":"COM. BIRKELANE","version":1}
+  ,{"region":"KOLDA","departement":"VELINGARA","arrondissement":"PAKOUR","version":1}
+  ,{"region":"KAFFRINE","departement":"MALEM HODDAR","arrondissement":"DAROU MINAM II","version":1}
+  ,{"region":"KOLDA","departement":"KOLDA","arrondissement":"COM. DABO","version":1}
+  ,{"region":"MATAM","departement":"RANEROU","arrondissement":"VELINGARA","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"SALDE","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"DAGANA","arrondissement":"MBANE","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. NDIANDANE","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. AERE LAO","version":1}
+  ,{"region":"LOUGA","departement":"LOUGA","arrondissement":"MBEDIENE","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"GOUDIRY","arrondissement":"KOULOR","version":1}
+  ,{"region":"KEDOUGOU","departement":"SALEMATA","arrondissement":"DAR  SALAM","version":1}
+  ,{"region":"KEDOUGOU","departement":"SARAYA","arrondissement":"COM. SARAYA","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"TAMBACOUNDA","arrondissement":"KOUSSANAR","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"GOUDIRY","arrondissement":"COM. KOTHIARY","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"BAKEL","arrondissement":"COM. DIAWARA","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"GAMADJI SARE","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"BAKEL","arrondissement":"MOUDERY","version":1}
+  ,{"region":"DAKAR","departement":"DAKAR","arrondissement":"GRAND DAKAR","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"OUSSOUYE","arrondissement":"CABROUSSE","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"OUSSOUYE","arrondissement":"LOUDIA OUOLOF","version":1}
+  ,{"region":"DIOURBEL","departement":"DIOURBEL","arrondissement":"NDOULO","version":1}
+  ,{"region":"KAOLACK","departement":"KAOLACK","arrondissement":"KOUMBAL","version":1}
+  ,{"region":"FATICK","departement":"FATICK","arrondissement":"COM. DIAKHAO","version":1}
+  ,{"region":"FATICK","departement":"FOUNDIOUGNE","arrondissement":"COM. SOUM","version":1}
+  ,{"region":"FATICK","departement":"FOUNDIOUGNE","arrondissement":"NIODIOR","version":1}
+  ,{"region":"KAOLACK","departement":"GUINGUINEO","arrondissement":"COM. GUINGUINEO","version":1}
+  ,{"region":"LOUGA","departement":"LINGUERE","arrondissement":"COM. MBEULEUKHE","version":1}
+  ,{"region":"LOUGA","departement":"KEBEMER","arrondissement":"COM. KEBEMER","version":1}
+  ,{"region":"KAFFRINE","departement":"KOUNGHEUL","arrondissement":"MISSIRAH WADENE","version":1}
+  ,{"region":"KOLDA","departement":"KOLDA","arrondissement":"SARE BIDJI","version":1}
+  ,{"region":"KOLDA","departement":"VELINGARA","arrondissement":"COM. KOUNKANE","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"COM. POPOGUINE","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"FISSEL","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"DAGANA","arrondissement":"COM. RICHARD-TOLL","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. GOLLERE","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"SINDIA","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"COM. KANEL","version":1}
+  ,{"region":"MATAM","departement":"MATAM","arrondissement":"COM. OUROSSOGUI","version":1}
+  ,{"region":"MATAM","departement":"MATAM","arrondissement":"COM. NGUIDILOGNE","version":1}
+  ,{"region":"KEDOUGOU","departement":"SARAYA","arrondissement":"BEMBOU","version":1}
+  ,{"region":"KEDOUGOU","departement":"KEDOUGOU","arrondissement":"COM. KEDOUGOU","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"BAKEL","arrondissement":"COM. KIDIRA","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"BIGNONA","arrondissement":"KATABA I","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"OUSSOUYE","arrondissement":"COM. OUSSOUYE","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"ZIGUINCHOR","arrondissement":"COM. ZIGUINCHOR","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"BIGNONA","arrondissement":"COM. THIONCK-ESSYL","version":1}
+  ,{"region":"FATICK","departement":"GOSSAS","arrondissement":"OUADIOUR","version":1}
+  ,{"region":"KAFFRINE","departement":"KAFFRINE","arrondissement":"COM. NGANDA","version":1}
+  ,{"region":"FATICK","departement":"GOSSAS","arrondissement":"COLOBANE","version":1}
+  ,{"region":"FATICK","departement":"FOUNDIOUGNE","arrondissement":"COM. PASSY","version":1}
+  ,{"region":"SEDHIOU","departement":"GOUDOMP","arrondissement":"DJIBANAR","version":1}
+  ,{"region":"SEDHIOU","departement":"SEDHIOU","arrondissement":"DJIREDJI","version":1}
+  ,{"region":"SEDHIOU","departement":"BOUNKILING","arrondissement":"BONA","version":1}
+  ,{"region":"SEDHIOU","departement":"GOUDOMP","arrondissement":"COM. TANAFF","version":1}
+  ,{"region":"KOLDA","departement":"KOLDA","arrondissement":"COM. KOLDA","version":1}
+  ,{"region":"DAKAR","departement":"PIKINE","arrondissement":"NIAYES","version":1}
+  ,{"region":"DAKAR","departement":"RUFISQUE","arrondissement":"COM. SEBIKOTANE","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"COM. GUEKOKH","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"DAGANA","arrondissement":"COM. ROSSO-SENEGAL","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. BODE LAO","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. PETE","version":1}
+  ,{"region":"LOUGA","departement":"LOUGA","arrondissement":"SAKAL","version":1}
+  ,{"region":"LOUGA","departement":"LINGUERE","arrondissement":"DODJI","version":1}
+  ,{"region":"MATAM","departement":"RANEROU","arrondissement":"COM. RANEROU","version":1}
+  ,{"region":"KEDOUGOU","departement":"SARAYA","arrondissement":"SABODOLA","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"GOUDIRY","arrondissement":"BOYNGUEL BAMBA","version":1}
+  ,{"region":"DAKAR","departement":"DAKAR","arrondissement":"ALMADIES","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"ZIGUINCHOR","arrondissement":"NYASSIA","version":1}
+  ,{"region":"DIOURBEL","departement":"MBACKE","arrondissement":"TAIF","version":1}
+  ,{"region":"KAFFRINE","departement":"KAFFRINE","arrondissement":"GNIBY","version":1}
+  ,{"region":"FATICK","departement":"FATICK","arrondissement":"COM. FATICK","version":1}
+  ,{"region":"FATICK","departement":"FOUNDIOUGNE","arrondissement":"COM. SOKONE","version":1}
+  ,{"region":"FATICK","departement":"FOUNDIOUGNE","arrondissement":"COM. KARANG POSTE","version":1}
+  ,{"region":"KAOLACK","departement":"GUINGUINEO","arrondissement":"COM. FASS","version":1}
+  ,{"region":"LOUGA","departement":"KEBEMER","arrondissement":"NDANDE","version":1}
+  ,{"region":"SEDHIOU","departement":"SEDHIOU","arrondissement":"DJIBABOUYA","version":1}
+  ,{"region":"KOLDA","departement":"MEDINA YORO FOULAH","arrondissement":"AR.NDORNA","version":1}
+  ,{"region":"SEDHIOU","departement":"BOUNKILING","arrondissement":"COM. BOUNKILING","version":1},
+  {"region":"SEDHIOU","departement":"BOUNKILING","arrondissement":"BOGHAL","version":1}
+  ,{"region":"KAFFRINE","departement":"MALEM HODDAR","arrondissement":"COM. MALEM HODDAR","version":1}
+  ,{"region":"KAFFRINE","departement":"BIRKELANE","arrondissement":"MABO","version":1}
+  ,{"region":"KOLDA","departement":"KOLDA","arrondissement":"COM. SARE YOBA DIEGA","version":1}
+  ,{"region":"DAKAR","departement":"RUFISQUE","arrondissement":"COM. SANGALKAM","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"COM. JOAL- FADIOUTH","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"COM. NGAPAROU","version":1}
+  ,{"region":"DAKAR","departement":"DAKAR","arrondissement":"PARCELLES ASSAINIES","version":1}
+  ,{"region":"DAKAR","departement":"RUFISQUE","arrondissement":"COM. DIAMNIADIO","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"DAGANA","arrondissement":"COM. DAGANA","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"DAGANA","arrondissement":"COM. GAE","version":1}
+  ,{"region":"DAKAR","departement":"RUFISQUE","arrondissement":"COM. SENDOU","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. MBOUMBA","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"COM. HAMADY OUNARE","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"ORKADIERE","version":1}
+  ,{"region":"MATAM","departement":"MATAM","arrondissement":"AGNAM-CIVOL","version":1}
+  ,{"region":"THIES","departement":"TIVAOUANE","arrondissement":"MEOUANE","version":1}
+  ,{"region":"KEDOUGOU","departement":"KEDOUGOU","arrondissement":"BANDAFASSI","version":1}
+  ,{"region":"THIES","departement":"THIES","arrondissement":"THIENABA","version":1}
+  ,{"region":"KEDOUGOU","departement":"SALEMATA","arrondissement":"DAKATELI","version":1}
+  ,{"region":"THIES","departement":"TIVAOUANE","arrondissement":"NIAKHENE","version":1}
+  ,{"region":"THIES","departement":"TIVAOUANE","arrondissement":"COM. TIVAOUANE","version":1}
+  ,{"region":"THIES","departement":"TIVAOUANE","arrondissement":"COM. MBORO","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"GOUDIRY","arrondissement":"DIANKE MAKHA","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"SAINT LOUIS","arrondissement":"RAO","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"GOUDIRY","arrondissement":"COM. GOUDIRY","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"GOUDIRY","arrondissement":"BALA","version":1}
+  ,{"region":"DIOURBEL","departement":"BAMBEY","arrondissement":"NGOYE","version":1}
+  ,{"region":"KAOLACK","departement":"KAOLACK","arrondissement":"COM. KAOLACK","version":1}
+  ,{"region":"KAOLACK","departement":"KAOLACK","arrondissement":"COM. GANDIAYE","version":1}
+  ,{"region":"KAOLACK","departement":"KAOLACK","arrondissement":"NDIEDIENG","version":1}
+  ,{"region":"KAOLACK","departement":"GUINGUINEO","arrondissement":"COM. MBOSS","version":1}
+  ,{"region":"SEDHIOU","departement":"SEDHIOU","arrondissement":"DIENDE","version":1}
+  ,{"region":"SEDHIOU","departement":"GOUDOMP","arrondissement":"SIMBANDI BRASSOU","version":1}
+  ,{"region":"SEDHIOU","departement":"BOUNKILING","arrondissement":"COM. NDIAMACOUTA","version":1}
+  ,{"region":"KOLDA","departement":"MEDINA YORO FOULAH","arrondissement":"NIAMING","version":1}
+  ,{"region":"SEDHIOU","departement":"GOUDOMP","arrondissement":"COM. DIATTACOUNDA","version":1}
+  ,{"region":"KAFFRINE","departement":"KOUNGHEUL","arrondissement":"COM. KOUNGHEUL","version":1}
+  ,{"region":"KOLDA","departement":"KOLDA","arrondissement":"COM. SALIKEGNE","version":1}
+  ,{"region":"DAKAR","departement":"RUFISQUE","arrondissement":"COM. BARGNY","version":1}
+  ,{"region":"DAKAR","departement":"RUFISQUE","arrondissement":"COM. JAXAAY PARCELLE NIAKOUL RAP","version":1}
+  ,{"region":"DAKAR","departement":"PIKINE","arrondissement":"PIKINE DAGOUDANE","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"COM. SOMONE","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. DEMETTE","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"COM. SINTHIOU BAMANBE-BANADJI","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"COM. ODOBERE","version":1}
+  ,{"region":"LOUGA","departement":"LOUGA","arrondissement":"COM. NDIAGNE","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"KOUPENTOUM","arrondissement":"BAMBA  THIALENE","version":1}
+  ,{"region":"THIES","departement":"THIES","arrondissement":"COM. CAYAR","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"THILLE BOUBACAR","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"BAKEL","arrondissement":"KENIEBA","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"TAMBACOUNDA","arrondissement":"COM. TAMBACOUNDA","version":1}
+  ,{"region":"THIES","departement":"TIVAOUANE","arrondissement":"PAMBAL","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"ZIGUINCHOR","arrondissement":"NIAGUIS","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"BIGNONA","arrondissement":"COM. BIGNONA","version":1}
+  ,{"region":"ZIGUINCHOR","departement":"BIGNONA","arrondissement":"COM. DIOULOULOU","version":1}
+  ,{"region":"DIOURBEL","departement":"MBACKE","arrondissement":"NDAME","version":1}
+  ,{"region":"DIOURBEL","departement":"DIOURBEL","arrondissement":"COM. DIOURBEL","version":1}
+  ,{"region":"DIOURBEL","departement":"MBACKE","arrondissement":"COM. MBACKE","version":1}
+  ,{"region":"KAOLACK","departement":"KAOLACK","arrondissement":"COM. KAHONE","version":1}
+  ,{"region":"FATICK","departement":"FATICK","arrondissement":"FIMELA","version":1}
+  ,{"region":"FATICK","departement":"FATICK","arrondissement":"NIAKHAR","version":1}
+  ,{"region":"FATICK","departement":"FOUNDIOUGNE","arrondissement":"TOUBACOUTA","version":1}
+  ,{"region":"KAFFRINE","departement":"KAFFRINE","arrondissement":"COM. KAFFRINE","version":1}
+  ,{"region":"FATICK","departement":"FOUNDIOUGNE","arrondissement":"COM. FOUNDIOUGNE","version":1}
+  ,{"region":"FATICK","departement":"FOUNDIOUGNE","arrondissement":"DJILOR","version":1}
+  ,{"region":"KOLDA","departement":"MEDINA YORO FOULAH","arrondissement":"FAFACOUROU","version":1}
+  ,{"region":"SEDHIOU","departement":"GOUDOMP","arrondissement":"KARANTABA","version":1}
+  ,{"region":"LOUGA","departement":"LINGUERE","arrondissement":"COM. LINGUERE","version":1}
+  ,{"region":"SEDHIOU","departement":"SEDHIOU","arrondissement":"COM. MARSASSOUM","version":1}
+  ,{"region":"KAFFRINE","departement":"BIRKELANE","arrondissement":"KEUR MBOUKI","version":1}
+  ,{"region":"KAFFRINE","departement":"KOUNGHEUL","arrondissement":"IDA MOURIDE","version":1}
+  ,{"region":"KOLDA","departement":"VELINGARA","arrondissement":"COM. DIAOUBE- KABENDOU","version":1}
+  ,{"region":"DAKAR","departement":"RUFISQUE","arrondissement":"BAMBYLOR","version":1}
+  ,{"region":"DAKAR","departement":"GUEDIAWAYE","arrondissement":"GUEDIAWAYE","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"COM. SALY PORTUDAL","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"DAGANA","arrondissement":"COM. ROSS-BETHIO","version":1}
+  ,{"region":"LOUGA","departement":"LINGUERE","arrondissement":"SAGATTA DJOLOF","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"COM. WAOUNDE","version":1}
+  ,{"region":"MATAM","departement":"MATAM","arrondissement":"COM. MATAM","version":1}
+  ,{"region":"MATAM","departement":"MATAM","arrondissement":"OGO","version":1}
+  ,{"region":"THIES","departement":"THIES","arrondissement":"COM. POUT","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"SAINT LOUIS","arrondissement":"COM. SAINT LOUIS","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"TAMBACOUNDA","arrondissement":"MISSIRAH","version":1}
+  ,{"region":"DIOURBEL","departement":"BAMBEY","arrondissement":"BABA GARAGE","version":1}
+  ,{"region":"KAOLACK","departement":"KAOLACK","arrondissement":"COM. SIBASSOR","version":1}
+  ,{"region":"KAOLACK","departement":"NIORO","arrondissement":"MEDINA-SABAKH","version":1}
+  ,{"region":"FATICK","departement":"FATICK","arrondissement":"TATTAGUINE","version":1}
+  ,{"region":"KAOLACK","departement":"NIORO","arrondissement":"PAOSKOTO","version":1}
+  ,{"region":"FATICK","departement":"FATICK","arrondissement":"COM. DIOFIOR","version":1}
+  ,{"region":"KAOLACK","departement":"NIORO","arrondissement":"WACK-NGOUNA","version":1}
+  ,{"region":"LOUGA","departement":"KEBEMER","arrondissement":"DAROU MOUSTY","version":1}
+  ,{"region":"LOUGA","departement":"KEBEMER","arrondissement":"SAGATTA GUETH","version":1}
+  ,{"region":"SEDHIOU","departement":"GOUDOMP","arrondissement":"COM. SAMINE","version":1}
+  ,{"region":"KOLDA","departement":"KOLDA","arrondissement":"MAMPATIM","version":1}
+  ,{"region":"KOLDA","departement":"VELINGARA","arrondissement":"COM. VELINGARA","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"COM. THIADIAYE","version":1}
+  ,{"region":"DAKAR","departement":"DAKAR","arrondissement":"DAKAR PLATEAU","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"CAS-CAS","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"DAGANA","arrondissement":"COM. NDOMBO SANDJIRY","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. NDIOUM","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. GALOYA TOUCOULEUR","version":1}
+  ,{"region":"THIES","departement":"MBOUR","arrondissement":"SESSENE","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"PODOR","arrondissement":"COM. WALALDE","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"COM. SEMME","version":1}
+  ,{"region":"MATAM","departement":"KANEL","arrondissement":"COM. DEMBANCANE","version":1}
+  ,{"region":"LOUGA","departement":"LOUGA","arrondissement":"COKI","version":1}
+  ,{"region":"LOUGA","departement":"LINGUERE","arrondissement":"YANG YANG","version":1}
+  ,{"region":"KEDOUGOU","departement":"KEDOUGOU","arrondissement":"FONGOLEMBI","version":1}
+  ,{"region":"THIES","departement":"TIVAOUANE","arrondissement":"MERINA-DAKHAR","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"KOUPENTOUM","arrondissement":"COM. KOUMPENTOUM","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"KOUPENTOUM","arrondissement":"COM. MALEM NIANI","version":1}
+  ,{"region":"THIES","departement":"THIES","arrondissement":"KEUR MOUSSA","version":1},
+  {"region":"TAMBACOUNDA","departement":"KOUPENTOUM","arrondissement":"KOUTHIABA WOLOF","version":1},
+  {"region":"THIES","departement":"THIES","arrondissement":"VILLE DE THIES","version":1}
+  ,{"region":"THIES","departement":"THIES","arrondissement":"NOTTO","version":1}
+  ,{"region":"SAINT-LOUIS","departement":"SAINT LOUIS","arrondissement":"COM. MPAL","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"BAKEL","arrondissement":"COM. BAKEL","version":1}
+  ,{"region":"TAMBACOUNDA","departement":"BAKEL","arrondissement":"BELE","version":1}
+  ,{"region":"SEDHIOU","departement":"SEDHIOU DEPARTEMENT","arrondissement":"SEDHIOU ARRONDISSEMENT","version":1}]}]

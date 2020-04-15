@@ -20,7 +20,7 @@ export class ImmatriculationService {
   
 addImmatriculation(immatriculation){
 return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
-{headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+token)})
+{headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+token})})
 }
  getNineaNumber(id){
    return this.http.get(environment.BASE_URL +'checkExistEmployer/' +id);

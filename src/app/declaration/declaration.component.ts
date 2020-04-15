@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { DeclarationService } from '../declaration.service';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-declaration',
@@ -15,150 +15,323 @@ import { DeclarationService } from '../declaration.service';
 
 export class DeclarationComponent implements OnInit {
   emp:any;
-  preDnsObject:any={
-    dateDebutCotisation: "",
-    dateFinPeriodeCotisation: "",
-    raisonSociale: "",
-    typeDeclaration: "",
-    typeIdentifiant: "",
-   idIdentifiant: "",
-    adresse: ""
-  };
   declarationForm:FormGroup;
-  initForm(){
-  this.declarationForm=new FormGroup({
-  input:new FormGroup ({
-  informationEmployeur:new FormGroup ({
-  typeIdentifiant:new FormControl(this.emp.legalRepresentativeForm.typeOfIdentity, Validators.required),
-  idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required),
-  raisonSociale:new FormControl('', Validators.required),
-  adresse:new FormControl(this.emp.legalRepresentativeForm.address, Validators.required),
-  typeDeclaration:new FormControl('', Validators.required),
-  dateDebutCotisation:new FormControl('', Validators.required),
-  dateFinCotisation:new FormControl('', Validators.required),
-   
-}),
- synthese:new FormGroup({
-  totalNouvSalaries:new FormControl(''),
-  totalSalaries:new FormControl(''),
-  cumulTotSalAssIpresRg:new FormControl(''),
-  cumulTotSalAssIpresRcc:new FormControl(''),
-  cumulTotSalAssCssPf:new FormControl(''),
-  cumulTotSalAssCssAtmp:new FormControl(''),
-  totalSalVerses:new FormControl(''),
-  mntCotPfCalcParEmployeur:new FormControl(''),
-  mntCotAtMpCalcParEmployeur:new FormControl(''),
-  mntCotRgCalcParEmployeur:new FormControl(''),
-  mntCotRccCalcParEmployeur:new FormControl(''),
+  dataSource:MatTableDataSource<any>
+  displayBtn:boolean=false;
+  loader:boolean=false;
+  displayFormArr:boolean=false;
+  displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite','action'];  
+  preDnsObject:any={
+    dateDebutCotisation: '',
+    dateFinPeriodeCotisation: '',
+    raisonSociale: '',
+    typeDeclaration: '',
+    typeIdentifiant: '',
+    idIdentifiant: '',
+    adresse: ''
+  };
   
-}), 
-informationSalariesList:new FormGroup({
-  numeroAssureSocial:new FormControl(''),
-  nom:new FormControl(''),
-  prenom:new FormControl(''), 
-  dateDeNaisssance:new FormControl(''),
-  typePieceIdentite:new FormControl(''),
-  numeroPieceIdentite:new FormControl(''),
-  typeContrat:new FormControl(''),
-  dateEntree:new FormControl(''),
-  dateSortie:new FormControl(''),
-  motifSortie:new FormControl(''),
-  nombreHeures1:new FormControl(''),
-  nombreJours1:new FormControl(''),
-  tempsTravail1:new FormControl(''),
-  trancheTravail1:new FormControl(''),
-  regimeGeneral1:new FormControl(''),
-  dateEffetRegimeCadre1:new FormControl(''),
-  totSalAssCssPf2:new FormControl(''),
-  totSalAssCssAtmp2:new FormControl(''),
-  totSalAssIpresRg2:new FormControl(''),
-  totSalAssIpresRcc2:new FormControl(''),
-  salaireBrut2:new FormControl(''),
-  nombreJours2:new FormControl(''),
-  nombreHeures2:new FormControl(''),
+initDeclarationForm(){
+  this.declarationForm=this.fb.group({
+ 
+
+  /* typeIdentifiant:new FormControl(this.emp.legalRepresentativeForm.typeOfIdentity, Validators.required), */
+  typeIdentifiant:this.fb.control('SCI', Validators.required),
+  /*  idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required), */
+  idIdentifiant:this.fb.control(589834288, Validators.required),
+  raisonSociale:this.fb.control('SP', Validators.required),
+  /* adresse:new FormControl(this.emp.legalRepresentativeForm.address, Validators.required), */
+  adresse:this.fb.control('DK', Validators.required),
+  typeDeclaration:this.fb.control('MENSUEL', Validators.required),
+  dateDebutCotisation:this.fb.control('2020-09-01', Validators.required),
+  dateFinPeriodeCotisation :this.fb.control('2020-09-30', Validators.required), 
+  totalNouvSalaries:this.fb.control(''),
+  totalSalaries:this.fb.control(''),
+  cumulTotSalAssIpresRg:this.fb.control(''),
+  cumulTotSalAssIpresRcc:this.fb.control(''),
+  cumulTotSalAssCssPf:this.fb.control(''),
+  cumulTotSalAssCssAtmp:this.fb.control(''),
+  totalSalVerses:this.fb.control(''),
+  mntCotPfCalcParEmployeur:this.fb.control(''),
+  mntCotAtMpCalcParEmployeur:this.fb.control(''),
+  mntCotRgCalcParEmployeur:this.fb.control(''),
+  mntCotRccCalcParEmployeur:this.fb.control(''), 
+informationSalaries:new FormArray([
+/*  this.fb.group({
+    dateEffetRegimeCadre1: this.fb.control(''),
+    dateEffetRegimeCadre2: this.fb.control(''),
+    dateEffetRegimeCadre3: this.fb.control(''),
+    dateEntree: this.fb.control(''),
+    dateNaissance: this.fb.control(''),
+    dateSortie: this.fb.control(''),
+    motifSortie: this.fb.control(''),
+    natureContrat: this.fb.control(''),
+    nomEmploye: this.fb.control(''),
+    nombreHeures1: this.fb.control('0'),
+    nombreHeures2: this.fb.control('0'),
+    nombreHeures3: this.fb.control('0'),
+    nombreJours1: this.fb.control('0'),
+    nombreJours2: this.fb.control('0'),
+    nombreJours3: this.fb.control('0'),
+    numPieceIdentite: this.fb.control(''),
+    numeroAssureSocial: this.fb.control(''),
+    prenomEmploye: this.fb.control(''),
+    regimCompCadre1:this.fb.control('true'), 
+    regimCompCadre2: this.fb.control('true'),
+    regimCompCadre3: this.fb.control('true'),
+    regimeGeneral1: this.fb.control('true'),
+    regimeGeneral2: this.fb.control('true'),
+    regimeGeneral3: this.fb.control('true'),
+    salaireBrut1: this.fb.control('0'),
+    salaireBrut2: this.fb.control('0'),
+    salaireBrut3: this.fb.control('0'),
+    tempsTravail1:this.fb.control(''),
+    tempsTravail2: this.fb.control(''),
+    tempsTravail3: this.fb.control(''),
+    totSalAssCssAtmp1: this.fb.control('0'),
+    totSalAssCssAtmp2:this.fb.control('0'),
+    totSalAssCssAtmp3: this.fb.control('0'),
+    totSalAssCssPf1:this.fb.control('0'),
+    totSalAssCssPf2: this.fb.control(''),
+    totSalAssCssPf3: this.fb.control('0'),
+    totSalAssIpresRcc1:this.fb.control('0'),
+    totSalAssIpresRcc2: this.fb.control('0'),
+    totSalAssIpresRcc3: this.fb.control('0'),
+    totSalAssIpresRg1: this.fb.control('0'),
+    totSalAssIpresRg2: this.fb.control('0'),
+    totSalAssIpresRg3: this.fb.control('0'),
+    trancheTravail1: this.fb.control(''),
+    trancheTravail2: this.fb.control(''),
+    trancheTravail3: this.fb.control(''),
+    typePieceIdentite: this.fb.control(''),
+  }) */
+])
 })
-})
-  })
 }
 dateErrors:boolean=false;
-  constructor(private fb:FormBuilder, private decService:DeclarationService) { 
-
-  }
+  constructor(private fb:FormBuilder, private decService:DeclarationService) { }
 
   ngOnInit() {
-  this.emp= JSON.parse(window.localStorage.getItem('employerDataInput')) 
-    console.log(this.emp.legalRepresentativeForm.typeOfIdentity);
-    this.initForm();
+  this.emp= JSON.parse(window.localStorage.getItem('employerDataInput'));
+  this.initDeclarationForm();
+    /* this.initForm(); */
   }
   preDns(){
-    this.preDnsObject.dateDebutCotisation="2020-02-01";
-    this.preDnsObject.dateFinPeriodeCotisation="2020-02-29";
-    this.preDnsObject.raisonSociale=this.emp.legalRepresentativeForm.raisonSociale;
-    this.preDnsObject.typeDeclaration=this.emp.legalRepresentativeForm.typeDeclaration;
-    this.preDnsObject.typeIdentifiant="SCI";
     this.preDnsObject.idIdentifiant=589834288;
-    this.preDnsObject.adresse=this.emp.legalRepresentativeForm.address;
+    this.preDnsObject.typeIdentifiant='SCI';
+    this.preDnsObject.adresse='lg';
+    this.preDnsObject.dateDebutCotisation='2020-09-01';
+    this.preDnsObject.dateFinPeriodeCotisation='2020-10-01';
+    this.preDnsObject.raisonSociale=this.declarationForm.get('raisonSociale').value;
+    this.preDnsObject.typeDeclaration=this.declarationForm.get('typeDeclaration').value;
    let prDns= JSON.stringify(this.preDnsObject);
-    JSON.stringify(this.preDnsObject) 
+    JSON.stringify(this.preDnsObject); 
     console.log(this.preDnsObject);
+    this.loader=true;
     this.decService.preDns(prDns).subscribe(
        (resp:any)=>{
-        this.declarationForm=new FormGroup({
-          input:new FormGroup ({
-          informationEmployeur:new FormGroup ({
-          typeIdentifiant:new FormControl(this.emp.legalRepresentativeForm.typeOfIdentity, Validators.required),
-          idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required),
-          raisonSociale:new FormControl('', Validators.required),
-          adresse:new FormControl(this.emp.legalRepresentativeForm.address, Validators.required),
-          typeDeclaration:new FormControl('', Validators.required),
-          dateDebutCotisation:new FormControl('', Validators.required),
-          dateFinCotisation:new FormControl('', Validators.required),
+         console.log(resp);
+         if(resp!=null){
+           this.loader=false;
+           this.displayBtn=true;
            
-        }),
-         synthese:new FormGroup({
-          totalNouvSalaries:new FormControl(''),
-          totalSalaries:new FormControl(''),
+          }
+        this.dataSource=resp.value.informationSalaries;
+        console.log(this.dataSource);
+        console.log(resp.value.informationSalaries[0]);
+        
+     
+       this.declarationForm=new FormGroup({
+          typeIdentifiant:new FormControl('SCI', Validators.required),
+          idIdentifiant:new FormControl(589834288, Validators.required),
+          raisonSociale:new FormControl('TEST 1234 KB', Validators.required),
+          adresse:new FormControl('KEURY KAW lot 123 B', Validators.required),
+          typeDeclaration:new FormControl('MENSUEL', Validators.required),
+          dateDebutCotisation:new FormControl('2020-09-01', Validators.required),
+          dateFinPeriodeCotisation:new FormControl('2020-09-30', Validators.required),  
+          totalNouvSalaries:new FormControl(resp.value.totalNouvSalaries),
+          totalSalaries:new FormControl(resp.value.totalSalaries),
           cumulTotSalAssIpresRg:new FormControl(resp.value.cumulTotSalAssIpresRg),
-          cumulTotSalAssIpresRcc:new FormControl(''),
-          cumulTotSalAssCssPf:new FormControl(''),
-          cumulTotSalAssCssAtmp:new FormControl(''),
-          totalSalVerses:new FormControl(''),
-          mntCotPfCalcParEmployeur:new FormControl(''),
-          mntCotAtMpCalcParEmployeur:new FormControl(''),
-          mntCotRgCalcParEmployeur:new FormControl(''),
-          mntCotRccCalcParEmployeur:new FormControl(''),
-          
-        }), 
-        informationSalariesList:new FormGroup({
-          numeroAssureSocial:new FormControl(''),
-          nom:new FormControl(''),
-          prenom:new FormControl(''), 
-          dateDeNaisssance:new FormControl(''),
-          typePieceIdentite:new FormControl(''),
-          numeroPieceIdentite:new FormControl(''),
-          typeContrat:new FormControl(''),
-          dateEntree:new FormControl(''),
-          dateSortie:new FormControl(''),
-          motifSortie:new FormControl(''),
-          nombreHeures1:new FormControl(''),
-          nombreJours1:new FormControl(''),
-          tempsTravail1:new FormControl(''),
-          trancheTravail1:new FormControl(''),
-          regimeGeneral1:new FormControl(''),
-          dateEffetRegimeCadre1:new FormControl(''),
-          totSalAssCssPf2:new FormControl(''),
-          totSalAssCssAtmp2:new FormControl(''),
-          totSalAssIpresRg2:new FormControl(''),
-          totSalAssIpresRcc2:new FormControl(''),
-          salaireBrut2:new FormControl(''),
-          nombreJours2:new FormControl(''),
-          nombreHeures2:new FormControl(''),
-        })
-        })
-          })
+          cumulTotSalAssIpresRcc:new FormControl(resp.value.cumulTotSalAssIpresRcc),
+          cumulTotSalAssCssPf:new FormControl(resp.value.cumulTotSalAssCssPf),
+          cumulTotSalAssCssAtmp:new FormControl(resp.value.cumulTotSalAssCssAtmp),
+          totalSalVerses:new FormControl(resp.value.totalSalVerses),
+          mntCotPfCalcParEmployeur:new FormControl(resp.value.mntCotPfCalcParEmployeur),
+          mntCotAtMpCalcParEmployeur:new FormControl(resp.value.mntCotAtMpCalcParEmployeur),
+          mntCotRgCalcParEmployeur:new FormControl(resp.value.mntCotRgCalcParEmployeur),
+          mntCotRccCalcParEmployeur:new FormControl(resp.value.mntCotRccCalcParEmployeur),
+          processFlowId: new FormControl(92402736122987),
+          formId: new FormControl(558153101500),
+          informationSalaries:new FormArray([new FormGroup({
+        numeroAssureSocial: new FormControl(3898226577),
+        nomEmploye: new FormControl('KEBSON'),
+        prenomEmploye: new FormControl('ELHADJI'),
+        dateNaissance: new FormControl('1991-11-11'),
+        typePieceIdentite:new FormControl('NIN'),
+        numPieceIdentite: new FormControl('1549199114278'),
+        natureContrat: new FormControl(null),
+        dateEntree: new FormControl('2020-01-01'),
+        dateSortie: new FormControl('2031-01-01'),
+        motifSortie: new FormControl(null),
+        totSalAssCssPf1: new FormControl(0),
+        totSalAssCssAtmp1: new FormControl(0),
+        totSalAssIpresRg1: new FormControl(0),
+        totSalAssIpresRcc1: new FormControl(0),
+        salaireBrut1: new FormControl(0),
+        nombreJours1: new FormControl(0),
+        nombreHeures1: new FormControl(0),
+        tempsTravail1: new FormControl(null),
+        trancheTravail1: new FormControl(null),
+        regimeGeneral1: new FormControl(true),
+        regimCompCadre1: new FormControl(false),
+        dateEffetRegimeCadre1: new FormControl(null),
+        totSalAssCssPf2: new FormControl(0),
+        totSalAssCssAtmp2: new FormControl(0),
+        totSalAssIpresRg2: new FormControl(0),
+        totSalAssIpresRcc2: new FormControl(0),
+        salaireBrut2: new FormControl(0),
+        nombreJours2: new FormControl(0),
+        nombreHeures2: new FormControl(0),
+        tempsTravail2: new FormControl(null),
+        trancheTravail2: new FormControl(null),
+        regimeGeneral2: new FormControl(true),
+        regimCompCadre2: new FormControl(false),
+        dateEffetRegimeCadre2: new FormControl(null),
+        totSalAssCssPf3: new FormControl(63000),
+        totSalAssCssAtmp3: new FormControl(63000),
+        totSalAssIpresRg3: new FormControl(360000),
+        totSalAssIpresRcc3: new FormControl(900000),
+        salaireBrut3: new FormControl(900000),
+        nombreJours3: new FormControl(0),
+        nombreHeures3: new FormControl(0),
+        tempsTravail3: new FormControl('TPS_PLEIN'),
+        trancheTravail3: new FormControl(null),
+        regimeGeneral3: new FormControl(true),
+        regimCompCadre3: new FormControl(true),
+        dateEffetRegimeCadre3: new FormControl('2020-01-01')
+        })])
+        });
+        console.log(resp.value.informationSalaries[0].numeroAssureSocial);
+      
        }
      )
   }
+  addDeclaration(){
+    console.log(this.declarationForm.value);
+    this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>
+      console.log(resp)
+    )
+  }
+  displayForm(){
+    this.displayFormArr=true;
+  }
+  fillEmployeeForm(dec){
+  return    new FormGroup({
+      numeroAssureSocial:new FormControl(dec.numeroAssureSocial),
+      nomEmploye:new FormControl(dec.nomEmploye),
+      prenomEmploye:new FormControl(dec.prenomEmploye), 
+      dateNaissance:new FormControl(dec.dateNaissance), 
+      typePieceIdentite:new FormControl(dec.typePieceIdentite),  
+      numPieceIdentite:new FormControl( dec.numPieceIdentite), 
+      natureContrat: new FormControl(''),
+      dateEntree: new FormControl(dec.dateEntree),
+      dateSortie:new FormControl(dec.dateSortie), 
+      motifSortie: new FormControl(dec.motifSortie), 
+      totSalAssCssPf1: new FormControl(dec.totSalAssCssPf1), 
+      totSalAssCssAtmp1: new FormControl(dec.totSalAssCssAtmp1), 
+      totSalAssIpresRg1: new FormControl(dec.totSalAssIpresRg1), 
+      totSalAssIpresRcc1: new FormControl(dec.totSalAssIpresRcc1), 
+      salaireBrut1: new FormControl(dec.salaireBrut1), 
+      nombreJours1: new FormControl(dec.nombreJours1), 
+      nombreHeures1: new FormControl(dec.nombreHeures1), 
+      tempsTravail1: new FormControl(dec.tempsTravail1), 
+      trancheTravail1: new FormControl(dec.trancheTravail1), 
+      regimeGeneral1: new FormControl(dec.regimeGeneral1), 
+      regimCompCadre1: new FormControl(dec.regimCompCadre1), 
+      dateEffetRegimeCadre1: new FormControl(dec.dateEffetRegimeCadre1), 
+      totSalAssCssPf2:new FormControl(dec.totSalAssCssPf2),  
+      totSalAssCssAtmp2:new FormControl(dec.totSalAssCssAtmp2),
+      totSalAssIpresRg2: new FormControl(dec.totSalAssIpresRg2),
+      totSalAssIpresRcc2:  new FormControl(dec.totSalAssIpresRg2),
+      salaireBrut2: new FormControl(dec.salaireBrut2),
+      nombreJours2: new FormControl(dec.nombreJours2),
+      nombreHeures2: new FormControl(dec.nombreHeures2),
+      tempsTravail2:new FormControl(dec.tempsTravail2), 
+      trancheTravail2: new FormControl(dec.trancheTravail2),
+      regimeGeneral2: new FormControl(dec.regimeGeneral2),
+      regimCompCadre2: new FormControl(dec.regimCompCadre2),
+      dateEffetRegimeCadre2:new FormControl(dec.dateEffetRegimeCadre2), 
+      totSalAssCssPf3: new FormControl(dec.totSalAssCssPf3),
+      totSalAssCssAtmp3: new FormControl(dec.totSalAssCssAtmp3),
+      totSalAssIpresRg3: new FormControl(dec.totSalAssIpresRg3),
+      totSalAssIpresRcc3: new FormControl(dec.totSalAssIpresRcc3),
+      salaireBrut3: new FormControl(dec.salaireBrut3),
+      nombreJours3: new FormControl(dec.nombreJours3),
+      nombreHeures3: new FormControl(dec.nombreHeures3),
+      tempsTravail3: new FormControl(dec.tempsTravail3),
+      trancheTravail3: new FormControl(dec.trancheTravail3),
+      regimeGeneral3:new FormControl(dec.regimeGeneral3), 
+      regimCompCadre3: new FormControl(dec.regimCompCadre3),
+      dateEffetRegimeCadre3: new FormControl(dec.dateEffetRegimeCadre3) })
+  }
+  newEmployeeForm(){
+  
+   return   new FormGroup({
+      numeroAssureSocial:new FormControl(''),
+      nomEmploye:new FormControl(''),
+      prenomEmploye:new FormControl(''), 
+      dateNaissance:new FormControl(''), 
+      typePieceIdentite:new FormControl(''),  
+      numPieceIdentite:new FormControl(''), 
+      natureContrat: new FormControl(''),
+      dateEntree: new FormControl(''),
+      dateSortie:new FormControl(''), 
+      motifSortie: new FormControl(''), 
+      totSalAssCssPf1: new FormControl(''), 
+      totSalAssCssAtmp1: new FormControl(''), 
+      totSalAssIpresRg1: new FormControl(''), 
+      totSalAssIpresRcc1: new FormControl(''), 
+      salaireBrut1: new FormControl(''), 
+      nombreJours1: new FormControl(''), 
+      nombreHeures1: new FormControl(''), 
+      tempsTravail1: new FormControl(''), 
+      trancheTravail1: new FormControl(''), 
+      regimeGeneral1: new FormControl(''), 
+      regimCompCadre1: new FormControl(''), 
+      dateEffetRegimeCadre1: new FormControl(''), 
+      totSalAssCssPf2:new FormControl(''),  
+      totSalAssCssAtmp2:new FormControl(''),
+      totSalAssIpresRg2: new FormControl(''),
+      totSalAssIpresRcc2:  new FormControl(''),
+      salaireBrut2: new FormControl(''),
+      nombreJours2: new FormControl(''),
+      nombreHeures2: new FormControl(''),
+      tempsTravail2:new FormControl(''), 
+      trancheTravail2: new FormControl(''),
+      regimeGeneral2: new FormControl(''),
+      regimCompCadre2: new FormControl(''),
+      dateEffetRegimeCadre2:new FormControl(''), 
+      totSalAssCssPf3: new FormControl(''),
+      totSalAssCssAtmp3: new FormControl(''),
+      totSalAssIpresRg3: new FormControl(''),
+      totSalAssIpresRcc3: new FormControl(''),
+      salaireBrut3: new FormControl(''),
+      nombreJours3: new FormControl(''),
+      nombreHeures3: new FormControl(''),
+      tempsTravail3: new FormControl(''),
+      trancheTravail3: new FormControl(''),
+      regimeGeneral3:new FormControl(''), 
+      regimCompCadre3: new FormControl(''),
+      dateEffetRegimeCadre3: new FormControl('') })
+  }
+  addItem() {
+   
+    /* this.employeList = this.immatForm.get('input').get('employeList') as FormArray; */ 
+     (this.declarationForm.get('informationSalaries') as FormArray).push(this.newEmployeeForm());
+     this.displayFormArr=true;
+
+     console.log(this.declarationForm);
+   }
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);
   }
@@ -174,6 +347,9 @@ dateErrors:boolean=false;
     else{
       this.dateErrors=false;
     }
+  }
+  displayM1(){
+    
   }
   get typeIdentifiant() {
     return this.declarationForm.get('input').get('informationEmployeur').get('typeIdentifiant');
