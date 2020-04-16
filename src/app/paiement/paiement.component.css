@@ -1,0 +1,27 @@
+.table-paiement{
+    width: 100% !important;
+}
+
+.submit-button{
+    background-color: rgb(255, 104, 49);
+    color:#ffffff;
+    height: 32px;
+    width: 200px;
+    margin-top: 4px;
+ }
+
+ .fileInputProfile {
+   /* position: absolute; 
+    height: 100%;
+    width: 100%;  */
+    z-index: 99;
+    opacity: 0.7;
+   
+  }
+
+  .btn-join-file{
+    background-color: rgb(255, 104, 49);
+  }
+  
+
+

@@ -64,9 +64,6 @@ mat-card{
    ::ng-deep .mat-input-element {
     caret-color: rgba(0,0,0,.6)!important;
    }
-
-
-
 .imgLogo{
     margin-left:10px; 
     margin-top:10px;  

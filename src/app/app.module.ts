@@ -42,6 +42,7 @@ import { DeclarationComponent } from './declaration/declaration.component';
 import { SuiviDemandeComponent } from './suivi-demande/suivi-demande.component';
 import { ViewPdfComponent } from './view-pdf/view-pdf.component';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { PaiementComponent } from './paiement/paiement.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -69,7 +70,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RecapChaDirective,
     DeclarationComponent,
     SuiviDemandeComponent,
-    ViewPdfComponent
+    ViewPdfComponent,
+    PaiementComponent
     
   ],
   imports: [
@@ -106,7 +108,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatExpansionModule,
     MatTabsModule,
     MatMomentDateModule
-      
   ],
 
   exports:[
@@ -120,6 +121,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   }],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
-  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent]
+  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent]
 })
 export class AppModule { }

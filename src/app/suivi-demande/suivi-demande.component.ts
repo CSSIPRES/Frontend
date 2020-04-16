@@ -28,7 +28,10 @@ export class SuiviDemandeComponent implements OnInit {
   loader:boolean = false;
   panelOpenState = true;
   step = 0;
-  constructor(private immatriculationService:ImmatriculationService,private snackB: MatSnackBar,private dialog:MatDialog) {
+  constructor(
+    private immatriculationService:ImmatriculationService,
+    private snackB: MatSnackBar,
+    private dialog:MatDialog) {
       
         this.idDossierImmat = JSON.parse(localStorage.getItem("employerData")).processFlowId;
         this.immatriculationService.getStatutCertificatImmat(this.idDossierImmat)
@@ -43,7 +46,6 @@ export class SuiviDemandeComponent implements OnInit {
                     )
           }
         )
-       
    }
  
   ngOnInit() {

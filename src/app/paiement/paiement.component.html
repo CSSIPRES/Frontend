@@ -1,0 +1,161 @@
+
+
+
+
+<div fxLayoutAlign="space-between center">
+  <h1 mat-dialog-title>Référencement de mes Paiements</h1>
+   <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
+        <mat-icon color="warn">close</mat-icon>
+    </button>
+</div>
+<div>
+  
+  <div *ngIf="!isPaiementSelect" class="mt-2 table-paiement">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="numeroOrdreVirement">
+              <th mat-header-cell *matHeaderCellDef> N° ordre de virement </th>
+              <td mat-cell *matCellDef="let element"> {{element.numeroOrdreVirement}} </td>
+            </ng-container>
+            <ng-container matColumnDef="banqueSource">
+              <th mat-header-cell *matHeaderCellDef> Banque source </th>
+              <td mat-cell *matCellDef="let element"> {{element.banqueSource}} </td>
+            </ng-container>
+            <ng-container matColumnDef="numeroCompteSource">
+              <th mat-header-cell *matHeaderCellDef> N° Compte source </th>
+              <td mat-cell *matCellDef="let element"> {{element.numeroCompteSource}} </td>
+            </ng-container>
+            <ng-container matColumnDef="banqueDestination">
+              <th mat-header-cell *matHeaderCellDef> N° compte destination </th>
+              <td mat-cell *matCellDef="let element"> {{element.numeroCompteDestination}} </td>
+            </ng-container>
+            <ng-container matColumnDef="numeroCompteDestination">
+              <th mat-header-cell *matHeaderCellDef> Référence facture </th>
+              <td mat-cell *matCellDef="let element"> {{element.referenceFacture}} </td>
+            </ng-container>
+            <ng-container matColumnDef="referenceFacture">
+              <th mat-header-cell *matHeaderCellDef> Montant total </th>
+              <td mat-cell *matCellDef="let element"> {{element.montantTotal}} </td>
+            </ng-container>
+            <ng-container matColumnDef="etat">
+              <th mat-header-cell *matHeaderCellDef> Montant account </th>
+              <td mat-cell *matCellDef="let element"> {{element.montantAccount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="payer">
+              <th mat-header-cell *matHeaderCellDef> Etat du paiement </th>
+              <td mat-cell *matCellDef="let element"> {{element.etat}} </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table> 
+</div>
+<br>
+<button *ngIf="!isPaiementSelect" (click)="openPaiement()" class="submit-button" mat-button >Nouvel Paiement</button>
+
+
+<!--
+<div fxLayoutAlign="space-between center">
+    <h1 mat-dialog-title>Référencement Paiement</h1>
+     <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
+          <mat-icon color="warn">close</mat-icon>
+      </button>
+</div>
+-->
+
+<div *ngIf="isPaiementSelect">
+    <div  fxFlex fxLayout="column" > 
+      <div fxFlex="100" fxLayoutAlign="center">
+         
+        
+       
+          <div fxLayout="row" fxLayoutGap="5%">
+            <form [formGroup]="creationPaiementForm" class="mt-1" fxFlex fxLayout="column">
+              <div fxLayout="row">
+                            <mat-form-field  appearance="outline" class="pl-5 pr-5">
+                                <mat-icon matSuffix>lock</mat-icon>
+                                <mat-label>Numéro de l'odre de virement</mat-label>
+                                
+                                <input type="text" formControlName="numeroOrdreVirement" matInput required />
+                               
+                                <mat-error>Ce champ est obligatoire</mat-error>
+                            </mat-form-field>
+                            <mat-form-field  appearance="outline" class="pl-5 pr-5">
+                                <mat-icon matSuffix>store</mat-icon>
+                                <mat-label>Libellé du transfert</mat-label>
+                                <input type="text" matInput formControlName="banqueSource"  required />
+                               
+                                <mat-error>Libellé du transfert</mat-error>
+                            </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field appearance="outline" class="pl-5 pr-5" >
+                <mat-label>Banque Employeur</mat-label>
+                <input type="text" formControlName="numeroCompteSource"  matInput required />
+                <mat-icon matSuffix>store</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="pl-5 pr-5" >
+                <mat-label>Numéro de compte bancaire employeur </mat-label>
+                <input type="text" formControlName="banqueDestination" matInput required />
+                <mat-icon matSuffix>store</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+              
+            </div>
+            <div fxLayout="row">
+             
+              <mat-form-field appearance="outline" class="pl-5 pr-5">
+                <mat-label>Banque de l’institution</mat-label>
+                <input type="text" formControlName="numeroCompteDestination" matInput required />
+                <mat-icon matSuffix>store</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="pl-5 pr-5" >
+                <mat-label>Reference Facture</mat-label>
+                <input type="text" formControlName="referenceFacture"  matInput required />
+                <mat-icon matSuffix>store</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+             
+              <mat-form-field appearance="outline" class="pl-5 pr-5">
+                <mat-label>Montant</mat-label>
+                <input type="number" formControlName="montantAccount"  matInput required />
+                <mat-icon matSuffix>store</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="pl-5 pr-5" >
+                <mat-label>Etat du paiement</mat-label>
+                <mat-select formControlName="etat" required>
+                  <mat-option value="Payer">PAYÉ</mat-option>
+                </mat-select>
+              
+                <mat-icon matSuffix>store</mat-icon>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+            </div>
+           
+            <div fxLayout="row">   
+                <div class="pl-5 pr-5">
+                  <label>Joindre le référencement *</label><br>
+                  <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile"></a>
+                </div> <br>
+                      
+              </div>
+              <div fxLayout="column" class="mb-4 mt-2" fxLayoutAlign="center center">
+            
+                <button (click)="addPaiement()" fxLayoutAlign="center" mat-raised-button 
+                class="submit-button">
+                 <div> Envoyer </div>
+                 <div>  
+                   <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+                </div> 
+                </button>
+              </div>
+            </form>
+          </div>
+      </div>
+      </div>
+</div>
+    

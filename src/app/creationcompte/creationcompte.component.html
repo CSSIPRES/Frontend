@@ -1,41 +1,41 @@
 <div class="creationCpt">
-<div  fxFlex fxLayout="column" > 
-  <div fxFlex="70" fxLayoutAlign="center">
-    <mat-card class="creationCpte mat-elevation-z8">
-      <mat-card-header class="mb-1" fxLayout="row" >
-        <a routerLink="/accueil">   
-          <button  class="mt-1" mat-icon-button>
-            <mat-icon > keyboard_backspace</mat-icon>
-          </button>
-        </a>
-        <h4 class="pt-2" fxFlexOffset="30" >Creation Compte</h4>
-      </mat-card-header>
-      <mat-card-content>
-      <div fxLayout="column">
-          <div >
-          <img class="imgLogo"  src="assets/images/logoCSS.png" 
-          height="55px" width="105px">
-          <img src="assets/images/logoIPRES.png" 
-          height="55" width="85">
-          </div>
-           <h4 class="title">Creation compte e-portail CSS</h4>
-      </div>
-      <div fxLayout="row" fxLayoutGap="10%">
-        <form [formGroup]="creationCpteForm" class="mt-1" fxFlex fxLayout="column">
-          <div fxLayout="row">
-          <mat-form-field  appearance="outline" class="pl-5 pr-5">
-            <mat-label>Nom</mat-label>
-            <input type="text" matInput formControlName="firstName" required />
-            <mat-icon matSuffix>person_outlined</mat-icon>
-            <mat-error>Nom obligatoire</mat-error>
-          </mat-form-field>
-          <mat-form-field  appearance="outline" class="pl-5 pr-5">
-            <mat-label>Prenom</mat-label>
-            <input type="text" matInput formControlName="lastName"  required />
-            <mat-icon matSuffix>person_outlined</mat-icon>
-            <mat-error>Prenom obligatoire</mat-error>
-          </mat-form-field>
+  <div  fxFlex fxLayout="column" > 
+    <div fxFlex="70" fxLayoutAlign="center">
+      <mat-card class="creationCpte mat-elevation-z8">
+        <mat-card-header class="mb-1" fxLayout="row" >
+          <a routerLink="/accueil">   
+            <button  class="mt-1" mat-icon-button>
+              <mat-icon > keyboard_backspace</mat-icon>
+            </button>
+          </a>
+          <h4 class="pt-2" fxFlexOffset="30" >Creation Compte</h4>
+        </mat-card-header>
+        <mat-card-content>
+        <div fxLayout="column">
+            <div >
+            <img class="imgLogo"  src="assets/images/logoCSS.png" 
+            height="55px" width="105px">
+            <img src="assets/images/logoIPRES.png" 
+            height="55" width="85">
+            </div>
+             <h4 class="title">Creation compte e-portail CSS</h4>
         </div>
+        <div fxLayout="row" fxLayoutGap="10%">
+          <form [formGroup]="creationCpteForm" class="mt-1" fxFlex fxLayout="column">
+            <div fxLayout="row">
+            <mat-form-field  appearance="outline" class="pl-5 pr-5">
+              <mat-label>Nom</mat-label>
+              <input type="text" matInput formControlName="firstName" required />
+              <mat-icon matSuffix>person_outlined</mat-icon>
+              <mat-error>Nom obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field  appearance="outline" class="pl-5 pr-5">
+              <mat-label>Prenom</mat-label>
+              <input type="text" matInput formControlName="lastName"  required />
+              <mat-icon matSuffix>person_outlined</mat-icon>
+              <mat-error>Prenom obligatoire</mat-error>
+            </mat-form-field>
+          </div>
         <div fxLayout="row">
           <mat-form-field appearance="outline" class="pl-5 pr-5" >
             <mat-label>Email</mat-label>
@@ -77,11 +77,10 @@
             </div> 
             </button>
           </div>
-        </form>
-      </div>
-      </mat-card-content>
-    </mat-card>
+          </form>
+        </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    </div>
   </div>
-  </div>
-</div>
-
