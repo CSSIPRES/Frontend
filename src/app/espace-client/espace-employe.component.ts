@@ -99,7 +99,7 @@ export class EspaceEmployeComponent implements OnInit {
         title:this.title, 
       }
       dialogConfig.width='800px',
-      dialogConfig.height='400px'
+      dialogConfig.height='600px'
      this.dialog.open(SuiviDemandeComponent, dialogConfig);
   }
 
@@ -114,7 +114,7 @@ export class EspaceEmployeComponent implements OnInit {
         title:titre, 
       }
       dialogConfig.width='800px',
-      dialogConfig.height='400px'
+      dialogConfig.height='600px'
      this.dialog.open(PaiementComponent, dialogConfig);
   }
  

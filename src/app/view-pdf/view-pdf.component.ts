@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ImmatriculationService } from '../immatriculation.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-pdf',
@@ -8,14 +9,21 @@ import { ImmatriculationService } from '../immatriculation.service';
 })
 export class ViewPdfComponent implements OnInit {
 
-  attestationTitle:string = "";
-  attestationUrl:string = "";
 
-  constructor(private immatriculationService:ImmatriculationService) { }
+
+  @Input() attestationTitle:string;
+  @Input() attestationUrl:any;
+
+  constructor(private immatriculationService:ImmatriculationService,private sanitizer: DomSanitizer) { 
+  
+ 
+
+  }
 
   ngOnInit() {
     this.attestationTitle = this.immatriculationService.attestationType;
-    this.attestationUrl = this.immatriculationService.urlAttestation;
+    this.attestationUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.immatriculationService.urlAttestation);
+    //this.attestationUrl = this.immatriculationService.urlAttestation;
 
   }
 
