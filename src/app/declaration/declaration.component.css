@@ -2,9 +2,10 @@
     width: 800px;
 }
 .mat-form-field{
-    max-width: 45%;
-    min-width: 45%;
+    width: 45%;
+    min-width: 25%;
 }
+.min-form
 h1{
     color:#999999;
 }
@@ -21,5 +22,45 @@ h1{
   .submit-button{
     background-color: rgb(255, 104, 49);
     color:#ffffff;
-  
  }
+ table{
+     width: 100%;
+ }
+ .largeButt{
+     
+    display:inline-block;
+    vertical-align:middle;
+     width: 70%;
+     color:#ffffff;
+     height: 40px;
+     background-color:#0aca04;
+     border-radius: 25px ;
+     
+     
+ }
+ mat-toolbar{
+     color:#0aca04;
+     border-radius: 5px;
+     background-color: #0bca0428;
+     height: 50px;
+ }
+
+ .mat-progress-spinner::ng-deep circle {
+    stroke: #ffffff!important;
+}
+
+::ng-deep .mat-tab-labels, .mat-tab-label, .mat-tab-link {
+    font-size: 16px;
+    background-color: rgb(255, 104, 49);
+    border-radius: 5px;
+
+  }
+  ::ng-deep .mat-tab-label {
+    background-color:transparent;
+    color:rgb(250, 250, 250);
+}
+  
+  ::ng-deep  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+    background: rgb(245, 245, 245);
+    height: 2px; 
+  }

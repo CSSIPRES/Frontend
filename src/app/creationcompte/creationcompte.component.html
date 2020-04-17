@@ -36,47 +36,47 @@
               <mat-error>Prenom obligatoire</mat-error>
             </mat-form-field>
           </div>
-          <div fxLayout="row">
-            <mat-form-field appearance="outline" class="pl-5 pr-5" >
-              <mat-label>Email</mat-label>
-              <input type="email"  matInput formControlName="email" required />
-              <mat-icon matSuffix>email</mat-icon>
-              <mat-error>Email est obligatoire</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="pl-5 pr-5" >
-              <mat-label>Login</mat-label>
-              <input type="email"  matInput formControlName="login" required />
-              <mat-icon matSuffix>email</mat-icon>
-              <mat-error>Ce champ est obligatoire</mat-error>
-            </mat-form-field>
-            
+        <div fxLayout="row">
+          <mat-form-field appearance="outline" class="pl-5 pr-5" >
+            <mat-label>Email</mat-label>
+            <input type="email"  matInput formControlName="email" required />
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error>Email est obligatoire</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="pl-5 pr-5" >
+            <mat-label>Login</mat-label>
+            <input type="email"  matInput formControlName="login" required />
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error>Ce champ est obligatoire</mat-error>
+          </mat-form-field>
+          
+        </div>
+        <div fxLayout="row">
+          <mat-form-field appearance="outline" class="pl-5 pr-5" >
+            <mat-label>Mot de passe</mat-label>
+            <input type="password"  matInput formControlName="password" required />
+            <mat-icon matSuffix>lock</mat-icon>
+            <mat-error>Mot de passe est obligatoire</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="pl-5 pr-5">
+            <mat-label>Confirmer mot de passe</mat-label>
+            <input type="password"  matInput required />
+            <mat-icon matSuffix>lock</mat-icon>
+            <mat-error>Confirmer mot de passe</mat-error>
+          </mat-form-field>
+        </div>
+          <div fxLayout="column" class="mb-4 mt-2" fxLayoutAlign="center center">
+           <!--  <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
+              Envoyer
+            </button> -->
+            <button (click)="creationCompte()" fxLayoutAlign="center center" mat-raised-button 
+            class="submit-button1" aria-label="CONNEXION">
+             <div *ngIf="!loader"> Envoyer </div>
+             <div>  
+               <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+            </div> 
+            </button>
           </div>
-          <div fxLayout="row">
-            <mat-form-field appearance="outline" class="pl-5 pr-5" >
-              <mat-label>Mot de passe</mat-label>
-              <input type="password"  matInput formControlName="password" required />
-              <mat-icon matSuffix>lock</mat-icon>
-              <mat-error>Mot de passe est obligatoire</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="pl-5 pr-5">
-              <mat-label>Confirmer mot de passe</mat-label>
-              <input type="password"  matInput required />
-              <mat-icon matSuffix>lock</mat-icon>
-              <mat-error>Confirmer mot de passe</mat-error>
-            </mat-form-field>
-          </div>
-            <div fxLayout="column" class="mb-4 mt-2" fxLayoutAlign="center center">
-             <!--  <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
-                Envoyer
-              </button> -->
-              <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button 
-              class="submit-button1" aria-label="CONNEXION">
-               <div *ngIf="!loader"> Envoyer </div>
-               <div>  
-                 <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
-              </div> 
-              </button>
-            </div>
           </form>
         </div>
         </mat-card-content>

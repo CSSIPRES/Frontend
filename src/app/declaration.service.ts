@@ -12,11 +12,10 @@ export class DeclarationService {
 
   preDns(preDns){
     return this.httpCl.post(environment.BASE_URL + "preDNS", preDns,
-    {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+token})});
+     {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+token})});
   }
   addDeclaration(declaration){
-    return this.httpCl.post(environment.BASE_URL + "declaration", declaration,
-    {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+token )});
+    return this.httpCl.post(environment.BASE_URL + "dns", declaration,
+    {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+token)});
   }
-
 }

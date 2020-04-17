@@ -17,8 +17,7 @@ export interface Declaration {
 
 
 const ELEMENT_DATA: Declaration[] = [
-  {num_id: "12220300033", type_declaration: 'D1', total_sal: 1.0079, mtn_cot: 1223098376564},
-  {num_id: "KANE", type_declaration: 'D2', total_sal: 1.0079, mtn_cot: 2430053734563}
+  {num_id: "12220300033", type_declaration: 'D1', total_sal: 1.0079, mtn_cot: 1223098376564}
 ];
 
 @Component({
@@ -106,7 +105,7 @@ export class EspaceEmployeComponent implements OnInit {
 
 
 
-  openPaiementDialog(titre,url){
+ /*  openPaiementDialog(titre,url){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -116,6 +115,6 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.width='800px',
       dialogConfig.height='600px'
      this.dialog.open(PaiementComponent, dialogConfig);
-  }
+  }*/
  
-}
+} 
