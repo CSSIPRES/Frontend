@@ -4,8 +4,13 @@
 
 export const environment = {
   production: false,
+<<<<<<< HEAD
     BASE_URL:'http://192.168.0.103:8080/api/',   
   /* BASE_URL:'http://localhost:8080/api/', */  
+=======
+   BASE_URL:'http://192.168.0.103:8080/api/',   
+  /* BASE_URL:'http://192.168.125.252:8080/api/',  */  
+>>>>>>> 9df9240bdc9e32b3998e4d0b7faf1b71fd26e470
   /* BASE_URL: "http://192.168.5.98:8080/api" */
   /* BASE_URL1:'http://192.168.5.208:8080' */
 };

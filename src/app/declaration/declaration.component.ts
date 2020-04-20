@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DeclarationService } from '../declaration.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
+import * as moment from 'moment';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-declaration',
@@ -43,8 +46,8 @@ initDeclarationForm(){
   /* adresse:new FormControl(this.emp.legalRepresentativeForm.address, Validators.required), */
   adresse:this.fb.control('DK', Validators.required),
   typeDeclaration:this.fb.control('MENSUEL', Validators.required),
-  dateDebutCotisation:this.fb.control('2020-09-01', Validators.required),
-  dateFinPeriodeCotisation :this.fb.control('2020-09-30', Validators.required), 
+  dateDebutCotisation:this.fb.control('2021-01-01', Validators.required),
+  dateFinPeriodeCotisation :this.fb.control('2021-12-31', Validators.required), 
   totalNouvSalaries:this.fb.control(''),
   totalSalaries:this.fb.control(''),
   cumulTotSalAssIpresRg:this.fb.control(''),
@@ -109,7 +112,10 @@ informationSalaries:new FormArray([
 })
 }
 dateErrors:boolean=false;
-  constructor(private fb:FormBuilder, private decService:DeclarationService) { }
+  constructor(private fb:FormBuilder, private decService:DeclarationService,private dialog:MatDialog,
+    private snackB: MatSnackBar) {
+
+   }
 
   ngOnInit() {
   this.emp= JSON.parse(window.localStorage.getItem('employerDataInput'));
@@ -120,8 +126,8 @@ dateErrors:boolean=false;
     this.preDnsObject.idIdentifiant=589834288;
     this.preDnsObject.typeIdentifiant='SCI';
     this.preDnsObject.adresse='lg';
-    this.preDnsObject.dateDebutCotisation='2020-09-01';
-    this.preDnsObject.dateFinPeriodeCotisation='2020-10-01';
+    this.preDnsObject.dateDebutCotisation='2020-05-01';
+    this.preDnsObject.dateFinPeriodeCotisation='2020-05-31';
     this.preDnsObject.raisonSociale=this.declarationForm.get('raisonSociale').value;
     this.preDnsObject.typeDeclaration=this.declarationForm.get('typeDeclaration').value;
    let prDns= JSON.stringify(this.preDnsObject);
@@ -147,8 +153,8 @@ dateErrors:boolean=false;
           raisonSociale:new FormControl('TEST 1234 KB', Validators.required),
           adresse:new FormControl('KEURY KAW lot 123 B', Validators.required),
           typeDeclaration:new FormControl('MENSUEL', Validators.required),
-          dateDebutCotisation:new FormControl('2020-09-01', Validators.required),
-          dateFinPeriodeCotisation:new FormControl('2020-09-30', Validators.required),  
+          dateDebutCotisation:new FormControl('2020-05-01', Validators.required),
+          dateFinPeriodeCotisation:new FormControl('2020-05-31', Validators.required),  
           totalNouvSalaries:new FormControl(resp.value.totalNouvSalaries),
           totalSalaries:new FormControl(resp.value.totalSalaries),
           cumulTotSalAssIpresRg:new FormControl(resp.value.cumulTotSalAssIpresRg),
@@ -160,9 +166,7 @@ dateErrors:boolean=false;
           mntCotAtMpCalcParEmployeur:new FormControl(resp.value.mntCotAtMpCalcParEmployeur),
           mntCotRgCalcParEmployeur:new FormControl(resp.value.mntCotRgCalcParEmployeur),
           mntCotRccCalcParEmployeur:new FormControl(resp.value.mntCotRccCalcParEmployeur),
-          processFlowId: new FormControl(92402736122987),
-          formId: new FormControl(558153101500),
-          informationSalaries:new FormArray([new FormGroup({
+        informationSalaries:new FormArray([new FormGroup({
         numeroAssureSocial: new FormControl(3898226577),
         nomEmploye: new FormControl('KEBSON'),
         prenomEmploye: new FormControl('ELHADJI'),
@@ -185,30 +189,30 @@ dateErrors:boolean=false;
         regimeGeneral1: new FormControl(true),
         regimCompCadre1: new FormControl(false),
         dateEffetRegimeCadre1: new FormControl(null),
-        totSalAssCssPf2: new FormControl(0),
-        totSalAssCssAtmp2: new FormControl(0),
-        totSalAssIpresRg2: new FormControl(0),
-        totSalAssIpresRcc2: new FormControl(0),
-        salaireBrut2: new FormControl(0),
-        nombreJours2: new FormControl(0),
-        nombreHeures2: new FormControl(0),
-        tempsTravail2: new FormControl(null),
-        trancheTravail2: new FormControl(null),
-        regimeGeneral2: new FormControl(true),
-        regimCompCadre2: new FormControl(false),
-        dateEffetRegimeCadre2: new FormControl(null),
-        totSalAssCssPf3: new FormControl(63000),
-        totSalAssCssAtmp3: new FormControl(63000),
-        totSalAssIpresRg3: new FormControl(360000),
-        totSalAssIpresRcc3: new FormControl(900000),
-        salaireBrut3: new FormControl(900000),
+        totSalAssCssPf3: new FormControl(0),
+        totSalAssCssAtmp3: new FormControl(0),
+        totSalAssIpresRg3: new FormControl(0),
+        totSalAssIpresRcc3: new FormControl(0),
+        salaireBrut3: new FormControl(0),
         nombreJours3: new FormControl(0),
         nombreHeures3: new FormControl(0),
-        tempsTravail3: new FormControl('TPS_PLEIN'),
+        tempsTravail3: new FormControl(null),
         trancheTravail3: new FormControl(null),
         regimeGeneral3: new FormControl(true),
-        regimCompCadre3: new FormControl(true),
-        dateEffetRegimeCadre3: new FormControl('2020-01-01')
+        regimCompCadre3: new FormControl(false),
+        dateEffetRegimeCadre3: new FormControl(null),
+        totSalAssCssPf2: new FormControl(63000),
+        totSalAssCssAtmp2: new FormControl(63000),
+        totSalAssIpresRg2: new FormControl(360000),
+        totSalAssIpresRcc2: new FormControl(900000),
+        salaireBrut2: new FormControl(900000),
+        nombreJours2: new FormControl(0),
+        nombreHeures2: new FormControl(0),
+        tempsTravail2: new FormControl('TPS_PLEIN'),
+        trancheTravail2: new FormControl(null),
+        regimeGeneral2: new FormControl(true),
+        regimCompCadre2: new FormControl(true),
+        dateEffetRegimeCadre2: new FormControl('2020-01-01')
         })])
         });
         console.log(resp.value.informationSalaries[0].numeroAssureSocial);
@@ -217,14 +221,36 @@ dateErrors:boolean=false;
      )
   }
   addDeclaration(){
-    console.log(this.declarationForm.value);
-    this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>
-      console.log(resp)
+    this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>{ 
+      if(resp==200){
+        this.loader=false;
+        this.dialog.closeAll();
+        this.snackB.open("Demande de declaration envoyée avec succes","Fermer", {
+          duration: 10000,
+          panelClass: ['my-snack-bar','mat-success'],
+          verticalPosition: 'bottom',
+          horizontalPosition:'left'
+       });  
+      }
+      console.log(resp);
+    }, err =>{
+      console.log(err.error.detail);
+      if(err.status==500){
+        this.loader=false;
+        this.snackB.open(err.error.detail,"Fermer", {
+          duration: 5000,
+          panelClass: ['my-snack-bar1', "mat-warn"],
+          verticalPosition: 'bottom',
+          horizontalPosition:'left'
+       })
+      }
+      }
     )
   }
   displayForm(){
     this.displayFormArr=true;
   }
+ 
   fillEmployeeForm(dec){
   return    new FormGroup({
       numeroAssureSocial:new FormControl(dec.numeroAssureSocial),
@@ -348,28 +374,34 @@ dateErrors:boolean=false;
       this.dateErrors=false;
     }
   }
-  displayM1(){
-    
+  
+  displayMensualite(event){
+    let d1=this.declarationForm.get('dateDebutCotisation').value;
+    let d2=this.declarationForm.get('dateFinPeriodeCotisation').value;
+    moment(moment(d1)).format("YYYY-MM-DD");
+    console.log(d1);
+   
   }
   get typeIdentifiant() {
-    return this.declarationForm.get('input').get('informationEmployeur').get('typeIdentifiant');
+    return this.declarationForm.get('informationEmployeur').get('typeIdentifiant');
   }
   get idIdentifiant() {
-    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
   }
   get raisonSociale() {
-    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
   }
   get adresse() {
-    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
   }
   get typeDeclaration() {
-    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
   }
   get dateDebutCotisation() {
-    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
   }
   get dateFinCotisation() {
-    return this.declarationForm.get('input').get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
   }
 }
+ 
