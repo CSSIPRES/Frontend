@@ -33,7 +33,14 @@ export class SuiviDemandeComponent implements OnInit {
     private snackB: MatSnackBar,
     private dialog:MatDialog) {
       
+      if(JSON.parse(localStorage.getItem("employerData"))){
         this.idDossierImmat = JSON.parse(localStorage.getItem("employerData")).processFlowId;
+      }else{
+        this.idDossierImmat = "86047026879749";
+      }
+      
+     
+       
         this.immatriculationService.getStatutCertificatImmat(this.idDossierImmat)
         .subscribe(
           (data:any)=>{
