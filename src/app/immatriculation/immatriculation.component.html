@@ -115,7 +115,7 @@
       <mat-form-field fxFlex="30"  appearance="outline">
         <mat-label>Quartie</mat-label>
         <mat-select formControlName="qartier" required>
-          <mat-option *ngFor="let q of listQ" [value]="q.quartier">{{ q.quartier | titlecase}}</mat-option>
+           <mat-option *ngFor="let q of listQ" [value]="q.quartier">{{ q.quartier | titlecase}}</mat-option> 
         </mat-select>
         <mat-icon matSuffix>email</mat-icon>
         <mat-error>
@@ -232,12 +232,15 @@
         </mat-form-field>
         <mat-form-field  appearance="outline">
           <mat-label>Ninea Number</mat-label>
-          <input matInput formControlName="nineaNumber" required>
+          <input (blur)="getNineaNumber()" matInput formControlName="nineaNumber" required>
           <mat-icon matSuffix> short_text</mat-icon>
          <mat-error *ngIf="nineaNumber.hasError('required')">Ce champs est obligatoire.</mat-error>
           <mat-error   
           *ngIf="(nineaNumber.hasError('maxlength'))||(nineaNumber.hasError('minlength'))">
-          Le NINEA doit etre de 9 chiffres.</mat-error>     
+          Le NINEA doit etre de 9 chiffres.</mat-error>
+          <mat-hint class="text-danger"   
+          *ngIf="nineaExist">
+          Ce NINEA existe deja.</mat-hint>       
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayoutGap="5%">
@@ -443,7 +446,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Quartie</mat-label>
           <mat-select formControlName="qartier" required>
-            <mat-option *ngFor="let q of listQ1" [value]="q.quartier">{{q.quartier | titlecase}}</mat-option>
+             <mat-option *ngFor="let q of listQ1" [value]="q.quartier">{{q.quartier | titlecase}}</mat-option> 
           </mat-select>
           <mat-icon matSuffix>email</mat-icon>
           <mat-error>Ce champ est obligatoire.</mat-error>
@@ -656,7 +659,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Quartie</mat-label>
             <mat-select formControlName="quartier" required>
-              <mat-option *ngFor="let q of listQ1" [value]="q.arrondissement">{{q.quartier | titlecase}}</mat-option>
+               <mat-option *ngFor="let q of listQ1" [value]="q.arrondissement">{{q.quartier | titlecase}}</mat-option> 
             </mat-select>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>

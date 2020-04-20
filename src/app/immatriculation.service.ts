@@ -22,8 +22,10 @@ addImmatriculation(immatriculation){
 return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
 {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+token})})
 }
- getNineaNumber(id){
-   return this.http.get(environment.BASE_URL +'checkExistEmployer/' +id);
+ getNineaNumber(numeroIdentifiant){
+   let typeIdentifiant="SCI"
+   return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant,
+   {headers: new HttpHeaders({'Authorization': 'Bearer'+' '+token})});
  } 
 
   getListActivite(){

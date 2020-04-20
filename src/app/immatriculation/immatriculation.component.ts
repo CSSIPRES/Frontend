@@ -55,8 +55,8 @@ export class ImmatriculationComponent implements OnInit {
   listCommune:any=[];
   listArrondissemnt:any=[];
   listQuartie:any=[];
-  listQ:any=[];
-  listQ1:any=[];
+   listQ:any=[];
+  listQ1:any=[]; 
   listSector:any=[];
   listMainSector:any=[];
   ninea:any=[];
@@ -195,7 +195,7 @@ export class ImmatriculationComponent implements OnInit {
     this.initlistDept=(departement as any).default[0];
     this.listCommune=(communes as any).default[0];
     this.listArrondissemnt=(arrondissement as any).default[0];
-    this.listQuartie=(quarties as any).default[0];
+   /*  this.listQuartie=(quarties as any).default[0]; */
     this.listPays=(countries as any).default[0];
     this.listSectors=(sectors as any).default[0];
     this.listactivitePrincipal=(main_sectors as any).default[0];
@@ -286,17 +286,16 @@ export class ImmatriculationComponent implements OnInit {
       console.log(this.validNumbOfworker);
     }
   }
-/* getNineaNumber(){
+ getNineaNumber(){
    this.immService.getNineaNumber(this.immatForm.get('input').get('employerQuery').get('nineaNumber').value).subscribe(
      (resp:any)=>{
-       console.log(resp);
-       if(resp.status!="200"){
+       if(resp.value.output.isTaxpayerIdentifierExist.value==true){
            this.nineaExist=true;
-           console.log(this.nineaExist);
+            console.log(this.nineaExist); 
        }
      }
    )
- } */
+ } 
 
   createItem() {
     return this.fb.group({
@@ -399,18 +398,18 @@ selectDepartement(event){
     );  
   }
   selectCommne(event){
-    this.listQ=[];
-    this.listQ1=[];
+     this.listQ=[];
+    this.listQ1=[]; 
     let c1= this.immatForm.get('input').get('mainRegistrationForm').get('commune').value;
     let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('commune').value;
     
     this.listQuartie.items.forEach(element => {
       if(element.commune==c1){
-        this.listQ.push(element);
+         this.listQ.push(element); 
         console.log(this.listQuartie);
       }
       else if(element.commune==c2){
-        this.listQ1.push(element);
+         this.listQ1.push(element); 
         
       }
       }
