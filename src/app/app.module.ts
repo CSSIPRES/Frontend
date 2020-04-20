@@ -21,7 +21,9 @@ MatTableModule,
 MatRadioModule,
 MatSnackBarModule,
 MatExpansionModule,
-MatTabsModule}
+MatTabsModule,
+DateAdapter,
+MAT_DATE_LOCALE}
 from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DocumentComponent } from './document/document.component';
@@ -41,8 +43,9 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeclarationComponent } from './declaration/declaration.component';
 import { SuiviDemandeComponent } from './suivi-demande/suivi-demande.component';
 import { ViewPdfComponent } from './view-pdf/view-pdf.component';
-import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { PaiementComponent } from './paiement/paiement.component';
+import { RedirectionComponent } from './redirection/redirection.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -71,7 +74,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DeclarationComponent,
     SuiviDemandeComponent,
     ViewPdfComponent,
-    PaiementComponent
+    PaiementComponent,
+    RedirectionComponent
     
   ],
   imports: [
@@ -114,8 +118,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         
   ],
   providers: [
-    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
-  {
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}, 
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]},
+    {
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
   }],

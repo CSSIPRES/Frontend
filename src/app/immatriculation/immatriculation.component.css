@@ -100,6 +100,10 @@ color: #999999 !important;
     color: #999999!important;
     background-color: #ffffff;
    }
+   ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+  }
    ::ng-deep .mat-form-field-appearance-outline.mat-focused 
    .mat-form-field-outline-thick {
    color: #999999!important;
@@ -114,8 +118,7 @@ color: #999999 !important;
 /*++++++++++++++++++++++++++++++++Customer Input Fields+++++++++++++++++++++++++*/
                                    /*------End------*/
 
-/*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/
-                               
+/*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/                        
    .center {
     position: absolute; 
     top: 50%;
@@ -128,6 +131,7 @@ color: #999999 !important;
     height:100%;
     width:100%;
 }
+
 ::ng-deep mat-progress-spinner{
  /*  top: 100px; */
  top:50%;
