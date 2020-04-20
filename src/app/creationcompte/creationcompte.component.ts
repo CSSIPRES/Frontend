@@ -51,7 +51,7 @@ getKey(){
    this.creCompteServ.creationCompte(this.creationCpteForm.value).subscribe(
      resp=>{
       console.log(resp);
-     if(resp==200){
+     if(resp==201){
        /* this.router.navigate(['/accueil']); */
        this.creationCpteForm.reset(); 
        this.snackB.open("Votre compte a été crée  succés","Fermer", {
