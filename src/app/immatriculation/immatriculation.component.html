@@ -644,7 +644,7 @@
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Commune</mat-label>
-            <mat-select (selectionChange)=" selectCommune($event)" formControlName="commune" required>
+            <mat-select formControlName="commune" required>
               <mat-option *ngFor="let ar of listC1" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
