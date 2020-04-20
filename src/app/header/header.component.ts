@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AstTransformer } from '@angular/compiler/src/output/output_ast';
 import { LoginService } from '../login.service';
@@ -14,6 +14,7 @@ checkConn:boolean=false;
   constructor(private ref: ChangeDetectorRef,private loginService:LoginService) {
    }
   
+  
   getUser(){
     if(user!=null){
     this.checkConn=true;
@@ -21,7 +22,7 @@ checkConn:boolean=false;
     }
   }
   ngOnInit() {
-    this.getUser();
+     this.getUser(); 
   }
 
   logout(){

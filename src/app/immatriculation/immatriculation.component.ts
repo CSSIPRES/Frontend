@@ -44,6 +44,8 @@ export class ImmatriculationComponent implements OnInit {
   listRegions:any=[];
   listD:any=[];
   listD1:any=[];
+  listD2:any=[];
+  listA2:any=[];
   listA:any=[];
   listA1:any=[];
   listC:any=[];
