@@ -4,6 +4,7 @@ import * as departement from '../departement.json';
 import * as regions from '../regions.json';
 import * as communes from '../communes.json';
 import * as arrondissement from '../arrondissement.json';
+import * as quarties from '../quarties.json';
 import * as countries from '../countries.json';
 import * as sectors from '../sectors.json';
 import * as main_sectors from '../main_sectors.json';
@@ -41,12 +42,21 @@ export class ImmatriculationComponent implements OnInit {
   listactivitePrincipal:any=[];
   activitePrincipal:any=[];
   listRegions:any=[];
-  listDepartments:any=[];
-  listArrondissements:any=[];
-  listCommunes:any=[];
+  listD:any=[];
+  listD1:any=[];
+  listD2:any=[];
+  listA2:any=[];
+  listA:any=[];
+  listA1:any=[];
+  listC:any=[];
+  listC1:any=[];
+  sectorName:string="";
   initlistDept:any=[];
   listCommune:any=[];
   listArrondissemnt:any=[];
+  listQuartie:any=[];
+   listQ:any=[];
+  listQ1:any=[]; 
   listSector:any=[];
   listMainSector:any=[];
   ninea:any=[];
@@ -185,10 +195,11 @@ export class ImmatriculationComponent implements OnInit {
     this.initlistDept=(departement as any).default[0];
     this.listCommune=(communes as any).default[0];
     this.listArrondissemnt=(arrondissement as any).default[0];
+   /*  this.listQuartie=(quarties as any).default[0]; */
     this.listPays=(countries as any).default[0];
     this.listSectors=(sectors as any).default[0];
     this.listactivitePrincipal=(main_sectors as any).default[0];
-    console.log( this.listactivitePrincipal);
+    console.log(this.listactivitePrincipal);
 
 }
 
@@ -275,17 +286,16 @@ export class ImmatriculationComponent implements OnInit {
       console.log(this.validNumbOfworker);
     }
   }
-/* getNineaNumber(){
+ getNineaNumber(){
    this.immService.getNineaNumber(this.immatForm.get('input').get('employerQuery').get('nineaNumber').value).subscribe(
      (resp:any)=>{
-       console.log(resp);
-       if(resp.status!="200"){
+       if(resp.value.output.isTaxpayerIdentifierExist.value==true){
            this.nineaExist=true;
-           console.log(this.nineaExist);
+            console.log(this.nineaExist); 
        }
      }
    )
- } */
+ } 
 
   createItem() {
     return this.fb.group({
@@ -338,49 +348,79 @@ export class ImmatriculationComponent implements OnInit {
     
    /* this.employeList = this.immatForm.get('input').get('employeList') as FormArray; */ 
     this.employeList.push(this.createItem());
-    console.log(this.employeList);
+    
   }
 selectRegion(event){
-this.listDepartments=[];
+this.listD=[];
+this.listD1=[];
+let r=this.immatForm.get('input').get('mainRegistrationForm').get('region').value;
+  let r1=this.immatForm.get('input').get('legalRepresentativeForm').get('region').value
 this.initlistDept.items.forEach(element => {
-  let region=this.immatForm.get('input').get('mainRegistrationForm').get('region').value;
-  let region1=this.immatForm.get('input').get('legalRepresentativeForm').get('region').value
-  if(element.rgion==region||element.rgion==region1){
-    this.listDepartments.push(element); 
+  if(element.rgion==r){
+    this.listD.push(element); 
+   
+  }
+  else if(element.rgion==r1){
+    this.listD1.push(element); 
   }
   }
 ); 
   }
 selectDepartement(event){
-  this.listArrondissements=[];
+  this.listA=[];
+  this.listA1=[];
   let d1= this.immatForm.get('input').get('mainRegistrationForm').get('department').value;
   let d2=this.immatForm.get('input').get('legalRepresentativeForm').get('department').value
   this.listArrondissemnt.items.forEach(element => {
-    if(element.departement==d1||element.departement==d2){
-      this.listArrondissements.push(element);
-      console.log(this.listDepartments)
+    if(element.departement==d1){
+      this.listA.push(element);
+      console.log(this.listD)
+    }
+    else if(element.departement==d2){
+      this.listA1.push(element);
     }
     }
   ); 
   }
   selectArrondissement(event){
-    this.listCommunes=[];
+    this.listC=[];
+    this.listC1=[];
     let c1= this.immatForm.get('input').get('mainRegistrationForm').get('arondissement').value;
     let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value;
     this.listCommune.items.forEach(element => {
-      if(element.arrondissement==c1||element.arrondissement==c2){
-        this.listCommunes.push(element);
+      if(element.arrondissement==c1){
+        this.listC.push(element);
+      }
+      else if(element.arrondissement==c2){
+        this.listC1.push(element);
       }
       }
     );  
   }
-  selectSector(event){
-    this.listMainSector=[];
-    let c1= this.immatForm.get('input').get('mainRegistrationForm').get('businessSector').value;
+  selectCommne(event){
+     this.listQ=[];
+    this.listQ1=[]; 
+    let c1= this.immatForm.get('input').get('mainRegistrationForm').get('commune').value;
+    let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('commune').value;
+    
+    this.listQuartie.items.forEach(element => {
+      if(element.commune==c1){
+         this.listQ.push(element); 
+        console.log(this.listQuartie);
+      }
+      else if(element.commune==c2){
+         this.listQ1.push(element); 
+        
+      }
+      }
+    );  
+  }
+  selectSector(event){ 
+    let c1= this.immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value;
+    console.log(c1)
     this.listactivitePrincipal.items.forEach(element => {
-      if(element.secteuractivites==c1){
-        this.listMainSector.push(element);
-        console.log(this.listMainSector);
+      if(element.activitesprincipal==c1){
+     this.sectorName=element.secteuractivites;
       }
       }
     ); 
