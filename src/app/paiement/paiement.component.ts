@@ -3,19 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Paiement } from '../models/paiement';
 import { PaiementService } from '../paiement.service';
-
-
-
-
-
-const ELEMENT_DATA_PAIEMENT: Paiement[] = [
- {numeroOrdreVirement:"17268390",banqueSource:"SGBS",numeroCompteSource:"12973432",numeroCompteDestination:"17628390",referenceFacture:"FAC_2910",montantAccount:150000,montantTotal:500000,etat:"EN COUR"},
- {numeroOrdreVirement:"83627180",banqueSource:"SGBS",numeroCompteSource:"138712900",numeroCompteDestination:"82908789",referenceFacture:"FAC_2919",montantAccount:190000,montantTotal:500000,etat:"PAYER"}
-];
-
-
-
-
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-paiement',
@@ -25,13 +13,17 @@ const ELEMENT_DATA_PAIEMENT: Paiement[] = [
 
 export class PaiementComponent implements OnInit {
   creationPaiementForm:FormGroup;
+  dataSource = new MatTableDataSource();
+  paiements:Paiement[] = [];
+  loader:boolean = false;
+  isLoadData:boolean = false;
   
   userConnecter:any;
 
   isPaiementSelect:boolean = false;
  
-  dataSource = new MatTableDataSource(ELEMENT_DATA_PAIEMENT);
-  displayedColumns: string[] = ['numeroOrdreVirement', 'banqueSource', 'numeroCompteSource', 'banqueDestination', 'numeroCompteDestination', 'referenceFacture','etat' , 'payer'];
+ 
+  displayedColumns: string[] = ['numeroOrdreVirement', 'banqueSource', 'numeroCompteSource', 'banqueDestination', 'numeroCompteDestination', 'referenceFacture','etat'];
   paiement:Paiement = {
     numeroOrdreVirement:"",
     banqueSource:"",
@@ -43,11 +35,42 @@ export class PaiementComponent implements OnInit {
     etat:"",
     fileJoin:""
   };
-  constructor(private fb:FormBuilder,private paiementService:PaiementService,private snackB: MatSnackBar) { }
+  constructor(private fb:FormBuilder,
+    private paiementService:PaiementService,
+    private snackB: MatSnackBar,
+    private loginService:LoginService) { }
 
   ngOnInit() {
-    this.userConnecter = JSON.parse(localStorage.getItem("user"));
+    
+    this.loader = true;
+   this.isLoadData = false;
 
+
+    
+   // this.userConnecter = JSON.parse(localStorage.getItem("user"));
+    this.loginService.getUserByLogin(localStorage.getItem("user_login"))
+    .subscribe(
+      data=>{
+        this.loader = false;
+        this.userConnecter = data;
+        this.paiementService.getPaiementsByUser(this.userConnecter.id)
+        .subscribe(
+          (data:Paiement[])=>{
+            this.loader = false;
+            this.isLoadData = true;
+            this.paiements = data;
+            this.dataSource = new MatTableDataSource(this.paiements);
+          },err=>{
+            this.loader = false;
+            this.isLoadData = true;
+             console.log(err)
+          }
+        )
+      },err=>{
+        this.loader = false;
+        console.log(err);
+      }
+    )
     this.isPaiementSelect = false;
     this.initForm();
   }
@@ -81,16 +104,20 @@ export class PaiementComponent implements OnInit {
     this.paiement.referenceFacture = this.creationPaiementForm.value['referenceFacture'];
     this.paiement.montantAccount = this.creationPaiementForm.value['montantAccount'];
     this.paiement.etat = this.creationPaiementForm.value['etat'];
+    this.paiement.userId = this.userConnecter.id;
  
       
       console.log(this.paiement);
-
+     this.loader = true;
       this.paiementService.savePaiement(this.paiement)
       .subscribe(
         (data)=>{
-          console.log(data);
+          this.loader = false;
+        //  console.log(data);
           this.isPaiementSelect = false;
+          this.creationPaiementForm.reset();
         },err=>{
+          this.loader = false;
           console.log(err);
           this.snackB.open("Une erreur s'est produite","X", {
             duration: 10000,

@@ -105,16 +105,16 @@ export class EspaceEmployeComponent implements OnInit {
 
 
 
- /*  openPaiementDialog(titre,url){
+   openPaiementDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
       dialogConfig.data={
-        title:titre, 
+        title:"Mes Paiements", 
       }
       dialogConfig.width='800px',
-      dialogConfig.height='600px'
+      dialogConfig.height='400px'
      this.dialog.open(PaiementComponent, dialogConfig);
-  }*/
+  }
  
 } 

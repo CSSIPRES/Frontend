@@ -16,4 +16,10 @@ export class PaiementService {
       return this.httpClient.post(environment.BASE_URL + "paiements",paiement,
       {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
   }
+
+
+  getPaiementsByUser(idUser:number){
+    return this.httpClient.get(environment.BASE_URL + "paiements/user/"+idUser,
+    {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+  }
 }

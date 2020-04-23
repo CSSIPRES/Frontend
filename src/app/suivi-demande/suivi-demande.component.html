@@ -7,29 +7,7 @@
           <mat-icon color="warn">close</mat-icon>
       </button>
   </div>
-  <form class="tab-create-dossier" [formGroup]="attestationForm">
-  <div fxLayout="row" fxLayoutGap="5%">
-  
-            <mat-form-field   appearance="outline">
-              <mat-label>Type identifiant</mat-label>
-              <mat-select formControlName="typeIdentifiant" required>
-                <mat-option value="SCI">NINEA</mat-option>
-          
-              </mat-select>
-              <mat-error>Ce champ est obligatoire</mat-error>
-            </mat-form-field>
-            <mat-form-field   appearance="outline">
-                <mat-label>Numéro NINEA</mat-label>
-                <input  matInput formControlName="identifiant" required/>
-              <mat-error>Ce champ est obligatoire</mat-error> 
-            </mat-form-field>
-            <button (click)="createAttestationregularite()" class="submit-button" mat-button [disabled]="loader">Valider</button>
-   
-            <div>  
-              <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
-           </div> 
-  </div>
-</form>
+
   <!--
 <div mat-dialog-content>
     <mat-tab-group mat-align-tabs="center">
@@ -74,13 +52,38 @@
 -->
 
 <mat-accordion>
-  <mat-expansion-panel [expanded]="step === 0" hideToggle>
+  <mat-expansion-panel [expanded]="step === 0" (opened)="panelOpenState = true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <h6> DOCUMENT(S) </h6>
+        <h6> ATTESTATION DE REGULARITE  </h6>
       </mat-panel-title>
       
     </mat-expansion-panel-header>
+    
+
+    <form class="tab-create-dossier" [formGroup]="attestationForm">
+      <div fxLayout="row" fxLayoutGap="5%">
+      
+                <mat-form-field   appearance="outline">
+                  <mat-label>Type identifiant</mat-label>
+                  <mat-select formControlName="typeIdentifiant" required>
+                    <mat-option value="SCI">NINEA</mat-option>
+              
+                  </mat-select>
+                  <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+                <mat-form-field   appearance="outline">
+                    <mat-label>Numéro NINEA</mat-label>
+                    <input  matInput formControlName="identifiant" required/>
+                  <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                <button (click)="createAttestationregularite()" class="submit-button" mat-button [disabled]="loader">Valider</button>
+       
+                <div>  
+                  <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+               </div> 
+      </div>
+    </form>
       
         <div class="file-label" fxLayout="row" fxLayoutGap="5%">
          <span> <mat-icon>picture_as_pdf</mat-icon> </span>
@@ -108,48 +111,64 @@
 
          </div>
         <hr>
-        <div class="file-label" fxLayout="row" fxLayoutGap="5%">
-          <span> <mat-icon>picture_as_pdf</mat-icon> </span>
-          <span>  CERTIFICAT D'IMMATRICULATION </span> 
-          <mat-spinner *ngIf="urlImmat == ''" strokeWidth="2" [diameter]="34" ></mat-spinner>
-          <p *ngIf="urlImmat != ''">
-            <a href="{{ urlImmat }}" target="_blank">
-            <button mat-button class="icon-file-dowload">
-              <mat-icon>visibility</mat-icon> Voir
-            </button> 
-            </a>
-            
-            <a>
-            <button (click)="openViewPDFDialog('Certificat d\'immatriculation',urlImmat)" class="icon-file-dowload" mat-button> 
-              <mat-icon>cloud_download</mat-icon> Télécharger
-             </button>
-            </a>
-           </p>
-         </div>
-            <div class="file-label" fxLayout="row" fxLayoutGap="5%">
-          <span><mat-icon>crop_rotate</mat-icon> </span>
-          <span class="first">  Statut   </span> 
-          <mat-spinner *ngIf="statutImm===''" strokeWidth="2" [diameter]="34" ></mat-spinner>
-          <span>{{statutImm}}</span>
-
-         </div>
+       
 
  
        
   </mat-expansion-panel>
-  <!--
+
 
     
 
-  <mat-expansion-panel (opened)="panelOpenState = true"
+  <mat-expansion-panel [expanded]="step === 1" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-       <h6> MODIFICATION(S) </h6>
+       <h6> CERTIFICAT D'IMMATRICULATION  </h6>
       </mat-panel-title>
       
     </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
+    <form *ngIf="!isIdDossierImmatPresent" class="tab-create-dossier" [formGroup]="immatForm">
+      <div fxLayout="row" fxLayoutGap="5%">
+      
+                <mat-form-field   appearance="outline">
+                    <mat-label>Id Dossier</mat-label>
+                    <input  matInput formControlName="idDossier" required/>
+                  <mat-error>Ce champ est obligatoire</mat-error> 
+                </mat-form-field>
+                <button (click)="createCertificatImmatriculation()" class="submit-button" mat-button [disabled]="loaderUrlImmat">Valider</button>
+       
+               <!-- <div>  
+                  <mat-spinner *ngIf="loaderUrlImmat" strokeWidth="2" [diameter]="34" ></mat-spinner>
+               </div>  -->
+      </div>
+    </form>
+      
+    <div class="file-label" fxLayout="row" fxLayoutGap="5%">
+      <span> <mat-icon>picture_as_pdf</mat-icon> </span>
+      <span>  CERTIFICAT D'IMMATRICULATION </span> 
+      <mat-spinner *ngIf="loaderUrlImmat" strokeWidth="2" [diameter]="34" ></mat-spinner>
+      <p *ngIf="urlImmat != ''">
+        <a href="{{ urlImmat }}" target="_blank">
+        <button mat-button class="icon-file-dowload">
+          <mat-icon>visibility</mat-icon> Voir
+        </button> 
+        </a>
+        
+        <a>
+        <button (click)="openViewPDFDialog('Certificat d\'immatriculation',urlImmat)" class="icon-file-dowload" mat-button> 
+          <mat-icon>cloud_download</mat-icon> Télécharger
+         </button>
+        </a>
+       </p>
+     </div>
+        <div class="file-label" fxLayout="row" fxLayoutGap="5%">
+      <span><mat-icon>crop_rotate</mat-icon> </span>
+      <span class="first">  Statut   </span> 
+      <mat-spinner *ngIf="loaderStatutImmat" strokeWidth="2" [diameter]="34" ></mat-spinner>
+      <span>{{statutImm}}</span>
+
+     </div>
   </mat-expansion-panel>
-    -->
+  
 </mat-accordion>
