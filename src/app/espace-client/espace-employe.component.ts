@@ -112,7 +112,7 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.data={
         title:"Mes Paiements", 
       }
-      dialogConfig.width='800px',
+      dialogConfig.width='1000px',
       dialogConfig.height='400px'
      this.dialog.open(PaiementComponent, dialogConfig);
   }

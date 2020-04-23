@@ -8,6 +8,15 @@ import { environment } from 'src/environments/environment';
 })
 export class PaiementService {
 
+
+   BANKS:Array<any> = [
+     
+  "CBAO",
+  "SGBS","BHS","Crédit du Sénégal",
+  "CNCA","Banque Islamique du Sénégal",
+  "Bank of Africa Senegal","Banque Régionale de Solidarité-Sénégal",
+  "Banque Atlantique-Sénégal","United Bank of Africa Senegal","Ecobank Senegal","Credit International"]
+
   constructor(private httpClient:HttpClient) { }
 
 

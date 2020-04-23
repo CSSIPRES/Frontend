@@ -11,7 +11,9 @@ import { LoginService } from '../login.service';
   styleUrls: ['./paiement.component.css']
 })
 
+
 export class PaiementComponent implements OnInit {
+  banks:Array<any> = [];
   creationPaiementForm:FormGroup;
   dataSource = new MatTableDataSource();
   paiements:Paiement[] = [];
@@ -23,7 +25,7 @@ export class PaiementComponent implements OnInit {
   isPaiementSelect:boolean = false;
  
  
-  displayedColumns: string[] = ['numeroOrdreVirement', 'banqueSource', 'numeroCompteSource', 'banqueDestination', 'numeroCompteDestination', 'referenceFacture','etat'];
+  displayedColumns: string[] = ['numeroOrdreVirement', 'banqueSource', 'numeroCompteSource','banqueDestination', 'referenceFacture','montantAccount','etat'];
   paiement:Paiement = {
     numeroOrdreVirement:"",
     banqueSource:"",
@@ -42,8 +44,9 @@ export class PaiementComponent implements OnInit {
 
   ngOnInit() {
     
-    this.loader = true;
-   this.isLoadData = false;
+    this.loader = false;
+    this.isLoadData = false;
+    this.banks = this.paiementService.BANKS;
 
 
     
@@ -68,7 +71,7 @@ export class PaiementComponent implements OnInit {
         )
       },err=>{
         this.loader = false;
-        console.log(err);
+        console.log(err); 
       }
     )
     this.isPaiementSelect = false;
@@ -100,34 +103,97 @@ export class PaiementComponent implements OnInit {
     this.paiement.banqueSource = this.creationPaiementForm.value['banqueSource'];
     this.paiement.numeroCompteSource = this.creationPaiementForm.value['numeroCompteSource'];
     this.paiement.banqueDestination = this.creationPaiementForm.value['banqueDestination'];
-    this.paiement.numeroCompteDestination = this.creationPaiementForm.value['numeroCompteDestination'];
+   // this.paiement.numeroCompteDestination = this.creationPaiementForm.value['numeroCompteDestination'];
     this.paiement.referenceFacture = this.creationPaiementForm.value['referenceFacture'];
     this.paiement.montantAccount = this.creationPaiementForm.value['montantAccount'];
-    this.paiement.etat = this.creationPaiementForm.value['etat'];
+    this.paiement.etat = "PAYE";
     this.paiement.userId = this.userConnecter.id;
  
       
       console.log(this.paiement);
-     this.loader = true;
-      this.paiementService.savePaiement(this.paiement)
-      .subscribe(
-        (data)=>{
-          this.loader = false;
-        //  console.log(data);
-          this.isPaiementSelect = false;
-          this.creationPaiementForm.reset();
-        },err=>{
-          this.loader = false;
-          console.log(err);
-          this.snackB.open("Une erreur s'est produite","X", {
-            duration: 10000,
-            panelClass: ['my-snack-bar3','mat-success'],
-            verticalPosition: 'bottom',
-            horizontalPosition:'left',
-         });
-         this.creationPaiementForm.reset();
-        }
-      )
+      if(this.paiement.numeroOrdreVirement.length < 5 || this.paiement.numeroCompteSource.length < 5 || this.paiement.referenceFacture.length < 5 || this.paiement.montantAccount < 5000 || this.paiement.fileJoin.length < 10 ){
+          if(this.paiement.numeroOrdreVirement.length < 5){
+            this.snackB.open("Veuillez renseigner un numéro d'ordre de virement valide","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }else if(this.paiement.numeroCompteSource.length < 5){
+            this.snackB.open("Veuillez renseigner un numéro de compte valide","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }else if(this.paiement.referenceFacture.length < 5){
+            this.snackB.open("Veuillez renseigner un référence de facture valide","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }else if(this.paiement.montantAccount < 5000){
+            this.snackB.open("Le montant ne doit pas être inférieur à 1000 FRA ","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }else{
+            this.snackB.open("Veuillez renseigner tous les champs obligatoires","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }
+      }else{
+        this.loader = true;
+        this.paiementService.savePaiement(this.paiement)
+        .subscribe(
+          (data)=>{
+            this.loader = false;
+          //  console.log(data);
+            this.isPaiementSelect = false;
+            this.creationPaiementForm.reset();
+            this.loginService.getUserByLogin(localStorage.getItem("user_login"))
+            .subscribe(
+              data=>{
+                this.loader = false;
+                this.userConnecter = data;
+                this.paiementService.getPaiementsByUser(this.userConnecter.id)
+                .subscribe(
+                  (data:Paiement[])=>{
+                    this.loader = false;
+                    this.isLoadData = true;
+                    this.paiements = data;
+                    this.dataSource = new MatTableDataSource(this.paiements);
+                  },err=>{
+                    this.loader = false;
+                    this.isLoadData = true;
+                     console.log(err)
+                  }
+                )
+              },err=>{
+                this.loader = false;
+                console.log(err); 
+              }
+            )
+          },err=>{
+            this.loader = false;
+            console.log(err);
+            this.snackB.open("Une erreur s'est produite","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'bottom',
+              horizontalPosition:'left',
+           });
+           this.creationPaiementForm.reset();
+          }
+        )
+      }
+    
     }
 
     fileChangeEvent(fileInput: any) {
