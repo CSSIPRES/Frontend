@@ -10,5 +10,5 @@ export interface Paiement{
     etat?:string,
     fileJoin?:string,
     id_user?:string,
-    user?:any
+    userId?:number
   }

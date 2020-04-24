@@ -20,4 +20,10 @@ export class LoginService {
     localStorage.removeItem('token');
     this.router.navigate(['/accueil']);
   }
+
+
+  getUserByLogin(login:string){
+    return this.httpCli.get(environment.BASE_URL + "users/"+ login,
+    {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+localStorage.getItem("token")})} )
+  }
 }

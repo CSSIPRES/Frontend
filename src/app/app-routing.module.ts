@@ -10,6 +10,7 @@ import { ImmatriculationComponent } from './immatriculation/immatriculation.comp
 import { MatDatepickerModule } from '@angular/material';
 
 const routes: Routes = [
+  { path: '',redirectTo: '/accueil',pathMatch: 'full'},
   { path:'accueil', component:AccueilComponent },
   { path:'creationCompte', component:CreationcompteComponent },
   { path:'immatriculation', component:ImmatriculationComponent },
@@ -18,7 +19,7 @@ const routes: Routes = [
   { path:'demarche', component:DemarcheComponent },
   { path:'espaceEmploye', component:EspaceEmployeComponent },
   { path:'motPasseOublie', component:MotPasseOublieComponent },
-  { path: '',redirectTo: 'accueil',pathMatch: 'full'}
+  { path: '**',redirectTo: 'accueil'}
 ];
 
 @NgModule({

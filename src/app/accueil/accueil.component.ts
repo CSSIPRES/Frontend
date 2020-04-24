@@ -48,6 +48,7 @@ export class AccueilComponent implements OnInit {
             this.loader=false;
             this.router.navigate(['/espaceEmploye']);
              window.localStorage.setItem("token",resp.id_token ); 
+             window.localStorage.setItem("user_login",this.loginForm.value["username"] ); 
           }
        else{
          this.errorMess=true;
