@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {  WelcomeService } from './welcome.service';
+
 
 import 'hammerjs'; 
+import { WelcomeService } from './services/welcome.service';
 
 @Component({
   selector: 'app-root',

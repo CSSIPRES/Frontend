@@ -24,3 +24,15 @@ button:focus, button:active:focus, button.active:focus {
     outline: none !important;
     outline-style: none !important;
     }
+    
+.submit-button{
+        background-color: rgb(255, 104, 49);
+        color:#ffffff;
+        display:inline-block;
+        vertical-align:middle;
+          width: 20%; 
+         font-size:15px;
+         color:#ffffff;
+         height: 40px;
+         border-radius: 25px ;
+}

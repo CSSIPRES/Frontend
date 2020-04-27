@@ -46,6 +46,7 @@ import { ViewPdfComponent } from './view-pdf/view-pdf.component';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { PaiementComponent } from './paiement/paiement.component';
 import { RedirectionComponent } from './redirection/redirection.component';
+import { SendMailComponent } from './send-mail/send-mail.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -75,7 +76,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SuiviDemandeComponent,
     ViewPdfComponent,
     PaiementComponent,
-    RedirectionComponent
+    RedirectionComponent,
+    SendMailComponent
     
   ],
   imports: [

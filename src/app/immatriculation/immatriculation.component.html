@@ -33,7 +33,9 @@
       <mat-form-field   appearance="outline">
         <mat-label>Activite principale </mat-label>
         <mat-select (selectionChange)="selectSector($event)" formControlName="mainLineOfBusiness" required>
+          <perfect-scrollbar style="height: 100%;">
           <mat-option *ngFor="let mainSector of listactivitePrincipal.items" [value]="mainSector.activitesprincipal">{{ mainSector.activitesprincipal }}</mat-option>
+          </perfect-scrollbar>
         </mat-select>
         <mat-icon matSuffix>perm_identity</mat-icon>
         <mat-error>Ce champ est obligatoire</mat-error>
@@ -65,9 +67,7 @@
       </mat-form-field>
       <mat-form-field fxFlex="50"  appearance="outline">
         <mat-label>Secteur d'activite</mat-label>
-        <mat-select disabled  formControlName="businessSector" required>
-        <mat-option [value]="sectorName">{{ sectorName }}</mat-option>
-        </mat-select>
+        <input  matInput formControlName="businessSector" readonly required>  
         <mat-icon matSuffix>perm_identity</mat-icon>
         <mat-error>Ce champ est obligatoire</mat-error>
       </mat-form-field>
@@ -171,8 +171,7 @@
        
     </div>
      <div fxLayoutAlign="end" fxLayoutGap="10%" >
-      <button mat-raised-button matStepperPrevious>Precedent</button>
-      <button [disabled]="!immatForm.get('input').get('mainRegistrationForm').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant</button>
+      <button [disabled]="!immatForm.get('input').get('mainRegistrationForm').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
     </div>
    
   </div>
@@ -299,8 +298,8 @@
       </div>
      
         <div fxLayoutAlign="end" fxLayoutGap="10%">
-          <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button [disabled]="!immatForm.get('input').get('employerQuery').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant</button>
+          <button color="warn" mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
+          <button [disabled]="!immatForm.get('input').get('employerQuery').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
         </div> 
     
   </div>
@@ -482,8 +481,8 @@
         </mat-form-field>
        </div>
       <div fxLayoutAlign="end" fxLayoutGap="10%">
-          <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button [disabled]="!immatForm.get('input').get('legalRepresentativeForm').valid" class="submit-button" mat-raised-button matStepperNext matStepperNext>Suivant</button>
+          <button color="warn" mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
+          <button [disabled]="!immatForm.get('input').get('legalRepresentativeForm').valid" class="submit-button" mat-raised-button matStepperNext matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
       </div>
       
     </div>
@@ -786,9 +785,9 @@
       </div>
   </div>  
     <div fxLayoutAlign="end" fxLayoutGap="10%">
-      <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+      <button color="warn" mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
       <button [disabled]="!immatForm.get('input').get('employeList').valid"  class="submit-button"  mat-button matStepperNext>
-        Suivant
+        Suivant <mat-icon>arrow_forward</mat-icon>
       </button> 
   </div>
 </div>
@@ -799,7 +798,7 @@
           <h4 class="mt-2 mb-2">Confirmation Demande</h4><br>
           <div class="mb-5" fxLayoutAlign="end" fxLayoutGap="10%">
             <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-            <button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Confirmer</button>
+            <button class="submit-button" mat-raised-button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Confirmer</button>
           </div>
           <div class="report_infoFen">
          <mat-icon class="icon">person_outline</mat-icon> <h5 >Information General</h5><br>

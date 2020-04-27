@@ -69,7 +69,7 @@
            <!--  <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
               Envoyer
             </button> -->
-            <button (click)="creationCompte()" fxLayoutAlign="center center" mat-raised-button 
+            <button [disabled]="creationCpteForm.invalid" (click)="creationCompte()" fxLayoutAlign="center center" mat-raised-button 
             class="submit-button1" aria-label="CONNEXION">
              <div *ngIf="!loader"> Envoyer </div>
              <div>  

@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AstTransformer } from '@angular/compiler/src/output/output_ast';
-import { LoginService } from '../login.service';
+import { LoginService } from '../services/login.service';
+
 
 const user=window.localStorage.getItem("token");
 @Component({
