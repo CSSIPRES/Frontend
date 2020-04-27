@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
-import { CreationCompteService } from '../creation-compte.service';
+
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { CreationCompteService } from '../services/creation-compte.service';
 
 @Component({
   selector: 'app-creationcompte',
@@ -12,6 +13,7 @@ import { MatSnackBar } from '@angular/material';
   providers: []
 })
 export class CreationcompteComponent implements OnInit {
+emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 creationCpteForm:FormGroup;
 loader:boolean;
   constructor(private fb:FormBuilder,private creCompteServ:CreationCompteService,
@@ -21,9 +23,9 @@ loader:boolean;
    key:string;
   ngOnInit() {
     this.initForm();
-    this.getKey();
+   /*  this.getKey(); */
   }
-getKey(){
+/* getKey(){
  this.routerActive.params.subscribe(data=>{
    this.key = data['key'];
    console.log(this.key);
@@ -32,14 +34,14 @@ getKey(){
    )
   }
  )
-}
+} */
   initForm(){
     this.creationCpteForm=this.fb.group({
       firstName:new FormControl('',Validators.required),
       lastName:new FormControl('', Validators.required),
-      email:new FormControl('', Validators.required),
+      email:new FormControl('',{ updateOn: 'blur', validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
       login:new FormControl('', Validators.required),
-      password:new FormControl('', Validators.required),
+      password:new FormControl('', Validators.required)
       
     })
   }
@@ -51,26 +53,20 @@ getKey(){
    this.creCompteServ.creationCompte(this.creationCpteForm.value).subscribe(
      resp=>{
       console.log(resp);
-     if(resp==201){
-       /* this.router.navigate(['/accueil']); */
-       this.creationCpteForm.reset(); 
-       this.snackB.open("Votre compte a été crée  succés","Fermer", {
-        duration: 10000,
-        panelClass: ['my-snack-bar3','mat-success'],
-        verticalPosition: 'bottom',
-        horizontalPosition:'left',
-     });
+     if(resp==null){
+       this.loader=false;
+        this.router.navigate(['/redirect']); 
      }
     
     },error =>{
       this.loader=false;
-      if(error.status==0){
+      if(error.status==400){
         this.loader=false;
         this.snackB.open("Eurreur d'envoi veiller réessayer","", {
           duration: 5000,
           panelClass: ['my-snack-bar4', "mat-warn"],
           verticalPosition: 'bottom',
-          horizontalPosition:'left',
+          horizontalPosition:'center',
        })
       }
     }

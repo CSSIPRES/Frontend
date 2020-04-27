@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { DeclarationService } from '../declaration.service';
+
 import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import * as moment from 'moment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { DeclarationService } from '../services/declaration.service';
 
 @Component({
   selector: 'app-declaration',
@@ -23,7 +24,8 @@ export class DeclarationComponent implements OnInit {
   displayBtn:boolean=false;
   loader:boolean=false;
   displayFormArr:boolean=false;
-  displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite','action'];  
+  displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite'];  
+  displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
   preDnsObject:any={
     dateDebutCotisation: '',
     dateFinPeriodeCotisation: '',

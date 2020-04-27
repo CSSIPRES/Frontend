@@ -10,11 +10,16 @@ import * as sectors from '../sectors.json';
 import * as main_sectors from '../main_sectors.json';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import {  MatDialog, MatSnackBar,  NativeDateAdapter, MatTableDataSource, MatDatepickerInputEvent} from '@angular/material';
-import { ImmatriculationService } from '../immatriculation.service';
+
  import { LOCALE_ID } from '@angular/core'; 
 
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
+import { ImmatriculationService } from '../services/immatriculation.service';
+import { SaveEmployeeService } from '../services/save-employee.service';
+import { UserService } from '../services/user.service';
+
+const userName=window.localStorage.getItem("user");
 
 @Component({
   selector: 'app-immatriculation',
@@ -26,13 +31,15 @@ import * as moment from 'moment';
     
   ]
   })
+
 export class ImmatriculationComponent implements OnInit {
   listAct:any=[];
   listSect:any=[];
   listPrAct:any=[];
   listProfession:any=[];
   showFiller = false;
- 
+  currentUser:any=[]
+  empl:any={};
   documents:FormGroup;
   dateErrors:boolean=false
   listPays:any=[];
@@ -77,19 +84,67 @@ export class ImmatriculationComponent implements OnInit {
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
   registreComPattern="^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]{1,5}$"
   dataSource: MatTableDataSource<any>;
-  displayedColumns = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance']
+  displayedColumns = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
+  employeInfo={
+    employerType: "",
+    typeEtablissement: "",
+    raisonSociale: "",
+    maisonMere: "",
+    prenom: "",
+    nom: "",
+    typeIdentifiant: "",
+    numeroIdentifiant: "",
+    legalStatus: "",
+    shortName: "",
+    businessSector: "",
+    mainLineOfBusiness: "",
+    noOfWorkersInGenScheme: "",
+    noOfWorkersInBasicScheme: "",
+    region: "",
+    department: "",
+    arondissement: "",
+    commune: "",
+    qartier: "",
+    address: "",
+    postboxNo: "",
+    telephone: "",
+    email: "",
+    website: "",
+    zoneCss: "",
+    zoneIpres: "",
+    sectorCss: "",
+    sectorIpres: "",
+    agencyCss: "",
+    agencyIpres: "",
+    processFlowId: "",
+    statutDossier: "",
+    statutImmatriculation: "",
+    idDossiers: "",
+    documents: "",
+    user: {
+      id: "",
+      login: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      activated: "",
+      langKey: "",
+      imageUrl: "",
+      resetDate: ""
+    }
+  }
 
   constructor(private fb:FormBuilder,private dialog:MatDialog,
-    private immService:ImmatriculationService,private snackB: MatSnackBar) {}
+    private immService:ImmatriculationService,private snackB: MatSnackBar
+    ,private saveEmp:SaveEmployeeService,private userService:UserService) {}
 
     addImmatriculation(){
-     let d=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
-     console.log(moment.utc(d).format('YYYY-MM-DD'));
     this.loader=true;
      this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
        console.log(resp);
        localStorage.setItem('employerData', JSON.stringify(resp.value.output));
        localStorage.setItem('employerDataInput', JSON.stringify(resp.value.input));
+       console.log(resp);
        if(resp.value.output.employerRegistrationFormId!=0){
          this.loader=false;
          this.dialog.closeAll();
@@ -99,12 +154,16 @@ export class ImmatriculationComponent implements OnInit {
            verticalPosition: 'bottom',
            horizontalPosition:'left'
         });
+        let emplObject=this.getEmployee(resp.value.output);
+        this.saveEmp.saveEmploye(emplObject).subscribe(resp=>console.log(resp)) ;
        }
        
      }, error =>{
+       console.log(error);
        if(error.status==500){
+        
          this.loader=false;
-         this.snackB.open("Eureur d'envoi veiller réessayer","Fermer", {
+         this.snackB.open(error.error.detail,"Fermer", {
            duration: 5000,
            panelClass: ['my-snack-bar1', "mat-warn"],
            verticalPosition: 'bottom',
@@ -195,18 +254,78 @@ export class ImmatriculationComponent implements OnInit {
     this.initlistDept=(departement as any).default[0];
     this.listCommune=(communes as any).default[0];
     this.listArrondissemnt=(arrondissement as any).default[0];
-   /*  this.listQuartie=(quarties as any).default[0]; */
+    this.listQuartie=(quarties as any).default[0]; 
     this.listPays=(countries as any).default[0];
     this.listSectors=(sectors as any).default[0];
     this.listactivitePrincipal=(main_sectors as any).default[0];
     console.log(this.listactivitePrincipal);
+    this.getUser();
+    
+}  
 
+getUser(){
+  this.userService.getUser(userName).subscribe(
+    resp=>{this.currentUser =resp;
+     console.log(this.currentUser) 
+  }
+  )
+}
+getEmployee(outputValue){
+  console.log(this.employeInfo);
+  /* this.employeeInfo.address=this.immatForm.get('mainRegistrationForm').get('address').value;*/  
+ let empMainInfo=this.immatForm.get('input').get('mainRegistrationForm');
+ let employeurInfo=this.immatForm.get('input').get('employerQuery');
+  this.employeInfo.businessSector=empMainInfo.get('businessSector').value;
+ this.employeInfo.mainLineOfBusiness=empMainInfo.get('mainLineOfBusiness').value;
+ this.employeInfo.employerType=employeurInfo.get('employerType').value;
+ /* this.employeInfo.raisonSociale */
+ /* this.employeInfo.maisonMere */
+ /* this.employeInfo.prenom */
+ /* this.employeInfo.typeIdentifiant */
+ /* this.employeInfo.postboxNo */
+ this.employeInfo.typeEtablissement=employeurInfo.get('typeEtablissement').value;
+ this.employeInfo.nom=employeurInfo.get('employerName').value;
+ this.employeInfo.numeroIdentifiant=employeurInfo.get('nineaNumber').value;
+ this.employeInfo.legalStatus=employeurInfo.get('legalStatus').value;
+ this.employeInfo.shortName=empMainInfo.get('shortName').value;
+ this.employeInfo.noOfWorkersInGenScheme= empMainInfo.get('noOfWorkersInGenScheme').value;
+ this.employeInfo.noOfWorkersInBasicScheme= empMainInfo.get('noOfWorkersInBasicScheme').value;
+ this.employeInfo.region= empMainInfo.get('region').value;
+ this.employeInfo.department= empMainInfo.get('department').value;
+ this.employeInfo.arondissement= empMainInfo.get('arondissement').value;
+ this.employeInfo.commune= empMainInfo.get('commune').value;
+  this.employeInfo.qartier= empMainInfo.get('qartier').value;
+ this.employeInfo.address= empMainInfo.get('address').value;
+ this.employeInfo.telephone= empMainInfo.get('telephone').value;
+ this.employeInfo.email= empMainInfo.get('email').value;
+ this.employeInfo.website= empMainInfo.get('website').value;
+ this.employeInfo.zoneCss= outputValue.zoneCss;
+ this.employeInfo.zoneIpres= outputValue.zoneIpres;
+ this.employeInfo.sectorCss=outputValue.sectorCss;
+ this.employeInfo.sectorIpres=outputValue.sectorIpres
+ this.employeInfo.agencyCss=outputValue.agenceCss;
+ this.employeInfo.agencyIpres=outputValue.agenceIpres;
+ this.employeInfo.processFlowId=outputValue.processFlowId;
+ this.employeInfo.statutDossier="statutDossier";
+  this.employeInfo.statutImmatriculation=""; 
+ this.employeInfo.idDossiers=null;
+ this.employeInfo.documents=null;
+ this.employeInfo.user.id=this.currentUser.id;
+ this.employeInfo.user.login=this.currentUser.login;
+ this.employeInfo.user.firstName=this.currentUser.firstName;
+ this.employeInfo.user.lastName=this.currentUser.lastName;
+ this.employeInfo.user.email=this.currentUser.email;
+ this.employeInfo.user.activated='true';
+ this.employeInfo.user.langKey="fr";
+ this.employeInfo.user.imageUrl="";
+ this.employeInfo.user.resetDate=null; 
+ return this.employeInfo;
 }
 
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);
   }
-  listMainActivities(){
+ /*  listMainActivities(){
      for(let i=0;i<this.listactivitePrincipal.items.length;i++){
       for(let j=0;j<this.listactivitePrincipal.items.length;j++){
         if(this.listactivitePrincipal.items[j].secteuractivites!=
@@ -219,7 +338,7 @@ export class ImmatriculationComponent implements OnInit {
     } 
     }  
     console.log(this.listSector) 
-  }
+  } */
   compareDate(event){
     let date_insp:Date=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
     let date_ouv:Date=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value;
@@ -236,8 +355,8 @@ export class ImmatriculationComponent implements OnInit {
   validationPiece(event){
     this.validPassport=false;
     this.validICN=false;
-    let d1:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('issuedDate').value;
-    let d2:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value;
+    let d1:Date=this.immatForm.get('inpu').get('legalRepresentativeForm').get('issuedDate').value;
+    let d2:Date=this.immatForm.get('inpu').get('legalRepresentativeForm').get('expiryDate').value;
     let d3: number = this.dateDiff1(new Date(d1),new Date(d2));
     if(this.immatForm.get('input').get('legalRepresentativeForm').get('typeOfIdentity').value=="NIN"){
     if(d3< 10 || d3> 10.008219178082191){
@@ -291,7 +410,10 @@ export class ImmatriculationComponent implements OnInit {
      (resp:any)=>{
        if(resp.value.output.isTaxpayerIdentifierExist.value==true){
            this.nineaExist=true;
-            console.log(this.nineaExist); 
+            /* console.log(this.nineaExist);  */
+       }
+       else{
+        this.nineaExist=false;
        }
      }
    )
@@ -402,7 +524,6 @@ selectDepartement(event){
     this.listQ1=[]; 
     let c1= this.immatForm.get('input').get('mainRegistrationForm').get('commune').value;
     let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('commune').value;
-    
     this.listQuartie.items.forEach(element => {
       if(element.commune==c1){
          this.listQ.push(element); 
@@ -421,7 +542,10 @@ selectDepartement(event){
     this.listactivitePrincipal.items.forEach(element => {
       if(element.activitesprincipal==c1){
      this.sectorName=element.secteuractivites;
-      }
+     let bs= this.immatForm.get('input').get('mainRegistrationForm').get('businessSector');
+     bs.patchValue(this.sectorName);
+     console.log(bs.value);
+    }
       }
     ); 
   }

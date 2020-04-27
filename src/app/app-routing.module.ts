@@ -8,9 +8,11 @@ import { MotPasseOublieComponent } from './mot-passe-oublie/mot-passe-oublie.com
 import { EspaceEmployeComponent } from './espace-client/espace-employe.component';
 import { ImmatriculationComponent } from './immatriculation/immatriculation.component';
 import { MatDatepickerModule } from '@angular/material';
+import { SendMailComponent } from './send-mail/send-mail.component';
+import { RedirectionComponent } from './redirection/redirection.component';
 
-const routes: Routes = [
-  { path: '',redirectTo: '/accueil',pathMatch: 'full'},
+const routes: Routes = [ 
+  { path: '',redirectTo: 'accueil',pathMatch: 'full'},
   { path:'accueil', component:AccueilComponent },
   { path:'creationCompte', component:CreationcompteComponent },
   { path:'immatriculation', component:ImmatriculationComponent },
@@ -18,8 +20,9 @@ const routes: Routes = [
   { path:'contact', component:ContactComponent },
   { path:'demarche', component:DemarcheComponent },
   { path:'espaceEmploye', component:EspaceEmployeComponent },
-  { path:'motPasseOublie', component:MotPasseOublieComponent },
-  { path: '**',redirectTo: 'accueil'}
+  { path:'envoieMail', component:SendMailComponent },
+  { path:'redirect', component:RedirectionComponent },
+  { path: '**',component:AccueilComponent}
 ];
 
 @NgModule({

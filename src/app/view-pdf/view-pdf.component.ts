@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ImmatriculationService } from '../immatriculation.service';
+
 import { DomSanitizer } from '@angular/platform-browser';
+import { ImmatriculationService } from '../services/immatriculation.service';
 
 @Component({
   selector: 'app-view-pdf',
