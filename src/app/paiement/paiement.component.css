@@ -1,5 +1,28 @@
 .table-paiement{
-    width: 100% !important;
+   
+    
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+mat-select{
+  width: 100%;
+}
+th, td {
+  overflow: hidden;
+  width: 110px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.container .field{
+  width: 100%;
+}
+mat-form-field{
+  width: 46%;
+  margin: 2%;
 }
 
 .submit-button{
@@ -21,7 +44,17 @@
 
   .btn-join-file{
     background-color: rgb(255, 104, 49);
+    width: 46%;
+    margin: 2%;
   }
   
 
+  .text-center{
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+  }
 
+.text-load{
+  margin-left: 30px;
+}

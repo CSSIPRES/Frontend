@@ -20,13 +20,22 @@ export class SuiviDemandeComponent implements OnInit {
     identifiant:new FormControl('',Validators.required)
   });
 
+  immatForm=new FormGroup({
+    idDossier:new FormControl('',Validators.required)
+  });
+  
+
   idDossierAtt:string = '';
   statutAtt:string = '';
   statutImm:string = '';
   urlAtt:string = '';
   urlImmat:string = '';
   idDossierImmat;
+  isIdDossierImmatPresent:boolean = false;
   loader:boolean = false;
+  loaderUrlImmat:boolean = false;
+
+  loaderStatutImmat:boolean = false;
   panelOpenState = true;
   step = 0;
   constructor(
@@ -36,24 +45,15 @@ export class SuiviDemandeComponent implements OnInit {
       
       if(JSON.parse(localStorage.getItem("employerData"))){
         this.idDossierImmat = JSON.parse(localStorage.getItem("employerData")).processFlowId;
+        this.isIdDossierImmatPresent = true;
       }else{
-        this.idDossierImmat = "86047026879749";
+        this.isIdDossierImmatPresent = false;
+       // this.idDossierImmat = "86047026879749";
       }
       
      
        
-        this.immatriculationService.getStatutCertificatImmat(this.idDossierImmat)
-        .subscribe(
-          (data:any)=>{
-                    this.statutImm =  data.value.output.description;
-                    this.immatriculationService.getUrlCertificatImmat(this.idDossierImmat)
-                    .subscribe(
-                      (data:any)=>{
-                        this.urlImmat = data.value.output.url;
-                      }
-                    )
-          }
-        )
+     
    }
  
   ngOnInit() {
@@ -72,6 +72,7 @@ export class SuiviDemandeComponent implements OnInit {
         verticalPosition: 'top',
         horizontalPosition:'right'
      })
+     this.loader = false;
     
     }else{
       this.loader = true;
@@ -129,6 +130,37 @@ export class SuiviDemandeComponent implements OnInit {
 
   }
 
+  createCertificatImmatriculation(){
+    this.loaderUrlImmat = true;
+    this.loaderStatutImmat = true;
+
+
+    if(!this.isIdDossierImmatPresent){
+      
+        this.idDossierImmat = this.immatForm.getRawValue().idDossier;
+       // console.log(this.idDossierImmat)
+      
+    }
+    this.immatriculationService.getStatutCertificatImmat(this.idDossierImmat)
+    .subscribe(
+      (data:any)=>{
+        this.loaderStatutImmat = false;
+      
+                this.statutImm =  data.value.output.description;
+                this.immatriculationService.getUrlCertificatImmat(this.idDossierImmat)
+                .subscribe(
+                  (data:any)=>{
+                    this.loaderUrlImmat = false;
+                    this.urlImmat = data.value.output.url;
+                  },err=>{
+                    this.loaderUrlImmat = false;
+                  }
+                )
+      },err=>{
+        this.loaderStatutImmat = false;
+      }
+    )
+  }
 
 
   openViewPDFDialog(titre,url){

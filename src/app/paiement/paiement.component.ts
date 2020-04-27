@@ -3,19 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Paiement } from '../models/paiement';
 import { PaiementService } from '../services/paiement.service';
-
-
-
-
-
-
-const ELEMENT_DATA_PAIEMENT: Paiement[] = [
- {numeroOrdreVirement:"17268390",banqueSource:"SGBS",numeroCompteSource:"12973432",numeroCompteDestination:"17628390",referenceFacture:"FAC_2910",montantAccount:150000,montantTotal:500000,etat:"EN COUR"},
- {numeroOrdreVirement:"83627180",banqueSource:"SGBS",numeroCompteSource:"138712900",numeroCompteDestination:"82908789",referenceFacture:"FAC_2919",montantAccount:190000,montantTotal:500000,etat:"PAYER"}
-];
-
-
-
+import { LoginService } from '../services/login.service';
 
 
 @Component({
@@ -24,15 +12,21 @@ const ELEMENT_DATA_PAIEMENT: Paiement[] = [
   styleUrls: ['./paiement.component.css']
 })
 
+
 export class PaiementComponent implements OnInit {
+  banks:Array<any> = [];
   creationPaiementForm:FormGroup;
+  dataSource = new MatTableDataSource();
+  paiements:Paiement[] = [];
+  loader:boolean = false;
+  isLoadData:boolean = false;
   
   userConnecter:any;
 
   isPaiementSelect:boolean = false;
  
-  dataSource = new MatTableDataSource(ELEMENT_DATA_PAIEMENT);
-  displayedColumns: string[] = ['numeroOrdreVirement', 'banqueSource', 'numeroCompteSource', 'banqueDestination', 'numeroCompteDestination', 'referenceFacture','etat' , 'payer'];
+ 
+  displayedColumns: string[] = ['numeroOrdreVirement', 'banqueSource', 'numeroCompteSource','banqueDestination', 'referenceFacture','montantAccount','etat'];
   paiement:Paiement = {
     numeroOrdreVirement:"",
     banqueSource:"",
@@ -44,11 +38,43 @@ export class PaiementComponent implements OnInit {
     etat:"",
     fileJoin:""
   };
-  constructor(private fb:FormBuilder,private paiementService:PaiementService,private snackB: MatSnackBar) { }
+  constructor(private fb:FormBuilder,
+    private paiementService:PaiementService,
+    private snackB: MatSnackBar,
+    private loginService:LoginService) { }
 
   ngOnInit() {
-    this.userConnecter = JSON.parse(localStorage.getItem("user"));
+    
+    this.loader = false;
+    this.isLoadData = false;
+    this.banks = this.paiementService.BANKS;
 
+
+    
+   // this.userConnecter = JSON.parse(localStorage.getItem("user"));
+    this.loginService.getUserByLogin(localStorage.getItem("user"))
+    .subscribe(
+      data=>{
+        this.loader = false;
+        this.userConnecter = data;
+        this.paiementService.getPaiementsByUser(this.userConnecter.id)
+        .subscribe(
+          (data:Paiement[])=>{
+            this.loader = false;
+            this.isLoadData = true;
+            this.paiements = data;
+            this.dataSource = new MatTableDataSource(this.paiements);
+          },err=>{
+            this.loader = false;
+            this.isLoadData = true;
+             console.log(err)
+          }
+        )
+      },err=>{
+        this.loader = false;
+        console.log(err); 
+      }
+    )
     this.isPaiementSelect = false;
     this.initForm();
   }
@@ -78,30 +104,97 @@ export class PaiementComponent implements OnInit {
     this.paiement.banqueSource = this.creationPaiementForm.value['banqueSource'];
     this.paiement.numeroCompteSource = this.creationPaiementForm.value['numeroCompteSource'];
     this.paiement.banqueDestination = this.creationPaiementForm.value['banqueDestination'];
-    this.paiement.numeroCompteDestination = this.creationPaiementForm.value['numeroCompteDestination'];
+   // this.paiement.numeroCompteDestination = this.creationPaiementForm.value['numeroCompteDestination'];
     this.paiement.referenceFacture = this.creationPaiementForm.value['referenceFacture'];
     this.paiement.montantAccount = this.creationPaiementForm.value['montantAccount'];
-    this.paiement.etat = this.creationPaiementForm.value['etat'];
+    this.paiement.etat = "PAYE";
+    this.paiement.userId = this.userConnecter.id;
  
       
       console.log(this.paiement);
-
-      this.paiementService.savePaiement(this.paiement)
-      .subscribe(
-        (data)=>{
-          console.log(data);
-          this.isPaiementSelect = false;
-        },err=>{
-          console.log(err);
-          this.snackB.open("Une erreur s'est produite","X", {
-            duration: 10000,
-            panelClass: ['my-snack-bar3','mat-success'],
-            verticalPosition: 'bottom',
-            horizontalPosition:'left',
-         });
-         this.creationPaiementForm.reset();
-        }
-      )
+      if(this.paiement.numeroOrdreVirement.length < 5 || this.paiement.numeroCompteSource.length < 5 || this.paiement.referenceFacture.length < 5 || this.paiement.montantAccount < 5000 || this.paiement.fileJoin.length < 10 ){
+          if(this.paiement.numeroOrdreVirement.length < 5){
+            this.snackB.open("Veuillez renseigner un numéro d'ordre de virement valide","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }else if(this.paiement.numeroCompteSource.length < 5){
+            this.snackB.open("Veuillez renseigner un numéro de compte valide","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }else if(this.paiement.referenceFacture.length < 5){
+            this.snackB.open("Veuillez renseigner un référence de facture valide","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }else if(this.paiement.montantAccount < 5000){
+            this.snackB.open("Le montant ne doit pas être inférieur à 1000 FRA ","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }else{
+            this.snackB.open("Veuillez renseigner tous les champs obligatoires","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'top',
+              horizontalPosition:'right',
+           });
+          }
+      }else{
+        this.loader = true;
+        this.paiementService.savePaiement(this.paiement)
+        .subscribe(
+          (data)=>{
+            this.loader = false;
+          //  console.log(data);
+            this.isPaiementSelect = false;
+            this.creationPaiementForm.reset();
+            this.loginService.getUserByLogin(localStorage.getItem("user_login"))
+            .subscribe(
+              data=>{
+                this.loader = false;
+                this.userConnecter = data;
+                this.paiementService.getPaiementsByUser(this.userConnecter.id)
+                .subscribe(
+                  (data:Paiement[])=>{
+                    this.loader = false;
+                    this.isLoadData = true;
+                    this.paiements = data;
+                    this.dataSource = new MatTableDataSource(this.paiements);
+                  },err=>{
+                    this.loader = false;
+                    this.isLoadData = true;
+                     console.log(err)
+                  }
+                )
+              },err=>{
+                this.loader = false;
+                console.log(err); 
+              }
+            )
+          },err=>{
+            this.loader = false;
+            console.log(err);
+            this.snackB.open("Une erreur s'est produite","X", {
+              duration: 10000,
+              panelClass: ['my-snack-bar3','mat-success'],
+              verticalPosition: 'bottom',
+              horizontalPosition:'left',
+           });
+           this.creationPaiementForm.reset();
+          }
+        )
+      }
+    
     }
 
     fileChangeEvent(fileInput: any) {

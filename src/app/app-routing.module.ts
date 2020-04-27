@@ -22,7 +22,7 @@ const routes: Routes = [
   { path:'espaceEmploye', component:EspaceEmployeComponent },
   { path:'envoieMail', component:SendMailComponent },
   { path:'redirect', component:RedirectionComponent },
-  { path: '**',component:AccueilComponent},
+  { path: '**',component:AccueilComponent}
 ];
 
 @NgModule({
