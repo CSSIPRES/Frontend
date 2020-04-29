@@ -19,7 +19,7 @@ export class LoginService {
   logout(){
      localStorage.removeItem('token'); 
     /* localStorage.clear(); */
-    /* this.router.navigate(['/accueil']); */
+    /* this.router.navigate(['/accueil']);  */
   }
 
 

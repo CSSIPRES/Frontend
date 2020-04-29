@@ -55,7 +55,7 @@ loader:boolean;
       console.log(resp);
      if(resp==null){
        this.loader=false;
-        this.router.navigate(['/redirect']); 
+        this.router.navigate(['/accueil']); 
      }
     
     },error =>{

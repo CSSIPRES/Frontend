@@ -34,7 +34,7 @@ checkConn:boolean=false;
   logout(){
     this.checkConn = false;
     this.loginService.logout();
-    this.router.navigate(['/accueil']);
+     this.router.navigate(['/accueil']); 
   }
 
 }
