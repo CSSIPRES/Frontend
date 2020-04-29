@@ -2,9 +2,7 @@
 .cdk-overlay-pane{
   background-color: #999999;
 }
-.mat-dialog-content{
 
-}
 .flex-container { display: flex;}
 /*+++++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++*/
 .mat-autocomplete-panel.overflow-hidden {

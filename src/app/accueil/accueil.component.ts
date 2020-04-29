@@ -5,6 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgwWowService } from 'ngx-wow';
 import { LoginService } from '../services/login.service';
+import { EmployeExistService } from '../services/employe-exist.service';
 
 @Component({
   selector: 'app-accueil',
@@ -20,12 +21,13 @@ export class AccueilComponent implements OnInit {
   panelOpenState1:boolean=false;
 
   constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
-  private login: LoginService,private router:Router) {
+  private login: LoginService,private router:Router,private empExistServ:EmployeExistService) {
     
    }
 
   ngOnInit() {
     this.initForm();
+    this.getEmpExist();
     /* this.wowService.init(); */
   }
   initForm(){
@@ -90,5 +92,8 @@ export class AccueilComponent implements OnInit {
               window.scrollTo(0, currentScroll - (currentScroll / 8));
           }
       })();
+  }
+  getEmpExist(){
+    this.empExistServ.getEmpExist().subscribe(resp=>console.log(resp));
   }
 }

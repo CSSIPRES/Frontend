@@ -1,16 +1,49 @@
-<div class="mt-5">
-    <form action="" [formGroup]="infoGenForm">
-    <div fxFlex="row" fxLayoutGap="10%">
-    <mat-form-field appearance="outline">
-      <mat-label>Ninea</mat-label>
-      <input matInput required />
-      <mat-icon matSuffix>perm_identity</mat-icon>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Numero Piece d'identite</mat-label>
-      <input matInput required />
-      <mat-icon matSuffix>supervisor_account</mat-icon>
-    </mat-form-field>
-   </div>
-   </form>
+<div  fxLayoutAlign="space-between center">
+  <h1 mat-dialog-title>Demande d'immatriculation</h1>
+   <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
+        <mat-icon color="warn">close</mat-icon>
+    </button>
 </div>
+
+    <div  mat-dialog-content>
+     <div *ngIf="loader"  class="center">
+        <mat-progress-spinner strokeWidth="3" diameter=35 mode="indeterminate"color="primary">
+        </mat-progress-spinner>
+    </div>  
+   
+    <form [formGroup]="immatExistanteForm">
+      <div formGroupName="input" >
+      <div class="mt-3" fxLayout="row" fxLayoutGap="5%">
+        <mat-form-field  fxFlex="45"  appearance="outline">
+          <mat-label>Type identifiant </mat-label>
+          <mat-select  formControlName="typeIdentifiant" required>
+            <mat-option value="SCI">Ninea</mat-option>
+            <mat-option value="ANC">Numero CSS</mat-option>
+            <mat-option value="ANI">Numero Ipres</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>perm_identity</mat-icon>
+          <mat-error>Ce champ est obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="45"  appearance="outline">
+          <mat-label>Numero identifiant</mat-label>
+          <input matInput formControlName="numeroIdentifiant"/>
+          <mat-icon matSuffix>building</mat-icon>
+          <mat-error>Ce champ est obligatoire</mat-error>
+        </mat-form-field>
+       </div>
+       <div class="mt-3" fxLayout="row" fxLayoutGap="5%">
+       <!--  <mat-form-field fxFlex="45"  appearance="outline">
+          <mat-label>Identifiant unique</mat-label>
+          <input matInput formControlName="numeroUnique"/>
+          <mat-icon matSuffix>building</mat-icon>
+          <mat-error>Ce champ est obligatoire</mat-error>
+        </mat-form-field> -->
+        <div fxLayoutAlign="center" fxFlex="100" class="pb-5">
+        <button   type="submit " (click)="checkUpdateImmatExistante()" [disabled]="!immatExistanteForm.get('input').valid"  class="submit-button" mat-raised-button>
+          Envoyer</button>
+        </div>
+       </div>
+      </div>
+       
+    </form>
+    </div>

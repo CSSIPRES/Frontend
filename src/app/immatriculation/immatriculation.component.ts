@@ -496,7 +496,7 @@ selectDepartement(event){
   this.listArrondissemnt.items.forEach(element => {
     if(element.departement==d1){
       this.listA.push(element);
-      console.log(this.listD)
+      /* console.log(this.listD) */
     }
     else if(element.departement==d2){
       this.listA1.push(element);
@@ -527,7 +527,7 @@ selectDepartement(event){
     this.listQuartie.items.forEach(element => {
       if(element.commune==c1){
          this.listQ.push(element); 
-        console.log(this.listQuartie);
+        /* console.log(this.listQuartie); */
       }
       else if(element.commune==c2){
          this.listQ1.push(element); 
@@ -649,61 +649,61 @@ set dateValue(val) {
     return this.immatForm.get('input').get('employerQuery').get('companyOriginId');
   }
   get firtName() {
-    return this.immatForm.get('input').get('repLegalForm').get('firtName');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('firtName');
   }
   get lastName() {
-    return this.immatForm.get('input').get('repLegalForm').get('lastName');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('lastName');
   }
   get birthdate() {
-    return this.immatForm.get('input').get('repLegalForm').get('birthdate');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('birthdate');
   }
   get nationality() {
-    return this.immatForm.get('input').get('repLegalForm').get('nationality');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('nationality');
   }
   get nin() {
-    return this.immatForm.get('input').get('repLegalForm').get('nin');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('nin');
   }
   get placeOfBirth() {
-    return this.immatForm.get('input').get('repLegalForm').get('placeOfBirth');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('placeOfBirth');
   }
   get cityOfBirth() {
-    return this.immatForm.get('input').get('repLegalForm').get('cityOfBirth');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('cityOfBirth');
   }
   get typeOfIdentity() {
-    return this.immatForm.get('input').get('repLegalForm').get('typeOfIdentity');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('typeOfIdentity');
   }
   get ninCedeo() {
-    return this.immatForm.get('input').get('repLegalForm').get('ninCedeo');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('ninCedeo');
   }
   get issuedDate() {
-    return this.immatForm.get('input').get('repLegalForm').get('issuedDate');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('issuedDate');
   }
   get expiryDate() {
-    return this.immatForm.get('input').get('repLegalForm').get('expiryDate');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate');
   }
   get region1() {
-    return this.immatForm.get('input').get('repLegalForm').get('region');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('region');
   }
   get department1() {
-    return this.immatForm.get('input').get('repLegalForm').get('department');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('department');
   }
   get arondissement1() {
-    return this.immatForm.get('input').get('repLegalForm').get('arondissement');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('arondissement');
   }
   get commune1() {
-    return this.immatForm.get('input').get('repLegalForm').get('commune');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('commune');
   }
   get qartier1() {
-    return this.immatForm.get('input').get('repLegalForm').get('qartier');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('qartier');
   }
   get address1() {
-    return this.immatForm.get('input').get('repLegalForm').get('address');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('address');
   }
   get mobileNumber() {
-    return this.immatForm.get('input').get('repLegalForm').get('mobileNumber');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('mobileNumber');
   }
   get email1() {
-    return this.immatForm.get('input').get('repLegalForm').get('email');
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('email');
   }
   get nomEmploye() {
     return this.immatForm.get('input').get('employeList').get('nomEmploye');

@@ -41,12 +41,14 @@
             <mat-label>Email</mat-label>
             <input type="email"  matInput formControlName="email" required />
             <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Email est obligatoire</mat-error>
+            <mat-error *ngIf="email.hasError('required')">Email est obligatoire</mat-error>
+            <mat-error *ngIf="email.hasError('pattern')">L'addresse Email est invalide</mat-error> 
           </mat-form-field>
           <mat-form-field appearance="outline" class="pl-5 pr-5" >
             <mat-label>Login</mat-label>
             <input type="email"  matInput formControlName="login" required />
             <mat-icon matSuffix>email</mat-icon>
+            
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
           

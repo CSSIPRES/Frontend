@@ -24,8 +24,8 @@ export class DeclarationComponent implements OnInit {
   displayBtn:boolean=false;
   loader:boolean=false;
   displayFormArr:boolean=false;
-  displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite'];  
-  displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
+  displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite','action'];  
+  displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance','action'];
   preDnsObject:any={
     dateDebutCotisation: '',
     dateFinPeriodeCotisation: '',
@@ -360,6 +360,9 @@ dateErrors:boolean=false;
 
      console.log(this.declarationForm);
    }
+   removeItem() {
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray);
+   }
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);
   }
@@ -384,6 +387,7 @@ dateErrors:boolean=false;
     console.log(d1);
    
   }
+
   get typeIdentifiant() {
     return this.declarationForm.get('informationEmployeur').get('typeIdentifiant');
   }

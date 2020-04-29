@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-/* const token=window.localStorage.getItem("token"); */
+const token=window.localStorage.getItem("token"); 
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class DeclarationService {
 
   preDns(preDns){
     return this.httpCl.post(environment.BASE_URL + "preDNS", preDns,
-     {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+window.localStorage.getItem("token")})});
+     {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+token})});
   }
   addDeclaration(declaration){
     return this.httpCl.post(environment.BASE_URL + "dns", declaration,

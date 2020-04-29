@@ -53,10 +53,10 @@ export class PaiementComponent implements OnInit {
     
    // this.userConnecter = JSON.parse(localStorage.getItem("user"));
     this.loginService.getUserByLogin(localStorage.getItem("user"))
-    .subscribe(
+    .subscribe( 
       data=>{
         this.loader = false;
-        this.userConnecter = data;
+        this.userConnecter = data;   
         this.paiementService.getPaiementsByUser(this.userConnecter.id)
         .subscribe(
           (data:Paiement[])=>{
