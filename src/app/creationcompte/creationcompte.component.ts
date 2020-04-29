@@ -59,16 +59,17 @@ loader:boolean;
      }
     
     },error =>{
-      this.loader=false;
+      console.log(error.error.title);
+       this.loader=false;
       if(error.status==400){
         this.loader=false;
-        this.snackB.open("Eurreur d'envoi veiller réessayer","", {
-          duration: 5000,
+        this.snackB.open(error.error.title,"", {
+          duration: 2500000,
           panelClass: ['my-snack-bar4', "mat-warn"],
           verticalPosition: 'bottom',
           horizontalPosition:'center',
        })
-      }
+      } 
     }
     )
   }
