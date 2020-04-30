@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { DeclarationService } from '../services/declaration.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-declaration',
@@ -36,6 +37,28 @@ export class DeclarationComponent implements OnInit {
     adresse: ''
   };
   
+  opensweetalert(title, icon){
+  
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: icon,
+      title: title
+    })
+    
+  }
+
+
 initDeclarationForm(){
   this.declarationForm=this.fb.group({
  
@@ -226,25 +249,28 @@ dateErrors:boolean=false;
     this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>{ 
       if(resp==200){
         this.loader=false;
-        this.dialog.closeAll();
-        this.snackB.open("Demande de declaration envoyée avec succes","Fermer", {
+       
+        /* this.snackB.open("Demande de declaration envoyée avec succes","Fermer", {
           duration: 10000,
           panelClass: ['my-snack-bar','mat-success'],
           verticalPosition: 'bottom',
           horizontalPosition:'left'
-       });  
+       });   */
+      this.opensweetalert("Demande de declaration envoyée avec succes","success");
+       this.dialog.closeAll();
       }
       console.log(resp);
     }, err =>{
       console.log(err.error.detail);
       if(err.status==500){
         this.loader=false;
-        this.snackB.open(err.error.detail,"Fermer", {
+        /* this.snackB.open(err.error.detail,"Fermer", {
           duration: 5000,
           panelClass: ['my-snack-bar1', "mat-warn"],
           verticalPosition: 'bottom',
           horizontalPosition:'left'
-       })
+       }) */
+       this.opensweetalert(err.error.detail,"error");
       }
       }
     )
@@ -306,9 +332,9 @@ dateErrors:boolean=false;
   
    return   new FormGroup({
       numeroAssureSocial:new FormControl(''),
-      nomEmploye:new FormControl(''),
+      nomEmploye:new FormControl('',Validators.required),
       prenomEmploye:new FormControl(''), 
-      dateNaissance:new FormControl(''), 
+      dateNaissance:new FormControl('',Validators.required), 
       typePieceIdentite:new FormControl(''),  
       numPieceIdentite:new FormControl(''), 
       natureContrat: new FormControl(''),
@@ -355,13 +381,28 @@ dateErrors:boolean=false;
   addItem() {
    
     /* this.employeList = this.immatForm.get('input').get('employeList') as FormArray; */ 
-     (this.declarationForm.get('informationSalaries') as FormArray).push(this.newEmployeeForm());
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+    dec.push(this.newEmployeeForm());
+    this.dataSource=dec.value;
+    console.log(this.dataSource);
      this.displayFormArr=true;
 
      console.log(this.declarationForm);
    }
-   removeItem() {
-    let dec=(this.declarationForm.get('informationSalaries') as FormArray);
+   removeItem(i) {
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+     dec.removeAt(i); 
+     this.dataSource=dec.value;
+     console.log(this.dataSource);
+   }
+   addRow(){
+   if(this.declarationForm.get('informationSalaries').valid==true){
+     console.log(1);
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+    dec.push(dec.value);
+    this.dataSource=dec.value;
+   console.log(this.dataSource=dec.value);  
+   } 
    }
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);

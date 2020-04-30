@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
-import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { CreationCompteService } from '../services/creation-compte.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-creationcompte',
@@ -18,7 +19,7 @@ creationCpteForm:FormGroup;
 loader:boolean;
   constructor(private fb:FormBuilder,private creCompteServ:CreationCompteService,
    private router:Router,private routerActive:ActivatedRoute,private snackB: MatSnackBar) {
-   
+       
     }
    key:string;
   ngOnInit() {
@@ -35,6 +36,30 @@ loader:boolean;
   }
  )
 } */
+
+opensweetalert(title, icon){
+  
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 4000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+  
+  Toast.fire({
+    icon: icon,
+    title: title
+  })
+  
+}
+
+
+
   initForm(){
     this.creationCpteForm=this.fb.group({
       firstName:new FormControl('',Validators.required),
@@ -55,6 +80,7 @@ loader:boolean;
       console.log(resp);
      if(resp==null){
        this.loader=false;
+       this.opensweetalert("Votre compte a été créé avec succés","success");
         this.router.navigate(['/accueil']); 
      }
     

@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CreationcompteComponent } from './creationcompte/creationcompte.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { MatInputModule,MatFormFieldModule,MatToolbarModule,MatMenuModule, 
 MatIconModule,MatButtonModule,MatCardModule, MatSelectModule, 
@@ -113,7 +114,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatSnackBarModule,
     MatExpansionModule,
     MatTabsModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    SweetAlert2Module.forRoot()
   ],
 
   exports:[

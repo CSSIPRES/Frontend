@@ -18,6 +18,8 @@ import * as moment from 'moment';
 import { ImmatriculationService } from '../services/immatriculation.service';
 import { SaveEmployeeService } from '../services/save-employee.service';
 import { UserService } from '../services/user.service';
+import Swal from 'sweetalert2';
+
 
 const userName=window.localStorage.getItem("user");
 
@@ -138,6 +140,32 @@ export class ImmatriculationComponent implements OnInit {
     private immService:ImmatriculationService,private snackB: MatSnackBar
     ,private saveEmp:SaveEmployeeService,private userService:UserService) {}
 
+
+
+
+    opensweetalert(title, icon){
+  
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: icon,
+        title: title
+      })
+      
+    }
+
+
+
     addImmatriculation(){
     this.loader=true;
      this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
@@ -147,13 +175,8 @@ export class ImmatriculationComponent implements OnInit {
        console.log(resp);
        if(resp.value.output.employerRegistrationFormId!=0){
          this.loader=false;
-         this.dialog.closeAll();
-         this.snackB.open("Demande immatriculation envoyée avec succes","Fermer", {
-           duration: 10000,
-           panelClass: ['my-snack-bar','mat-success'],
-           verticalPosition: 'bottom',
-           horizontalPosition:'left'
-        });
+        this.opensweetalert("Demande immatriculation envoyée avec succes","success");
+        this.dialog.closeAll();
         let emplObject=this.getEmployee(resp.value.output);
         this.saveEmp.saveEmploye(emplObject).subscribe(resp=>console.log(resp)) ;
        }
@@ -163,21 +186,23 @@ export class ImmatriculationComponent implements OnInit {
        if(error.status==500){
         
          this.loader=false;
-         this.snackB.open(error.error.detail,"Fermer", {
+         /* this.snackB.open(error.error.detail,"Fermer", {
            duration: 5000,
            panelClass: ['my-snack-bar1', "mat-warn"],
            verticalPosition: 'bottom',
            horizontalPosition:'left'
-        })
+        }) */
+        this.opensweetalert(error.error.detail, "error") ;
        }
        else if(error.status==0){
           this.loader=false;  
-         this.snackB.open("Eureur d'envoi veiller vérifier la connection","Fermer", {
+         /* this.snackB.open("Eureur d'envoi veiller vérifier la connection","Fermer", {
            duration: 5000,
            panelClass: ['my-snack-bar1', "mat-warn"],
            verticalPosition: 'bottom',
            horizontalPosition:'left'
-        })
+        }) */
+        this.opensweetalert("Erreur d'envoie veuillez vérifier la connexion","error");
        } 
      })
    } 

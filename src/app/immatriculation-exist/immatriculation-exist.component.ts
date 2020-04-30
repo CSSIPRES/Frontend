@@ -5,6 +5,7 @@ import { ImmatExistanteService } from '../services/immat-existante.service';
 import { SaveEmployeeService } from '../services/save-employee.service';
 import { UserService } from '../services/user.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 const userName=window.localStorage.getItem("user");
 @Component({
   selector: 'app-immatriculation-exist',
@@ -72,6 +73,29 @@ export class ImmatriculationExistComponent implements OnInit {
   ngOnInit() {
     this.getUser();
   }
+
+
+  opensweetalert(title, icon){
+  
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: icon,
+      title: title
+    })
+    
+  }
+  
   initForm(){
     this.immatExistanteForm=this.fb.group({
       input:this.fb.group({
@@ -88,13 +112,15 @@ export class ImmatriculationExistComponent implements OnInit {
       console.log(resp);
      if(resp.value.output!=null){
       this.loader=false;
-      this.dialog.closeAll();
-         this.snackB.open("Demande immatriculation envoyée avec succes","Fermer", {
+      
+         /* this.snackB.open("Demande immatriculation envoyée avec succes","Fermer", {
            duration: 10000,
            panelClass: ['my-snack-bar-6','mat-success'],
            verticalPosition: 'bottom',
            horizontalPosition:'center'
-        });
+        }); */
+        this.opensweetalert("Employeur enregistré avec succés","succes")
+        this.dialog.closeAll();
        let emp= this.getEmployee(resp.value.output);
        console.log(emp);
        this.saveEmpServ.saveEmploye(emp).subscribe(resp=>console.log(resp));
