@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { DeclarationService } from '../services/declaration.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-declaration',
@@ -37,6 +38,12 @@ export class DeclarationComponent implements OnInit {
     adresse: ''
   };
   
+///Declaration en masse
+
+public employeData: EmployeData[];
+data = [];
+
+
   opensweetalert(title, icon){
   
     const Toast = Swal.mixin({
@@ -57,6 +64,59 @@ export class DeclarationComponent implements OnInit {
     })
     
   }
+
+///// Adding function to upload ////
+
+  onFileChange(evt: any) {
+    //debugger
+    /* wire up file reader */
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length == 1) {
+      const reader: FileReader = new FileReader();
+      reader.onload = (e: any) => {
+        /* read workbook */
+        const bstr: string = e.target.result;
+        const wb: XLSX.WorkBook = XLSX.read(bstr,  {type:'binary', cellDates:true, cellNF: false, cellText:false});
+        console.log(wb);
+        /* grab first sheet */
+        const wsname: string = wb.SheetNames[0];
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+        /* save data */
+        this.data = <any>(XLSX.utils.sheet_to_json(ws, 
+          { raw: false,
+          dateNF: "YYYY-MM-DD",
+          header:1,
+          defval: "" ,
+          range:1
+      }));
+      };
+      reader.readAsBinaryString(target.files[0]);
+    }
+  }
+
+  
+
+  uploadfile() {
+    let keys = this.data.shift();
+    let resArr = this.data.map((e) => {
+      let obj = {};
+      keys.forEach((key, i) => {
+        obj[key] = e[i];
+      });
+      return obj;
+    });
+    //console.log(resArr);
+    //resArr.forEach(function (value) {
+    //  console.log(value);
+    //})
+    this.employeData = resArr;
+    console.log(this.employeData);
+  }
+
+///// End Adding function to upload ////
+
+
+
 
 
 initDeclarationForm(){
@@ -437,3 +497,57 @@ dateErrors:boolean=false;
   }
 }
  
+
+/// Interface Employee Declaration
+
+interface EmployeData {
+  [index: number]:  {
+    numeroAssureSocial:string,
+    nomEmploye:string,
+    prenomEmploye:string , 
+    dateNaissance:Date , 
+    typePieceIdentite:string,  
+    numPieceIdentite:string, 
+    natureContrat: string,
+    dateEntree: string,
+    dateSortie:string, 
+    motifSortie: string, 
+    totSalAssCssPf1: string, 
+    totSalAssCssAtmp1: string, 
+    totSalAssIpresRg1: string, 
+    totSalAssIpresRcc1: string, 
+    salaireBrut1: string, 
+    nombreJours1: string, 
+    nombreHeures1: string, 
+    tempsTravail1: string, 
+    trancheTravail1: string, 
+    regimeGeneral1: string, 
+    regimCompCadre1: string, 
+    dateEffetRegimeCadre1: string, 
+    totSalAssCssPf2:string,  
+    totSalAssCssAtmp2:string,
+    totSalAssIpresRg2: string,
+    totSalAssIpresRcc2:  string,
+    salaireBrut2: string,
+    nombreJours2: string,
+    nombreHeures2: string,
+    tempsTravail2:string, 
+    trancheTravail2: string,
+    regimeGeneral2: string,
+    regimCompCadre2: string,
+    dateEffetRegimeCadre2:string, 
+    totSalAssCssPf3: string,
+    totSalAssCssAtmp3: string,
+    totSalAssIpresRg3: string,
+    totSalAssIpresRcc3: string,
+    salaireBrut3: string,
+    nombreJours3: string,
+    nombreHeures3: string,
+    tempsTravail3: string,
+    trancheTravail3: string,
+    regimeGeneral3:string, 
+    regimCompCadre3: string,
+    dateEffetRegimeCadre3: string 
+};
+
+} 
