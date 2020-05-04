@@ -31,9 +31,7 @@ h1{
  }
   */
  
- table{
-     width: 100%;
- }
+ 
  .largeButt{
      
     display:inline-block;
@@ -61,11 +59,10 @@ h1{
     padding:20px;
   }
   .report_infoFen span b{
-    color:#0aca04;
+    color:#999999;
+    font-size: 14px;
   }
-  .report_infoFen span p{
-    color:rgb(255, 104, 49);
-  }
+  
 ::ng-deep .mat-tab-labels, .mat-tab-label, .mat-tab-link {
     font-size: 16px;
     background-color: rgb(255, 104, 49);
@@ -84,12 +81,77 @@ h1{
   .submit-button{
     background-color: rgb(255, 104, 49);
     color:#ffffff;
-    display:inline-block;
-    vertical-align:middle;
-    width: 20%; 
-     font-size:15px;
-     color:#ffffff;
-     height: 40px;
-     border-radius: 25px ;
+     width: 20%; 
+    font-size:15px;
+    color:#ffffff;
+    height: 40px;
+    border-radius: 25px ;
   }
-   
+  .submit-add-edit{
+    background-color: #0aca04;
+    color:#ffffff;
+    width: 10%; 
+    font-size:15px;
+    color:#ffffff;
+    height: 40px;
+  }
+  .submit-button-small{
+    background-color: rgb(255, 104, 49);
+    color:#ffffff;
+     width: 30%; 
+    font-size:15px;
+    color:#ffffff;
+    height: 40px;
+    border-radius: 25px ;
+  }
+  .submit-secondary{
+    background-color: #f2f2f2;
+   /*  display:inline-block; */
+   /*  vertical-align:middle; */
+     font-size:15px;
+     color:#999999;;
+     height: 40px;
+     border: 2px solid #d8d8d8;  
+  }
+  table{
+    width: 100%;
+}
+  table th{
+    font-weight: bold;
+    color:#999999;
+     /* background-color: #f9f9f9;  */
+  } 
+   table td  .mat-mini-fab{
+    max-width: 30px;
+    max-height: 30px;
+  }
+  table td  .mat-icon{
+   font-size: 14px;
+  }
+  table td  .mat-mini-fab{
+  background-color: #f2f2f2;
+  box-shadow: none;
+  }
+  .addSal{
+    background-color: #f2f2f2;
+  }
+  .addSal mat-icon{
+      color: #999999;
+  }
+  table td  .edit{
+    color: #0aca04;;
+  }
+  table td  .edit{
+    color: #0aca04;;
+  }
+  table td  .delete{
+    color: rgb(187, 2, 18);
+  } 
+
+ ::ng-deep .report_infoFen .mat-divider {
+    display: block;
+    margin: 0;
+    border-top-width:2px;
+    border-top-style: solid;
+    color:rgb(255, 104, 49);
+}

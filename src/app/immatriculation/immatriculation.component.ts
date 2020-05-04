@@ -48,6 +48,7 @@ export class ImmatriculationComponent implements OnInit {
   listMainSectors:any=[];
   listSectors:any=[];
   list:any=[];
+  validError:boolean=false;
   listactivitePrincipal:any=[];
   activitePrincipal:any=[];
   listRegions:any=[];
@@ -66,6 +67,8 @@ export class ImmatriculationComponent implements OnInit {
   listQuartie:any=[];
    listQ:any=[];
   listQ1:any=[]; 
+  listC2:any=[];
+  listQ2:any=[];
   listSector:any=[];
   listMainSector:any=[];
   ninea:any=[];
@@ -80,13 +83,18 @@ export class ImmatriculationComponent implements OnInit {
   mainRegistrationForm:FormGroup;
   srcResult:any;
   validNumbOfworker:boolean=false;
+  addEmpForm:boolean=false;
+  editEmpForm:boolean=false
+  addIndex:number;
+  editIndex:number;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   icnpattern = "^[1,2][0-9]{12,13}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
   registreComPattern="^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]{1,5}$"
   dataSource: MatTableDataSource<any>;
-  displayedColumns = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
+  displayedColumns: string[] = ['nomEmploye', 'prenomEmploye', 'dateNaissance', 'numPieceIdentite','adresse','action'];  
+  displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'dateNaissance', 'numPieceIdentite','adresse'];
   employeInfo={
     employerType: "",
     typeEtablissement: "",
@@ -350,20 +358,6 @@ getEmployee(outputValue){
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);
   }
- /*  listMainActivities(){
-     for(let i=0;i<this.listactivitePrincipal.items.length;i++){
-      for(let j=0;j<this.listactivitePrincipal.items.length;j++){
-        if(this.listactivitePrincipal.items[j].secteuractivites!=
-          this.listactivitePrincipal.items[i].secteuractivites){
-            j++;
-      }
-      else{
-        this.listSector.push(this.listactivitePrincipal.items[i])
-      }  
-    } 
-    }  
-    console.log(this.listSector) 
-  } */
   compareDate(event){
     let date_insp:Date=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
     let date_ouv:Date=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value;
@@ -421,13 +415,18 @@ getEmployee(outputValue){
       this.validDateNaiss = false;
     }
   }
+  
   validateNumbEmployee(){
     let n1=this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInGenScheme').value;
     let n2=this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInBasicScheme').value;
-    if(n1>n2){
+    if(n1<n2){
       
       this.validNumbOfworker=true;
+      this.validError=true;
       console.log(this.validNumbOfworker);
+    }
+    else{
+      this.validNumbOfworker=false;
     }
   }
  getNineaNumber(){
@@ -443,8 +442,7 @@ getEmployee(outputValue){
      }
    )
  } 
-
-  createItem() {
+   createItem() {
     return this.fb.group({
       rechercheEmploye: this.fb.control(''),
       nomEmploye:  this.fb.control('KEBSON'),
@@ -469,12 +467,12 @@ getEmployee(outputValue){
       paysNaissance:  this.fb.control('SEN'),
       employeurPrec: this.fb.control(''),
       pays:  this.fb.control('SEN'),
-      region: this.fb.control('DAKAR'),
-      departement:  this.fb.control('RUFISQUE'),
-      arrondissement:  this.fb.control('RUFISQUE EST'),
-      commune:  this.fb.control('RUFISQUE'),
-      quartier:  this.fb.control('KEURY KAW'),
-      adresse:  this.fb.control('DAKAR'),
+      region: this.fb.control(''),
+      departement:  this.fb.control(''),
+      arrondissement:  this.fb.control(''),
+      commune:  this.fb.control(''),
+      quartier:  this.fb.control(''),
+      adresse:  this.fb.control(''),
       boitePostale:  this.fb.control('12345'),
       typeMouvement:  this.fb.control('EMBAUCHE'),
       natureContrat:  this.fb.control('CDD'),
@@ -491,75 +489,141 @@ getEmployee(outputValue){
      
   });
   }
-  addItem(): void {
-    
-   /* this.employeList = this.immatForm.get('input').get('employeList') as FormArray; */ 
-    this.employeList.push(this.createItem());
-    
+  addItem(): void { 
+    this.employeList.push(this.createItem()); 
   }
-selectRegion(event){
+selectRegion(event,indexContol){
 this.listD=[];
 this.listD1=[];
-let r=this.immatForm.get('input').get('mainRegistrationForm').get('region').value;
-  let r1=this.immatForm.get('input').get('legalRepresentativeForm').get('region').value
+this.listD2=[];
+let r2:string="";
+let r:string="";
+let r1:string="";
+console.log(indexContol);
+ r=this.immatForm.get('input').get('mainRegistrationForm').get('region').value;
+ r1=this.immatForm.get('input').get('legalRepresentativeForm').get('region').value;
+console.log(r);
+/* let r2=this.immatForm.get('input').get('employeList').value[indexContol].region; */
+if(indexContol!=undefined){
+  r2=this.immatForm.get('input').get('employeList').value[indexContol].region;
+ 
+}
+console.log(r1);
 this.initlistDept.items.forEach(element => {
   if(element.rgion==r){
     this.listD.push(element); 
-   
+  } 
+  });
+   this.initlistDept.items.forEach(element => {
+    if(element.rgion==r1){
+      this.listD1.push(element); 
+    } 
+    }); 
+   this.initlistDept.items.forEach(element => {
+      if(element.rgion==r2){
+        this.listD2.push(element); 
+      } 
+      });
   }
-  else if(element.rgion==r1){
-    this.listD1.push(element); 
-  }
-  }
-); 
-  }
-selectDepartement(event){
+  
+
+
+selectDepartement(event,indexContol){
   this.listA=[];
   this.listA1=[];
+  this.listA2=[];
+  let d3:string="";
   let d1= this.immatForm.get('input').get('mainRegistrationForm').get('department').value;
-  let d2=this.immatForm.get('input').get('legalRepresentativeForm').get('department').value
+  let d2=this.immatForm.get('input').get('legalRepresentativeForm').get('department').value;
+  if(indexContol!=undefined){
+     d3=this.immatForm.get('input').get('employeList').value[indexContol].departement;
+  }
+  
   this.listArrondissemnt.items.forEach(element => {
     if(element.departement==d1){
       this.listA.push(element);
-      /* console.log(this.listD) */
+       console.log(this.listA); 
     }
-    else if(element.departement==d2){
+  }); 
+  this.listArrondissemnt.items.forEach(element => {
+    if(element.departement==d2){
       this.listA1.push(element);
+       console.log(this.listA); 
     }
+  });
+  this.listArrondissemnt.items.forEach(element => {
+    if(element.departement==d3){
+      this.listA2.push(element);
+       console.log(this.listA); 
     }
-  ); 
+  });
   }
-  selectArrondissement(event){
+
+  selectArrondissement(event,indexContol){
     this.listC=[];
     this.listC1=[];
-    let c1= this.immatForm.get('input').get('mainRegistrationForm').get('arondissement').value;
-    let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value;
+    this.listC2=[];
+    let c2:string="";
+    let c= this.immatForm.get('input').get('mainRegistrationForm').get('arondissement').value;
+    let c1= this.immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value;
+    /* let c2=this.immatForm.get('input').get('employeList').value[indexContol].arrondissement;*/    if(indexContol!=undefined){
+    if(indexContol!=undefined){
+        c2=this.immatForm.get('input').get('employeList').value[indexContol].arrondissement;
+     }
+    }
+    console.log(c2);
     this.listCommune.items.forEach(element => {
-      if(element.arrondissement==c1){
+      if(element.arrondissement==c){
         this.listC.push(element);
       }
-      else if(element.arrondissement==c2){
-        this.listC1.push(element);
-      }
-      }
-    );  
+      });
+      this.listCommune.items.forEach(element => {
+        if(element.arrondissement==c1){
+          this.listC1.push(element);
+        }
+        
+        }
+      );
+      this.listCommune.items.forEach(element => {
+        if(element.arrondissement==c2){
+          this.listC2.push(element);
+        }
+        
+        }
+      );
   }
-  selectCommne(event){
-     this.listQ=[];
+  
+  selectCommne(event,indexContol){
+    this.listQ=[];
     this.listQ1=[]; 
+    this.listQ2=[]; 
+    let c3:string="";
     let c1= this.immatForm.get('input').get('mainRegistrationForm').get('commune').value;
     let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('commune').value;
+   /*  let c3=this.immatForm.get('input').get('employeList').value[indexContol].commune; */
+    if(indexContol!=undefined){
+      c3=this.immatForm.get('input').get('employeList').value[indexContol].commune;
+   }
+
     this.listQuartie.items.forEach(element => {
       if(element.commune==c1){
          this.listQ.push(element); 
         /* console.log(this.listQuartie); */
       }
-      else if(element.commune==c2){
+     }
+    ); 
+    this.listQuartie.items.forEach(element => {
+      if(element.commune==c2){
          this.listQ1.push(element); 
-        
       }
+     }
+    ); 
+    this.listQuartie.items.forEach(element => {
+      if(element.commune==c3){
+         this.listQ2.push(element); 
       }
-    );  
+     }
+    ); 
   }
   selectSector(event){ 
     let c1= this.immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value;
@@ -574,24 +638,75 @@ selectDepartement(event){
       }
     ); 
   }
-  addTableEmploye(){
+ /*  addTableEmploye(){
     this.dataSource = new MatTableDataSource(
       (this.immatForm.get('input').get('employeList') as FormArray).controls)
       console.log(this.dataSource);
+  } */
+  maxRgGen:boolean=false;
+  addNewEmp() { 
+    let empList=(this.immatForm.get('input').get('employeList') as FormArray)
+    empList.push(this.createItem());
+    this.addEmpForm=true;
+    this.editEmpForm=false;
+    for(let i=0;i<empList.value.length; i++){
+      console.log(empList.value[i]);
+    if(empList.value[i].rechercheEmploye==""){
+      this.addIndex=i;
+      console.log(this.addIndex);
+     }
+     if(this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInGenScheme').value 
+     <= this.immatForm.get('input').get('employeList')['controls'].length){
+      this.maxRgGen=true;
+     }
+     else{
+      this.maxRgGen=false; 
+     }
+
   }
-  @Input() private format = 'YYYY/MM/DD HH:mm:ss';
+   }
+   fillEmpForm(i){
+    this.editIndex=i;
+    this.addEmpForm=false;
+    this.editEmpForm=true;
+  }
+   removeEmp(i) {
+    let empList=(this.immatForm.get('input').get('employeList') as FormArray)
+    empList.removeAt(i); 
+     this.dataSource=empList.value;
+     /* console.log(this.dataSource); */
+     if(this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInGenScheme').value 
+     <= this.immatForm.get('input').get('employeList')['controls'].length){
+      this.maxRgGen=true;
+     }
+     else{
+      this.maxRgGen=false; 
+     }
+   }
+   
+ 
+  updateEmp(){
+    let empList=(this.immatForm.get('input').get('employeList') as FormArray)
+    this.dataSource=empList.value; 
+    /* this.dataSource.sort=this.sort; */
+    this.addEmpForm=false;
+    this.editEmpForm=false;
+    
+  }
+ 
+  /*  @Input() private format = 'YYYY/MM/DD HH:mm:ss';
 addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.dateValue = moment(event.value, this.format);
 }
 @Input() _dateValue: string = null;
-
-get dateValue() {
+ */
+/* get dateValue() {
     return moment(this._dateValue, this.format);
 }
 
 set dateValue(val) {
     this._dateValue = moment(val).format(this.format);
-}
+} */
  /*  onFileSelected() {
     const inputNode: any = document.querySelector('#file');
   
@@ -638,13 +753,13 @@ set dateValue(val) {
     return this.immatForm.get('input').get('mainRegistrationForm').get('address');
   }
   get telephone() {
-    return this.immatForm.get('mainRegistrationForm').get('telephone');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('telephone');
   }
   get email() {
     return this.immatForm.get('input').get('mainRegistrationForm').get('email');
   }
   get noOfWorkersInBasicScheme() {
-    return this.immatForm.get('mainRegistrationForm').get('noOfWorkersInBasicScheme');
+    return this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInBasicScheme');
   }
   get noOfWorkersInGenScheme() {
     return this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInGenScheme');
@@ -653,7 +768,7 @@ set dateValue(val) {
     return this.immatForm.get('input').get('mainRegistrationForm').get('website');
   }
   get employerType() {
-    return this.immatForm.get('employerQuery').get('employerType');
+    return this.immatForm.get('input').get('employerQuery').get('employerType');
   }
   get typeEtablissement() {
     return this.immatForm.get('input').get('employerQuery').get('typeEtablissement');

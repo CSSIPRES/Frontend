@@ -27,7 +27,7 @@ export class AccueilComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.getEmpExist();
+    
     /* this.wowService.init(); */
   }
   initForm(){
@@ -93,7 +93,5 @@ export class AccueilComponent implements OnInit {
           }
       })();
   }
-  getEmpExist(){
-    this.empExistServ.getEmpExist().subscribe(resp=>console.log(resp));
-  }
+  
 }

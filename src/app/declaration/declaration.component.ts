@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
-import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar, MatPaginator, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
@@ -19,15 +19,20 @@ import * as XLSX from 'xlsx';
   
 })
 
-export class DeclarationComponent implements OnInit {
+export class DeclarationComponent implements OnInit,AfterViewInit {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   emp:any;
   declarationForm:FormGroup;
   dataSource:MatTableDataSource<any>
   displayBtn:boolean=false;
   loader:boolean=false;
-  displayFormArr:boolean=false;
+  editIndex:number;
+  addIndex:number;
+  addSalForm:boolean=false;
+  editSalForm:boolean=false;
   displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite','action'];  
-  displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance','action'];
+  displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
   preDnsObject:any={
     dateDebutCotisation: '',
     dateFinPeriodeCotisation: '',
@@ -37,11 +42,11 @@ export class DeclarationComponent implements OnInit {
     idIdentifiant: '',
     adresse: ''
   };
-  
+ 
 ///Declaration en masse
 
 public employeData: EmployeData[];
-data = [];
+data:any = [];
 
 
   opensweetalert(title, icon){
@@ -110,7 +115,30 @@ data = [];
     //  console.log(value);
     //})
     this.employeData = resArr;
+    let decXslsFile=(this.declarationForm.get('informationSalaries') as FormArray);
+    for(let i=0;i< this.employeData.length;i++){
+      decXslsFile.push(this.fillEmployeeForm(this.employeData[i]));
+      
+    }
+    this.dataSource=this.declarationForm.get('informationSalaries').value;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+     /* this.employeData.forEach(el=>{
+      let dec=(this.declarationForm.get('informationSalaries') as FormArray);
+      dec.push(this.fillEmployeeForm(el));
+      this.dataSource=this.declarationForm.get('informationSalaries').value;
+      console.log(this.declarationForm.get('informationSalaries').value);
+    }); */
     console.log(this.employeData);
+  }
+  files: string[] = [];
+  onFileSelected(event) {
+    if (event.target.files.length > 0) {
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.files.push(event.target.files[i].name);
+        console.log(event.target.files[0].name);
+      }
+    }
   }
 
 ///// End Adding function to upload ////
@@ -121,8 +149,6 @@ data = [];
 
 initDeclarationForm(){
   this.declarationForm=this.fb.group({
- 
-
   /* typeIdentifiant:new FormControl(this.emp.legalRepresentativeForm.typeOfIdentity, Validators.required), */
   typeIdentifiant:this.fb.control('SCI', Validators.required),
   /*  idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required), */
@@ -144,63 +170,17 @@ initDeclarationForm(){
   mntCotAtMpCalcParEmployeur:this.fb.control(''),
   mntCotRgCalcParEmployeur:this.fb.control(''),
   mntCotRccCalcParEmployeur:this.fb.control(''), 
-informationSalaries:new FormArray([
-/*  this.fb.group({
-    dateEffetRegimeCadre1: this.fb.control(''),
-    dateEffetRegimeCadre2: this.fb.control(''),
-    dateEffetRegimeCadre3: this.fb.control(''),
-    dateEntree: this.fb.control(''),
-    dateNaissance: this.fb.control(''),
-    dateSortie: this.fb.control(''),
-    motifSortie: this.fb.control(''),
-    natureContrat: this.fb.control(''),
-    nomEmploye: this.fb.control(''),
-    nombreHeures1: this.fb.control('0'),
-    nombreHeures2: this.fb.control('0'),
-    nombreHeures3: this.fb.control('0'),
-    nombreJours1: this.fb.control('0'),
-    nombreJours2: this.fb.control('0'),
-    nombreJours3: this.fb.control('0'),
-    numPieceIdentite: this.fb.control(''),
-    numeroAssureSocial: this.fb.control(''),
-    prenomEmploye: this.fb.control(''),
-    regimCompCadre1:this.fb.control('true'), 
-    regimCompCadre2: this.fb.control('true'),
-    regimCompCadre3: this.fb.control('true'),
-    regimeGeneral1: this.fb.control('true'),
-    regimeGeneral2: this.fb.control('true'),
-    regimeGeneral3: this.fb.control('true'),
-    salaireBrut1: this.fb.control('0'),
-    salaireBrut2: this.fb.control('0'),
-    salaireBrut3: this.fb.control('0'),
-    tempsTravail1:this.fb.control(''),
-    tempsTravail2: this.fb.control(''),
-    tempsTravail3: this.fb.control(''),
-    totSalAssCssAtmp1: this.fb.control('0'),
-    totSalAssCssAtmp2:this.fb.control('0'),
-    totSalAssCssAtmp3: this.fb.control('0'),
-    totSalAssCssPf1:this.fb.control('0'),
-    totSalAssCssPf2: this.fb.control(''),
-    totSalAssCssPf3: this.fb.control('0'),
-    totSalAssIpresRcc1:this.fb.control('0'),
-    totSalAssIpresRcc2: this.fb.control('0'),
-    totSalAssIpresRcc3: this.fb.control('0'),
-    totSalAssIpresRg1: this.fb.control('0'),
-    totSalAssIpresRg2: this.fb.control('0'),
-    totSalAssIpresRg3: this.fb.control('0'),
-    trancheTravail1: this.fb.control(''),
-    trancheTravail2: this.fb.control(''),
-    trancheTravail3: this.fb.control(''),
-    typePieceIdentite: this.fb.control(''),
-  }) */
-])
+informationSalaries:new FormArray([])
 })
 }
 dateErrors:boolean=false;
   constructor(private fb:FormBuilder, private decService:DeclarationService,private dialog:MatDialog,
-    private snackB: MatSnackBar) {
+    private snackB: MatSnackBar,private chgd:ChangeDetectorRef) {
 
    }
+  ngAfterViewInit() {
+    /* this.dataSource.sort=this.sort; */
+  }
 
   ngOnInit() {
   this.emp= JSON.parse(window.localStorage.getItem('employerDataInput'));
@@ -217,7 +197,7 @@ dateErrors:boolean=false;
     this.preDnsObject.typeDeclaration=this.declarationForm.get('typeDeclaration').value;
    let prDns= JSON.stringify(this.preDnsObject);
     JSON.stringify(this.preDnsObject); 
-    console.log(this.preDnsObject);
+    /* console.log(this.preDnsObject); */
     this.loader=true;
     this.decService.preDns(prDns).subscribe(
        (resp:any)=>{
@@ -309,13 +289,6 @@ dateErrors:boolean=false;
     this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>{ 
       if(resp==200){
         this.loader=false;
-       
-        /* this.snackB.open("Demande de declaration envoyée avec succes","Fermer", {
-          duration: 10000,
-          panelClass: ['my-snack-bar','mat-success'],
-          verticalPosition: 'bottom',
-          horizontalPosition:'left'
-       });   */
       this.opensweetalert("Demande de declaration envoyée avec succes","success");
        this.dialog.closeAll();
       }
@@ -324,19 +297,13 @@ dateErrors:boolean=false;
       console.log(err.error.detail);
       if(err.status==500){
         this.loader=false;
-        /* this.snackB.open(err.error.detail,"Fermer", {
-          duration: 5000,
-          panelClass: ['my-snack-bar1', "mat-warn"],
-          verticalPosition: 'bottom',
-          horizontalPosition:'left'
-       }) */
        this.opensweetalert(err.error.detail,"error");
       }
       }
     )
   }
   displayForm(){
-    this.displayFormArr=true;
+    this.addSalForm=true;
   }
  
   fillEmployeeForm(dec){
@@ -389,7 +356,6 @@ dateErrors:boolean=false;
       dateEffetRegimeCadre3: new FormControl(dec.dateEffetRegimeCadre3) })
   }
   newEmployeeForm(){
-  
    return   new FormGroup({
       numeroAssureSocial:new FormControl(''),
       nomEmploye:new FormControl('',Validators.required),
@@ -438,32 +404,39 @@ dateErrors:boolean=false;
       regimCompCadre3: new FormControl(''),
       dateEffetRegimeCadre3: new FormControl('') })
   }
-  addItem() {
-   
-    /* this.employeList = this.immatForm.get('input').get('employeList') as FormArray; */ 
+ 
+  addNewSalarie() { 
     let dec=(this.declarationForm.get('informationSalaries') as FormArray)
     dec.push(this.newEmployeeForm());
-    this.dataSource=dec.value;
-    console.log(this.dataSource);
-     this.displayFormArr=true;
-
-     console.log(this.declarationForm);
+    this.addSalForm=true;
+    this.editSalForm=false;
+    for(let i=0;i<dec.value.length; i++){
+      console.log(dec.value[i]);
+    if(dec.value[i].numeroAssureSocial==""){
+      this.addIndex=i;
+     }
+  }
    }
-   removeItem(i) {
+   fillSalForm(i){
+    this.editIndex=i;
+    this.addSalForm=false;
+    this.editSalForm=true;
+  }
+   removeSal(i) {
     let dec=(this.declarationForm.get('informationSalaries') as FormArray)
      dec.removeAt(i); 
      this.dataSource=dec.value;
-     console.log(this.dataSource);
+     /* console.log(this.dataSource); */
    }
-   addRow(){
-   if(this.declarationForm.get('informationSalaries').valid==true){
-     console.log(1);
+   
+ 
+  updateSal(){
     let dec=(this.declarationForm.get('informationSalaries') as FormArray)
-    dec.push(dec.value);
-    this.dataSource=dec.value;
-   console.log(this.dataSource=dec.value);  
-   } 
-   }
+    this.dataSource=dec.value; 
+    this.dataSource.sort=this.sort;
+    this.addSalForm=false;
+    this.editSalForm=false;
+  }
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);
   }
@@ -480,6 +453,10 @@ dateErrors:boolean=false;
       this.dateErrors=false;
     }
   }
+  
+applyFilter(filterValue: string) {
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+}
   
   displayMensualite(event){
     let d1=this.declarationForm.get('dateDebutCotisation').value;
