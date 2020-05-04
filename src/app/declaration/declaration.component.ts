@@ -82,6 +82,55 @@ data = [];
         const wsname: string = wb.SheetNames[0];
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
         /* save data */
+
+        ws.A2.v = "numeroAssureSocial";
+        ws.B2.v = "nomEmploye";
+        ws.C2.v = "prenomEmploye";
+        ws.D2.v = "dateNaissance";
+        ws.E2.v = "typePieceIdentite";
+        ws.F2.v = "numPieceIdentite";
+        ws.G2.v = "natureContrat";
+        ws.H2.v = "dateEntree";
+        ws.I2.v = "dateSortie";
+        ws.J2.v = "motifSortie";
+        ws.K2.v = "totSalAssCssPf1";
+        ws.L2.v = "totSalAssCssAtmp1";
+        ws.M2.v = "totSalAssIpresRg1";
+        ws.N2.v = "totSalAssIpresRcc1";
+        ws.O2.v = "salaireBrut1";
+        ws.P2.v = "nombreJours1";
+        ws.Q2.v = "nombreHeures1";
+        ws.R2.v = "tempsTravail1";
+        ws.S2.v = "trancheTravail1";
+        ws.T2.v = "regimeGeneral1";
+        ws.U2.v = "regimCompCadre1";
+        ws.V2.v = "dateEffetRegimeCadre1";
+        ws.W2.v = "totSalAssCssPf2";
+        ws.X2.v = "totSalAssCssAtmp2";
+        ws.Y2.v = "totSalAssIpresRg2";
+        ws.Z2.v = "totSalAssIpresRcc2";
+        ws.AA2.v = "salaireBrut2";
+        ws.AB2.v = "nombreJours2";
+        ws.AC2.v = "nombreHeures2";
+        ws.AD2.v = "tempsTravail2";
+        ws.AE2.v = "trancheTravail2";
+        ws.AF2.v = "regimeGeneral2";
+        ws.AG2.v = "regimCompCadre2";
+        ws.AH2.v = "dateEffetRegimeCadre2";
+        ws.AI2.v = "totSalAssCssPf3";
+        ws.AJ2.v = "totSalAssCssAtmp3";
+        ws.AK2.v = "totSalAssIpresRg3";
+        ws.AL2.v = "totSalAssIpresRcc3";
+        ws.AM2.v = "salaireBrut3";
+        ws.AN2.v = "nombreJours3";
+        ws.AO2.v = "nombreHeures3";
+        ws.AP2.v = "tempsTravail3";
+        ws.AQ2.v = "trancheTravail3";
+        ws.AR2.v = "regimeGeneral3";
+        ws.AS2.v = "regimCompCadre3";
+        ws.AT2.v = "dateEffetRegimeCadre3";
+
+
         this.data = <any>(XLSX.utils.sheet_to_json(ws, 
           { raw: false,
           dateNF: "YYYY-MM-DD",
@@ -499,7 +548,6 @@ dateErrors:boolean=false;
  
 
 /// Interface Employee Declaration
-
 interface EmployeData {
   [index: number]:  {
     numeroAssureSocial:string,
@@ -549,5 +597,10 @@ interface EmployeData {
     regimCompCadre3: string,
     dateEffetRegimeCadre3: string 
 };
+  
 
-} 
+  
+   
+  
+
+}
