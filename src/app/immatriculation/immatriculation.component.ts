@@ -21,6 +21,8 @@ import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2';
 
 
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import * as XLSX from 'xlsx';
 const userName=window.localStorage.getItem("user");
 
 @Component({
@@ -88,6 +90,9 @@ export class ImmatriculationComponent implements OnInit {
   addIndex:number;
   editIndex:number;
 
+  public employeData: EmployeData[];
+  data = [];
+
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   icnpattern = "^[1,2][0-9]{12,13}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
@@ -149,7 +154,126 @@ export class ImmatriculationComponent implements OnInit {
     ,private saveEmp:SaveEmployeeService,private userService:UserService) {}
 
 
+///// File Upload //////
 
+    onFileChange(evt: any) {
+      //debugger
+      /* wire up file reader */
+      const target: DataTransfer = <DataTransfer>(evt.target);
+      if (target.files.length == 1) {
+        const reader: FileReader = new FileReader();
+        reader.onload = (e: any) => {
+          /* read workbook */
+          const bstr: string = e.target.result;
+          const wb: XLSX.WorkBook = XLSX.read(bstr, 
+             {type:'binary', 
+             cellDates:true, 
+             cellNF: false, 
+             cellText:false
+            });
+         // console.log(wb);
+          /* grab first sheet */
+          const wsname: string = wb.SheetNames[0];
+          const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+          /* save data */
+          ws.A1.v = "rechercheEmploye";
+          ws.B1.v = "nomEmploye";
+          ws.C1.v = "prenomEmploye";
+          ws.D1.v = "sexe";
+          ws.E1.v = "etatCivil";
+          ws.F1.v = "dateNaissance";
+          ws.G1.v = "numRegNaiss";
+          ws.H1.v = "nomPere";
+          ws.I1.v = "prenomPere";
+          ws.J1.v = "nomMere";
+          ws.K1.v = "prenomMere";
+          ws.L1.v = "nationalite";
+          ws.M1.v = "typePieceIdentite";
+          ws.N1.v = "nin";
+          ws.O1.v = "ninCedeao";
+          ws.P1.v = "numPieceIdentite";
+          ws.Q1.v = "delivreLe";
+          ws.R1.v = "lieuDelivrance";
+          ws.S1.v = "expireLe";
+          ws.T1.v = "paysNaissance";
+          ws.U1.v = "villeNaissance";
+          ws.V1.v = "pays";
+          ws.W1.v = "region";
+          ws.X1.v = "departement";
+          ws.Y1.v = "arrondissement";
+          ws.Z1.v = "commune";
+          ws.AA1.v = "quartier";
+          ws.AB1.v = "adresse";
+          ws.AC1.v = "boitePostale";
+          ws.AD1.v = "typeMouvement";
+          ws.AE1.v = "natureContrat";
+          ws.AF1.v = "dateDebutContrat";
+          ws.AG1.v = "dateFinContrat";
+          ws.AH1.v = "profession";
+          ws.AI1.v = "emploi";
+          ws.AJ1.v = "ouiCadre";
+          ws.AK1.v = "conventionApplicable";
+          ws.AL1.v = "salaireContractuel";
+          ws.AM1.v = "tempsTravail";
+          ws.AN1.v = "categorie";
+         
+         
+  
+          this.data = <any>(XLSX.utils.sheet_to_json(ws, 
+            { raw: false,
+            dateNF: "YYYY-MM-DD",
+            header:1,
+            defval: "" ,
+            range:0
+        }));
+        };
+        
+        reader.readAsBinaryString(target.files[0]);
+        console.log(this.data);
+      }
+    }
+  
+    
+  
+    uploadfile() {
+      
+      let keys = this.data.shift();
+      let resArr = this.data.map((e) => {
+        let obj = {};
+        keys.forEach((key, i) => {
+          obj[key] = e[i];
+          if(key = "rechercheEmploye"){
+            obj[key] = "";
+          }
+  
+           
+  
+  
+  
+           
+          
+          
+          //console.log(key);
+         // console.log(obj[key]);
+        });
+        return obj;
+       
+  
+      });
+      
+      //console.log(resArr);
+      //resArr.forEach(function (value) {
+      //  console.log(value);
+      //})
+    
+      this.employeData = resArr;
+      console.log(this.employeData);
+    }
+  
+
+
+
+    ////// End File Upload 
 
     opensweetalert(title, icon){
   
@@ -936,3 +1060,58 @@ set dateValue(val) {
   })
 }) */
   
+
+interface EmployeData {
+  [index: number]:  {
+    rechercheEmploye:string,
+    nomEmploye:string,
+    prenomEmploye:string , 
+    sexe:string,  
+    etatCivil:string,
+    dateNaissance:string ,  
+    numRegNaiss: string,
+    nomPere: string,
+    prenomPere:string, 
+    nomMere: string, 
+    prenomMere: string, 
+    nationalite: string, 
+    typePieceIdentite: string, 
+    nin: string, 
+    ninCedeao: string, 
+    numPieceIdentite: string, 
+    delivreLe: string, 
+    lieuDelivrance: string, 
+    expireLe: string, 
+    villeNaissance: string, 
+    paysNaissance: string, 
+    employeurPrec: string, 
+    pays: string, 
+    region:string,  
+    departement:string,
+    arrondissement: string,
+    commune:  string,
+    quartier: string,
+    adresse: string,
+    boitePostale: string,
+    typeMouvement:string, 
+    natureContrat: string,
+    dateDebutContrat: Date,
+    dateFinContrat: Date,
+    profession:string, 
+    emploi: string,
+    nonCadre: string,
+    ouiCadre: string,
+    conventionApplicable: string,
+    salaireContractuel: string,
+    tempsTravail: string,
+    categorie: string
+     
+};
+  
+
+  
+   
+  
+
+}
+
