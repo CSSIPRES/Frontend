@@ -660,7 +660,7 @@
          
           <mat-form-field  appearance="outline">
             <mat-label>Region</mat-label>
-            <mat-select (selectionChange)="selectRegion($event,i)"  formControlName="region" required>
+            <mat-select (selectionChange)="selectRegion($event)"  formControlName="region" required>
               <mat-option  *ngFor="let r of listRegions.items"
                [value]="r.region">{{r.region | titlecase}}</mat-option>
             </mat-select>
@@ -669,7 +669,7 @@
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Departement</mat-label>
-            <mat-select (selectionChange)="selectDepartement($event,i)"  formControlName="departement" required>
+            <mat-select (selectionChange)="selectDepartement($event)"  formControlName="departement" required>
               <mat-option *ngFor="let d of listD2" [value]="d.departement">
                 {{d.departement | titlecase}}</mat-option>
             </mat-select>
@@ -678,7 +678,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Arrondissement</mat-label>
-            <mat-select (selectionChange)="selectArrondissement($event,i)" formControlName="arrondissement" required>
+            <mat-select (selectionChange)="selectArrondissement($event)" formControlName="arrondissement" required>
               <mat-option *ngFor="let ar of listA2" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
@@ -688,7 +688,7 @@
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
             <mat-label>Commune</mat-label>
-            <mat-select  (selectionChange)="selectCommne($event,i)" formControlName="commune" required>
+            <mat-select  (selectionChange)="selectCommne($event)" formControlName="commune" required>
               <mat-option *ngFor="let c of listC2" [value]="c.commune">{{c.commune | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>

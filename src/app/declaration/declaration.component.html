@@ -73,7 +73,7 @@
                 Ce champs est obligatoire
               </mat-error>
             </mat-form-field>
-            <div fxFlex="15" class="mt-3">
+            <div fxFlex="20" class="mt-3">
               <button fxLayoutAlign="center center" [disabled]="displayBtn" class="largeButt" (click)="preDns()"
                 mat-raised-button>
                 <div *ngIf="!loader"> PreDNS <mat-icon *ngIf="displayBtn"
@@ -85,8 +85,8 @@
               </button>
               <!-- <button [disabled]="!displayBtn"  class="submit-button" mat-raised-button matStepperNext>Suivant</button> -->
             </div>
-            <div fxFlex="20" class="mt-3">
-              <button [disabled]="!displayBtn" class="submit-button" mat-raised-button matStepperNext>Suivant</button>
+              <div fxFlex="20" class="mt-3">
+              <button  [disabled]="!displayBtn" class="submit-button-right" mat-raised-button matStepperNext>Suivant</button>
             </div>
           </div>   
         </div>
@@ -155,7 +155,7 @@
           </button>
         </div>
         <div formArrayName="informationSalaries">
-          <div *ngFor="let item of declarationForm.get('informationSalaries').controls; let i=index">
+          <div *ngFor="let item of declarationForm.get('informationSalaries')['controls']; let i=index">
             <div *ngIf="addIndex==i && addSalForm || editIndex==i && editSalForm">
               <div [formGroupName]="i">
                 <div fxLayout="row" fxLayoutGap="5%">

@@ -59,7 +59,7 @@
               <div class="mt-2"  fxFlex fxLayout="row" fxLayoutGap="5%">
                 <mat-card class="immatCard" *ngFor="let emp of listEmp">
                   <mat-card-content>
-                    <span>{{emp.raisonSociale}} </span>
+                    <span>{{emp?.raisonSociale}} </span>
                     <!-- <img fxLayoutAlgin="center" src="assets/images/neurotech.png" alt="" height="100px" width="100px"> -->
                     <!-- <span class="text-success" fxLayoutAlign="center"><mat-icon>done</mat-icon>Valide</span> -->
                     <!-- <span *ngIf="validated" class="text-danger" fxLayoutAlign="center"><mat-icon>done</mat-icon>Valide</span> -->

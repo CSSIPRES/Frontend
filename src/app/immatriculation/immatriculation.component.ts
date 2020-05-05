@@ -19,9 +19,7 @@ import { ImmatriculationService } from '../services/immatriculation.service';
 import { SaveEmployeeService } from '../services/save-employee.service';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2';
-
-
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+/* import Swal from 'sweetalert2/dist/sweetalert2.js'; */
 import * as XLSX from 'xlsx';
 const userName=window.localStorage.getItem("user");
 
@@ -616,23 +614,20 @@ getEmployee(outputValue){
   addItem(): void { 
     this.employeList.push(this.createItem()); 
   }
-selectRegion(event,indexContol){
+selectRegion(event){
 this.listD=[];
 this.listD1=[];
 this.listD2=[];
 let r2:string="";
 let r:string="";
 let r1:string="";
-console.log(indexContol);
  r=this.immatForm.get('input').get('mainRegistrationForm').get('region').value;
  r1=this.immatForm.get('input').get('legalRepresentativeForm').get('region').value;
 console.log(r);
-/* let r2=this.immatForm.get('input').get('employeList').value[indexContol].region; */
-if(indexContol!=undefined){
-  r2=this.immatForm.get('input').get('employeList').value[indexContol].region;
- 
+let emplistRegion=this.immatForm.get('input').get('employeList').value;
+for(let i=0;i<emplistRegion.length;i++){
+ r2= emplistRegion[i].region;
 }
-console.log(r1);
 this.initlistDept.items.forEach(element => {
   if(element.rgion==r){
     this.listD.push(element); 
@@ -652,15 +647,16 @@ this.initlistDept.items.forEach(element => {
   
 
 
-selectDepartement(event,indexContol){
+selectDepartement(event){
   this.listA=[];
   this.listA1=[];
   this.listA2=[];
   let d3:string="";
   let d1= this.immatForm.get('input').get('mainRegistrationForm').get('department').value;
   let d2=this.immatForm.get('input').get('legalRepresentativeForm').get('department').value;
-  if(indexContol!=undefined){
-     d3=this.immatForm.get('input').get('employeList').value[indexContol].departement;
+  let emplistRegion=this.immatForm.get('input').get('employeList').value;
+for(let i=0;i<emplistRegion.length;i++){
+ d3= emplistRegion[i].departement;
   }
   
   this.listArrondissemnt.items.forEach(element => {
@@ -683,19 +679,17 @@ selectDepartement(event,indexContol){
   });
   }
 
-  selectArrondissement(event,indexContol){
+  selectArrondissement(event){
     this.listC=[];
     this.listC1=[];
     this.listC2=[];
     let c2:string="";
     let c= this.immatForm.get('input').get('mainRegistrationForm').get('arondissement').value;
     let c1= this.immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value;
-    /* let c2=this.immatForm.get('input').get('employeList').value[indexContol].arrondissement;*/    if(indexContol!=undefined){
-    if(indexContol!=undefined){
-        c2=this.immatForm.get('input').get('employeList').value[indexContol].arrondissement;
-     }
-    }
-    console.log(c2);
+      let emplistRegion=this.immatForm.get('input').get('employeList').value;
+      for(let i=0;i<emplistRegion.length;i++){
+       c2= emplistRegion[i].arrondissement;
+      }
     this.listCommune.items.forEach(element => {
       if(element.arrondissement==c){
         this.listC.push(element);
@@ -717,22 +711,21 @@ selectDepartement(event,indexContol){
       );
   }
   
-  selectCommne(event,indexContol){
+  selectCommne(event){
     this.listQ=[];
     this.listQ1=[]; 
     this.listQ2=[]; 
     let c3:string="";
     let c1= this.immatForm.get('input').get('mainRegistrationForm').get('commune').value;
     let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('commune').value;
-   /*  let c3=this.immatForm.get('input').get('employeList').value[indexContol].commune; */
-    if(indexContol!=undefined){
-      c3=this.immatForm.get('input').get('employeList').value[indexContol].commune;
-   }
+    let emplistRegion=this.immatForm.get('input').get('employeList').value;
+   for(let i=0;i<emplistRegion.length;i++){
+      c3= emplistRegion[i].commune;
+     }
 
     this.listQuartie.items.forEach(element => {
       if(element.commune==c1){
          this.listQ.push(element); 
-        /* console.log(this.listQuartie); */
       }
      }
     ); 
@@ -762,11 +755,7 @@ selectDepartement(event,indexContol){
       }
     ); 
   }
- /*  addTableEmploye(){
-    this.dataSource = new MatTableDataSource(
-      (this.immatForm.get('input').get('employeList') as FormArray).controls)
-      console.log(this.dataSource);
-  } */
+ 
   maxRgGen:boolean=false;
   addNewEmp() { 
     let empList=(this.immatForm.get('input').get('employeList') as FormArray)

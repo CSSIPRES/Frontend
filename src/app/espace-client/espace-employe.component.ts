@@ -35,7 +35,7 @@ export class EspaceEmployeComponent implements OnInit {
   isExpanded:boolean=false;
   displayedColumns: string[] = ['nom', 'prenom', 'num_secu', 'icn'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  private listEmp:any;
+  listEmp:any;
   title:string;
   loader:boolean=true;
 

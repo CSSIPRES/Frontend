@@ -104,6 +104,15 @@ h1{
     height: 40px;
     border-radius: 25px ;
   }
+  .submit-button-right{
+    background-color: rgb(255, 104, 49);
+    color:#ffffff;
+     width: 100%; 
+    font-size:15px;
+    color:#ffffff;
+    height: 40px;
+    border-radius: 25px ;
+  }
   .submit-secondary{
     background-color: #f2f2f2;
    /*  display:inline-block; */

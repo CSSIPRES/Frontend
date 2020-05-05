@@ -245,3 +245,6 @@ h1:before{
   table td  .delete{
     color: rgb(187, 2, 18);
   } 
+  .mat-mini-fab mat-icon{
+    color:#999999;
+  }
