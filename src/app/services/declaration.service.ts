@@ -3,8 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
-const token=window.localStorage.getItem("token"); 
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -14,11 +13,11 @@ export class DeclarationService {
 
   preDns(preDns){
     return this.httpCl.post(environment.BASE_URL + "preDNS", preDns,
-     {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+token})});
+     {headers: new HttpHeaders({'Content-Type':  'application/json'})});
   }
   addDeclaration(declaration){
     return this.httpCl.post(environment.BASE_URL + "dns", declaration,
-    {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+window.localStorage.getItem("token"))}).pipe(
+    ).pipe(
       catchError(this.handleError))
   }
   handleError(error: HttpErrorResponse){

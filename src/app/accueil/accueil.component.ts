@@ -19,9 +19,9 @@ export class AccueilComponent implements OnInit {
   loader:boolean=false;
   errorMess:boolean=false;
   panelOpenState1:boolean=false;
-
+  windowScrolled: boolean;
   constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
-  private login: LoginService,private router:Router,private empExistServ:EmployeExistService) {
+  private login: LoginService,private router:Router) {
     
    }
 
@@ -73,7 +73,7 @@ export class AccueilComponent implements OnInit {
     }
     this.connection=false;
   }
-  windowScrolled: boolean;
+  
   
   @HostListener("window:scroll", [])
   onWindowScroll() {
@@ -93,5 +93,11 @@ export class AccueilComponent implements OnInit {
           }
       })();
   }
-  
+   /* displayButton1:boolean=false
+  displayButton(){
+    if(this.router.navigate['/accueil']){
+      this.displayButton1=true;
+      console.log(this.displayButton1);
+    }
+  } */
 }

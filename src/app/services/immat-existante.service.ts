@@ -11,8 +11,7 @@ export class ImmatExistanteService {
   constructor(private httpCl:HttpClient) { }
 
   checkImmatExist(immatExist){
-    return this.httpCl.post(environment.BASE_URL +'employeurExistant',immatExist,
-    {headers: new HttpHeaders({'Authorization': 'Bearer'+' '+token})});
+    return this.httpCl.post(environment.BASE_URL +'employeurExistant',immatExist);
   }
   
 }

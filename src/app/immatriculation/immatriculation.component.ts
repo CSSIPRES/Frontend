@@ -84,7 +84,8 @@ export class ImmatriculationComponent implements OnInit {
   srcResult:any;
   validNumbOfworker:boolean=false;
   addEmpForm:boolean=false;
-  editEmpForm:boolean=false
+  editEmpForm:boolean=false;
+  disabledDate:boolean=true;
   addIndex:number;
   editIndex:number;
 
@@ -353,7 +354,7 @@ export class ImmatriculationComponent implements OnInit {
     qartier:this.fb.control('', Validators.required),
     address:this.fb.control('', Validators.required),
     telephone:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
-    email:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
+    email:this.fb.control('', { updateOn: 'blur',validators: [Validators.pattern(this.emailPattern)]}),
     website:this.fb.control(''),
     noOfWorkersInBasicScheme:this.fb.control('', Validators.required),
     noOfWorkersInGenScheme:this.fb.control('', Validators.required)
@@ -493,32 +494,47 @@ getEmployee(outputValue){
       this.dateErrors=false;
     }
   }
+  
   validationPiece(event){
-    this.validPassport=false;
-    this.validICN=false;
-    let d1:Date=this.immatForm.get('inpu').get('legalRepresentativeForm').get('issuedDate').value;
-    let d2:Date=this.immatForm.get('inpu').get('legalRepresentativeForm').get('expiryDate').value;
+    let d1:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('issuedDate').value;
+    let d2:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value;
     let d3: number = this.dateDiff1(new Date(d1),new Date(d2));
-    if(this.immatForm.get('input').get('legalRepresentativeForm').get('typeOfIdentity').value=="NIN"){
+    let icn=this.immatForm.get('input').get('legalRepresentativeForm').get('typeOfIdentity').value;
+    let pass=this.immatForm.get('input').get('legalRepresentativeForm').get('typeOfIdentity').value;
+    if(icn=="NIN"){
+      this.disabledDate=false;
     if(d3< 10 || d3> 10.008219178082191){
       this.validICN=true;
+      this.validError=true;
+      this.validPassport=false;
       console.log(this.validICN)
     }
     else{
+      this.disabledDate=true;
       this.validICN=false;
+      this.validError=false;
+
     }
   }
-  else{
+  else if(pass=="PASS"){
+    this.disabledDate=true;
+    {
     if(d3 < 5 || d3 > 5.008219178082191){
       this.validPassport=true;
-      console.log(this.validPassport);
+      this.validError=true;
+      this.validICN=false;
+      
     }
     else{
       this.validPassport=false;
-      console.log(this.validPassport);
+      this.validError=false;
+     
     }
   }
-   
+  }
+   else{
+    this.disabledDate=true;
+   }
   }
  
   validDateNaissance(event){
@@ -532,9 +548,11 @@ getEmployee(outputValue){
     }
     if(age < 18){
       this.validDateNaiss = true;
+      this.validError=true;
     }
     else{
       this.validDateNaiss = false;
+      this.validError=false;
     }
   }
   
@@ -549,6 +567,7 @@ getEmployee(outputValue){
     }
     else{
       this.validNumbOfworker=false;
+      this.validError=false;
     }
   }
  getNineaNumber(){
@@ -895,14 +914,17 @@ set dateValue(val) {
   get tradeRegisterNumber() {
     return this.immatForm.get('input').get('employerQuery').get('tradeRegisterNumber');
   }
+  get regType() {
+    return this.immatForm.get('input').get('employerQuery').get('regType');
+  }
   get ninetNumber() {
     return this.immatForm.get('input').get('employerQuery').get('ninetNumber');
   }
   get companyOriginId() {
     return this.immatForm.get('input').get('employerQuery').get('companyOriginId');
   }
-  get firtName() {
-    return this.immatForm.get('input').get('legalRepresentativeForm').get('firtName');
+  get firstName() {
+    return this.immatForm.get('input').get('legalRepresentativeForm').get('firstName');
   }
   get lastName() {
     return this.immatForm.get('input').get('legalRepresentativeForm').get('lastName');

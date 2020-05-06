@@ -19,13 +19,11 @@ export class ImmatriculationService {
    }
   
 addImmatriculation(immatriculation){
-return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
-{headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+token})})
+return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation)
 }
  getNineaNumber(numeroIdentifiant){
    let typeIdentifiant="SCI"
-   return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant,
-   {headers: new HttpHeaders({'Authorization': 'Bearer'+' '+token})});
+   return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant);
  } 
 
   getListActivite(){
@@ -51,34 +49,24 @@ return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation,
   }
 
   createAttestationRegularite(typeIdentifiant:string,identifiant:string){
-     return this.http.get(environment.BASE_URL+"attestation/create/"+typeIdentifiant+"/"+identifiant,
-     {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+     return this.http.get(environment.BASE_URL+"attestation/create/"+typeIdentifiant+"/"+identifiant);
   }
 
   getStatusAttestationRegularite(idDossier:string){
-    return this.http.get(environment.BASE_URL+"statutDossierImmatriculation/"+idDossier,
-    {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+    return this.http.get(environment.BASE_URL+"statutDossierImmatriculation/"+idDossier);
  }
 
  getUrlAttestationRegularite(idDossier:string){
-  return this.http.get(environment.BASE_URL+"attestation/getUrl/"+idDossier,
-  {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+  return this.http.get(environment.BASE_URL+"attestation/getUrl/"+idDossier);
 }
 
 
 getStatutCertificatImmat(idDossier){
-  return this.http.get(environment.BASE_URL+"statutDossierImmatriculation/"+idDossier,
-  {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+  return this.http.get(environment.BASE_URL+"statutDossierImmatriculation/"+idDossier);
 }
 
 getUrlCertificatImmat(idDossier){
-  return this.http.get(environment.BASE_URL+"certificatImmatriculation/"+idDossier,
-  {headers: new HttpHeaders().set('Authorization', 'Bearer'+' '+localStorage.getItem("token"))});
+  return this.http.get(environment.BASE_URL+"certificatImmatriculation/"+idDossier);
 }
-
  
-
-
-
-  
 }

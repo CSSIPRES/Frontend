@@ -41,14 +41,17 @@ export class EspaceEmployeComponent implements OnInit {
 
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
+  tok:any=""
   constructor(private dialog:MatDialog,private userService:LoginService,private empExistServ:EmployeExistService) {
    
    }
 
   ngOnInit() {
+    this.tok=window.localStorage.getItem("token");
     this.getUserByLogin();
     this.getListEmploye();
   }
+
   getListEmploye(){
     this.empExistServ.getEmpExist().subscribe(resp=>
       {
@@ -57,7 +60,9 @@ export class EspaceEmployeComponent implements OnInit {
     });
   }
   getUserByLogin(){
-   this.userService.getUserByLogin(userName).subscribe(resp=>console.log(resp))
+   this.userService.getUserByLogin(userName).subscribe(
+     resp=>
+     console.log(resp))
   }
   openImmatPopup(template:TemplateRef<any>){
     const dialogConfig = new MatDialogConfig();

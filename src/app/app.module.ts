@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
@@ -51,6 +51,7 @@ import { PaiementComponent } from './paiement/paiement.component';
 import { RedirectionComponent } from './redirection/redirection.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpInterceptorService } from './services/http-interceptor.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
   scrollXMarginOffset:300,
@@ -126,13 +127,19 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}, 
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]},
     {
     provide: PERFECT_SCROLLBAR_CONFIG,
-    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-  }],
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG},
+   
+  ],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
   DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent]
