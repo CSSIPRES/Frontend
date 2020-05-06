@@ -855,7 +855,7 @@
            <div fxFlex="50">
               <b>Date d'inspection</b>
               &nbsp;
-               <span> {{dateOfInspection.value | date:'shortDate'}}</span>
+               <span> {{immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value | date:'shortDate'}}</span>
             </div> 
           </div>
           <mat-divider class="inset"></mat-divider>
@@ -863,7 +863,7 @@
               <div fxFlex="50">
                 <b>Date d'ouverture</b>
                 &nbsp;
-                <span>{{dateOfFirstHire.value | date:'shortDate'}}</span>
+                <span>{{immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value}}</span>
               </div>
           <div fxFlex="50">
               <b>Region</b>
@@ -982,7 +982,7 @@
             <div fxFlex="50">
               <b>Date de naissance</b>
               &nbsp;
-             <span> {{birthdate.value | date:'shortDate'}}</span>
+             <span> {{ immatForm.get('input').get('legalRepresentativeForm').get('birthdate').value | date:'shortDate'}}</span>
             </div>
             <div fxFlex="50">
               <b>Naionalite</b>
@@ -1026,7 +1026,7 @@
             <div fxFlex="50">
               <b>Date delivrance</b>
               &nbsp;
-              <span>  {{issuedDate.value | date:'shortDate'}} </span>
+              <span>  {{immatForm.get('input').get('legalRepresentativeForm').get('issuedDate').value | date:'shortDate'}} </span>
             </div>
           </div>
           <mat-divider class="inset"></mat-divider>
@@ -1034,7 +1034,7 @@
             <div fxFlex="50">
               <b>Date d'expiration</b>
               &nbsp;
-            <span> {{expiryDate.value | date:'shortDate'}}</span> 
+            <span> {{immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value | date:'shortDate'}}</span> 
             </div>
             <div fxFlex="50">
               <b>Region</b>

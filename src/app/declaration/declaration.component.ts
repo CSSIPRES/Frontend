@@ -465,6 +465,7 @@ dateErrors:boolean=false;
       this.addIndex=i;
      }
   }
+  this.cumulTotal();
    }
    fillSalForm(i){
     this.editIndex=i;
@@ -476,6 +477,7 @@ dateErrors:boolean=false;
      dec.removeAt(i); 
      this.dataSource=dec.value;
      /* console.log(this.dataSource); */
+     this.cumulTotal();
    }
    
  
@@ -485,6 +487,7 @@ dateErrors:boolean=false;
     this.dataSource.sort=this.sort;
     this.addSalForm=false;
     this.editSalForm=false;
+    this.cumulTotal(); 
   }
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);
@@ -514,7 +517,12 @@ applyFilter(filterValue: string) {
     console.log(d1);
    
   }
-
+  cumulTotal(){
+   let listSal=this.declarationForm.get('informationSalaries').value;
+   for(let i=0;i<listSal.length;i++){
+     console.log(listSal[i]);
+   }  
+  }
   get typeIdentifiant() {
     return this.declarationForm.get('informationEmployeur').get('typeIdentifiant');
   }
