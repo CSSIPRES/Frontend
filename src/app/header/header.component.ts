@@ -11,7 +11,7 @@ const user=window.localStorage.getItem("token");
 })
 export class HeaderComponent implements OnInit {
 checkConn:boolean=false;
-  constructor(private ref: ChangeDetectorRef,private loginService:LoginService) {
+  constructor(private ref: ChangeDetectorRef,private loginService:LoginService,private router:Router) {
    }
   
   
@@ -30,4 +30,8 @@ checkConn:boolean=false;
     this.loginService.logout();
   }
 
+
+  goToProfil(){
+    this.router.navigate(['/mon-profil']);
+  }
 }

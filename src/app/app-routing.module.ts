@@ -8,6 +8,7 @@ import { MotPasseOublieComponent } from './mot-passe-oublie/mot-passe-oublie.com
 import { EspaceEmployeComponent } from './espace-client/espace-employe.component';
 import { ImmatriculationComponent } from './immatriculation/immatriculation.component';
 import { MatDatepickerModule } from '@angular/material';
+import { MonProfilComponent } from './mon-profil/mon-profil.component';
 
 const routes: Routes = [
   { path:'accueil', component:AccueilComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path:'demarche', component:DemarcheComponent },
   { path:'espaceEmploye', component:EspaceEmployeComponent },
   { path:'motPasseOublie', component:MotPasseOublieComponent },
+  { path:'mon-profil', component:MonProfilComponent },
   { path: '',redirectTo: 'accueil',pathMatch: 'full'}
 ];
 

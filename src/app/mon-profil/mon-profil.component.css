@@ -1,0 +1,130 @@
+table{
+    width: 100%;
+}
+  mat-sidenav:not(.mat-drawer-opened) {
+    transform: translate3d(0, 0, 0) !important;
+    visibility: visible !important;
+    width: 60px !important;
+    overflow:hidden;
+  }
+  mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
+    width: 40px; margin: 16px 0 0px 0;
+  }
+  mat-sidenav:not(.mat-drawer-opened) .navTitle,
+  mat-sidenav:not(.mat-drawer-opened) .profileTitle {
+    display: none;
+  }
+  .example-sidenav-content{
+      height: 800px;
+  }
+
+  mat-list-item mat-icon{
+      color:#999999;
+      border:1px solid #999999;
+      border-radius: 50%;
+      background-color: #f2f2f2;
+      font-size: 12px;
+  }
+
+  .immatCard{
+      /* margin-top: 20px; */
+      width: 150px;
+      height: 150px;
+      border:1px solid #f2f2f2;
+  }
+  span mat-icon{
+    font-size: 16px;
+  }
+  .addImmButt button {
+      margin-left: 30px; 
+      margin-top:30px; 
+      background-color:#f2f2f2;
+      border:2px solid #999999;
+      color:#999999;
+  }
+  .immatCard span{
+      font-size:9px;
+      color:#999999;
+      text-align: center;
+  }
+  .mat-horizontal-stepper-header .mat-stepper-horizontal-line {
+      border-top-color: rgba(37, 82, 245, 0.54) !important;
+  }
+.example-sidenav-content h2{
+  color: #999999;
+}
+
+h1{
+  /* font-weight: 300; */
+  display: inline-block;
+  padding-bottom: 5px;
+  position: relative;
+  font-size:25px;
+  color: #999999;
+}
+h1:before{
+  content: "";
+  position: absolute;
+  width: 20%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 5px solid rgba(255, 66, 19, 0.822)!important;
+  border-radius: 5px;
+}
+h2{
+  /* font-weight: 300; */
+  display: inline-block;
+  padding-bottom: 5px;
+  position: relative;
+  color: #999999;
+}
+h2:before{
+  content: "";
+  position: absolute;
+  width: 5%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid rgba(255, 66, 19, 0.822) !important;
+}
+
+
+.card_client{
+    box-shadow: none !important;
+}
+
+
+.btn-orange{
+   background-color: rgba(255, 66, 19, 0.822) !important;
+   color:white;
+   border-radius: 15px;
+}
+.content-left{
+    text-align: center;
+}
+.content-left img{
+    min-width: 128px;
+    min-height: 112px;
+    max-width: 264px;
+    max-height: 178px;
+}
+
+.edit-profil{
+    text-align:right;
+    color:rgb(148, 124, 124);
+    padding: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.edit-profil-span:hover{
+  color:#222;
+  padding:2px;
+}
+
+.change-password-span:hover{
+  color:#222;
+  padding: 2px;
+}
+

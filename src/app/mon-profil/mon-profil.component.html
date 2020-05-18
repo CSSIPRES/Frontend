@@ -1,0 +1,165 @@
+
+<div >
+    <app-header></app-header>
+  </div> 
+    <div class="top_line">
+      <mat-toolbar></mat-toolbar>
+  </div>
+  <mat-drawer-container class="example-container mat-typography" autosize>
+    <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+      <button mat-mini-fab (click)="isExpanded = !isExpanded" color="warn" style="margin: 10px;">
+        <mat-icon aria-label="Menu">menu</mat-icon>
+      </button>
+      <mat-nav-list>
+        <mat-list-item>
+          <mat-icon mat-list-icon>person</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Immatrculation</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>assignment</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Declaration</h4>
+        </mat-list-item>
+       <!-- <mat-list-item>
+          <mat-icon mat-list-icon>domain</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Documents</h4>
+        </mat-list-item>
+        -->
+        <mat-list-item>
+          <mat-icon (click)="openPaiementDialog()" mat-list-icon>attach_money</mat-icon>
+          <h4 mat-line *ngIf="isExpanded"  (click)="openPaiementDialog()">Paiements</h4>
+        </mat-list-item>
+        <mat-list-item>
+        <mat-icon (click)="openDemandeAttestationDialog()" mat-list-icon>cached</mat-icon>
+          <h4 mat-line *ngIf="isExpanded" (click)="openDemandeAttestationDialog()">Statut & Suivi demande</h4>
+        </mat-list-item>
+     
+  
+       <!--  <mat-list-item>
+          <mat-icon mat-list-icon>attach_money</mat-icon>
+          <h4 mat-line (click)="openPaiementDialog()" *ngIf="isExpanded">Mes Paiements</h4>
+        </mat-list-item> -->
+       
+        <mat-list-item>
+          <mat-icon mat-list-icon>folder_shared</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Paramtres</h4>
+        </mat-list-item>
+  
+  
+      </mat-nav-list>
+    </mat-drawer>
+    <br>
+  
+    <div class="example-sidenav-content container">
+      <mat-card  class="mat-elevation-z8 ml-1 card_client">
+    
+         <mat-card-content>
+          <div class="row">
+              <div class="col-md-3 col-sm-12 content-left">
+                  <div>
+                       <img src="assets/images/image-profile.png" alt="">
+                 </div>
+                 <div>
+                     <button class="btn btn-orange btn-block">Change Photo</button>
+                 </div>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                  <div class="row">
+                      <div class="col-md-6">
+                       
+                         
+                      </div>
+                      <div class="col-md-6">
+                          <div class="edit-profil">
+
+                           <span (click)="isEdit = !isEdit" class="edit-profil-span">Modifier mon profile </span> |  <span class="change-password-span" (click)="openChangePasswordDialog()">Changer mon mot de passe</span> 
+                          </div>
+               
+                    </div>
+                  </div>
+
+                  <div class="row container">
+                    <div class="col-md-12">
+                        <h2> Mes informations</h2>
+                     
+                        <br><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                              <br *ngIf="isEdit">
+                               <h4> Prénom </h4>
+                            </div>
+                            <div *ngIf="!isEdit" class="col-md-6">
+                                {{ userConnecter?.firstName }}
+                            </div>
+                            <div *ngIf="isEdit" class="col-md-6">
+                            
+                             <input name="firsName" type="text" class="form-control" value="{{ userConnecter.firstName }}">
+                          </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                              <br *ngIf="isEdit">
+                               <h4> Nom </h4>
+                            </div>
+                              <div *ngIf="!isEdit" class="col-md-6">
+                                {{ userConnecter?.lastName }}
+                              </div>
+                              <div *ngIf="isEdit" class="col-md-6">
+                              
+                              <input name="firsName" type="text" class="form-control" value="{{ userConnecter.lastName }}">
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                              <br *ngIf="isEdit">
+                               <h4> Email </h4>
+                            </div>
+                            <div *ngIf="!isEdit" class="col-md-6">
+                              {{ userConnecter?.email }}
+                            </div>
+                            <div *ngIf="isEdit" class="col-md-6">
+                            
+                            <input name="firsName" type="text" class="form-control" value="{{ userConnecter.email }}">
+                          </div>
+                      
+                        </div><br>
+
+
+                        <div *ngIf="isEdit" class="row">
+                          <div class="col-md-6">
+                        
+                         
+                          </div>
+                          <div class="col-md-6">
+                              <button class="btn btn-orange btn-block btn-sm">Mettre à jour</button>
+                          </div>
+                          
+                    
+                      </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <br><br>
+       
+           <!--    CONTENT -->
+         </mat-card-content>
+       </mat-card>
+    </div>
+  </mat-drawer-container>
+  <div>
+    <ng-template #choiceTemplate>
+      <h1 mat-dialog-title>Immatriculez ou declarez</h1>
+      <div mat-dialog-content>
+        <mat-radio-group aria-label="Type d'immatriculation" fxFlex="column" fxFlex="row">
+          <mat-radio-button (click)="openImmatDialog()">Nouvelle Immatriculation</mat-radio-button><br>
+          <mat-radio-button (click)="openImmatDialogExist()"  value="true"  class="mt-1">Immatriculation Existante</mat-radio-button><br>
+          <mat-radio-button (click)="openDeclarationDialog()"  value="true" >Declaration</mat-radio-button>    
+        </mat-radio-group>
+      </div>
+  </ng-template>
+  </div>
+   
+  
+  
+  
+  
