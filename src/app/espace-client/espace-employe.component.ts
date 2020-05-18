@@ -6,6 +6,10 @@ import { ImmatriculationExistComponent } from '../immatriculation-exist/immatric
 import { DeclarationComponent } from '../declaration/declaration.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
 import { PaiementComponent } from '../paiement/paiement.component';
+import { LoginService } from '../services/login.service';
+import { EmployeExistService } from '../services/employe-exist.service';
+
+
 
 export interface Declaration {
   num_id: string;
@@ -15,7 +19,7 @@ export interface Declaration {
 }
 
 
-
+const userName=window.localStorage.getItem("user");
 const ELEMENT_DATA: Declaration[] = [
   {num_id: "12220300033", type_declaration: 'D1', total_sal: 1.0079, mtn_cot: 1223098376564}
 ];
@@ -31,18 +35,34 @@ export class EspaceEmployeComponent implements OnInit {
   isExpanded:boolean=false;
   displayedColumns: string[] = ['nom', 'prenom', 'num_secu', 'icn'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  
+  listEmp:any;
   title:string;
   loader:boolean=true;
 
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
-  constructor(private dialog:MatDialog) {
+  tok:any=""
+  constructor(private dialog:MatDialog,private userService:LoginService,private empExistServ:EmployeExistService) {
    
    }
 
   ngOnInit() {
-    
+    this.tok=window.localStorage.getItem("token");
+    this.getUserByLogin();
+    this.getListEmploye();
+  }
+
+  getListEmploye(){
+    this.empExistServ.getEmpExist().subscribe(resp=>
+      {
+      this.listEmp=resp;
+      console.log(this.listEmp);
+    });
+  }
+  getUserByLogin(){
+   this.userService.getUserByLogin(userName).subscribe(
+     resp=>
+     console.log(resp))
   }
   openImmatPopup(template:TemplateRef<any>){
     const dialogConfig = new MatDialogConfig();

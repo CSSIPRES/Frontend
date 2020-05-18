@@ -1,0 +1,37 @@
+<div >
+    <app-header></app-header>
+  </div> 
+    <div class="top_line">
+      <mat-toolbar></mat-toolbar>
+  </div>
+  <div class="back_page">
+    <div fxLayout="row" fxLayoutAlign="center">
+     <div fxFlex="50" class="card mt-5">
+      <div fxLayout="column">
+        <div class="ml-5 pt-3">
+          <img class="imgLogo"  src="assets/images/logoCSS.png" 
+          height="55px" width="105px">
+          <img src="assets/images/logoIPRES.png" 
+          height="55" width="85">
+        </div>
+        &nbsp;
+        <h4 class="title ml-5">Changer votre mot de passe</h4>
+      </div>
+           <div fxLayout="row">
+           <form [formGroup]="sendMailForm"  fxLayout="column" fxFlex>
+              <mat-form-field appearance="outline" class="pl-5 pr-5">
+               <mat-label>Entrez votre email</mat-label>
+               <input type="email" matInput formControlName="email" required />
+               <mat-icon matSuffix>email</mat-icon>
+               <mat-error>Email obligatoire</mat-error>
+             </mat-form-field> 
+             <div fxLayout="column" class="pb-5" fxLayoutAlign="center center">
+                <button type="submit" (click)="sendMail()" fxLayoutAlign="center" mat-raised-button class="submit-button1">
+                  Envoyer
+                </button>
+              </div>
+             </form>
+           </div>  
+        </div>
+    </div>
+</div>

@@ -10,7 +10,8 @@ import { ImmatriculationComponent } from './immatriculation/immatriculation.comp
 import { MatDatepickerModule } from '@angular/material';
 import { MonProfilComponent } from './mon-profil/mon-profil.component';
 
-const routes: Routes = [
+const routes: Routes = [ 
+  { path: '',redirectTo: 'accueil',pathMatch: 'full'},
   { path:'accueil', component:AccueilComponent },
   { path:'creationCompte', component:CreationcompteComponent },
   { path:'immatriculation', component:ImmatriculationComponent },

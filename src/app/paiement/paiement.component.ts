@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Paiement } from '../models/paiement';
-import { PaiementService } from '../paiement.service';
-import { LoginService } from '../login.service';
+import { PaiementService } from '../services/paiement.service';
+import { LoginService } from '../services/login.service';
+
 
 @Component({
   selector: 'app-paiement',
@@ -51,11 +52,11 @@ export class PaiementComponent implements OnInit {
 
     
    // this.userConnecter = JSON.parse(localStorage.getItem("user"));
-    this.loginService.getUserByLogin(localStorage.getItem("user_login"))
-    .subscribe(
+    this.loginService.getUserByLogin(localStorage.getItem("user"))
+    .subscribe( 
       data=>{
         this.loader = false;
-        this.userConnecter = data;
+        this.userConnecter = data;   
         this.paiementService.getPaiementsByUser(this.userConnecter.id)
         .subscribe(
           (data:Paiement[])=>{

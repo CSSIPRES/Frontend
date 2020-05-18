@@ -2,9 +2,7 @@
 .cdk-overlay-pane{
   background-color: #999999;
 }
-.mat-dialog-content{
 
-}
 .flex-container { display: flex;}
 /*+++++++++++++++++++++++++++++++++++Customer Stepper++++++++++++++++++++++*/
 .mat-autocomplete-panel.overflow-hidden {
@@ -12,8 +10,12 @@
   position: relative !important;
 
 }
+
 .mat-form-field-invalid .mat-hint {
   display: none;
+}
+.mat-form-field{
+  min-width:  10%;
 }
 .mat-form-field-invalid .mat-hint {
   margin-top: 20px;
@@ -29,11 +31,7 @@
   color: #999999;
 }
 
-.submit-button{
-  background-color: rgb(255, 104, 49);
-  color:#ffffff;
 
-   }
 mat-horizontal-stepper{
   border-radius: 5px;  
   height: auto;
@@ -137,6 +135,8 @@ color: #999999 !important;
  top:50%;
  left:600px;
 }
+
+
 /*++++++++++++++++++++++++++++++++Laoder Spinner+++++++++++++++++++++++++++++++*/
                               /*------End------*/
 b{
@@ -147,6 +147,17 @@ color: #292929;
   border-radius: 5px;
   padding:20px;
 }
+.report_infoEmpl{
+  border:2px solid #f2f2f2;;
+  border-radius: 5px;
+  padding:20px;
+}
+.report_repLeagl{
+  border:2px solid #f2f2f2;;
+  border-radius: 5px;
+  padding:20px;
+  margin-top:20px;
+}
 .report_infoFen h5,.report_infoEmpl h5,
 .report_repLeagl h5{
   color: #999999;
@@ -154,19 +165,8 @@ color: #292929;
 .icon{
   color: #999999;
 }
-.report_infoEmpl{
 
-  border:2px solid #f2f2f2;;
-  border-radius: 5px;
-  padding:5px;
-  margin-top:20px;
-}
-.report_repLeagl{
-  border:2px solid #f2f2f2;;
-  border-radius: 5px;
-  padding:5px;
-  margin-top:20px;
-}
+
 h1{
   /* font-weight: 300; */
   display: inline-block;
@@ -198,30 +198,80 @@ h1:before{
     stroke: rgb(240, 60, 15)!important;
    
   }
+  .submit-button{
+    background-color: rgb(255, 104, 49);
+    color:#ffffff;
+    display:inline-block;
+    vertical-align:middle;
+      width: 20%; 
+     font-size:15px;
+     color:#ffffff;
+     height: 40px;
+     border-radius: 25px ;
+  }
+  .submit-add-edit{
+    background-color: #0aca04;
+    color:#ffffff;
+    width: 10%; 
+    font-size:15px;
+    color:#ffffff;
+    height: 40px;
+  }
+  .addEmp{
+    background-color: #f2f2f2;
+  }  
+  table{
+    width: 100%;
+  }
+  table th{
+    font-weight: bold;
+    color:#999999;
+     /* background-color: #f9f9f9;  */
+  } 
+   table td  .mat-mini-fab{
+    max-width: 30px;
+    max-height: 30px;
+  }
+  table td  .mat-icon{
+   font-size: 14px;
+  }
+  table td  .mat-mini-fab{
+  background-color: #f2f2f2;
+  box-shadow: none;
+  }
+  table td  .edit{
+    color: #0aca04;;
+  }
+  table td  .edit{
+    color: #0aca04;;
+  }
+  table td  .delete{
+    color: rgb(187, 2, 18);
+  } 
+  .mat-mini-fab mat-icon{
+    color:#999999;
+  }
+  .report_infoFen .back_report{
+    background-color: #f6f6f6;
+  }
+  .report_infoEmpl .back_report{
+    background-color: #f6f6f6;
+  }
+  .report_repLeagl .back_report{
+    background-color: #f6f6f6;
+  }
+  .back_report b{
+    font-weight: 600;
+    color:#585858;
+  }
+  .back_report1 b{
+    font-weight: 600;
+    color:#999999;
+  }
+  ::ng-deep  .mat-divider {
 
-    /* .overlay{
-      height:100vh;
-      width:100%;
-      background-color:rgba(0, 0, 0, 0.286);
-      z-index: 10;
-      top: 0;
-      left: 0;
-      position: fixed;
-      } */
-      ::ng-deep    .mat-horizontal-stepper-header{
-       /*  margin-bottom: 45px; */
-      }
-/*       ::ng-deep      .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before { 
-        border-top-width: 4px;
-        border-top-color: blue;
-      }
-      
-      ::ng-deep  .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after {
-        border-top-width: 4px;
-        border-top-color: blue;
-      }
-      
-      ::ng-deep   .mat-stepper-horizontal-line {
-        border-top-width: 4px;
-        border-top-color: blue;
-      } */
+    border-top-width:2px;
+    border-top-color: #f0f0f0;
+    border-top-style: solid;
+    color:rgb(255, 104, 49);
+}

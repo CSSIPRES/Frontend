@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CreationcompteComponent } from './creationcompte/creationcompte.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { MatInputModule,MatFormFieldModule,MatToolbarModule,MatMenuModule, 
 MatIconModule,MatButtonModule,MatCardModule, MatSelectModule, 
@@ -23,7 +24,9 @@ MatSnackBarModule,
 MatExpansionModule,
 MatTabsModule,
 DateAdapter,
-MAT_DATE_LOCALE}
+MAT_DATE_LOCALE,
+MatSortModule,
+MatPaginatorModule}
 from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DocumentComponent } from './document/document.component';
@@ -48,6 +51,8 @@ import { PaiementComponent } from './paiement/paiement.component';
 import { RedirectionComponent } from './redirection/redirection.component';
 import { MonProfilComponent } from './mon-profil/mon-profil.component';
 import { ChangePasswordComponent } from './mon-profil/change-password/change-password.component';
+import { HttpInterceptorService } from './services/http-interceptor.service';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -115,19 +120,29 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatSnackBarModule,
     MatExpansionModule,
     MatTabsModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSortModule,
+    MatPaginatorModule,
+    SweetAlert2Module.forRoot()
   ],
 
   exports:[
         
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}, 
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]},
     {
     provide: PERFECT_SCROLLBAR_CONFIG,
-    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-  }],
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG},
+   
+  ],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
   DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent,ChangePasswordComponent]

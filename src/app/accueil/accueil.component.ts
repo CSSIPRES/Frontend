@@ -1,9 +1,11 @@
 import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
-import { LoginService } from '../login.service';
+
 import { Router } from '@angular/router';
 import { NgwWowService } from 'ngx-wow';
+import { LoginService } from '../services/login.service';
+import { EmployeExistService } from '../services/employe-exist.service';
 
 @Component({
   selector: 'app-accueil',
@@ -17,7 +19,7 @@ export class AccueilComponent implements OnInit {
   loader:boolean=false;
   errorMess:boolean=false;
   panelOpenState1:boolean=false;
-
+  windowScrolled: boolean;
   constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
   private login: LoginService,private router:Router) {
     
@@ -25,6 +27,7 @@ export class AccueilComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    
     /* this.wowService.init(); */
   }
   initForm(){
@@ -48,7 +51,7 @@ export class AccueilComponent implements OnInit {
             this.loader=false;
             this.router.navigate(['/espaceEmploye']);
              window.localStorage.setItem("token",resp.id_token ); 
-             window.localStorage.setItem("user_login",this.loginForm.value["username"] ); 
+             window.localStorage.setItem("user",this.loginForm.get('username').value)
           }
        else{
          this.errorMess=true;
@@ -70,7 +73,7 @@ export class AccueilComponent implements OnInit {
     }
     this.connection=false;
   }
-  windowScrolled: boolean;
+  
   
   @HostListener("window:scroll", [])
   onWindowScroll() {
@@ -90,4 +93,11 @@ export class AccueilComponent implements OnInit {
           }
       })();
   }
+   /* displayButton1:boolean=false
+  displayButton(){
+    if(this.router.navigate['/accueil']){
+      this.displayButton1=true;
+      console.log(this.displayButton1);
+    }
+  } */
 }

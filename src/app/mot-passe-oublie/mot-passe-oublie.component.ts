@@ -18,9 +18,8 @@ export class MotPasseOublieComponent implements OnInit {
   }
   initForm(){
     this.motPassOublForm=this.fb.group({
-      email:new FormControl('', Validators.required),
-      password:new FormControl('', Validators.required),
-      passwordConf:new FormControl('', Validators.required)
+      currentPassword:new FormControl('', Validators.required),
+      newPassword:new FormControl('', Validators.required)
     })
   }
 
@@ -56,3 +55,4 @@ export class MotPasseOublieComponent implements OnInit {
    
   }
 }
+

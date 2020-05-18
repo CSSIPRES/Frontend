@@ -1,14 +1,21 @@
 table{
     width: 100%;
 }
-  mat-sidenav:not(.mat-drawer-opened) {
+::ng-deep .mat-drawer-inner-container {
+  width: 80%;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+ ::ng-deep .mat-sidenav:not(.mat-drawer-opened) {
     transform: translate3d(0, 0, 0) !important;
     visibility: visible !important;
-    width: 60px !important;
+    width: 30px;
     overflow:hidden;
   }
-  mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
-    width: 40px; margin: 16px 0 0px 0;
+
+  ::ng-deep .mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
+    width: 30px; margin: 16px 0 0px 0;
   }
   mat-sidenav:not(.mat-drawer-opened) .navTitle,
   mat-sidenav:not(.mat-drawer-opened) .profileTitle {

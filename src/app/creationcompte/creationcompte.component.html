@@ -1,3 +1,9 @@
+<div >
+  <app-header></app-header>
+</div>
+<div class="top_line">
+  <mat-toolbar></mat-toolbar>
+</div>
 <div class="creationCpt">
   <div  fxFlex fxLayout="column" > 
     <div fxFlex="70" fxLayoutAlign="center">
@@ -41,12 +47,14 @@
             <mat-label>Email</mat-label>
             <input type="email"  matInput formControlName="email" required />
             <mat-icon matSuffix>email</mat-icon>
-            <mat-error>Email est obligatoire</mat-error>
+            <mat-error *ngIf="email.hasError('required')">Email est obligatoire</mat-error>
+            <mat-error *ngIf="email.hasError('pattern')">L'addresse Email est invalide</mat-error> 
           </mat-form-field>
           <mat-form-field appearance="outline" class="pl-5 pr-5" >
             <mat-label>Login</mat-label>
             <input type="email"  matInput formControlName="login" required />
             <mat-icon matSuffix>email</mat-icon>
+            
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
           
@@ -69,7 +77,7 @@
            <!--  <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
               Envoyer
             </button> -->
-            <button (click)="creationCompte()" fxLayoutAlign="center center" mat-raised-button 
+            <button [disabled]="creationCpteForm.invalid" (click)="creationCompte()" fxLayoutAlign="center center" mat-raised-button 
             class="submit-button1" aria-label="CONNEXION">
              <div *ngIf="!loader"> Envoyer </div>
              <div>  

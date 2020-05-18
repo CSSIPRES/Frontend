@@ -24,3 +24,41 @@ button:focus, button:active:focus, button.active:focus {
     outline: none !important;
     outline-style: none !important;
     }
+    
+/* .submit-button{
+        background-color: rgb(255, 104, 49);
+        color:#ffffff;
+        display:inline-block;
+        vertical-align:middle;
+           width: 100%;  
+         font-size:15px;
+         color:#ffffff;
+         height: 40px;
+         border-radius: 25px ;
+} */
+
+table td  .mat-mini-fab{
+    max-width: 30px;
+    max-height: 30px;
+  }
+  table td  .mat-icon{
+   font-size: 14px;
+  }
+  table td  .mat-mini-fab{
+  background-color: #f2f2f2;
+  box-shadow: none;
+  }
+  table td  .edit{
+    color: #0aca04;;
+  }
+  table td  .edit{
+    color: #0aca04;;
+  }
+  table td  .delete{
+    color: rgb(187, 2, 18);
+  }
+  table th{
+    font-weight: bold;
+    color:#999999;
+    /* background-color: #f9f9f9; */
+  }

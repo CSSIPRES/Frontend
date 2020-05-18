@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { DeclarationService } from '../declaration.service';
-import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
+
+import { MatTableDataSource, MatDialog, MatSnackBar, MatPaginator, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { DeclarationService } from '../services/declaration.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-declaration',
@@ -16,14 +19,20 @@ import { throwError } from 'rxjs';
   
 })
 
-export class DeclarationComponent implements OnInit {
+export class DeclarationComponent implements OnInit,AfterViewInit {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   emp:any;
   declarationForm:FormGroup;
   dataSource:MatTableDataSource<any>
   displayBtn:boolean=false;
   loader:boolean=false;
-  displayFormArr:boolean=false;
+  editIndex:number;
+  addIndex:number;
+  addSalForm:boolean=false;
+  editSalForm:boolean=false;
   displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite','action'];  
+  displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
   preDnsObject:any={
     dateDebutCotisation: '',
     dateFinPeriodeCotisation: '',
@@ -33,11 +42,162 @@ export class DeclarationComponent implements OnInit {
     idIdentifiant: '',
     adresse: ''
   };
+ 
+///Declaration en masse
+
+public employeData: EmployeData[];
+data:any = [];
+
+
+  opensweetalert(title, icon){
   
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: icon,
+      title: title
+    })
+    
+  }
+
+///// Adding function to upload ////
+
+  onFileChange(evt: any) {
+    //debugger
+    /* wire up file reader */
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length == 1) {
+      const reader: FileReader = new FileReader();
+      reader.onload = (e: any) => {
+        /* read workbook */
+        const bstr: string = e.target.result;
+        const wb: XLSX.WorkBook = XLSX.read(bstr,  {type:'binary', cellDates:true, cellNF: false, cellText:false});
+        console.log(wb);
+        /* grab first sheet */
+        const wsname: string = wb.SheetNames[0];
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+        /* save data */
+
+        ws.A2.v = "numeroAssureSocial";
+        ws.B2.v = "nomEmploye";
+        ws.C2.v = "prenomEmploye";
+        ws.D2.v = "dateNaissance";
+        ws.E2.v = "typePieceIdentite";
+        ws.F2.v = "numPieceIdentite";
+        ws.G2.v = "natureContrat";
+        ws.H2.v = "dateEntree";
+        ws.I2.v = "dateSortie";
+        ws.J2.v = "motifSortie";
+        ws.K2.v = "totSalAssCssPf1";
+        ws.L2.v = "totSalAssCssAtmp1";
+        ws.M2.v = "totSalAssIpresRg1";
+        ws.N2.v = "totSalAssIpresRcc1";
+        ws.O2.v = "salaireBrut1";
+        ws.P2.v = "nombreJours1";
+        ws.Q2.v = "nombreHeures1";
+        ws.R2.v = "tempsTravail1";
+        ws.S2.v = "trancheTravail1";
+        ws.T2.v = "regimeGeneral1";
+        ws.U2.v = "regimCompCadre1";
+        ws.V2.v = "dateEffetRegimeCadre1";
+        ws.W2.v = "totSalAssCssPf2";
+        ws.X2.v = "totSalAssCssAtmp2";
+        ws.Y2.v = "totSalAssIpresRg2";
+        ws.Z2.v = "totSalAssIpresRcc2";
+        ws.AA2.v = "salaireBrut2";
+        ws.AB2.v = "nombreJours2";
+        ws.AC2.v = "nombreHeures2";
+        ws.AD2.v = "tempsTravail2";
+        ws.AE2.v = "trancheTravail2";
+        ws.AF2.v = "regimeGeneral2";
+        ws.AG2.v = "regimCompCadre2";
+        ws.AH2.v = "dateEffetRegimeCadre2";
+        ws.AI2.v = "totSalAssCssPf3";
+        ws.AJ2.v = "totSalAssCssAtmp3";
+        ws.AK2.v = "totSalAssIpresRg3";
+        ws.AL2.v = "totSalAssIpresRcc3";
+        ws.AM2.v = "salaireBrut3";
+        ws.AN2.v = "nombreJours3";
+        ws.AO2.v = "nombreHeures3";
+        ws.AP2.v = "tempsTravail3";
+        ws.AQ2.v = "trancheTravail3";
+        ws.AR2.v = "regimeGeneral3";
+        ws.AS2.v = "regimCompCadre3";
+        ws.AT2.v = "dateEffetRegimeCadre3";
+
+
+        this.data = <any>(XLSX.utils.sheet_to_json(ws, 
+          { raw: false,
+          dateNF: "YYYY-MM-DD",
+          header:1,
+          defval: "" ,
+          range:1
+      }));
+      };
+      reader.readAsBinaryString(target.files[0]);
+    }
+  }
+
+  
+
+  uploadfile() {
+    let keys = this.data.shift();
+    let resArr = this.data.map((e) => {
+      let obj = {};
+      keys.forEach((key, i) => {
+        obj[key] = e[i];
+      });
+      return obj;
+    });
+    //console.log(resArr);
+    //resArr.forEach(function (value) {
+    //  console.log(value);
+    //})
+    this.employeData = resArr;
+    let decXslsFile=(this.declarationForm.get('informationSalaries') as FormArray);
+    for(let i=0;i< this.employeData.length;i++){
+      decXslsFile.push(this.fillEmployeeForm(this.employeData[i]));
+      
+    }
+    this.dataSource=this.declarationForm.get('informationSalaries').value;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+     /* this.employeData.forEach(el=>{
+      let dec=(this.declarationForm.get('informationSalaries') as FormArray);
+      dec.push(this.fillEmployeeForm(el));
+      this.dataSource=this.declarationForm.get('informationSalaries').value;
+      console.log(this.declarationForm.get('informationSalaries').value);
+    }); */
+    console.log(this.employeData);
+  }
+  files: string[] = [];
+  onFileSelected(event) {
+    if (event.target.files.length > 0) {
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.files.push(event.target.files[i].name);
+        console.log(event.target.files[0].name);
+      }
+    }
+  }
+
+///// End Adding function to upload ////
+
+
+
+
+
 initDeclarationForm(){
   this.declarationForm=this.fb.group({
- 
-
   /* typeIdentifiant:new FormControl(this.emp.legalRepresentativeForm.typeOfIdentity, Validators.required), */
   typeIdentifiant:this.fb.control('SCI', Validators.required),
   /*  idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required), */
@@ -59,63 +219,17 @@ initDeclarationForm(){
   mntCotAtMpCalcParEmployeur:this.fb.control(''),
   mntCotRgCalcParEmployeur:this.fb.control(''),
   mntCotRccCalcParEmployeur:this.fb.control(''), 
-informationSalaries:new FormArray([
-/*  this.fb.group({
-    dateEffetRegimeCadre1: this.fb.control(''),
-    dateEffetRegimeCadre2: this.fb.control(''),
-    dateEffetRegimeCadre3: this.fb.control(''),
-    dateEntree: this.fb.control(''),
-    dateNaissance: this.fb.control(''),
-    dateSortie: this.fb.control(''),
-    motifSortie: this.fb.control(''),
-    natureContrat: this.fb.control(''),
-    nomEmploye: this.fb.control(''),
-    nombreHeures1: this.fb.control('0'),
-    nombreHeures2: this.fb.control('0'),
-    nombreHeures3: this.fb.control('0'),
-    nombreJours1: this.fb.control('0'),
-    nombreJours2: this.fb.control('0'),
-    nombreJours3: this.fb.control('0'),
-    numPieceIdentite: this.fb.control(''),
-    numeroAssureSocial: this.fb.control(''),
-    prenomEmploye: this.fb.control(''),
-    regimCompCadre1:this.fb.control('true'), 
-    regimCompCadre2: this.fb.control('true'),
-    regimCompCadre3: this.fb.control('true'),
-    regimeGeneral1: this.fb.control('true'),
-    regimeGeneral2: this.fb.control('true'),
-    regimeGeneral3: this.fb.control('true'),
-    salaireBrut1: this.fb.control('0'),
-    salaireBrut2: this.fb.control('0'),
-    salaireBrut3: this.fb.control('0'),
-    tempsTravail1:this.fb.control(''),
-    tempsTravail2: this.fb.control(''),
-    tempsTravail3: this.fb.control(''),
-    totSalAssCssAtmp1: this.fb.control('0'),
-    totSalAssCssAtmp2:this.fb.control('0'),
-    totSalAssCssAtmp3: this.fb.control('0'),
-    totSalAssCssPf1:this.fb.control('0'),
-    totSalAssCssPf2: this.fb.control(''),
-    totSalAssCssPf3: this.fb.control('0'),
-    totSalAssIpresRcc1:this.fb.control('0'),
-    totSalAssIpresRcc2: this.fb.control('0'),
-    totSalAssIpresRcc3: this.fb.control('0'),
-    totSalAssIpresRg1: this.fb.control('0'),
-    totSalAssIpresRg2: this.fb.control('0'),
-    totSalAssIpresRg3: this.fb.control('0'),
-    trancheTravail1: this.fb.control(''),
-    trancheTravail2: this.fb.control(''),
-    trancheTravail3: this.fb.control(''),
-    typePieceIdentite: this.fb.control(''),
-  }) */
-])
+informationSalaries:new FormArray([])
 })
 }
 dateErrors:boolean=false;
   constructor(private fb:FormBuilder, private decService:DeclarationService,private dialog:MatDialog,
-    private snackB: MatSnackBar) {
+    private snackB: MatSnackBar,private chgd:ChangeDetectorRef) {
 
    }
+  ngAfterViewInit() {
+    /* this.dataSource.sort=this.sort; */
+  }
 
   ngOnInit() {
   this.emp= JSON.parse(window.localStorage.getItem('employerDataInput'));
@@ -132,7 +246,7 @@ dateErrors:boolean=false;
     this.preDnsObject.typeDeclaration=this.declarationForm.get('typeDeclaration').value;
    let prDns= JSON.stringify(this.preDnsObject);
     JSON.stringify(this.preDnsObject); 
-    console.log(this.preDnsObject);
+    /* console.log(this.preDnsObject); */
     this.loader=true;
     this.decService.preDns(prDns).subscribe(
        (resp:any)=>{
@@ -224,31 +338,21 @@ dateErrors:boolean=false;
     this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>{ 
       if(resp==200){
         this.loader=false;
-        this.dialog.closeAll();
-        this.snackB.open("Demande de declaration envoyée avec succes","Fermer", {
-          duration: 10000,
-          panelClass: ['my-snack-bar','mat-success'],
-          verticalPosition: 'bottom',
-          horizontalPosition:'left'
-       });  
+      this.opensweetalert("Demande de declaration envoyée avec succes","success");
+       this.dialog.closeAll();
       }
       console.log(resp);
     }, err =>{
       console.log(err.error.detail);
       if(err.status==500){
         this.loader=false;
-        this.snackB.open(err.error.detail,"Fermer", {
-          duration: 5000,
-          panelClass: ['my-snack-bar1', "mat-warn"],
-          verticalPosition: 'bottom',
-          horizontalPosition:'left'
-       })
+       this.opensweetalert(err.error.detail,"error");
       }
       }
     )
   }
   displayForm(){
-    this.displayFormArr=true;
+    this.addSalForm=true;
   }
  
   fillEmployeeForm(dec){
@@ -301,12 +405,11 @@ dateErrors:boolean=false;
       dateEffetRegimeCadre3: new FormControl(dec.dateEffetRegimeCadre3) })
   }
   newEmployeeForm(){
-  
    return   new FormGroup({
       numeroAssureSocial:new FormControl(''),
-      nomEmploye:new FormControl(''),
+      nomEmploye:new FormControl('',Validators.required),
       prenomEmploye:new FormControl(''), 
-      dateNaissance:new FormControl(''), 
+      dateNaissance:new FormControl('',Validators.required), 
       typePieceIdentite:new FormControl(''),  
       numPieceIdentite:new FormControl(''), 
       natureContrat: new FormControl(''),
@@ -350,14 +453,42 @@ dateErrors:boolean=false;
       regimCompCadre3: new FormControl(''),
       dateEffetRegimeCadre3: new FormControl('') })
   }
-  addItem() {
-   
-    /* this.employeList = this.immatForm.get('input').get('employeList') as FormArray; */ 
-     (this.declarationForm.get('informationSalaries') as FormArray).push(this.newEmployeeForm());
-     this.displayFormArr=true;
-
-     console.log(this.declarationForm);
+ 
+  addNewSalarie() { 
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+    dec.push(this.newEmployeeForm());
+    this.addSalForm=true;
+    this.editSalForm=false;
+    for(let i=0;i<dec.value.length; i++){
+      console.log(dec.value[i]);
+    if(dec.value[i].numeroAssureSocial==""){
+      this.addIndex=i;
+     }
+  }
+  this.cumulTotal();
    }
+   fillSalForm(i){
+    this.editIndex=i;
+    this.addSalForm=false;
+    this.editSalForm=true;
+  }
+   removeSal(i) {
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+     dec.removeAt(i); 
+     this.dataSource=dec.value;
+     /* console.log(this.dataSource); */
+     this.cumulTotal();
+   }
+   
+ 
+  updateSal(){
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+    this.dataSource=dec.value; 
+    this.dataSource.sort=this.sort;
+    this.addSalForm=false;
+    this.editSalForm=false;
+    this.cumulTotal(); 
+  }
   dateDiff1(d1, d2) {
     return ((d2.getTime() - d1.getTime()) / 31536000000);
   }
@@ -375,12 +506,22 @@ dateErrors:boolean=false;
     }
   }
   
+applyFilter(filterValue: string) {
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+}
+  
   displayMensualite(event){
     let d1=this.declarationForm.get('dateDebutCotisation').value;
     let d2=this.declarationForm.get('dateFinPeriodeCotisation').value;
     moment(moment(d1)).format("YYYY-MM-DD");
     console.log(d1);
    
+  }
+  cumulTotal(){
+   let listSal=this.declarationForm.get('informationSalaries').value;
+   for(let i=0;i<listSal.length;i++){
+     console.log(listSal[i]);
+   }  
   }
   get typeIdentifiant() {
     return this.declarationForm.get('informationEmployeur').get('typeIdentifiant');
@@ -405,3 +546,61 @@ dateErrors:boolean=false;
   }
 }
  
+
+/// Interface Employee Declaration
+interface EmployeData {
+  [index: number]:  {
+    numeroAssureSocial:string,
+    nomEmploye:string,
+    prenomEmploye:string , 
+    dateNaissance:Date , 
+    typePieceIdentite:string,  
+    numPieceIdentite:string, 
+    natureContrat: string,
+    dateEntree: string,
+    dateSortie:string, 
+    motifSortie: string, 
+    totSalAssCssPf1: string, 
+    totSalAssCssAtmp1: string, 
+    totSalAssIpresRg1: string, 
+    totSalAssIpresRcc1: string, 
+    salaireBrut1: string, 
+    nombreJours1: string, 
+    nombreHeures1: string, 
+    tempsTravail1: string, 
+    trancheTravail1: string, 
+    regimeGeneral1: string, 
+    regimCompCadre1: string, 
+    dateEffetRegimeCadre1: string, 
+    totSalAssCssPf2:string,  
+    totSalAssCssAtmp2:string,
+    totSalAssIpresRg2: string,
+    totSalAssIpresRcc2:  string,
+    salaireBrut2: string,
+    nombreJours2: string,
+    nombreHeures2: string,
+    tempsTravail2:string, 
+    trancheTravail2: string,
+    regimeGeneral2: string,
+    regimCompCadre2: string,
+    dateEffetRegimeCadre2:string, 
+    totSalAssCssPf3: string,
+    totSalAssCssAtmp3: string,
+    totSalAssIpresRg3: string,
+    totSalAssIpresRcc3: string,
+    salaireBrut3: string,
+    nombreJours3: string,
+    nombreHeures3: string,
+    tempsTravail3: string,
+    trancheTravail3: string,
+    regimeGeneral3:string, 
+    regimCompCadre3: string,
+    dateEffetRegimeCadre3: string 
+};
+  
+
+  
+   
+  
+
+}
