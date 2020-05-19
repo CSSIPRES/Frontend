@@ -49,9 +49,11 @@ import { ViewPdfComponent } from './view-pdf/view-pdf.component';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { PaiementComponent } from './paiement/paiement.component';
 import { RedirectionComponent } from './redirection/redirection.component';
-import { SendMailComponent } from './send-mail/send-mail.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MonProfilComponent } from './mon-profil/mon-profil.component';
+import { ChangePasswordComponent } from './mon-profil/change-password/change-password.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
   scrollXMarginOffset:300,
@@ -81,7 +83,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ViewPdfComponent,
     PaiementComponent,
     RedirectionComponent,
-    SendMailComponent
+    MonProfilComponent,
+    ChangePasswordComponent
     
   ],
   imports: [
@@ -142,6 +145,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
-  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent]
+  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent,ChangePasswordComponent]
 })
 export class AppModule { }

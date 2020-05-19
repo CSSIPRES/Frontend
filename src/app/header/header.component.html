@@ -19,9 +19,21 @@
       <button  mat-icon-button [matMenuTriggerFor]="menu" ><span>AC</span><br>
       <mat-icon class="keyboard">keyboard_arrow_down</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/envoieMail"><mat-icon>person_outlined</mat-icon>Nouveau mot de passe</button>
+         <button mat-menu-item (click)="goToProfil()"><mat-icon>person_outlined</mat-icon>Mon profil</button>
+        <button *ngIf="!checkConn" mat-menu-item><mat-icon>person_outlined</mat-icon>Nouveau mot de passe</button>
         <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Deconnexion</button>
      </mat-menu>                  
    </div> 
 </div>
 </mat-toolbar> 
+<div class="row content-color-header">
+   <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 vert">
+
+   </div>
+   <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 jaune">
+
+   </div>
+   <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 rouge">
+
+   </div>
+</div>

@@ -37,7 +37,9 @@ span{
 
 .back_page{
     /* background-color: #f6f6f6; */
-    background-color:  #F2F2F2;;
+    background-color:  #F2F2F2;
+    padding: 5px;
+
 }
 .toolbar{
     margin-top:50px;
@@ -289,3 +291,144 @@ mat-card-header strong{
     caret-color: rgba(0,0,0,.6)!important;
    }
    
+
+
+   .content-text-institution-top{
+       width: 80%;
+       margin:0 auto;
+       background-color: rgb(255, 104, 49);
+       color:white;
+       padding:10px;
+       border-top-left-radius: 10px;
+       border-top-right-radius: 10px;
+       box-shadow: 0px 0px 50px #ccc;
+   }
+   .content-text-institution-bottom{
+    width: 80%;
+    margin:0 auto;
+    background-color: rgb(255, 104, 49);
+    color:white;
+    padding:10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 50px #ccc;
+}
+
+   .content-text-institution-bottom img,.content-text-institution-btopottom img{
+       margin: 0 auto;
+       opacity: 0.5;
+   }
+
+
+
+   .read-more-right{
+       float: right;
+       bottom: 10px !important;
+       color:white;
+       border:1px solid white;
+       border-radius: 10px;
+   }
+
+   .read-more-right:hover{
+    background-color: white;
+    color:rgb(255, 104, 49);
+    border:1px solid rgb(255, 104, 49);
+    border-radius: 15px;
+
+}
+
+.read-more-left:hover{
+    background-color: white;
+    color:rgb(255, 104, 49);
+    border:1px solid rgb(255, 104, 49);
+    border-radius: 15px;
+
+}
+
+
+
+.read-more-left{
+    float: left;
+    bottom: 10px !important;
+    color:white;
+    border:1px solid white;
+
+}
+
+.img-css{
+    float: right;
+}
+
+
+.content-color-spacing{
+    height: 6px !important;
+    width: 80%;
+    margin:0 auto;
+}
+
+.vert{
+    background-color: green;
+   
+}
+
+.jaune{
+    background-color: yellow;
+    
+}
+.rouge{
+    background-color: red;
+}
+
+.content-espaces{
+    width: 100%;
+    padding: 20px;
+    margin: 0px auto;
+    background-color: #eee;
+}
+
+.content-espaces .col-1{
+    padding: 10px;
+    font-size: 18px;
+   
+}
+
+.content-espaces .col-1:hover{
+    padding: 10px;
+    box-shadow: 0px 0px 20px #bbb;
+    border-radius: 5px;
+}
+
+
+.spacing{
+    margin: 20px;
+}
+
+.text-white{
+    color:white;
+}
+.bg-white{
+    background-color: white;
+    color:black;
+}
+
+
+.text-center{
+    text-align:center;
+}
+
+
+.content-espace-connexion div{
+    background-color: rgb(255, 104, 49);
+    color: white;
+    padding: 10px;
+    margin: 15px;
+    border-radius:5px;
+}
+
+
+.content-espace-connexion div button{
+    color:white;
+    border:1px solid white;
+    border-radius: 15px;
+}
+
