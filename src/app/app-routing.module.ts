@@ -10,6 +10,7 @@ import { ImmatriculationComponent } from './immatriculation/immatriculation.comp
 import { MatDatepickerModule } from '@angular/material';
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { RedirectionComponent } from './redirection/redirection.component';
+import { EspaceEmployeurComponent } from './espace-employeur/espace-employeur.component';
 
 const routes: Routes = [ 
   { path: '',redirectTo: 'accueil',pathMatch: 'full'},
@@ -19,9 +20,10 @@ const routes: Routes = [
   { path:'motPasseOublie', component:MotPasseOublieComponent },
   { path:'contact', component:ContactComponent },
   { path:'demarche', component:DemarcheComponent },
-  { path:'espaceEmploye', component:EspaceEmployeComponent },
+  { path:'espace-employers', component:EspaceEmployeComponent },
   { path:'envoieMail', component:SendMailComponent },
   { path:'redirect', component:RedirectionComponent },
+  {path:'espace-employer/:id', component:EspaceEmployeurComponent},
   { path: '**',component:AccueilComponent}
 ];
 

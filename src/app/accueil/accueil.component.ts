@@ -49,7 +49,7 @@ export class AccueilComponent implements OnInit {
       console.log(resp.id_token);
       if(resp.id_token!=null) {
             this.loader=false;
-            this.router.navigate(['/espaceEmploye']);
+            this.router.navigate(['/espace-employers']);
              window.localStorage.setItem("token",resp.id_token ); 
              window.localStorage.setItem("user",this.loginForm.get('username').value)
           }

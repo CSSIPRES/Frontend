@@ -66,8 +66,8 @@ opensweetalert(title, icon){
       lastName:new FormControl('', Validators.required),
       email:new FormControl('',{ updateOn: 'blur', validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
       login:new FormControl('', Validators.required),
-      password:new FormControl('', Validators.required)
-      
+      password:new FormControl('', Validators.required),
+      langKey:new FormControl('fr', Validators.required),
     })
   }
   creationCompte(){

@@ -8,8 +8,10 @@ import * as quarties from '../quarties.json';
 import * as countries from '../countries.json';
 import * as sectors from '../sectors.json';
 import * as main_sectors from '../main_sectors.json';
-import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
-import {  MatDialog, MatSnackBar,  NativeDateAdapter, MatTableDataSource, MatDatepickerInputEvent} from '@angular/material';
+import { FormGroup, FormBuilder, Validators, 
+  FormControl, FormArray } from '@angular/forms';
+import {  MatDialog, MatSnackBar,  NativeDateAdapter
+  , MatTableDataSource, MatDatepickerInputEvent, DateAdapter, MAT_DATE_FORMATS} from '@angular/material';
 
  import { LOCALE_ID } from '@angular/core'; 
 
@@ -21,8 +23,39 @@ import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2';
 /* import Swal from 'sweetalert2/dist/sweetalert2.js'; */
 import * as XLSX from 'xlsx';
-const userName=window.localStorage.getItem("user");
 
+export class AppDateAdapter extends NativeDateAdapter {
+
+  format(date: Date, displayFormat: Object): string {
+
+      if (displayFormat === 'input') {
+
+          const day = date.getDate();
+          const month = date.getMonth() + 1;
+          const year = date.getFullYear();
+
+          return `${year}-${month}-${day}`;
+      }
+
+      return date.toDateString();
+  }
+  parse(value: any): Date | null {
+    const date = moment(value, 'YYYY-MM-DD');
+    return date.isValid() ? date.toDate() : null;
+}
+}
+export const APP_DATE_FORMATS =
+{
+    parse: {
+        dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+    },
+    display: {
+        dateInput: 'input',
+        monthYearLabel: { year: 'numeric', month: 'numeric' },
+        dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+        monthYearA11yLabel: { year: 'numeric', month: 'long' },
+    }
+};
 @Component({
   selector: 'app-immatriculation',
   templateUrl: './immatriculation.component.html',
@@ -30,10 +63,14 @@ const userName=window.localStorage.getItem("user");
   
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}},
-    
+    {provide: DateAdapter, useClass: NativeDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    {
+      provide: DateAdapter, useClass: AppDateAdapter
+    }
   ]
   })
-
+  
 export class ImmatriculationComponent implements OnInit {
   listAct:any=[];
   listSect:any=[];
@@ -73,6 +110,8 @@ export class ImmatriculationComponent implements OnInit {
   listMainSector:any=[];
   ninea:any=[];
   loader:boolean=false;
+  userName:string="";
+  dataSource:MatTableDataSource<any>;
   
   nineaExist:boolean=false;
   validICN:boolean=false;
@@ -88,6 +127,7 @@ export class ImmatriculationComponent implements OnInit {
   disabledDate:boolean=true;
   addIndex:number;
   editIndex:number;
+  immatFormBoolean:Boolean=false;
 
   public employeData: EmployeData[];
   data = [];
@@ -96,7 +136,7 @@ export class ImmatriculationComponent implements OnInit {
   icnpattern = "^[1,2][0-9]{12,13}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
   registreComPattern="^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]{1,5}$"
-  dataSource: MatTableDataSource<any>;
+  
   displayedColumns: string[] = ['nomEmploye', 'prenomEmploye', 'dateNaissance', 'numPieceIdentite','adresse','action'];  
   displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'dateNaissance', 'numPieceIdentite','adresse'];
   employeInfo={
@@ -106,6 +146,7 @@ export class ImmatriculationComponent implements OnInit {
     maisonMere: "",
     prenom: "",
     nom: "",
+    tauxAT:"",
     typeIdentifiant: "",
     numeroIdentifiant: "",
     legalStatus: "",
@@ -215,9 +256,6 @@ export class ImmatriculationComponent implements OnInit {
           ws.AL1.v = "salaireContractuel";
           ws.AM1.v = "tempsTravail";
           ws.AN1.v = "categorie";
-         
-         
-  
           this.data = <any>(XLSX.utils.sheet_to_json(ws, 
             { raw: false,
             dateNF: "YYYY-MM-DD",
@@ -233,9 +271,8 @@ export class ImmatriculationComponent implements OnInit {
     }
   
     
-  
-    uploadfile() {
-      
+    
+    uploadfile() { 
       let keys = this.data.shift();
       let resArr = this.data.map((e) => {
         let obj = {};
@@ -244,29 +281,20 @@ export class ImmatriculationComponent implements OnInit {
           if(key = "rechercheEmploye"){
             obj[key] = "";
           }
-  
-           
-  
-  
-  
-           
-          
-          
-          //console.log(key);
-         // console.log(obj[key]);
         });
         return obj;
-       
-  
-      });
-      
-      //console.log(resArr);
-      //resArr.forEach(function (value) {
-      //  console.log(value);
-      //})
-    
+      }); 
       this.employeData = resArr;
       console.log(this.employeData);
+      let decXslsFile= this.immatForm.get('input').get('employeList') as FormArray;
+      for(let i=0;i< this.employeData.length;i++){
+        decXslsFile.push(this.fillEmployeeForm(this.employeData[i])); 
+      }
+      
+      console.log(decXslsFile.value);
+     this.dataSource=this.immatForm.get('input').get('employeList').value; 
+      /* this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort; */
     }
   
 
@@ -298,13 +326,17 @@ export class ImmatriculationComponent implements OnInit {
 
 
     addImmatriculation(){
-    this.loader=true;
+   let v= this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
+   moment(v).format('YYYY-MM-DD');
+   console.log(v);
+   this.loader=true;
      this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
        console.log(resp);
        localStorage.setItem('employerData', JSON.stringify(resp.value.output));
        localStorage.setItem('employerDataInput', JSON.stringify(resp.value.input));
        console.log(resp);
        if(resp.value.output.employerRegistrationFormId!=0){
+         console.log(resp)
          this.loader=false;
         this.opensweetalert("Demande immatriculation envoyée avec succes","success");
         this.dialog.closeAll();
@@ -316,33 +348,22 @@ export class ImmatriculationComponent implements OnInit {
        console.log(error);
        if(error.status==500){
         
-         this.loader=false;
-         /* this.snackB.open(error.error.detail,"Fermer", {
-           duration: 5000,
-           panelClass: ['my-snack-bar1', "mat-warn"],
-           verticalPosition: 'bottom',
-           horizontalPosition:'left'
-        }) */
+         this.loader=false;      
+         
         this.opensweetalert(error.error.detail, "error") ;
        }
        else if(error.status==0){
           this.loader=false;  
-         /* this.snackB.open("Eureur d'envoi veiller vérifier la connection","Fermer", {
-           duration: 5000,
-           panelClass: ['my-snack-bar1', "mat-warn"],
-           verticalPosition: 'bottom',
-           horizontalPosition:'left'
-        }) */
         this.opensweetalert("Erreur d'envoie veuillez vérifier la connexion","error");
-       } 
+       }   
      })
-   } 
+   }    
    
    initImmatForm(){
      this.immatForm=this.fb.group({
       input:  this.fb.group({
       mainRegistrationForm:this.fb.group({
-    dateOfInspection:new FormControl('2020-01-01', Validators.required),
+    dateOfInspection:new FormControl('', Validators.required),
     dateOfFirstHire:this.fb.control('2020-01-01', Validators.required),
     shortName:this.fb.control(''),
     businessSector:this.fb.control('', Validators.required),
@@ -360,7 +381,7 @@ export class ImmatriculationComponent implements OnInit {
     noOfWorkersInGenScheme:this.fb.control('', Validators.required)
       }),
       employerQuery:this.fb.group({
-        employerType:this.fb.control('', Validators.required),
+        employerType:this.fb.control('PVT', Validators.required),
         legalStatus: this.fb.control('',Validators.required),
         typeEtablissement:this.fb.control('', Validators.required),
         employerName:this.fb.control('', Validators.required),
@@ -397,14 +418,82 @@ export class ImmatriculationComponent implements OnInit {
         identityIdNumber:this.fb.control(''),
         legalRepPerson:this.fb.control(''),
       }),
-         employeList: this.fb.array([this.createItem()])  
+         employeList: this.fb.array([])  
     })
     })
    }
-  
+
+   initImmatFormPP(){
+    this.immatForm=this.fb.group({
+     input:  this.fb.group({ 
+        employerQuery:this.fb.group({
+      regType:this.fb.control('BVOLN', Validators.required),
+      employerType:this.fb.control('PUB_PARA', Validators.required),
+      estType:this.fb.control('', Validators.required),
+      employerName:this.fb.control('', Validators.required),
+      hqId:this.fb.control(''),
+      nineaNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}),
+      arretOuDecret:this.fb.control(''),
+      dateArreteOuDecret:this.fb.control(''),
+      companyOriginId:this.fb.control('')
+      }),
+       mainRegistrationForm:this.fb.group({
+   dateOfInspection:new FormControl('2020-01-01', Validators.required),
+   dateOfFirstHire:this.fb.control('2020-06-01', Validators.required),
+   shortName:this.fb.control(''),
+   businessSector:this.fb.control('', Validators.required),
+   mainLineOfBusiness:this.fb.control('', Validators.required),
+   region:this.fb.control('', Validators.required),
+   department:this.fb.control('', Validators.required),
+   arondissement:this.fb.control('', Validators.required),
+   commune:this.fb.control('', Validators.required),
+   qartier:this.fb.control('', Validators.required),
+   address:this.fb.control('', Validators.required),
+   telephone:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
+   email:this.fb.control('', { updateOn: 'blur',validators: [Validators.pattern(this.emailPattern)]}),
+   website:this.fb.control(''),
+   noOfWorkersInBasicScheme:this.fb.control('', Validators.required),
+   noOfWorkersInGenScheme:this.fb.control('', Validators.required)
+  }),
+  personneContact:new FormGroup({
+   /*  recherche: null, */
+    nom:this.fb.control( "BEYE"),
+    prenom: this.fb.control( "Mamadou"),
+    typeOfIdentity: this.fb.control( "NIN"),
+    nin:this.fb.control( "1547199058954"),
+    identityIdNumber:this.fb.control( "1547199058954"), 
+    ninCedeo: this.fb.control( ""),
+    telephoneFixe:this.fb.control( "339412307"),
+    numeroMobile: this.fb.control( "771147628"),
+    email:this.fb.control( "test@test.com"),
+  }),
+   employeList: this.fb.array([])  
+   })
+   })
+   return this.immatForm;
+  }
+  initImmatFormDomestique(){
+
+  }
+   selectForm(event){
+    let empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
+    if(empType=='PUB_PARA') {       
+      this.initImmatFormPP();
+      this.immatFormBoolean=true;     
+    }
+    else if(empType=='PVT'){
+      this.initImmatForm();
+      this.immatFormBoolean=false;    
+    }
+    else if(empType=='REP_DIP'){
+
+    }
+    console.log(empType);
+  }  
   ngOnInit() {
-    this.initImmatForm()
+    this.initImmatForm();
     window.localStorage.getItem("token");
+    this.userName=window.localStorage.getItem("user");
     console.log(this.immatForm.value);
     this.listRegions=(regions as any).default[0];
     this.initlistDept=(departement as any).default[0];
@@ -416,31 +505,24 @@ export class ImmatriculationComponent implements OnInit {
     this.listactivitePrincipal=(main_sectors as any).default[0];
     console.log(this.listactivitePrincipal);
     this.getUser();
-    
 }  
 
 getUser(){
-  this.userService.getUser(userName).subscribe(
+  this.userService.getUser(this.userName).subscribe(
     resp=>{this.currentUser =resp;
      console.log(this.currentUser) 
   }
   )
 }
 getEmployee(outputValue){
-  console.log(this.employeInfo);
-  /* this.employeeInfo.address=this.immatForm.get('mainRegistrationForm').get('address').value;*/  
+ /*  console.log(this.employeInfo); */
  let empMainInfo=this.immatForm.get('input').get('mainRegistrationForm');
  let employeurInfo=this.immatForm.get('input').get('employerQuery');
   this.employeInfo.businessSector=empMainInfo.get('businessSector').value;
  this.employeInfo.mainLineOfBusiness=empMainInfo.get('mainLineOfBusiness').value;
  this.employeInfo.employerType=employeurInfo.get('employerType').value;
- /* this.employeInfo.raisonSociale */
- /* this.employeInfo.maisonMere */
- /* this.employeInfo.prenom */
- /* this.employeInfo.typeIdentifiant */
- /* this.employeInfo.postboxNo */
  this.employeInfo.typeEtablissement=employeurInfo.get('typeEtablissement').value;
- this.employeInfo.nom=employeurInfo.get('employerName').value;
+ this.employeInfo.raisonSociale=employeurInfo.get('employerName').value;
  this.employeInfo.numeroIdentifiant=employeurInfo.get('nineaNumber').value;
  this.employeInfo.legalStatus=employeurInfo.get('legalStatus').value;
  this.employeInfo.shortName=empMainInfo.get('shortName').value;
@@ -458,7 +540,8 @@ getEmployee(outputValue){
  this.employeInfo.zoneCss= outputValue.zoneCss;
  this.employeInfo.zoneIpres= outputValue.zoneIpres;
  this.employeInfo.sectorCss=outputValue.sectorCss;
- this.employeInfo.sectorIpres=outputValue.sectorIpres
+ this.employeInfo.sectorIpres=outputValue.sectorIpres;
+ this.employeInfo.tauxAT=outputValue.tauxAT
  this.employeInfo.agencyCss=outputValue.agenceCss;
  this.employeInfo.agencyIpres=outputValue.agenceIpres;
  this.employeInfo.processFlowId=outputValue.processFlowId;
@@ -535,8 +618,8 @@ getEmployee(outputValue){
    else{
     this.disabledDate=true;
    }
-  }
- 
+  }  
+    
   validDateNaissance(event){
     let param=this.immatForm.get('input').get('legalRepresentativeForm').get('birthdate').value;
     let current_date = new Date();
@@ -560,10 +643,9 @@ getEmployee(outputValue){
     let n1=this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInGenScheme').value;
     let n2=this.immatForm.get('input').get('mainRegistrationForm').get('noOfWorkersInBasicScheme').value;
     if(n1<n2){
-      
       this.validNumbOfworker=true;
       this.validError=true;
-      console.log(this.validNumbOfworker);
+      /* console.log(this.validNumbOfworker); */
     }
     else{
       this.validNumbOfworker=false;
@@ -630,6 +712,55 @@ getEmployee(outputValue){
      
   });
   }
+  fillEmployeeForm(dec){
+    return    new FormGroup({
+        numeroAssureSocial:new FormControl(dec.numeroAssureSocial),
+        nomEmploye:new FormControl(dec.nomEmploye),
+        prenomEmploye:new FormControl(dec.prenomEmploye), 
+        dateNaissance:new FormControl(dec.dateNaissance), 
+        typePieceIdentite:new FormControl(dec.typePieceIdentite),  
+        numPieceIdentite:new FormControl( dec.numPieceIdentite), 
+        natureContrat: new FormControl(''),
+        dateEntree: new FormControl(dec.dateEntree),
+        dateSortie:new FormControl(dec.dateSortie), 
+        motifSortie: new FormControl(dec.motifSortie), 
+        totSalAssCssPf1: new FormControl(dec.totSalAssCssPf1), 
+        totSalAssCssAtmp1: new FormControl(dec.totSalAssCssAtmp1), 
+        totSalAssIpresRg1: new FormControl(dec.totSalAssIpresRg1), 
+        totSalAssIpresRcc1: new FormControl(dec.totSalAssIpresRcc1), 
+        salaireBrut1: new FormControl(dec.salaireBrut1), 
+        nombreJours1: new FormControl(dec.nombreJours1), 
+        nombreHeures1: new FormControl(dec.nombreHeures1), 
+        tempsTravail1: new FormControl(dec.tempsTravail1), 
+        trancheTravail1: new FormControl(dec.trancheTravail1), 
+        regimeGeneral1: new FormControl(dec.regimeGeneral1), 
+        regimCompCadre1: new FormControl(dec.regimCompCadre1), 
+        dateEffetRegimeCadre1: new FormControl(dec.dateEffetRegimeCadre1), 
+        totSalAssCssPf2:new FormControl(dec.totSalAssCssPf2),  
+        totSalAssCssAtmp2:new FormControl(dec.totSalAssCssAtmp2),
+        totSalAssIpresRg2: new FormControl(dec.totSalAssIpresRg2),
+        totSalAssIpresRcc2:  new FormControl(dec.totSalAssIpresRg2),
+        salaireBrut2: new FormControl(dec.salaireBrut2),
+        nombreJours2: new FormControl(dec.nombreJours2),
+        nombreHeures2: new FormControl(dec.nombreHeures2),
+        tempsTravail2:new FormControl(dec.tempsTravail2), 
+        trancheTravail2: new FormControl(dec.trancheTravail2),
+        regimeGeneral2: new FormControl(dec.regimeGeneral2),
+        regimCompCadre2: new FormControl(dec.regimCompCadre2),
+        dateEffetRegimeCadre2:new FormControl(dec.dateEffetRegimeCadre2), 
+        totSalAssCssPf3: new FormControl(dec.totSalAssCssPf3),
+        totSalAssCssAtmp3: new FormControl(dec.totSalAssCssAtmp3),
+        totSalAssIpresRg3: new FormControl(dec.totSalAssIpresRg3),
+        totSalAssIpresRcc3: new FormControl(dec.totSalAssIpresRcc3),
+        salaireBrut3: new FormControl(dec.salaireBrut3),
+        nombreJours3: new FormControl(dec.nombreJours3),
+        nombreHeures3: new FormControl(dec.nombreHeures3),
+        tempsTravail3: new FormControl(dec.tempsTravail3),
+        trancheTravail3: new FormControl(dec.trancheTravail3),
+        regimeGeneral3:new FormControl(dec.regimeGeneral3), 
+        regimCompCadre3: new FormControl(dec.regimCompCadre3),
+        dateEffetRegimeCadre3: new FormControl(dec.dateEffetRegimeCadre3) })
+    }
   addItem(): void { 
     this.employeList.push(this.createItem()); 
   }
@@ -640,9 +771,13 @@ this.listD2=[];
 let r2:string="";
 let r:string="";
 let r1:string="";
+let empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
  r=this.immatForm.get('input').get('mainRegistrationForm').get('region').value;
+
+if(empType=='PVT'){
  r1=this.immatForm.get('input').get('legalRepresentativeForm').get('region').value;
-console.log(r);
+}
+ console.log(r);
 let emplistRegion=this.immatForm.get('input').get('employeList').value;
 for(let i=0;i<emplistRegion.length;i++){
  r2= emplistRegion[i].region;
@@ -671,8 +806,12 @@ selectDepartement(event){
   this.listA1=[];
   this.listA2=[];
   let d3:string="";
+  let d2:string="";
   let d1= this.immatForm.get('input').get('mainRegistrationForm').get('department').value;
-  let d2=this.immatForm.get('input').get('legalRepresentativeForm').get('department').value;
+  let empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
+  if(empType=='PVT'){
+  d2=this.immatForm.get('input').get('legalRepresentativeForm').get('department').value;
+  }
   let emplistRegion=this.immatForm.get('input').get('employeList').value;
 for(let i=0;i<emplistRegion.length;i++){
  d3= emplistRegion[i].departement;
@@ -703,9 +842,13 @@ for(let i=0;i<emplistRegion.length;i++){
     this.listC1=[];
     this.listC2=[];
     let c2:string="";
+    let c1:string="";
     let c= this.immatForm.get('input').get('mainRegistrationForm').get('arondissement').value;
-    let c1= this.immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value;
-      let emplistRegion=this.immatForm.get('input').get('employeList').value;
+    let empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
+  if(empType=='PVT'){
+     c1= this.immatForm.get('input').get('legalRepresentativeForm').get('arondissement').value;
+   }
+    let emplistRegion=this.immatForm.get('input').get('employeList').value;
       for(let i=0;i<emplistRegion.length;i++){
        c2= emplistRegion[i].arrondissement;
       }
@@ -735,8 +878,12 @@ for(let i=0;i<emplistRegion.length;i++){
     this.listQ1=[]; 
     this.listQ2=[]; 
     let c3:string="";
+    let c2:string="";
     let c1= this.immatForm.get('input').get('mainRegistrationForm').get('commune').value;
-    let c2= this.immatForm.get('input').get('legalRepresentativeForm').get('commune').value;
+    let empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
+  if(empType=='PVT'){
+    c2= this.immatForm.get('input').get('legalRepresentativeForm').get('commune').value;
+   }
     let emplistRegion=this.immatForm.get('input').get('employeList').value;
    for(let i=0;i<emplistRegion.length;i++){
       c3= emplistRegion[i].commune;

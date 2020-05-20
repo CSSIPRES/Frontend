@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
@@ -9,6 +9,7 @@ import { throwError } from 'rxjs';
 import { DeclarationService } from '../services/declaration.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import * as XLSX from 'xlsx';
+import { EmployeExistService } from '../services/employe-exist.service';
 
 @Component({
   selector: 'app-declaration',
@@ -31,6 +32,10 @@ export class DeclarationComponent implements OnInit,AfterViewInit {
   addIndex:number;
   addSalForm:boolean=false;
   editSalForm:boolean=false;
+  totSalAssCssPf:number=0;
+  totSalAssCssAtmp:number=0;
+  totSalAssIpresRg:number=0;
+  totSalAssIpresRcc:number=0;
   displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite','action'];  
   displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
   preDnsObject:any={
@@ -166,19 +171,12 @@ data:any = [];
     this.employeData = resArr;
     let decXslsFile=(this.declarationForm.get('informationSalaries') as FormArray);
     for(let i=0;i< this.employeData.length;i++){
-      decXslsFile.push(this.fillEmployeeForm(this.employeData[i]));
-      
+      decXslsFile.push(this.fillEmployeeForm(this.employeData[i]));  
     }
     this.dataSource=this.declarationForm.get('informationSalaries').value;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-     /* this.employeData.forEach(el=>{
-      let dec=(this.declarationForm.get('informationSalaries') as FormArray);
-      dec.push(this.fillEmployeeForm(el));
-      this.dataSource=this.declarationForm.get('informationSalaries').value;
-      console.log(this.declarationForm.get('informationSalaries').value);
-    }); */
-    console.log(this.employeData);
+    this.cumulTotal();
   }
   files: string[] = [];
   onFileSelected(event) {
@@ -202,7 +200,7 @@ initDeclarationForm(){
   typeIdentifiant:this.fb.control('SCI', Validators.required),
   /*  idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required), */
   idIdentifiant:this.fb.control(589834288, Validators.required),
-  raisonSociale:this.fb.control('SP', Validators.required),
+  raisonSociale:this.fb.control('', Validators.required),
   /* adresse:new FormControl(this.emp.legalRepresentativeForm.address, Validators.required), */
   adresse:this.fb.control('DK', Validators.required),
   typeDeclaration:this.fb.control('MENSUEL', Validators.required),
@@ -224,7 +222,7 @@ informationSalaries:new FormArray([])
 }
 dateErrors:boolean=false;
   constructor(private fb:FormBuilder, private decService:DeclarationService,private dialog:MatDialog,
-    private snackB: MatSnackBar,private chgd:ChangeDetectorRef) {
+    private snackB: MatSnackBar,private chgd:ChangeDetectorRef,private empExistServ:EmployeExistService) {
 
    }
   ngAfterViewInit() {
@@ -351,6 +349,13 @@ dateErrors:boolean=false;
       }
     )
   }
+  /* getListEmploye(){
+    this.empExistServ.getEmpExist().subscribe(resp=>
+      {
+      this.listEmp=resp;
+      console.log(this.listEmp);
+    });
+  } */
   displayForm(){
     this.addSalForm=true;
   }
@@ -505,6 +510,10 @@ dateErrors:boolean=false;
       this.dateErrors=false;
     }
   }
+ /*  @ViewChild('callAPIDialog',{static:false}) dialogConfirm: TemplateRef<any>;
+  openDialog() {
+  this.dialog.open(this.dialogConfirm);
+} */
   
 applyFilter(filterValue: string) {
   this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -517,32 +526,212 @@ applyFilter(filterValue: string) {
     console.log(d1);
    
   }
+    cumulTotalPartial(arr, arr1){
+    let smic=36245;
+    console.log(arr);  
+    for(let i=0;i<=arr.length; i++){
+       for(let j=0;j<arr1.length;j++){
+        console.log(arr1[j]);
+         if((arr[i].arr1[j]<63000
+          && arr[i].arr1[j]>smic) || arr[i].arr1[j]>=63000){
+            console.log(arr1[j]);
+            this.totSalAssCssPf=arr[i].arr1[j] + 63000;
+            console.log(this.totSalAssCssPf);
+         }
+         /* else if(arr[i].arr1[j]<smic){
+          this.totSalAssCssPf=arr[i].arr1[j] + smic;
+         } */
+       }
+    }
+  }  
   cumulTotal(){
+    let arr=this.declarationForm.get('informationSalaries').value;
+    let arr1=["totSalAssCssPf1","totSalAssCssPf2","totSalAssCssPf3"]
+    this.cumulTotalPartial(arr, arr1);
+    let smic=36243;
+    let totSalAssCssPf1:number=0;
+    let totSalAssCssPf2:number=0;
+    let totSalAssCssPf3:number=0;
+    let totSalAssCssAtmp1:number=0;
+    let totSalAssCssAtmp2:number=0;
+    let totSalAssCssAtmp3:number=0;
+    let totSalAssIpresRg1:number=0;
+    let totSalAssIpresRg2:number=0;
+    let totSalAssIpresRg3:number=0;
+    let totSalAssIpresRcc1:number=0;
+    let totSalAssIpresRcc2:number=0;
+    let totSalAssIpresRcc3:number=0;
    let listSal=this.declarationForm.get('informationSalaries').value;
    for(let i=0;i<listSal.length;i++){
-     console.log(listSal[i]);
+     if(listSal[i].salaireBrut1!=0){
+     if((listSal[i].totSalAssCssPf1<63000
+      && listSal[i].totSalAssCssPf1>smic) || listSal[i].totSalAssCssPf1>=63000
+       ){
+      totSalAssCssPf1=totSalAssCssPf1 +63000;
+      /* console.log("totSalAssCssPf1",totSalAssCssPf1) */
+     }
+  
+     else if(listSal[i].totSalAssCssPf1<smic){
+      totSalAssCssPf1=totSalAssCssPf1 +smic;
+      /* console.log("totSalAssCssPf12",totSalAssCssPf1);  */
+      
+     }
+    }
+     /* console.log(totSalAssCssPf1); */
+     if(listSal[i].salaireBrut2!=0){
+     if((listSal[i].totSalAssCssPf2<63000 && listSal[i].totSalAssCssPf2>smic) 
+     || listSal[i].totSalAssCssPf2>=63000){
+      totSalAssCssPf2=totSalAssCssPf2 +63000;
+     /*  console.log("totSalAssCssPf2",totSalAssCssPf2) */
+     }
+     else if(listSal[i].totSalAssCssPf2<smic){
+      totSalAssCssPf2=totSalAssCssPf2 +smic;
+      /* console.log("totSalAssCssPf21",totSalAssCssPf2); */
+     }
+    }
+     /* console.log(totSalAssCssPf2); */
+     if(listSal[i].salaireBrut3!=0){
+     if((listSal[i].totSalAssCssPf3<63000 && listSal[i].totSalAssCssPf3>smic) 
+     || listSal[i].totSalAssCssPf3>=63000){
+      totSalAssCssPf3=totSalAssCssPf3 +63000;
+      /* console.log("totSalAssCssPf3",totSalAssCssPf3) */
+     }
+     else if(listSal[i].totSalAssCssPf3<smic){
+      totSalAssCssPf3=totSalAssCssPf3 +smic;
+      /* console.log("totSalAssCssPf31",totSalAssCssPf3) */
+     }
+    }
+     let a=totSalAssCssPf1+totSalAssCssPf2+totSalAssCssPf3;
+      
+     /* console.log(totSalAssCssPf1);
+     console.log(totSalAssCssPf2);
+     console.log(totSalAssCssPf3);
+     console.log(a); */
+     this.totSalAssCssPf=a;
+     if(listSal[i].salaireBrut1!=0){
+     if((listSal[i].totSalAssCssAtmp1<63000 && listSal[i].totSalAssCssAtmp1>smic) || listSal[i].totSalAssCssAtmp1>=63000){
+      totSalAssCssAtmp1=totSalAssCssAtmp1 +63000;
+       /* console.log("totSalAssCssAtmp1",totSalAssCssAtmp1); */ 
+     }
+     else if(listSal[i].totSalAssCssAtmp1<smic){
+      totSalAssCssAtmp1=totSalAssCssAtmp1 +smic; 
+     
+     }
+    }
+    if(listSal[i].salaireBrut2!=0){
+     if((listSal[i].totSalAssCssAtmp2<63000 && listSal[i].totSalAssCssAtmp2>smic)
+        || listSal[i].totSalAssCssAtmp2>=63000){
+      totSalAssCssAtmp2=totSalAssCssAtmp2 +63000;
+     }
+     else if(listSal[i].totSalAssCssAtmp2<smic){
+      totSalAssCssAtmp2=totSalAssCssAtmp2 +smic;
+     }
+    }
+    if(listSal[i].salaireBrut3!=0){
+     if((listSal[i].totSalAssCssAtmp3<63000 && listSal[i].totSalAssCssAtmp3>smic) 
+    || listSal[i].totSalAssCssAtmp3>=63000 
+      ){
+      totSalAssCssAtmp3=totSalAssCssAtmp3 +63000;
+     }
+     else if(listSal[i].totSalAssCssAtmp3<smic){
+      totSalAssCssAtmp3=totSalAssCssAtmp3 +smic;
+     }
+    }
+     let b=totSalAssCssAtmp1+totSalAssCssAtmp2+totSalAssCssAtmp3;
+     this.totSalAssCssAtmp=b;
+    /*  console.log(this.totSalAssCssAtmp); */
+
+
+
+     if(listSal[i].salaireBrut1!=0){
+      if((listSal[i].totSalAssIpresRcc1<1080000 && listSal[i].totSalAssIpresRcc1>smic) 
+      || listSal[i].totSalAssIpresRcc1>=1080000){
+        totSalAssIpresRcc1=totSalAssIpresRcc1 +1080000;
+      }
+      else if(listSal[i].totSalAssIpresRcc1<smic){
+        totSalAssIpresRcc1=totSalAssIpresRcc1 +smic; 
+      }
+     }
+     if(listSal[i].salaireBrut2!=0){
+      if((listSal[i].totSalAssIpresRcc2<1080000 && listSal[i].totSalAssIpresRcc2>smic)
+         || listSal[i].totSalAssIpresRcc2>=1080000){
+          totSalAssIpresRcc2=totSalAssIpresRcc2 +1080000;
+       
+      }
+      else if(listSal[i].totSalAssIpresRcc2<smic){
+        totSalAssIpresRcc2=totSalAssIpresRcc2 +smic;
+       
+      }
+     }
+     if(listSal[i].salaireBrut3!=0){
+      if((listSal[i].totSalAssIpresRcc3<1080000 && listSal[i].totSalAssIpresRcc3>smic) 
+     || listSal[i].totSalAssIpresRcc3>=1080000 
+       ){
+        totSalAssIpresRcc3=totSalAssIpresRcc3 +1080000;
+      }
+      else if(listSal[i].totSalAssIpresRcc3<smic){
+        totSalAssIpresRcc3=totSalAssIpresRcc3 +smic;
+      }
+     }
+    this.totSalAssIpresRcc=totSalAssIpresRcc1+totSalAssIpresRcc2 +totSalAssIpresRcc3;
+    console.log(this.totSalAssIpresRcc);
+
+
+    
+    if(listSal[i].salaireBrut1!=0){
+      if((listSal[i].totSalAssIpresRg1<360000 && listSal[i].totSalAssIpresRg1>smic) 
+      || listSal[i].totSalAssIpresRg1>=360000){
+        totSalAssIpresRg1=totSalAssIpresRg1 +360000;
+      }
+      else if(listSal[i].totSalAssIpresRg1<smic){
+        totSalAssIpresRg1=totSalAssIpresRg1 +smic; 
+      }
+     }
+     if(listSal[i].salaireBrut2!=0){
+      if((listSal[i].totSalAssIpresRg2<360000 && listSal[i].totSalAssIpresRg2>smic)
+         || listSal[i].totSalAssIpresRg2>=360000){
+        totSalAssIpresRg2=totSalAssIpresRg2 +360000;
+       
+      }
+      else if(listSal[i].totSalAssCssAtmp2<smic){
+        totSalAssIpresRg2=totSalAssIpresRg2 +smic;
+       
+      }
+     }
+     if(listSal[i].salaireBrut3!=0){
+      if((listSal[i].totSalAssIpresRg3<360000 && listSal[i].totSalAssIpresRg3>smic) 
+     || listSal[i].totSalAssIpresRg3>=360000 
+       ){
+        totSalAssIpresRg3=totSalAssIpresRg3 +360000;
+      }
+      else if(listSal[i].totSalAssIpresRg3<smic){
+        totSalAssIpresRg3=totSalAssIpresRg3 +smic;
+      }
+     }
+    this.totSalAssIpresRg=totSalAssIpresRg1+totSalAssIpresRg2 +totSalAssIpresRg3;
+    /* console.log(this.totSalAssIpresRg); */
    }  
   }
   get typeIdentifiant() {
-    return this.declarationForm.get('informationEmployeur').get('typeIdentifiant');
+    return this.declarationForm.get('typeIdentifiant');
   }
   get idIdentifiant() {
-    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('idIdentifiant');
   }
   get raisonSociale() {
-    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('raisonSociale');
   }
   get adresse() {
-    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('adresse');
   }
   get typeDeclaration() {
-    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('typeDeclaration');
   }
   get dateDebutCotisation() {
-    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('dateDebutCotisation');
   }
   get dateFinCotisation() {
-    return this.declarationForm.get('informationEmployeur').get('idIdentifiant');
+    return this.declarationForm.get('dateFinCotisation');
   }
 }
  

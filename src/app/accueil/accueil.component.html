@@ -5,7 +5,8 @@
   <div class="top_line">
     <mat-toolbar></mat-toolbar>
 </div>
-<div fxLayout="row" class="back_page pl-5 pr-5">
+<div class="back_page">
+<div fxLayout="row" class="pl-5 pr-5">
   <div fxFlex="65" class="backImg" >
     <img class="mat-elevation-z8" src="assets/images/homeCSS.jpg" 
     height="600" width="900">
@@ -95,65 +96,85 @@
   
 </div>
 
-<div class="container" fxLayout="row" fxLayoutGap="2%" class="mt-5 mb-5">
+<div class="container" fxLayout="column"  class="mt-5 mb-5">
   
-  <div fxFlex="25" fxLayout="column">
-    <h4 class="ml-2">
+  <div class="container"  fxLayout="column">
+    <h4>
       Des informations pour mieux vous aider à comprendre votre statut
-    </h4><br />
-    <span class="ml-2 info">Trouver des informations par rapports à votre 
+    </h4>
+    <span class="info">Trouver des informations par rapports à votre 
       statut et des documents importants à fournir.
     </span>
+    <mat-divider class="inset mt-5"></mat-divider>
   </div>
-  <mat-divider [vertical]="true"></mat-divider>
-  <div fxFlex="25">
-    <mat-card class="card_info mat-elevation-z4 ">
-      <mat-card-header>
-        <h2>
-          Espace <br> Employeur
-        </h2>
+  
+  <div class="container mt-5"  fxLayout="row" fxLayoutGap="2%">
+  <div fxFlex="33">
+    <mat-card class="card_info card_info1 mat-elevation-z4 ">
+      
+      <mat-card-header >
+        <h4>
+          Espace employeur
+        </h4>
+      <div fxLayoutAlign="end center"> 
+         <mat-icon  class="icon_header">keyboard_return</mat-icon>
+      </div>
       </mat-card-header>
-      <mat-card-content class="pb-5 pt-2" fxLayout="column" 
-      fxLayoutAlign="start center">
+      <mat-divider></mat-divider>
+     
+ 
+      <mat-card-content class="container" fxLayout="column">
+        <mat-icon class="person_mat-icon">person_outlined</mat-icon>
         <span>Informations et tous les documents à fournir pour toutes demarches
           de l'employeur
         </span>
-        <span class="details pt-3" fxLayoutAlign="center">Voire les détails 
-          <mat-icon>arrow_right_alt</mat-icon></span>
+        <span class="details pt-3" fxLayoutAlign="end">Voire les détails 
+         <!--  <mat-icon>arrow_right_alt</mat-icon>--></span> 
       </mat-card-content>
     </mat-card>
   </div>
-  <mat-divider [vertical]="true"></mat-divider>
-  <div fxFlex="25">
-    <mat-card class="card_info1 mat-elevation-z4">
+  <!-- <mat-divider [vertical]="true"></mat-divider> -->
+  <div fxFlex="33">
+    <mat-card class="card_info card_info2 mat-elevation-z4">
       <mat-card-header>
-        <h2>
-          Espace <br> Salarié
-        </h2>
+        <h4>
+          Espace salarié
+        </h4>
+        <div fxLayoutAlign="end center"> 
+          <mat-icon  class="icon_header">keyboard_return</mat-icon>
+       </div>
       </mat-card-header>
-      <mat-card-content class="pb-5 pt-2" fxLayout="column" fxLayoutAlign="center">
+      <mat-divider></mat-divider>
+      <mat-card-content class="container" fxLayout="column">
+        <mat-icon class="person_mat-icon">money</mat-icon>
         <span>Droits et devoirs de salarié, informations retraites et 
           documents à fournir
         </span>
-        <span class="details pt-3" fxLayoutAlign="center">Voire les détails <mat-icon>arrow_right_alt</mat-icon></span> 
+        <span class="details pt-3" fxLayoutAlign="end">Voire les détails <!-- <mat-icon>arrow_right_alt</mat-icon> --></span> 
       </mat-card-content>
     </mat-card>
   </div>
-  <mat-divider [vertical]="true"></mat-divider>
-  <div fxFlex="25">
-    <mat-card class="card_info2 mat-elevation-z4">
+  <!-- <mat-divider [vertical]="true"></mat-divider> -->
+  <div fxFlex="33">
+    <mat-card class="card_info card_info3 mat-elevation-z4">
       <mat-card-header>
-        <h2>
-          Espace <br> Allocataire
-        </h2>
+        <h4>
+          Espace allocataire
+        </h4>
+        <div fxLayoutAlign="end center"> 
+          <mat-icon  class="icon_header">keyboard_return</mat-icon>
+       </div>
       </mat-card-header>
-      <mat-card-content class="pb-5 pt-2" fxLayout="column" fxLayoutAlign="center">
+      <mat-divider></mat-divider>
+      <mat-card-content class="container" fxLayout="column" >
+        <mat-icon class="person_mat-icon">people_outline</mat-icon>
         <span>Informations et document à fournir pour allocataires
         </span>
-        <span class="details pt-3" fxLayoutAlign="center">Voire les détails <mat-icon>arrow_right_alt</mat-icon></span> 
+        <span class="details pt-3" fxLayoutAlign="end">Voire les détails <!-- <mat-icon>arrow_right_alt</mat-icon> --></span> 
       </mat-card-content>
     </mat-card>
   </div>
+   </div>
 </div>
 <div  fxLayout="row" fxLayoutGap="5%" class="mt-5 mb-5">
   <div fxFlex="60" fxLayout="column">
@@ -271,4 +292,4 @@
        <mat-icon>keyboard_arrow_up</mat-icon> 
   </button>
 </div>
-
+</div>

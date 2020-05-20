@@ -52,6 +52,7 @@ import { RedirectionComponent } from './redirection/redirection.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { EspaceEmployeurComponent } from './espace-employeur/espace-employeur.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
   scrollXMarginOffset:300,
@@ -81,7 +82,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ViewPdfComponent,
     PaiementComponent,
     RedirectionComponent,
-    SendMailComponent
+    SendMailComponent,
+    EspaceEmployeurComponent
     
   ],
   imports: [
