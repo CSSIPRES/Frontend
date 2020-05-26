@@ -80,7 +80,7 @@ export class ImmatriculationComponent implements OnInit {
   validDateNaiss:boolean=false;
   snackBar:boolean=true;
   immatForm:FormGroup;
-  mainRegistrationForm:FormGroup;
+  mainRegistrationForm:FormGroup;    
   srcResult:any;
   validNumbOfworker:boolean=false;
   addEmpForm:boolean=false;
@@ -88,6 +88,7 @@ export class ImmatriculationComponent implements OnInit {
   disabledDate:boolean=true;
   addIndex:number;
   editIndex:number;
+  domesticRegistrationForm:FormGroup;
 
   public employeData: EmployeData[];
   data = [];
@@ -401,6 +402,88 @@ export class ImmatriculationComponent implements OnInit {
     })
     })
    }
+
+   // fonction immatriculation representant diplomatique ***
+
+   initImmatFormRD(){
+   this.immatForm=this.fb.group({
+   input:  this.fb.group({
+   domesticRegistrationForm:this.fb.group({
+    dateEmbauchePremierSalarie:new FormControl(  'dateEmbauchePremierSalarie', Validators.required), 
+    regType:this.fb.control('BVOLN', Validators.required),
+    idType:this.fb.control('NIN', Validators.required),
+    nin:this.fb.control('1549198204473', Validators.required),
+    lastName:this.fb.control('', Validators.required),
+    firstName:this.fb.control('', Validators.required),
+    ninCedeao:this.fb.control('', Validators.required),
+    nationality:this.fb.control('SEN', Validators.required),
+    idNumber:this.fb.control('SEN', Validators.required),
+    issuedDate:this.fb.control('2020-01-01', Validators.required),
+    expiryDate:this.fb.control('2020-01-01', Validators.required),
+    dateOfBirth:this.fb.control('2020-01-01', Validators.required),
+    countryOfBirth:this.fb.control('SEN', Validators.required),
+    cityOfBirth:this.fb.control('SEN', Validators.required),
+    phoneNumber:this.fb.control('', Validators.required),
+    email:this.fb.control('', Validators.required),
+    businessSector:this.fb.control('', Validators.required),
+    mainLineOfBusiness:this.fb.control('', Validators.required),
+    atRate:this.fb.control('', Validators.required),
+    region:this.fb.control('DAKAR', Validators.required),
+    department:this.fb.control('DAKAR', Validators.required),
+    arrondissement:this.fb.control('DAKAR', Validators.required),
+    commune:this.fb.control('DAKAR', Validators.required),
+    quartier:this.fb.control('DAKAR', Validators.required),
+    address:this.fb.control('DAKAR', Validators.required),
+    zoneCss:this.fb.control('DAKAR', Validators.required),
+    zoneIpres:this.fb.control('DAKAR', Validators.required),
+    sectorCss:this.fb.control('DAKAR', Validators.required),
+    sectorIpres:this.fb.control('DAKAR', Validators.required),
+    agencyCss:this.fb.control('DAKAR', Validators.required),
+    agencyIpres:this.fb.control('DAKAR', Validators.required)
+    }),
+     employerQuery:this.fb.group({
+       employerType:this.fb.control('', Validators.required),
+       employerName:this.fb.control('', Validators.required),
+       nineaNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}),
+       regType:this.fb.control('BVOLN', Validators.required),
+       estType:this.fb.control('AMB', Validators.required),
+    }),
+  
+      employeList: this.fb.array([this.createItem()])  
+   })
+   })
+   }
+
+  // fonction immatriculation domestique *************************
+
+  initImmatFormSD(){
+    this.immatForm=this.fb.group({
+    input:  this.fb.group({
+    mainRegistrationForm:this.fb.group({
+    dateOfInspection:new FormControl('2020-01-01', Validators.required),
+    dateOfFirstHire:this.fb.control('2020-01-01', Validators.required),
+    shortName:this.fb.control(''),
+    businessSector:this.fb.control('', Validators.required),
+    mainLineOfBusiness:this.fb.control('', Validators.required),
+    region:this.fb.control('', Validators.required),
+    department:this.fb.control('', Validators.required),
+    arondissement:this.fb.control('', Validators.required),
+    commune:this.fb.control('', Validators.required),
+    qartier:this.fb.control('', Validators.required),
+    address:this.fb.control('', Validators.required),
+    telephone:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
+    email:this.fb.control('', { updateOn: 'blur',validators: [Validators.pattern(this.emailPattern)]}),
+    website:this.fb.control(''),
+    noOfWorkersInBasicScheme:this.fb.control('', Validators.required),
+    noOfWorkersInGenScheme:this.fb.control('', Validators.required),
+    postboxNo:this.fb.control('', Validators.required),
+      }),
+        employeList: this.fb.array([this.createItem()])  
+     })
+    })
+    }
+
+
   
   ngOnInit() {
     this.initImmatForm()
