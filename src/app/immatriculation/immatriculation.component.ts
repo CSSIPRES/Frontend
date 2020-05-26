@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 /* import Swal from 'sweetalert2/dist/sweetalert2.js'; */
 import * as XLSX from 'xlsx';
 
-export class AppDateAdapter extends NativeDateAdapter {
+/* export class AppDateAdapter extends NativeDateAdapter {
 
   format(date: Date, displayFormat: Object): string {
 
@@ -55,19 +55,14 @@ export const APP_DATE_FORMATS =
         dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
         monthYearA11yLabel: { year: 'numeric', month: 'long' },
     }
-};
+}; */
 @Component({
   selector: 'app-immatriculation',
   templateUrl: './immatriculation.component.html',
   styleUrls: ['./immatriculation.component.css'],
   
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}},
-    {provide: DateAdapter, useClass: NativeDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
-    {
-      provide: DateAdapter, useClass: AppDateAdapter
-    }
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}
   ]
   })
   
@@ -119,7 +114,7 @@ export class ImmatriculationComponent implements OnInit {
   validDateNaiss:boolean=false;
   snackBar:boolean=true;
   immatForm:FormGroup;
-  mainRegistrationForm:FormGroup;
+  mainRegistrationForm:FormGroup;    
   srcResult:any;
   validNumbOfworker:boolean=false;
   addEmpForm:boolean=false;
@@ -128,6 +123,11 @@ export class ImmatriculationComponent implements OnInit {
   addIndex:number;
   editIndex:number;
   immatFormBoolean:Boolean=false;
+  immatPara:boolean=false;
+  immatDip:boolean=false;
+  immatDom:boolean=false;
+  
+  domesticRegistrationForm:FormGroup;
 
   public employeData: EmployeData[];
   data = [];
@@ -264,14 +264,11 @@ export class ImmatriculationComponent implements OnInit {
             range:0
         }));
         };
-        
         reader.readAsBinaryString(target.files[0]);
         console.log(this.data);
       }
     }
-  
-    
-    
+
     uploadfile() { 
       let keys = this.data.shift();
       let resArr = this.data.map((e) => {
@@ -323,14 +320,40 @@ export class ImmatriculationComponent implements OnInit {
       
     }
 
-
-
-    addImmatriculation(){
-   let v= this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
-   moment(v).format('YYYY-MM-DD');
-   console.log(v);
-   this.loader=true;
-     this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
+  addImmatriculation(){
+     let immatForm=this.immatForm.get('input').get('mainRegistrationForm');
+     let immatForm1=this.immatForm.get('input').get('legalRepresentativeForm');
+     let immatForm2=this.immatForm.get('input').get('employerQuery');
+     let dateInsp= this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
+     let datefinInsp= this.immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value;   
+     let isueDate=immatForm1.get('issuedDate').value;
+     let birthday=immatForm1.get('birthdate').value;
+     let expDate=immatForm1.get('expiryDate').value;
+     let tradDate=immatForm2.get('tradeRegisterDate').value;
+     let taxDate=immatForm2.get('taxIdDate').value;
+     /* let finCot= this.declarationForm.get('dateFinPeriodeCotisation').value;    */
+    console.log(dateInsp);
+    let d1=moment(datefinInsp).format('YYYY-MM-DD');
+    let d2=moment(datefinInsp).format('YYYY-MM-DD');
+    let d3=moment(birthday).format('YYYY-MM-DD');
+    let d4=moment(isueDate).format('YYYY-MM-DD');
+    let d5=moment(expDate).format('YYYY-MM-DD'); 
+    let d6=moment(tradDate).format('YYYY-MM-DD'); 
+    let d7=moment(taxDate).format('YYYY-MM-DD'); 
+    console.log(d1);
+    immatForm.get('dateOfInspection').patchValue(d1);
+    immatForm.get('dateOfFirstHire').patchValue(d2); 
+    immatForm1.get('birthdate').patchValue(d3);
+    immatForm1.get('issuedDate').patchValue(d4);
+    immatForm1.get('expiryDate').patchValue(d5);
+    immatForm2.get('tradeRegisterDate').patchValue(d6); 
+    immatForm2.get('taxIdDate').patchValue(d7); 
+    /* immatForm2.get('tradDate').patchValue(d6);  */  
+  let v= this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
+  moment(v).format('YYYY-MM-DD');
+  console.log(v);
+  this.loader=true;
+  this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
        console.log(resp);
        localStorage.setItem('employerData', JSON.stringify(resp.value.output));
        localStorage.setItem('employerDataInput', JSON.stringify(resp.value.input));
@@ -361,10 +384,10 @@ export class ImmatriculationComponent implements OnInit {
    
    initImmatForm(){
      this.immatForm=this.fb.group({
-      input:  this.fb.group({
+          input:  this.fb.group({
       mainRegistrationForm:this.fb.group({
     dateOfInspection:new FormControl('', Validators.required),
-    dateOfFirstHire:this.fb.control('2020-01-01', Validators.required),
+    dateOfFirstHire:this.fb.control('', Validators.required),
     shortName:this.fb.control(''),
     businessSector:this.fb.control('', Validators.required),
     mainLineOfBusiness:this.fb.control('', Validators.required),
@@ -389,14 +412,14 @@ export class ImmatriculationComponent implements OnInit {
         ninetNumber:this.fb.control(''),
         regType:this.fb.control('BVOLN', Validators.required),
         taxId:this.fb.control('2G3'),
-        taxIdDate:this.fb.control('2020-01-01',Validators.required),
-        tradeRegisterDate: this.fb.control('2020-01-01',Validators.required),
+        taxIdDate:this.fb.control('',Validators.required),
+        tradeRegisterDate: this.fb.control('',Validators.required),
         tradeRegisterNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.registreComPattern)]}),
       }),
       legalRepresentativeForm:new FormGroup({
         lastName:this.fb.control('', Validators.required),
         firstName:this.fb.control('', Validators.required),
-        birthdate:this.fb.control('1991-11-11', Validators.required),
+        birthdate:this.fb.control('', Validators.required),
         nationality:this.fb.control('', Validators.required),
         nin:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.icnpattern)]}),
         placeOfBirth:this.fb.control('', Validators.required),
@@ -404,9 +427,9 @@ export class ImmatriculationComponent implements OnInit {
         typeOfIdentity:this.fb.control('', Validators.required),
         /* ninCedeo:this.fb.control('', Validators.required),  */
         ninCedeo:this.fb.control(''),
-        issuedDate:this.fb.control('2020-01-10', Validators.required),
+        issuedDate:this.fb.control('', Validators.required),
         landLineNumber:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
-        expiryDate:this.fb.control('2030-01-10', Validators.required),
+        expiryDate:this.fb.control('', Validators.required),
         region:this.fb.control('', Validators.required),
         department:this.fb.control('', Validators.required),
         arondissement:this.fb.control('', Validators.required),
@@ -426,7 +449,7 @@ export class ImmatriculationComponent implements OnInit {
    initImmatFormPP(){
     this.immatForm=this.fb.group({
      input:  this.fb.group({ 
-        employerQuery:this.fb.group({
+      employerQuery:this.fb.group({
       regType:this.fb.control('BVOLN', Validators.required),
       employerType:this.fb.control('PUB_PARA', Validators.required),
       estType:this.fb.control('', Validators.required),
@@ -438,8 +461,8 @@ export class ImmatriculationComponent implements OnInit {
       companyOriginId:this.fb.control('')
       }),
        mainRegistrationForm:this.fb.group({
-   dateOfInspection:new FormControl('2020-01-01', Validators.required),
-   dateOfFirstHire:this.fb.control('2020-06-01', Validators.required),
+   dateOfInspection:new FormControl('', Validators.required),
+   dateOfFirstHire:this.fb.control('', Validators.required),
    shortName:this.fb.control(''),
    businessSector:this.fb.control('', Validators.required),
    mainLineOfBusiness:this.fb.control('', Validators.required),
@@ -458,8 +481,8 @@ export class ImmatriculationComponent implements OnInit {
   personneContact:new FormGroup({
    /*  recherche: null, */
     nom:this.fb.control( "BEYE"),
-    prenom: this.fb.control( "Mamadou"),
-    typeOfIdentity: this.fb.control( "NIN"),
+    prenom: this.fb.control( "Mamadou"),        
+    typeOfIdentity: this.fb.control("NIN"),
     nin:this.fb.control( "1547199058954"),
     identityIdNumber:this.fb.control( "1547199058954"), 
     ninCedeo: this.fb.control( ""),
@@ -472,24 +495,127 @@ export class ImmatriculationComponent implements OnInit {
    })
    return this.immatForm;
   }
-  initImmatFormDomestique(){
+ 
+   
+   initImmatFormRD(){
+    this.immatForm=this.fb.group({
+    input:  this.fb.group({
+    domesticRegistrationForm:this.fb.group({
+     dateEmbauchePremierSalarie:new FormControl(  'dateEmbauchePremierSalarie', Validators.required), 
+     regType:this.fb.control('BVOLN', Validators.required),
+     idType:this.fb.control('NIN', Validators.required),
+     nin:this.fb.control('1549198204473', Validators.required),
+     lastName:this.fb.control('', Validators.required),
+     firstName:this.fb.control('', Validators.required),
+     ninCedeao:this.fb.control('', Validators.required),
+     nationality:this.fb.control('SEN', Validators.required),
+     idNumber:this.fb.control('SEN', Validators.required),
+     issuedDate:this.fb.control('2020-01-01', Validators.required),
+     expiryDate:this.fb.control('2020-01-01', Validators.required),
+     dateOfBirth:this.fb.control('2020-01-01', Validators.required),
+     countryOfBirth:this.fb.control('SEN', Validators.required),
+     cityOfBirth:this.fb.control('SEN', Validators.required),
+     phoneNumber:this.fb.control('', Validators.required),
+     email:this.fb.control('', Validators.required),
+     businessSector:this.fb.control('', Validators.required),
+     mainLineOfBusiness:this.fb.control('', Validators.required),
+     atRate:this.fb.control('', Validators.required),
+     region:this.fb.control('DAKAR', Validators.required),
+     department:this.fb.control('DAKAR', Validators.required),
+     arrondissement:this.fb.control('DAKAR', Validators.required),
+     commune:this.fb.control('DAKAR', Validators.required),
+     quartier:this.fb.control('DAKAR', Validators.required),
+     address:this.fb.control('DAKAR', Validators.required),
+     zoneCss:this.fb.control('DAKAR', Validators.required),
+     zoneIpres:this.fb.control('DAKAR', Validators.required),
+     sectorCss:this.fb.control('DAKAR', Validators.required),
+     sectorIpres:this.fb.control('DAKAR', Validators.required),
+     agencyCss:this.fb.control('DAKAR', Validators.required),
+     agencyIpres:this.fb.control('DAKAR', Validators.required)
+     }),
+      employerQuery:this.fb.group({
+        employerType:this.fb.control('', Validators.required),
+        employerName:this.fb.control('', Validators.required),
+        nineaNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}),
+        regType:this.fb.control('BVOLN', Validators.required),
+        estType:this.fb.control('AMB', Validators.required),
+     }),  
+   
+       employeList: this.fb.array([])  
+    })
+    })
+    return  this.immatForm;      
+    }
+  
+  initImmatFormSD(){
+    this.immatForm=this.fb.group({
+    input:  this.fb.group({  
+    mainRegistrationForm:this.fb.group({
+    dateOfInspection:new FormControl('2020-01-01', Validators.required),
+    dateOfFirstHire:this.fb.control('2020-01-01', Validators.required),
+    shortName:this.fb.control(''),
+    businessSector:this.fb.control('', Validators.required),
+    mainLineOfBusiness:this.fb.control('', Validators.required),
+    region:this.fb.control('', Validators.required),
+    department:this.fb.control('', Validators.required),
+    arondissement:this.fb.control('', Validators.required),
+    commune:this.fb.control('', Validators.required),
+    qartier:this.fb.control('', Validators.required),
+    address:this.fb.control('', Validators.required),
+    telephone:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
+    email:this.fb.control('', { updateOn: 'blur',validators: [Validators.pattern(this.emailPattern)]}),
+    website:this.fb.control(''),
+    noOfWorkersInBasicScheme:this.fb.control('', Validators.required),
+    noOfWorkersInGenScheme:this.fb.control('', Validators.required),
+    postboxNo:this.fb.control('', Validators.required),
+      }),
+        employeList: this.fb.array([])  
+     })
+    })
+    }
+    controlPara:boolean=false;
+    controlRd:boolean=false;
+    controlPv:boolean=false;
+    controlRp:boolean=false;
+    selectForm(event){
+      let empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
+     
+      if(empType=='PUB_PARA') {       
+        this.initImmatFormPP();
+        this.immatPara=true;
+        this.immatFormBoolean=true; 
+        this.immatDip=false; 
+        this.controlPara=true; 
+        this.controlPv=false; 
+      }
+      else if(empType=='DOM'){  
+        this.initImmatFormSD();
+        this.immatDom=true;
+        this.immatDip=false;
+        this.immatFormBoolean=true;
+        this.immatPara=false;
+      }
+      else if(empType=='PVT'){
+        this.initImmatForm();
+        this.immatFormBoolean=false; 
+        this.controlPv=true; 
+        this.immatDip=false; 
+        this.immatPara=false;
+        this.controlPara=false;  
+      }
+      else if(empType=='REP_DIP'){
+        this.initImmatFormRD();
+         this.immatFormBoolean=true; 
+        this.immatDip=true;
+        this.immatPara=false;
+        this.controlPv=false; 
+      }
+     
+  
+      console.log(empType);
+    }  
 
-  }
-   selectForm(event){
-    let empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
-    if(empType=='PUB_PARA') {       
-      this.initImmatFormPP();
-      this.immatFormBoolean=true;     
-    }
-    else if(empType=='PVT'){
-      this.initImmatForm();
-      this.immatFormBoolean=false;    
-    }
-    else if(empType=='REP_DIP'){
-
-    }
-    console.log(empType);
-  }  
+  
   ngOnInit() {
     this.initImmatForm();
     window.localStorage.getItem("token");
@@ -505,6 +631,12 @@ export class ImmatriculationComponent implements OnInit {
     this.listactivitePrincipal=(main_sectors as any).default[0];
     console.log(this.listactivitePrincipal);
     this.getUser();
+
+    this.immatFormBoolean=false; 
+    this.controlPv=true; 
+    this.immatDip=false; 
+    this.immatPara=false;
+    this.controlPara=false;
 }  
 
 getUser(){
@@ -516,13 +648,16 @@ getUser(){
 }
 getEmployee(outputValue){
  /*  console.log(this.employeInfo); */
+ let legalRepInfo=this.immatForm.get('input').get('legalRepresentativeForm');
  let empMainInfo=this.immatForm.get('input').get('mainRegistrationForm');
  let employeurInfo=this.immatForm.get('input').get('employerQuery');
-  this.employeInfo.businessSector=empMainInfo.get('businessSector').value;
+ this.employeInfo.prenom=employeurInfo.get('employerName').value;
+ this.employeInfo.businessSector=empMainInfo.get('businessSector').value;
  this.employeInfo.mainLineOfBusiness=empMainInfo.get('mainLineOfBusiness').value;
  this.employeInfo.employerType=employeurInfo.get('employerType').value;
  this.employeInfo.typeEtablissement=employeurInfo.get('typeEtablissement').value;
  this.employeInfo.raisonSociale=employeurInfo.get('employerName').value;
+ this.employeInfo.typeIdentifiant=legalRepInfo.get('typeOfIdentity').value;
  this.employeInfo.numeroIdentifiant=employeurInfo.get('nineaNumber').value;
  this.employeInfo.legalStatus=employeurInfo.get('legalStatus').value;
  this.employeInfo.shortName=empMainInfo.get('shortName').value;
@@ -541,7 +676,7 @@ getEmployee(outputValue){
  this.employeInfo.zoneIpres= outputValue.zoneIpres;
  this.employeInfo.sectorCss=outputValue.sectorCss;
  this.employeInfo.sectorIpres=outputValue.sectorIpres;
- this.employeInfo.tauxAT=outputValue.tauxAT
+ this.employeInfo.tauxAT=outputValue.tauxAt
  this.employeInfo.agencyCss=outputValue.agenceCss;
  this.employeInfo.agencyIpres=outputValue.agenceIpres;
  this.employeInfo.processFlowId=outputValue.processFlowId;
@@ -908,20 +1043,33 @@ for(let i=0;i<emplistRegion.length;i++){
      }
     ); 
   }
+  sectorName1:string="";
   selectSector(event){ 
-    let c1= this.immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value;
-    console.log(c1)
+    let c1:string="";
+    let c2:string="";
+    let empType:string="";
+    /* empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
+ */    
+    c1= this.immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value;
+     
+   /* if(this.immatDip==true){ 
+     c2= this.immatForm.get('input').get('domesticRegistrationForm').get('mainLineOfBusiness').value;
+    } */
+    console.log(empType)
     this.listactivitePrincipal.items.forEach(element => {
-      if(element.activitesprincipal==c1){
+      if(element.activitesprincipal==c1 || element.activitesprincipal==c2){
      this.sectorName=element.secteuractivites;
-     let bs= this.immatForm.get('input').get('mainRegistrationForm').get('businessSector');
-     bs.patchValue(this.sectorName);
-     console.log(bs.value);
+     this.sectorName1=element.secteuractivites;
+      let bs= this.immatForm.get('input').get('mainRegistrationForm').get('businessSector');
+     /* let bs1=this.immatForm.get('input').get('domesticRegistrationForm').get('businessSector'); */
+     bs.patchValue(this.sectorName); 
+     console.log(this.sectorName1);
+     /* bs1.patchValue(this.sectorName1); */
     }
       }
     ); 
   }
- 
+   
   maxRgGen:boolean=false;
   addNewEmp() { 
     let empList=(this.immatForm.get('input').get('employeList') as FormArray)

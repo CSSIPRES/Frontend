@@ -5,22 +5,19 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from
   selector: 'app-mot-passe-oublie',
   templateUrl: './mot-passe-oublie.component.html',
   styleUrls: ['./mot-passe-oublie.component.css']
-})
+})   
 export class MotPasseOublieComponent implements OnInit {
   motPassOublForm:FormGroup;
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder) { }   
 
   ngOnInit() {
-    this.initForm();
+    this.initForm();     
   }
   initForm(){
     this.motPassOublForm=this.fb.group({
-      currentPassword:new FormControl('', Validators.required),
-      newPassword:new FormControl('', Validators.required)
+      email:new FormControl('', Validators.required),
+      password:new FormControl('', Validators.required),
+      passwordConf:new FormControl('', Validators.required)
     })
   }
-  senNewPassword(){
-    
-  }
 }
-

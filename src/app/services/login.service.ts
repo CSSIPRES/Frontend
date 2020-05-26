@@ -19,13 +19,25 @@ export class LoginService {
   logout(){
      localStorage.removeItem('token'); 
      localStorage.removeItem('user');
-    /* localStorage.clear(); */
-    /* this.router.navigate(['/accueil']);  */
+     this.router.navigate(['/accueil']);  
   }
 
 
   getUserByLogin(login:string){
     return this.httpCli.get(environment.BASE_URL + "users/"+ login,
+    {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+localStorage.getItem("token")})} )
+  }
+
+
+
+  changePassword(data:any){
+    return this.httpCli.post(environment.BASE_URL + "account/change-password", data,
+    {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+localStorage.getItem("token")})} )
+  }
+
+
+  resetPasswordInit(email:string){
+    return this.httpCli.post(environment.BASE_URL + "account/reset-password/init", email,
     {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+localStorage.getItem("token")})} )
   }
 }

@@ -35,7 +35,7 @@ export class AccueilComponent implements OnInit {
      username:new FormControl('', Validators.required),
      password:new FormControl('', Validators.required)
     })
-  }
+  }    
   
   authenticate(){
     this.loader=true;

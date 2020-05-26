@@ -1,47 +1,44 @@
-<div >
-  <app-header></app-header>
-</div> 
-  <div class="top_line">
-    <mat-toolbar></mat-toolbar>
-</div>
    <div class="back_page">
    <div fxLayout="row" fxLayoutAlign="center">
-    <div fxFlex="50" class="card mt-5">
-      <!-- <mat-card class="forgetPass mat-elevation-z8"> -->
+    <div fxFlex="40" class="card mt-5">
+      <mat-card class="forgetPass mat-elevation-z8">
        <!--  <mat-card-header fxLayout="row">
           <h4 class="pt-2">Mot de passe oublie</h4>
         </mat-card-header> -->
-      <!--   <mat-card-header class="mb-1" fxLayout="row" >
+        <mat-card-header class="mb-1" fxLayout="row" >
           <a routerLink="/accueil">   
             <button  class="mt-1" mat-icon-button>
               <mat-icon > keyboard_backspace</mat-icon>
             </button>
           </a>
           <h4 class="pt-2" fxFlexOffset="18" >Mot de passe oublie</h4>
-        </mat-card-header> -->
+        </mat-card-header>
        
-        <!-- <mat-card-content> -->
+        <mat-card-content>
           <div fxLayout="column">
-            <div class="ml-5 pt-3">
-              <img class="imgLogo"  src="assets/images/logoCSS.png" 
-              height="55px" width="105px">
-              <img src="assets/images/logoIPRES.png" 
-              height="55" width="85">
+            <div >
+              <img src="assets/images/logoCSS.png" height="40px" width="80px" alt="">
             </div>
             &nbsp;
-            <h4 class="title ml-5">Changer votre mot de passe</h4>
+            <h4 class="title ml-5">Changement mot de passe</h4>
           </div>
           <div fxLayout="row">
           <form [formGroup]="motPassOublForm"  fxLayout="column" fxFlex>
+             <mat-form-field appearance="outline" class="pl-5 pr-5">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput formControlName="email" required />
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error>Email obligatoire</mat-error>
+            </mat-form-field>
             <mat-form-field appearance="outline" class="pl-5 pr-5">
-              <mat-label>Mot de passe</mat-label>
-              <input type="password" matInput formControlName="currentPassword" required />
+              <mat-label>Mot De Passe</mat-label>
+              <input type="password" matInput formControlName="password" required />
               <mat-icon matSuffix>lock</mat-icon>
               <mat-error>Entrer votre nouveau mot de passe</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="pl-5 pr-5">
-              <mat-label>Confirmer mot de passe</mat-label>
-              <input type="password" matInput formControlName="newPassword" required />
+              <mat-label>Confirmer Mot De Passe</mat-label>
+              <input type="password" matInput formControlName="passwordConf" required />
               <mat-icon matSuffix>lock</mat-icon>
               <mat-error>Confirmer le mot de passe</mat-error>
             </mat-form-field>
@@ -52,8 +49,8 @@
             </div>
           </form>
         </div>
-       <!--  </mat-card-content>
-      </mat-card> -->
+        </mat-card-content>
+      </mat-card>
     </div>
     </div>
   </div>

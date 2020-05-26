@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit, TemplateRef, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
-import { MatTableDataSource, MatDialog, MatSnackBar, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar, MatPaginator, MatSort, MAT_DIALOG_DATA } from '@angular/material';
 import * as moment from 'moment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
@@ -10,6 +10,7 @@ import { DeclarationService } from '../services/declaration.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import * as XLSX from 'xlsx';
 import { EmployeExistService } from '../services/employe-exist.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-declaration',
@@ -192,20 +193,16 @@ data:any = [];
 
 
 
-
-
 initDeclarationForm(){
+  console.log(this.data1);
   this.declarationForm=this.fb.group({
-  /* typeIdentifiant:new FormControl(this.emp.legalRepresentativeForm.typeOfIdentity, Validators.required), */
-  typeIdentifiant:this.fb.control('SCI', Validators.required),
-  /*  idIdentifiant:new FormControl(this.emp.employerQuery.nineaNumber, Validators.required), */
-  idIdentifiant:this.fb.control(589834288, Validators.required),
-  raisonSociale:this.fb.control('', Validators.required),
-  /* adresse:new FormControl(this.emp.legalRepresentativeForm.address, Validators.required), */
-  adresse:this.fb.control('DK', Validators.required),
-  typeDeclaration:this.fb.control('MENSUEL', Validators.required),
-  dateDebutCotisation:this.fb.control('2021-01-01', Validators.required),
-  dateFinPeriodeCotisation :this.fb.control('2021-12-31', Validators.required), 
+  typeIdentifiant:this.fb.control(this.data1.typeIdentifiant, Validators.required),
+  idIdentifiant:this.fb.control(this.data1.idIdentifiant, Validators.required),
+  raisonSociale:this.fb.control(this.data1.raisonSociale, Validators.required),
+  adresse:this.fb.control(this.data1.address, Validators.required),
+  typeDeclaration:this.fb.control('', Validators.required),
+  dateDebutCotisation:this.fb.control('', Validators.required),
+  dateFinPeriodeCotisation :this.fb.control('', Validators.required), 
   totalNouvSalaries:this.fb.control(''),
   totalSalaries:this.fb.control(''),
   cumulTotSalAssIpresRg:this.fb.control(''),
@@ -221,23 +218,27 @@ informationSalaries:new FormArray([])
 })
 }
 dateErrors:boolean=false;
-  constructor(private fb:FormBuilder, private decService:DeclarationService,private dialog:MatDialog,
-    private snackB: MatSnackBar,private chgd:ChangeDetectorRef,private empExistServ:EmployeExistService) {
+  constructor(private fb:FormBuilder,private decService:DeclarationService,private empService:EmployeExistService,  private dialog:MatDialog,
+    private route : ActivatedRoute,private empExistServ:EmployeExistService,
+    @Inject(MAT_DIALOG_DATA) private data1) {
 
    }
   ngAfterViewInit() {
     /* this.dataSource.sort=this.sort; */
   }
-
+  id:any="";
   ngOnInit() {
   this.emp= JSON.parse(window.localStorage.getItem('employerDataInput'));
   this.initDeclarationForm();
     /* this.initForm(); */
+    this.id = this.route.snapshot.params.id;
+    console.log(this.id);
+    this.getEmployer(this.id);
   }
   preDns(){
-    this.preDnsObject.idIdentifiant=589834288;
-    this.preDnsObject.typeIdentifiant='SCI';
-    this.preDnsObject.adresse='lg';
+    this.preDnsObject.idIdentifiant=this.data1.idIdentifiant;
+    this.preDnsObject.typeIdentifiant=this.data1.typeIdentifiant;
+    this.preDnsObject.adresse=this.data1.address;
     this.preDnsObject.dateDebutCotisation='2020-05-01';
     this.preDnsObject.dateFinPeriodeCotisation='2020-05-31';
     this.preDnsObject.raisonSociale=this.declarationForm.get('raisonSociale').value;
@@ -260,10 +261,10 @@ dateErrors:boolean=false;
         
      
        this.declarationForm=new FormGroup({
-          typeIdentifiant:new FormControl('SCI', Validators.required),
-          idIdentifiant:new FormControl(589834288, Validators.required),
-          raisonSociale:new FormControl('TEST 1234 KB', Validators.required),
-          adresse:new FormControl('KEURY KAW lot 123 B', Validators.required),
+          typeIdentifiant:new FormControl(this.data1.typeIdentifiant, Validators.required),
+          idIdentifiant:new FormControl(this.data1.idIdentifiant, Validators.required),
+          raisonSociale:new FormControl(this.data1.raisonSociale, Validators.required),
+          adresse:new FormControl(this.data1.address, Validators.required),
           typeDeclaration:new FormControl('MENSUEL', Validators.required),
           dateDebutCotisation:new FormControl('2020-05-01', Validators.required),
           dateFinPeriodeCotisation:new FormControl('2020-05-31', Validators.required),  
@@ -279,12 +280,12 @@ dateErrors:boolean=false;
           mntCotRgCalcParEmployeur:new FormControl(resp.value.mntCotRgCalcParEmployeur),
           mntCotRccCalcParEmployeur:new FormControl(resp.value.mntCotRccCalcParEmployeur),
         informationSalaries:new FormArray([new FormGroup({
-        numeroAssureSocial: new FormControl(3898226577),
-        nomEmploye: new FormControl('KEBSON'),
-        prenomEmploye: new FormControl('ELHADJI'),
+        numeroAssureSocial: new FormControl(''),
+        nomEmploye: new FormControl(''),
+        prenomEmploye: new FormControl(''),
         dateNaissance: new FormControl('1991-11-11'),
-        typePieceIdentite:new FormControl('NIN'),
-        numPieceIdentite: new FormControl('1549199114278'),
+        typePieceIdentite:new FormControl(''),
+        numPieceIdentite: new FormControl(''),
         natureContrat: new FormControl(null),
         dateEntree: new FormControl('2020-01-01'),
         dateSortie: new FormControl('2031-01-01'),
@@ -333,6 +334,14 @@ dateErrors:boolean=false;
      )
   }
   addDeclaration(){
+   let debutCot= this.declarationForm.get('dateDebutCotisation').value;  
+   let finCot= this.declarationForm.get('dateFinPeriodeCotisation').value;   
+   console.log(debutCot);
+   let d1=moment(debutCot).format('YYYY-MM-DD');
+   let d2=moment(finCot).format('YYYY-MM-DD');
+   console.log(d1);
+   this.declarationForm.get('dateDebutCotisation').patchValue(d1);
+   this.declarationForm.get('dateFinPeriodeCotisation').patchValue(d2);
     this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>{ 
       if(resp==200){
         this.loader=false;
@@ -543,7 +552,14 @@ applyFilter(filterValue: string) {
          } */
        }
     }
-  }  
+  } 
+  empInfo:any=[];
+  getEmployer(id){
+    this.empService.getEmployer(id).subscribe(resp=>{
+      this.empInfo=resp;
+      console.log(this.empInfo);
+    })
+} 
   cumulTotal(){
     let arr=this.declarationForm.get('informationSalaries').value;
     let arr1=["totSalAssCssPf1","totSalAssCssPf2","totSalAssCssPf3"]

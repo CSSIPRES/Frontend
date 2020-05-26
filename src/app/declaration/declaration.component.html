@@ -14,14 +14,14 @@
             <mat-form-field appearance="outline">
               <mat-label>Type identifiant</mat-label>
               <mat-select formControlName="typeIdentifiant" required>
-                <mat-option value="SCI">NINEA</mat-option>
-                <mat-option value="NIN">NIN</mat-option>
+                <mat-option value="SCI" readonly>NINEA</mat-option>
+                <mat-option value="NIN" readonly>NIN</mat-option>
               </mat-select>
               <mat-error>Ce champ est obligatoire</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Numero identifiant</mat-label>
-              <input matInput formControlName="idIdentifiant" required />
+              <input matInput formControlName="idIdentifiant" readonly required />
               <!--  <mat-icon matSuffix>email</mat-icon> -->
               <mat-error>Ce champ est obligatoire</mat-error>
             </mat-form-field>
@@ -34,7 +34,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Raison sociale</mat-label>
-              <input type="text" matInput formControlName="raisonSociale" required />
+              <input type="text" matInput formControlName="raisonSociale" readonly required />
               <mat-error>
               Ce champ est obligatoire
             </mat-error>
@@ -196,7 +196,7 @@
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-label>Type identifiant</mat-label>
-                    <mat-select formControlName="typePieceIdentite">
+                    <mat-select formControlName="typePieceIdentite" readonly>
                       <mat-option value="NIN">Carte national d'identite</mat-option>
                       <mat-option value="PASS">Passport</mat-option>
                       <mat-option value="CDAO">Carte CEDEAO</mat-option>
@@ -206,7 +206,7 @@
                   </mat-form-field>
                   <mat-form-field fxFlex="10" appearance="outline">
                     <mat-label>Numero identifiant</mat-label>
-                    <input formControlName="numPieceIdentite" matInput />
+                    <input formControlName="numPieceIdentite" matInput/>
                     <mat-icon matSuffix>person_outline</mat-icon>
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>

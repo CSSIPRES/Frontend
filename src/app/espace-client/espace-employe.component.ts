@@ -35,12 +35,13 @@ export class EspaceEmployeComponent implements OnInit {
   listEmp:any;
   title:string;
   loader:boolean=true;
-
+  currentEmpl:any=[];
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
   tok:any=""
   userName:any=""
-  constructor(private dialog:MatDialog,private userService:LoginService,private empExistServ:EmployeExistService,
+  constructor(private dialog:MatDialog,private userService:LoginService,
+    private empExistServ:EmployeExistService,
     private changeDecRef:ChangeDetectorRef) {
    
    }
@@ -98,20 +99,32 @@ export class EspaceEmployeComponent implements OnInit {
         this.getListEmploye();
       })
   }
-  openDeclarationDialog(){
+  openDeclarationDialog(emp){
+    console.log(emp);
     const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      dialogConfig.data={
+      /* dialogConfig.data={
         title:this.title, 
+      } */
+      dialogConfig.data={
+        idIdentifiant:emp.numeroIdentifiant,
+        raisonSociale:emp.raisonSociale,
+        typeIdentifiant:emp.typeIdentifiant,
+        address:emp.address
       }
+      console.log(dialogConfig.data);
       dialogConfig.width='1000px',
       dialogConfig.height='600px'
      this.dialog.open(DeclarationComponent, dialogConfig);
+     
   }
 
 
-
+getEmployer(i){
+this.currentEmpl=this.listEmp[i];
+console.log(this.currentEmpl);
+}
 
   openDemandeAttestationDialog(){
     const dialogConfig = new MatDialogConfig();
@@ -123,6 +136,7 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.width='800px',
       dialogConfig.height='600px'
     let dialogRef= this.dialog.open(SuiviDemandeComponent, dialogConfig);
+   
   }
    
 openPaiementDialog(){
@@ -133,7 +147,7 @@ openPaiementDialog(){
         title:"Mes Paiements", 
       }
       dialogConfig.width='1000px',
-      dialogConfig.height='400px'
+      dialogConfig.height='650px'
      this.dialog.open(PaiementComponent, dialogConfig);
   }
  

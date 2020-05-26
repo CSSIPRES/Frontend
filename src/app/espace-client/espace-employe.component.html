@@ -57,16 +57,16 @@
           <button  (click)="openImmatDialog()"  class="submit-button" mat-raised-button><mat-icon>add</mat-icon> Immatriculer un employeur</button>
       </div>
       <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">  
-        <mat-card class="immatCard mt-3" *ngFor="let emp of listEmp">
+        <mat-card class="immatCard mt-3" *ngFor="let emp of listEmp; let i=index;">
           <mat-card-content fxLayoutAlign="space-between center">
             <mat-icon>person_outlined</mat-icon>
             <div class="immatCard_detail">
               <span fxLayout="row"><p>raison social</p>&nbsp; | {{emp?.raisonSociale}} </span>
               <span fxLayout="row"><p>Ninea</p>&nbsp;<mat-toolbar>{{emp?.numeroIdentifiant}}</mat-toolbar> </span>
-              <button mat-button class="small-submit">Declarer</button>
+              <button (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Declarer</button>
               <a [routerLink]="['/espace-employer/',emp.id]">Voir employeur </a> 
             </div>
-            
+        
           </mat-card-content>
         </mat-card>
       </div>
