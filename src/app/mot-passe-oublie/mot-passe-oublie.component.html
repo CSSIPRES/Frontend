@@ -1,24 +1,15 @@
-<div >
+<div>
   <app-header></app-header>
 </div> 
+<!--
   <div class="top_line">
     <mat-toolbar></mat-toolbar>
 </div>
+-->
    <div class="back_page">
    <div fxLayout="row" fxLayoutAlign="center">
     <div fxFlex="50" class="card mt-5">
-      <!-- <mat-card class="forgetPass mat-elevation-z8"> -->
-       <!--  <mat-card-header fxLayout="row">
-          <h4 class="pt-2">Mot de passe oublie</h4>
-        </mat-card-header> -->
-      <!--   <mat-card-header class="mb-1" fxLayout="row" >
-          <a routerLink="/accueil">   
-            <button  class="mt-1" mat-icon-button>
-              <mat-icon > keyboard_backspace</mat-icon>
-            </button>
-          </a>
-          <h4 class="pt-2" fxFlexOffset="18" >Mot de passe oublie</h4>
-        </mat-card-header> -->
+      
        
         <mat-card-content>
           <br>
@@ -39,7 +30,6 @@
           <br>
           <div fxLayout="row">
           <form [formGroup]="motPassOublForm"  fxLayout="column" fxFlex>
-<<<<<<< HEAD
              <mat-form-field *ngIf="!isSend" appearance="outline" class="pl-5 pr-5">
               <mat-label>Votre adresse e-mail</mat-label>
               <input type="email" matInput formControlName="email" required />
@@ -54,23 +44,12 @@
             <mat-form-field *ngIf="isSend" appearance="outline" class="pl-5 pr-5">
               <mat-label>Nouveau mot de passe</mat-label>
               <input type="password" matInput formControlName="password" required />
-=======
-            <mat-form-field appearance="outline" class="pl-5 pr-5">
-              <mat-label>Mot de passe</mat-label>
-              <input type="password" matInput formControlName="currentPassword" required />
->>>>>>> 9756c996ad3ae998ea68eb0314282450f4ec51f7
               <mat-icon matSuffix>lock</mat-icon>
               <mat-error>Confirmer votre mot de passe</mat-error>
             </mat-form-field>
-<<<<<<< HEAD
             <mat-form-field *ngIf="isSend" appearance="outline" class="pl-5 pr-5">
               <mat-label>Confirmer Mot De Passe</mat-label>
               <input type="password" matInput formControlName="passwordConf" required />
-=======
-            <mat-form-field appearance="outline" class="pl-5 pr-5">
-              <mat-label>Confirmer mot de passe</mat-label>
-              <input type="password" matInput formControlName="newPassword" required />
->>>>>>> 9756c996ad3ae998ea68eb0314282450f4ec51f7
               <mat-icon matSuffix>lock</mat-icon>
               <mat-error>Confirmer le mot de passe</mat-error>
             </mat-form-field>
@@ -81,8 +60,9 @@
             </div>
           </form>
         </div>
-       <!--  </mat-card-content>
-      </mat-card> -->
+
+
+        </mat-card-content>
     </div>
     </div>
   </div>

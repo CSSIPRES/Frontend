@@ -5,8 +5,8 @@ import { ImmatriculationComponent } from '../immatriculation/immatriculation.com
 import { DeclarationComponent } from '../declaration/declaration.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
 import { PaiementComponent } from '../paiement/paiement.component';
-import { LoginService } from '../login.service';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-mon-profil',

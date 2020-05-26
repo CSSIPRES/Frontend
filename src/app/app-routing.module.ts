@@ -19,7 +19,6 @@ const routes: Routes = [
   { path:'contact', component:ContactComponent },
   { path:'demarche', component:DemarcheComponent },
   { path:'espaceEmploye', component:EspaceEmployeComponent },
-  { path:'motPasseOublie', component:MotPasseOublieComponent },
   { path:'mon-profil', component:MonProfilComponent },
   { path: '',redirectTo: 'accueil',pathMatch: 'full'}
 ];

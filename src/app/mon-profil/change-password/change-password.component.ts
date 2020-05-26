@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/login.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, MatDialog } from '@angular/material';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-change-password',

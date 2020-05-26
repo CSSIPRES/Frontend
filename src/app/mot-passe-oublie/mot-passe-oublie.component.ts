@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
-import { LoginService } from '../login.service';
+
 import { MatSnackBar } from '@angular/material';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-mot-passe-oublie',
@@ -18,6 +19,7 @@ export class MotPasseOublieComponent implements OnInit {
   }
   initForm(){
     this.motPassOublForm=this.fb.group({
+      email:new FormControl('',Validators.required),
       currentPassword:new FormControl('', Validators.required),
       newPassword:new FormControl('', Validators.required)
     })
