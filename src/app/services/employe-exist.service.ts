@@ -11,4 +11,8 @@ export class EmployeExistService {
   getEmpExist(){
     return this.httpCl.get(environment.BASE_URL +'employeursByLogin');
   }
+
+  getEmployer(id){
+    return this.httpCl.get(environment.BASE_URL +'employeurs/'+id);
+  }
 }
