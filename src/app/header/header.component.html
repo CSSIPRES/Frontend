@@ -12,15 +12,15 @@
     <button mat-button ><mat-icon>map</mat-icon>Contacts</button>
    </div>
     <div *ngIf="checkConn" fxFlex="10%" class="mt-2">
-      <button mat-button mat-raised-button routerLink="/espaceEmploye"><mat-icon>person_outlined</mat-icon>
+      <button mat-button mat-raised-button routerLink="/espace-employers"><mat-icon>person_outlined</mat-icon>
       Acceder a mon espace</button>
    </div>
-   <div *ngIf="checkConn" fxFlex="10%"  fxLayout="column" class="mt-2">
-      <button  mat-icon-button [matMenuTriggerFor]="menu" ><span>AC</span><br>
+   <div   fxFlex="10%"  fxLayout="column" class="mt-2">
+      <button *ngIf="checkConn" mat-icon-button [matMenuTriggerFor]="menu" ><span>AC</span><br>
       <mat-icon class="keyboard">keyboard_arrow_down</mat-icon></button>
-      <mat-menu #menu="matMenu">
+      <mat-menu  #menu="matMenu">
          <button mat-menu-item (click)="goToProfil()"><mat-icon>person_outlined</mat-icon>Mon profil</button>
-        <button *ngIf="!checkConn" mat-menu-item><mat-icon>person_outlined</mat-icon>Nouveau mot de passe</button>
+        <button mat-menu-item><mat-icon>person_outlined</mat-icon>Nouveau mot de passe</button>
         <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Deconnexion</button>
      </mat-menu>                  
    </div> 

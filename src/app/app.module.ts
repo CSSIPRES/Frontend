@@ -34,7 +34,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { DemarcheComponent } from './demarche/demarche.component';
 import { ContactComponent } from './contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MotPasseOublieComponent } from './mot-passe-oublie/mot-passe-oublie.component';
+ import { MotPasseOublieComponent } from './mot-passe-oublie/mot-passe-oublie.component';
 import { EspaceEmployeComponent } from './espace-client/espace-employe.component';
 import { ImmatriculationComponent } from './immatriculation/immatriculation.component';
 import { ImmatriculationExistComponent } from './immatriculation-exist/immatriculation-exist.component';
@@ -52,7 +52,9 @@ import { RedirectionComponent } from './redirection/redirection.component';
 import { MonProfilComponent } from './mon-profil/mon-profil.component';
 import { ChangePasswordComponent } from './mon-profil/change-password/change-password.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { EspaceEmployeurComponent } from './espace-employeur/espace-employeur.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { SendMailComponent } from './send-mail/send-mail.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -83,7 +85,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ViewPdfComponent,
     PaiementComponent,
     RedirectionComponent,
-    MonProfilComponent,
+    SendMailComponent,
+    EspaceEmployeurComponent,  
+     MonProfilComponent, 
     ChangePasswordComponent
     
   ],
