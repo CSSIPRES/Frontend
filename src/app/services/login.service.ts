@@ -18,8 +18,8 @@ export class LoginService {
 
   logout(){
      localStorage.removeItem('token'); 
-     localStorage.removeItem('user');
-     this.router.navigate(['/accueil']);  
+    /* localStorage.clear(); */
+    /* this.router.navigate(['/accueil']);  */
   }
 
 

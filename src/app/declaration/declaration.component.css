@@ -2,7 +2,7 @@
     width: 800px;
 }
 .mat-form-field{
-    width: 100%;
+    width: 45%;
     min-width: 25%;
 }
 .min-form
@@ -15,11 +15,25 @@ h1{
     height: auto;
   }
 
-  .mat-form-field{
-     min-width: 20%;
+  .synthese mat-form-field{
+     width: 30%;
   }
+
+  /* .submit-button{
+    background-color: rgb(255, 104, 49);
+    color:#ffffff;
+    width: 20%;
+ }
+ .submit-button1{
+    background-color: rgb(255, 104, 49);
+    color:#ffffff;
+    width: 100%;
+ }
+  */
  
- .largeButt{ 
+ 
+ .largeButt{
+     
     display:inline-block;
     vertical-align:middle;
      width: 70%;
@@ -127,10 +141,6 @@ h1{
   background-color: #f2f2f2;
   box-shadow: none;
   }
-  
-  tr:nth-child(even){
-    background-color:#f2f2f2;
-    }
   .addSal{
     background-color: #f2f2f2;
   }
