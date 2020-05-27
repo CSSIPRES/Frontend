@@ -119,18 +119,29 @@ export class MonProfilComponent implements OnInit {
 
 
   getUserConnecter(){
-    if(localStorage.getItem("user_login")){
-      this.loginService.getUserByLogin(localStorage.getItem("user_login"))
+
+
+
+    if(JSON.parse(localStorage.getItem("userConnecter"))){
+      this.userConnecter = JSON.parse(localStorage.getItem("userConnecter"));
+    }
+    /*
+    if(localStorage.getItem("user")){
+      this.loginService.getUserByLogin(localStorage.getItem("user"))
       .subscribe(
         (data:any)=>{
-          this.userConnecter.firstName = data.firstName;
-          this.userConnecter.lastName = data.lastName;
-          this.userConnecter.email = data.email;
+        this.userConnecter.firstName = data.firstName;
+        this.userConnecter.lastName = data.lastName;
+        this.userConnecter.email = data.email;
+       // this.userConnecter = JSON.parse(localStorage.getItem("userConnecter"));
           console.log(this.userConnecter);
+          console.log("test")
         },err=>{
         }
       )
     }
+
+    */
  
   }
 

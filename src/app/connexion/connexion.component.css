@@ -1,0 +1,48 @@
+.panel-auth{
+    margin: 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.active{
+    background-color: rgb(255, 104, 49);
+    color:white;
+    font-weight: bold;
+}
+
+.panel-auth .login{
+    text-align: center;
+    padding:10px;
+    cursor: pointer;
+}
+
+.panel-auth .register{
+    text-align: center;
+    padding:10px;
+    cursor: pointer;
+}
+
+
+.btn-orange{
+    background-color: rgb(255, 104, 49);
+    color:white;
+    border-radius: 15px;
+}
+
+.forget_pw{
+    cursor: pointer;
+}
+
+
+
+.imgLogo{
+   width: 80%;
+   margin: 0 auto;
+}
+
+.imgLogo img{
+    text-align: center;
+ }
+.loginForm{
+    width: 96% !important;
+    margin: 0 auto !important;
+}
