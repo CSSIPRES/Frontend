@@ -25,23 +25,19 @@ checkConn:boolean=false;
     }
   }
   ngOnInit() {
-     this.getUser();   
+     this.getUser(); 
   }
 
   logout(){
+    this.checkConn = false;
     this.loginService.logout();
-    if( localStorage.getItem('token')!=null){
-      this.checkConn = true;
-      console.log(this.checkConn);
-     }   
-    else{
-      this.checkConn = false;
-      console.log( this.checkConn);
-    } 
-    this.router.navigate(['/accueil']);
-     /* localStorage.removeItem('token'); */ 
+     this.router.navigate(['/accueil']); 
 
+
+     
   }
+
+
   goToProfil(){
     this.router.navigate(['/mon-profil']);
   }

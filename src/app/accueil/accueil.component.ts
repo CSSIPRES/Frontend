@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { NgwWowService } from 'ngx-wow';
 import { LoginService } from '../services/login.service';
 import { EmployeExistService } from '../services/employe-exist.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { ConnexionComponent } from '../connexion/connexion.component';
 
 @Component({
   selector: 'app-accueil',
@@ -19,14 +21,22 @@ export class AccueilComponent implements OnInit {
   loader:boolean=false;
   errorMess:boolean=false;
   panelOpenState1:boolean=false;
+  isCSS:boolean = true;
+  isClickAgence:boolean = false;
+  checkConn:boolean=false;
+
   windowScrolled: boolean;
-  constructor(private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
+  constructor(private dialog:MatDialog,private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
   private login: LoginService,private router:Router) {
     
    }
 
   ngOnInit() {
+    this.isCSS = true;
+    this.checkConn =false;
+    this.isClickAgence = false;
     this.initForm();
+    this.isAuth();
     
     /* this.wowService.init(); */
   }
@@ -35,44 +45,9 @@ export class AccueilComponent implements OnInit {
      username:new FormControl('', Validators.required),
      password:new FormControl('', Validators.required)
     })
-  }    
+  }
   
-  authenticate(){
-    this.loader=true;
-    if(this.loginForm.invalid==true){
-      this.loader=false;
-    }
-    this.login.authenticate(this.loginForm.value).subscribe(
-     
-      (resp:any)=>{
-     
-      console.log(resp.id_token);
-      if(resp.id_token!=null) {
-            this.loader=false;
-            this.router.navigate(['/espace-employers']);
-             window.localStorage.setItem("token",resp.id_token ); 
-             window.localStorage.setItem("user",this.loginForm.get('username').value)
-          }
-       else{
-         this.errorMess=true;
-       }   
-      },error=>{
-        this.loader=false;
-        this.errorMess=true;
-      })
-  }
-  conn_account(){
-     this.newAccout=false; 
-    if(!this.newAccout){
-      this.connection=true;
-    }
-  }
-  close_conn(){
-    if(this.connection==true){
-      this.newAccout=true;
-    }
-    this.connection=false;
-  }
+
   
   
   @HostListener("window:scroll", [])
@@ -100,4 +75,29 @@ export class AccueilComponent implements OnInit {
       console.log(this.displayButton1);
     }
   } */
+
+
+
+
+
+  openConnexionDialog(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+   /*   dialogConfig.data={
+        title:this.title, 
+      }*/
+      dialogConfig.width='500px',
+      dialogConfig.height='600px'
+     this.dialog.open(ConnexionComponent, dialogConfig);
+  }
+
+
+    
+  isAuth(){
+    if(localStorage.getItem('token')!=null){
+    this.checkConn=true;
+    }
+  }
+
 }

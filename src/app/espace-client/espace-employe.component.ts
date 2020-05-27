@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatSidenav, MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
 import { ImmatriculationComponent } from '../immatriculation/immatriculation.component';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { ImmatriculationExistComponent } from '../immatriculation-exist/immatriculation-exist.component';
 import { DeclarationComponent } from '../declaration/declaration.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
@@ -17,8 +18,10 @@ export interface Declaration {
   mtn_cot: number;
 }
 
+
+const userName=window.localStorage.getItem("user");
 const ELEMENT_DATA: Declaration[] = [
-  {num_id: "12220300033", type_declaration: 'D1', total_sal:1.0079, mtn_cot: 1223098376564}
+  {num_id: "12220300033", type_declaration: 'D1', total_sal: 1.0079, mtn_cot: 1223098376564}
 ];
 
 @Component({
@@ -35,20 +38,16 @@ export class EspaceEmployeComponent implements OnInit {
   listEmp:any;
   title:string;
   loader:boolean=true;
-  currentEmpl:any=[];
+
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
   tok:any=""
-  userName:any=""
-  constructor(private dialog:MatDialog,private userService:LoginService,
-    private empExistServ:EmployeExistService,
-    private changeDecRef:ChangeDetectorRef) {
+  constructor(private dialog:MatDialog,private userService:LoginService,private empExistServ:EmployeExistService) {
    
    }
 
   ngOnInit() {
     this.tok=window.localStorage.getItem("token");
-    this.userName=window.localStorage.getItem("user");
     this.getUserByLogin();
     this.getListEmploye();
   }
@@ -57,14 +56,21 @@ export class EspaceEmployeComponent implements OnInit {
     this.empExistServ.getEmpExist().subscribe(resp=>
       {
       this.listEmp=resp;
-      /* this.changeDecRef.detectChanges(); */
       console.log(this.listEmp);
     });
   }
   getUserByLogin(){
-   this.userService.getUserByLogin(this.userName).subscribe(
-     resp=>
-     console.log(resp))
+   this.userService.getUserByLogin(userName).subscribe(
+     resp=>{
+      console.log(resp)
+      if(resp){
+        localStorage.setItem("userConnecter",JSON.stringify(resp));
+      }
+      
+     }
+     
+     
+     )
   }
   openImmatPopup(template:TemplateRef<any>){
     const dialogConfig = new MatDialogConfig();
@@ -93,38 +99,24 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.width='1000px',
       dialogConfig.height='600px'
      
-    let dialogRef=  this.dialog.open(ImmatriculationComponent,
+     this.dialog.open(ImmatriculationComponent,
+      
       dialogConfig);
-      dialogRef.afterClosed().subscribe(()=>{
-        this.getListEmploye();
-      })
   }
-  openDeclarationDialog(emp){
-    console.log(emp);
+  openDeclarationDialog(){
     const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      /* dialogConfig.data={
-        title:this.title, 
-      } */
       dialogConfig.data={
-        idIdentifiant:emp.numeroIdentifiant,
-        raisonSociale:emp.raisonSociale,
-        typeIdentifiant:emp.typeIdentifiant,
-        address:emp.address
+        title:this.title, 
       }
-      console.log(dialogConfig.data);
       dialogConfig.width='1000px',
       dialogConfig.height='600px'
      this.dialog.open(DeclarationComponent, dialogConfig);
-     
   }
 
 
-getEmployer(i){
-this.currentEmpl=this.listEmp[i];
-console.log(this.currentEmpl);
-}
+
 
   openDemandeAttestationDialog(){
     const dialogConfig = new MatDialogConfig();
@@ -135,11 +127,13 @@ console.log(this.currentEmpl);
       }
       dialogConfig.width='800px',
       dialogConfig.height='600px'
-    let dialogRef= this.dialog.open(SuiviDemandeComponent, dialogConfig);
-   
+     this.dialog.open(SuiviDemandeComponent, dialogConfig);
   }
-   
-openPaiementDialog(){
+
+
+
+
+   openPaiementDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
