@@ -99,8 +99,8 @@ export class ImmatriculationExistComponent implements OnInit {
   initForm(){
     this.immatExistanteForm=this.fb.group({
       input:this.fb.group({
-        numeroIdentifiant:this.fb.control("998010808", Validators.required) ,
-        typeIdentifiant:this.fb.control("SCI",Validators.required),
+        numeroIdentifiant:this.fb.control("",{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}) ,
+        typeIdentifiant:this.fb.control("",Validators.required),
         numeroUnique:this.fb.control(''),
       })
     })
@@ -157,5 +157,9 @@ export class ImmatriculationExistComponent implements OnInit {
   console.log(this.employeInfo);
   return this.employeInfo;
   }
-
+ 
+ 
+  get numeroIdentifiant(){
+   return this.immatExistanteForm.get('input').get('numeroIdentifiant');
+   }
 }
