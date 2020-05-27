@@ -1,12 +1,9 @@
-
 <div>
   <app-header></app-header>
-</div> 
-
-
-
-
-
+</div>
+<div class="top_line">
+  <mat-toolbar></mat-toolbar>
+</div>
 <mat-drawer-container class="example-container mat-typography" autosize>
   <mat-drawer #drawer mode="side" disableClose="true" opened="true">
     <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
@@ -21,7 +18,7 @@
         <mat-icon mat-list-icon>assignment</mat-icon>
         <h4 mat-line *ngIf="isExpanded">Declaration</h4>
       </mat-list-item>
-     <!-- <mat-list-item>
+      <!-- <mat-list-item>
         <mat-icon mat-list-icon>domain</mat-icon>
         <h4 mat-line *ngIf="isExpanded">Documents</h4>
       </mat-list-item>
@@ -31,16 +28,16 @@
         <h4 mat-line (click)="openPaiementDialog()" *ngIf="isExpanded">Paiements</h4>
       </mat-list-item>
       <mat-list-item (click)="openDemandeAttestationDialog()">
-      <mat-icon mat-list-icon >cached</mat-icon>
+        <mat-icon mat-list-icon>cached</mat-icon>
         <h4 mat-line *ngIf="isExpanded">Statut & Suivi demande</h4>
       </mat-list-item>
-   
 
-     <!--  <mat-list-item>
+
+      <!--  <mat-list-item>
         <mat-icon mat-list-icon>attach_money</mat-icon>
         <h4 mat-line (click)="openPaiementDialog()" *ngIf="isExpanded">Mes Paiements</h4>
       </mat-list-item> -->
-     
+
       <mat-list-item>
         <mat-icon mat-list-icon>folder_shared</mat-icon>
         <h4 mat-line *ngIf="isExpanded">Paramtres</h4>
@@ -51,61 +48,29 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <mat-card  class="mat-elevation-z8 ml-1 card_client">
-      <h1 >Espace employeur</h1>
-      <mat-divider inset="true"></mat-divider> 
-       <mat-card-content>
-        
-          <div fxFlex fxFlex="80" fxLayout="column">
-            <h2 class="mt-2">Listes des employeurs</h2>
-              <div class="mt-2"  fxFlex fxLayout="row" fxLayoutGap="5%">
-                <mat-card class="immatCard" *ngFor="let emp of listEmp">
-                  <mat-card-content>
-                    <span>{{emp?.raisonSociale}} </span>
-                    <!-- <img fxLayoutAlgin="center" src="assets/images/neurotech.png" alt="" height="100px" width="100px"> -->
-                    <!-- <span class="text-success" fxLayoutAlign="center"><mat-icon>done</mat-icon>Valide</span> -->
-                    <!-- <span *ngIf="validated" class="text-danger" fxLayoutAlign="center"><mat-icon>done</mat-icon>Valide</span> -->
-                  </mat-card-content>
-                </mat-card>
-                <mat-card class="immatCard" >
-                  <mat-card-content>
-                    <div  class="addImmButt">
-                    <button (click)="openImmatPopup(choiceTemplate)" mat-fab color="primary">
-                      <mat-icon>add</mat-icon>
-                    </button>
-                    </div>
-                    <span>Nouvelle immatriculation</span>
-                  </mat-card-content>
-                </mat-card>
-              </div>
-              <h2 class="mt-2">Listes des salaries</h2>
-              <div  class="mt-2" fxFlex fxFlex="80" fxLayoutGap="1%">
-              
-             <table mat-table [dataSource]="dataSource">
-                <ng-container matColumnDef="nom">
-                  <th mat-header-cell *matHeaderCellDef> Numero ID </th>
-                  <td mat-cell *matCellDef="let element"> {{element.num_id}} </td>
-                </ng-container>
-                <ng-container matColumnDef="prenom">
-                  <th mat-header-cell *matHeaderCellDef> Type declaration </th>
-                  <td mat-cell *matCellDef="let element"> {{element.type_declaration}} </td>
-                </ng-container>
-                <ng-container matColumnDef="num_secu">
-                  <th mat-header-cell *matHeaderCellDef> MT Cotisation </th>
-                  <td mat-cell *matCellDef="let element"> {{element.mtn_cot}} </td>
-                </ng-container>
-                <ng-container matColumnDef="icn">
-                  <th mat-header-cell *matHeaderCellDef> NT Salaries </th>
-                  <td mat-cell *matCellDef="let element"> {{element.total_sal}} </td>
-                </ng-container>
-                
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table> 
+    <div fxLayout="column">
+      <div class="container" fxLayoutAlign="start start">
+      <h2  class="mt-2">Espace employeur</h2>
+      </div>  
+      <mat-divider class="inset mb-2"></mat-divider>
+      <div class="container mb-5" fxLayout="row" fxLayoutAlign="end start">
+          <button  (click)="openImmatDialog()"  class="submit-button" mat-raised-button><mat-icon>add</mat-icon> Immatriculer un employeur</button>
+      </div>
+      <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">  
+        <mat-card class="immatCard mt-3" *ngFor="let emp of listEmp; let i=index;">
+          <mat-card-content fxLayoutAlign="space-between center">
+            <mat-icon>person_outlined</mat-icon>
+            <div class="immatCard_detail">
+              <span fxLayout="row"><p>raison social</p>&nbsp; | {{emp?.raisonSociale}} </span>
+              <span fxLayout="row"><p>Ninea</p>&nbsp;<mat-toolbar>{{emp?.numeroIdentifiant}}</mat-toolbar> </span>
+              <button (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Declarer</button>
+              <a [routerLink]="['/espace-employer/',emp.id]">Voir employeur </a> 
             </div>
-          </div>  
-       </mat-card-content>
-     </mat-card>
+        
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
   </div>
 </mat-drawer-container>
 <div>
@@ -114,13 +79,10 @@
     <div mat-dialog-content>
       <mat-radio-group aria-label="Type d'immatriculation" fxFlex="column" fxFlex="row">
         <mat-radio-button (click)="openImmatDialog()">Nouvelle Immatriculation</mat-radio-button><br>
-        <mat-radio-button (click)="openImmatDialogExist()"  value="true"  class="mt-1">Immatriculation Existante</mat-radio-button><br>
-        <mat-radio-button (click)="openDeclarationDialog()"  value="true" >Declaration</mat-radio-button>    
+        <mat-radio-button (click)="openImmatDialogExist()" value="true" class="mt-1">Immatriculation Existante
+        </mat-radio-button><br>
+        <mat-radio-button (click)="openDeclarationDialog()" value="true">Declaration</mat-radio-button>
       </mat-radio-group>
     </div>
-</ng-template>
+  </ng-template>
 </div>
- 
-
-
-
