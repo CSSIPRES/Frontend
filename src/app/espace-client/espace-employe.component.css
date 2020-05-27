@@ -21,9 +21,10 @@ table{
   mat-sidenav:not(.mat-drawer-opened) .profileTitle {
     display: none;
   }
-  .example-sidenav-content{
-      height: 800px;
-  }
+   .example-sidenav-content{
+      background-color: #f5f5f6f3;
+      padding-bottom: 300px;
+  } 
 
   mat-list-item mat-icon{
       color:#999999;
@@ -35,9 +36,32 @@ table{
 
   .immatCard{
       /* margin-top: 20px; */
-      width: 150px;
-      height: 150px;
-      border:1px solid #f2f2f2;
+      min-width: 300px;
+      min-height: 130px;
+      height: 100px;
+      box-shadow: rgba(0, 0, 0, 0.3) 0 1px 5px;
+      /* box-shadow: ; */
+  }
+  .immatCard  mat-icon{
+    color:#f2f2f2;
+    font-size:40px;
+    margin-bottom: 35px;
+    
+  }
+  .immatCard_detail .mat-toolbar{
+    height: 15px;
+    background-color:#0bca04b6;
+    font-size: 14px;
+    border-radius: 5px;
+    color:#ffffff;
+    width: 60%;
+    
+  }
+  .immatCard_detail .mat-toolbar span{
+    text-align: center;
+  }
+  .immatCard_detail a{
+    font-size: 12px;
   }
   span mat-icon{
     font-size: 16px;
@@ -50,15 +74,20 @@ table{
       color:#999999;
   }
   .immatCard span{
-      font-size:9px;
+      font-size:12px;
       color:#999999;
       text-align: center;
   }
+  .immatCard b{
+    color:#0c0c0c;
+    font-size:12px;
+    text-align: center;
+}
   .mat-horizontal-stepper-header .mat-stepper-horizontal-line {
       border-top-color: rgba(37, 82, 245, 0.54) !important;
   }
 .example-sidenav-content h2{
-  color: #999999;
+  color: #686868;
 }
 
 h1{
@@ -72,7 +101,7 @@ h1{
 h1:before{
   content: "";
   position: absolute;
-  width: 20%;
+  width: 30%;
   height: 1px;
   bottom: 0;
   left: 0;
@@ -84,25 +113,32 @@ h2{
   display: inline-block;
   padding-bottom: 5px;
   position: relative;
-  color: #999999;
+  font-size: 25px;
 }
-h2:before{
+ h2:before{
   content: "";
   position: absolute;
-  width: 5%;
+  width: 10%;
   height: 1px;
   bottom: 0;
   left: 0;
-  border-bottom: 2px solid rgba(255, 66, 19, 0.822)!important;
+  border-radius:5px;
+  border-bottom: 5px solid rgba(255, 66, 19, 0.822)!important;
+} 
+
+.small-card{
+  width:300px;
 }
 
-.btn-orange{
-  background-color: rgb(255, 104, 49);
-  color:white;
-  border-radius: 15px;
-}
-header{
-  border-bottom: 1px solid #bbb;
-  margin-bottom: 2px;
-  box-shadow: 0px 0px 10px #ccc;
+.submit-button{
+  background-color: rgba(255, 104, 49, 0.712);
+  color:#ffffff;
+  display:inline-block;
+  vertical-align:middle;
+    width: 25%; 
+   font-size:15px;
+   color:#ffffff;
+   height: 40px;
+   border-radius: 25px ;
+   margin-right: 55px;
 }
