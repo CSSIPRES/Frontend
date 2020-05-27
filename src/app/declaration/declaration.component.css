@@ -154,3 +154,28 @@ h1{
     border-top-style: solid;
     color:rgb(255, 104, 49);
 }
+
+
+.center {
+  position: absolute; 
+  top: 50%;
+  left: 50%; 
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%); 
+  z-index: 2000;
+  background-color: #1818183a;
+  height:100%;
+  width:100%;
+}
+
+::ng-deep mat-progress-spinner{
+/*  top: 100px; */
+top:50%;
+left:50%;
+border-radius:20px;
+}
+
+.center .mat-progress-spinner::ng-deep  circle {
+  stroke: rgb(240, 60, 15)!important;
+}

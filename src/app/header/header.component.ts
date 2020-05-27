@@ -17,7 +17,7 @@ checkConn:boolean=false;
     this.user="";
   }
   
-  
+      
   getUser(){
     if(this.user!=null){
     this.checkConn=true;

@@ -384,7 +384,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">    
             <mat-label>Numero de piece d'identite</mat-label>
-            <input type="number" matInput formControlName="nin" required>
+            <input (blur)="getNinNumber()" type="number" matInput formControlName="nin" required>
             <mat-error *ngIf="nin.hasError('required')">Ce champ est obligatoire.</mat-error>
             <mat-error *ngIf="nin.hasError('pattern')">
               Numero de piece d'identite invalide</mat-error>
@@ -415,7 +415,7 @@
             </mat-hint>  
             <mat-hint class="text-danger" *ngIf="validPassport">
               La duree de validite du <b class="text-danger">passport</b> doit etre 5 et 10 ans.
-            </mat-hint>omestic
+            </mat-hint>
           </mat-form-field>
         </div>
        <div fxLayout="row" fxLayoutGap="5%">
@@ -741,7 +741,7 @@
             </ng-container>
             <ng-container matColumnDef="adresse">
               <th mat-header-cell *matHeaderCellDef>Numero piece </th>
-              <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.nin}} </td>
             </ng-container>
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef>Action </th>
@@ -766,7 +766,7 @@
             </button>
           </div>   
         <div *ngFor="let item of immatForm.get('input').get('employeList')['controls']; let i = index;">  
-          <div *ngIf="addIndex==i || editIndex==i">
+          <div *ngIf="addIndex==i && addEmpForm || editIndex==i && editEmpForm">
           <div [formGroupName]="i">
         <div  fxLayout="row" fxLayoutGap="5%"> 
            <mat-form-field appearance="outline">
@@ -1038,14 +1038,14 @@
           </mat-form-field>
           
         </div>
-        <div fxLayout="row" fxLayoutGap="5%">
+        <!-- <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
             <mat-label>Categorie</mat-label>
             <input matInput formControlName="categorie" required>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
         <button *ngIf="addEmpForm"  class="submit-add-edit"  [disabled]="!immatForm.get('input').get('employeList').valid"  mat-raised-button (click)="updateEmp()">Ajouter</button>
         <button *ngIf="editEmpForm" class="submit-add-edit" [disabled]="!immatForm.get('input').get('employeList').valid"  mat-raised-button (click)="updateEmp()">Modifier</button>
       </div>

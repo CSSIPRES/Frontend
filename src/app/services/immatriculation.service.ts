@@ -34,6 +34,10 @@ addImmatriculationRP(immatriculation){
    let typeIdentifiant="SCI"
    return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant);
  } 
+ getNinNumber(numeroIdentifiant){
+  let typeIdentifiant="NIN"
+  return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant);
+} 
 
   getListActivite(){
      return this.http.get(environment.BASE_URL +'').pipe(map(

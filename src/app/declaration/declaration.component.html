@@ -5,6 +5,10 @@
   </button>
 </div>
 <div mat-dialog-content>
+  <div *ngIf="loader"  class="center">
+    <mat-progress-spinner strokeWidth="3" diameter=35 mode="indeterminate"color="primary">
+    </mat-progress-spinner>
+</div> 
   <form [formGroup]="declarationForm">
     <mat-horizontal-stepper #stepper class="mt-1">
       <mat-step label="Information General" state="genInfo">
@@ -74,11 +78,15 @@
             <div fxFlex="20" class="mt-3">
               <button  [disabled]="displayBtn" class="largeButt" (click)="preDns()"
                 mat-raised-button>
-                <div *ngIf="!loader"> PreDNS <mat-icon *ngIf="displayBtn"
+                <div *ngIf="!loader1">
+                  PreDNS <mat-icon *ngIf="displayBtn"
                     style="display: inline-block;font-size: 14px;">check</mat-icon>
                 </div>
                 <div>
-                  <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="25"><span>Laoding</span></mat-spinner>
+                  <mat-spinner *ngIf="loader1" strokeWidth="2" [diameter]="25"></mat-spinner>
+                </div>
+                <div>
+                  <!-- <mat-spinner *ngIf="loader1" strokeWidth="2" [diameter]="25"><span>Laoding</span></mat-spinner> -->
                 </div>
               </button>
               <!-- <button [disabled]="!displayBtn"  class="submit-button" mat-raised-button matStepperNext>Suivant</button> -->
@@ -635,9 +643,7 @@
           <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
           <button (click)="addDeclaration()" class="submit-button" mat-raised-button matStepperNext>Envoyer</button>
         </div>
-
       </mat-step>
-
       <ng-template matStepperIcon="genInfo">
         <mat-icon>create_new_folder</mat-icon>
       </ng-template>

@@ -9,12 +9,10 @@ import * as countries from '../countries.json';
 import * as sectors from '../sectors.json';
 import * as main_sectors from '../main_sectors.json';
 import { FormGroup, FormBuilder, Validators, 
-  FormControl, FormArray } from '@angular/forms';
+  FormControl, FormArray } from '@angular/forms';  
 import {  MatDialog, MatSnackBar,  NativeDateAdapter
-  , MatTableDataSource, MatDatepickerInputEvent, DateAdapter, MAT_DATE_FORMATS} from '@angular/material';
-
- import { LOCALE_ID } from '@angular/core'; 
-
+  ,MatTableDataSource, MatDatepickerInputEvent, DateAdapter, MAT_DATE_FORMATS} from '@angular/material';
+import { LOCALE_ID } from '@angular/core'; 
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { ImmatriculationService } from '../services/immatriculation.service';
@@ -800,6 +798,12 @@ getEmployee(outputValue){
      }
    )
  } 
+ getNinNumber(){
+   let numPiece=this.immatForm.get('input').get('legalRepresentativeForm').get('nin').value
+   this.immService.getNinNumber(numPiece).subscribe(
+     resp=>console.log(resp)
+   )
+ }
    createItem() {
     return this.fb.group({
       rechercheEmploye: this.fb.control(''),
