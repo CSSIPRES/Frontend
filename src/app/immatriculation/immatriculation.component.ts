@@ -1145,12 +1145,14 @@ set dateValue(val) {
     }
   } */
 
-  getNinNumber(){
+  
+/*  getNinNumber(){
     let numPiece=this.immatForm.get('input').get('legalRepresentativeForm').get('nin').value
     this.immService.getNinNumber(numPiece).subscribe(
       resp=>console.log(resp)
     )
   }
+  */
   get dateOfInspection() {
     return this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection');
   }

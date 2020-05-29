@@ -413,7 +413,7 @@ mat-card-header strong{
 
 
 .text-center{
-    text-align:center;
+    text-align:center !important;
 }
 
 
@@ -494,7 +494,14 @@ mat-card-header strong{
 
 
 
+.espace{
+    margin-left: 20px;
+}
 
 
 
 
+
+.text-left{
+    text-align: left;
+}
