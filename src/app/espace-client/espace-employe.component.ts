@@ -40,6 +40,7 @@ export class EspaceEmployeComponent implements OnInit {
   drawer: MatSidenav; 
   tok:any=""
   userName:any=""
+
   constructor(private dialog:MatDialog,private userService:LoginService,
     private empExistServ:EmployeExistService) {
    
@@ -59,11 +60,13 @@ export class EspaceEmployeComponent implements OnInit {
       console.log(this.listEmp);
     });
   }
+
   getUserByLogin(){
    this.userService.getUserByLogin(this.userName).subscribe(
      resp=>
      console.log(resp))
   }
+
   openImmatPopup(template:TemplateRef<any>){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -82,6 +85,7 @@ export class EspaceEmployeComponent implements OnInit {
         this.getListEmploye();
       })     
   }
+
   openImmatDialog(){
     const dialogConfig = new MatDialogConfig();
 
@@ -99,14 +103,12 @@ export class EspaceEmployeComponent implements OnInit {
         this.getListEmploye();
       })
   }
+
   openDeclarationDialog(emp){
     console.log(emp);
     const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      /* dialogConfig.data={
-        title:this.title, 
-      } */
       dialogConfig.data={
         idIdentifiant:emp.numeroIdentifiant,
         raisonSociale:emp.raisonSociale,
@@ -118,14 +120,13 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.height='600px'
      this.dialog.open(DeclarationComponent, dialogConfig);
      
-  }
-
+}
 
 getEmployer(i){
 this.currentEmpl=this.listEmp[i];
 }
 
-  openDemandeAttestationDialog(){
+openDemandeAttestationDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -135,9 +136,8 @@ this.currentEmpl=this.listEmp[i];
       dialogConfig.width='800px',
       dialogConfig.height='600px'
     let dialogRef= this.dialog.open(SuiviDemandeComponent, dialogConfig);
-   
-  }
-   
+} 
+
 openPaiementDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
