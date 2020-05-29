@@ -41,8 +41,7 @@ export class EspaceEmployeComponent implements OnInit {
   tok:any=""
   userName:any=""
   constructor(private dialog:MatDialog,private userService:LoginService,
-    private empExistServ:EmployeExistService,
-    private changeDecRef:ChangeDetectorRef) {
+    private empExistServ:EmployeExistService) {
    
    }
 
@@ -57,7 +56,6 @@ export class EspaceEmployeComponent implements OnInit {
     this.empExistServ.getEmpExist().subscribe(resp=>
       {
       this.listEmp=resp;
-      /* this.changeDecRef.detectChanges(); */
       console.log(this.listEmp);
     });
   }
@@ -71,7 +69,6 @@ export class EspaceEmployeComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     this.dialog.open(template, dialogConfig,
-     
       );
   }
 
@@ -79,8 +76,11 @@ export class EspaceEmployeComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    this.dialog.open(ImmatriculationExistComponent, 
+    let dialogRef= this.dialog.open(ImmatriculationExistComponent, 
       {width: '900px'});
+    dialogRef.afterClosed().subscribe(()=>{
+        this.getListEmploye();
+      })     
   }
   openImmatDialog(){
     const dialogConfig = new MatDialogConfig();
@@ -123,7 +123,6 @@ export class EspaceEmployeComponent implements OnInit {
 
 getEmployer(i){
 this.currentEmpl=this.listEmp[i];
-console.log(this.currentEmpl);
 }
 
   openDemandeAttestationDialog(){
@@ -131,7 +130,7 @@ console.log(this.currentEmpl);
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
       dialogConfig.data={
-        title:this.title, 
+      title:this.title, 
       }
       dialogConfig.width='800px',
       dialogConfig.height='600px'

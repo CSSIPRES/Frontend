@@ -22,9 +22,11 @@
           </mat-list-item>
           <mat-list-item>
             <mat-icon mat-list-icon>attach_money</mat-icon>
-            <h4 mat-line (click)="openPaiementDialog()" *ngIf="isExpanded">Paiements</h4>
+           <!--  <h4 mat-line (click)="openPaiementDialog()" *ngIf="isExpanded">Paiements</h4> -->
+           <h4 mat-line *ngIf="isExpanded">Paiements</h4>
           </mat-list-item>
-          <mat-list-item (click)="openDemandeAttestationDialog()">
+          <!-- <mat-list-item (click)="openDemandeAttestationDialog()"> -->
+            <mat-list-item>
             <mat-icon mat-list-icon>cached</mat-icon>
             <h4 mat-line *ngIf="isExpanded">Statut & Suivi demande</h4>
           </mat-list-item>
@@ -34,7 +36,6 @@
           </mat-list-item>
         </mat-nav-list>
       </mat-drawer>
-    
       <div class="example-sidenav-content">
         <div fxLayout="column">
           <div class="container" fxLayoutAlign="start start">
@@ -61,7 +62,8 @@
         </div>
       </div>
     </mat-drawer-container>
-    <div>
+    <div>     
     </div>  
- 
+        
 
+  

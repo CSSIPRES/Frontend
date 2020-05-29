@@ -8,6 +8,7 @@ import { EmployeExistService } from '../services/employe-exist.service';
 })
 export class EspaceEmployeurComponent implements OnInit {
 id:number;
+isExpanded:boolean=false;
 empInfo:any=[];
   constructor(private route : ActivatedRoute,
     private empService:EmployeExistService) { }

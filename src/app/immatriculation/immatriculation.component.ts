@@ -319,6 +319,26 @@ export class ImmatriculationComponent implements OnInit {
     }
 
   addImmatriculation(){
+    let listSal=  this.immatForm.get('input').get('employeList').value   
+    for(let i=0;i<listSal.length;i++){
+    let dateNaiss1= listSal[i].dateNaissance;   
+    let dateNaiss=moment(dateNaiss1).format('YYYY-MM-DD');
+    listSal[i].dateNaissance=dateNaiss;
+    let delivLe1= listSal[i].delivreLe;   
+    let delivLe=moment(delivLe1).format('YYYY-MM-DD');
+    listSal[i].delivreLe=delivLe;
+    let expLe1= listSal[i].expireLe;   
+    let expLe=moment(expLe1).format('YYYY-MM-DD');
+    listSal[i].expireLe=expLe;
+    let debutCont1= listSal[i].dateDebutContrat;   
+    let debutCont=moment(debutCont1).format('YYYY-MM-DD');
+    listSal[i].dateDebutContrat=debutCont;
+    let finCon1= listSal[i].dateFinContrat;   
+    let finCon=moment(finCon1).format('YYYY-MM-DD');
+    listSal[i].dateFinContrat=finCon;
+
+    }
+    console.log(listSal); 
      let immatForm=this.immatForm.get('input').get('mainRegistrationForm');
      let immatForm1=this.immatForm.get('input').get('legalRepresentativeForm');
      let immatForm2=this.immatForm.get('input').get('employerQuery');
@@ -346,10 +366,9 @@ export class ImmatriculationComponent implements OnInit {
     immatForm1.get('expiryDate').patchValue(d5);
     immatForm2.get('tradeRegisterDate').patchValue(d6); 
     immatForm2.get('taxIdDate').patchValue(d7); 
-    /* immatForm2.get('tradDate').patchValue(d6);  */  
-  let v= this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
-  moment(v).format('YYYY-MM-DD');
-  console.log(v);
+    let v= this.immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value;
+    moment(v).format('YYYY-MM-DD');
+
   this.loader=true;
   this.immService.addImmatriculation(this.immatForm.value).subscribe((resp:any)=>{
        console.log(resp);
@@ -536,7 +555,7 @@ export class ImmatriculationComponent implements OnInit {
         employerName:this.fb.control('', Validators.required),
         nineaNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}),
         regType:this.fb.control('BVOLN', Validators.required),
-        estType:this.fb.control('AMB', Validators.required),
+        estType:this.fb.control('AMB', Validators.required)
      }),  
    
        employeList: this.fb.array([])  
@@ -807,46 +826,46 @@ getEmployee(outputValue){
    createItem() {
     return this.fb.group({
       rechercheEmploye: this.fb.control(''),
-      nomEmploye:  this.fb.control('KEBSON'),
-      prenomEmploye:  this.fb.control('ELHADJI'),
-      sexe:  this.fb.control('HOMME'),
-      etatCivil:  this.fb.control('CEL'),
-      dateNaissance:  this.fb.control('1991-11-11'),
+      nomEmploye:  this.fb.control(''),
+      prenomEmploye:  this.fb.control(''),
+      sexe:  this.fb.control(''),
+      etatCivil:  this.fb.control(''),
+      dateNaissance:  this.fb.control(''),
       numRegNaiss:  this.fb.control(''),
       nomPere:  this.fb.control(''),
       prenomPere:  this.fb.control(''),
       nomMere:  this.fb.control(''),
       prenomMere:  this.fb.control(''),
-      nationalite:  this.fb.control('SEN'),
-      typePieceIdentite:  this.fb.control('NIN'),
-      nin:  this.fb.control('1549199114278'),
+      nationalite:  this.fb.control(''),  
+      typePieceIdentite:  this.fb.control(''),
+      nin:  this.fb.control(''),
       ninCedeao:  this.fb.control(''),
       numPieceIdentite:  this.fb.control(''),
-      delivreLe:  this.fb.control('2020-01-01'),
-      lieuDelivrance: this.fb.control('SEN'),
-      expireLe:  this.fb.control('2030-01-01'),
-      villeNaissance:  this.fb.control('DAKAR'),
-      paysNaissance:  this.fb.control('SEN'),
+      delivreLe:  this.fb.control(''),
+      lieuDelivrance: this.fb.control(''),
+      expireLe:  this.fb.control(''),
+      villeNaissance:  this.fb.control(''),
+      paysNaissance:  this.fb.control(''),
       employeurPrec: this.fb.control(''),
-      pays:  this.fb.control('SEN'),
+      pays:  this.fb.control(''),
       region: this.fb.control(''),
       departement:  this.fb.control(''),
       arrondissement:  this.fb.control(''),
       commune:  this.fb.control(''),
       quartier:  this.fb.control(''),
       adresse:  this.fb.control(''),
-      boitePostale:  this.fb.control('12345'),
-      typeMouvement:  this.fb.control('EMBAUCHE'),
-      natureContrat:  this.fb.control('CDD'),
-      dateDebutContrat:  this.fb.control('2020-01-01'),
-      dateFinContrat: this.fb.control('2031-01-01'),
-      profession: this.fb.control('Acheteurs'),
-      emploi: this.fb.control('TESTEUR'),
+      boitePostale:  this.fb.control(''),
+      typeMouvement:  this.fb.control(''),
+      natureContrat:  this.fb.control(''),
+      dateDebutContrat:  this.fb.control(''),
+      dateFinContrat: this.fb.control(''),
+      profession: this.fb.control(''),
+      emploi: this.fb.control(''),
       nonCadre: this.fb.control(''),
-      ouiCadre: this.fb.control('true'),
-      conventionApplicable:  this.fb.control('CC1'),
-      salaireContractuel:  this.fb.control('900000'),
-      tempsTravail:  this.fb.control('TPS_PLEIN'),
+      ouiCadre: this.fb.control(''),
+      conventionApplicable:  this.fb.control(''),
+      salaireContractuel:  this.fb.control(''),
+      tempsTravail:  this.fb.control(''),
       categorie:  this.fb.control('9B')
      
   });
@@ -1052,31 +1071,25 @@ for(let i=0;i<emplistRegion.length;i++){
     let c1:string="";
     let c2:string="";
     let empType:string="";
-    /* empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
- */    
-    c1= this.immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value;
-     
-   /* if(this.immatDip==true){ 
-     c2= this.immatForm.get('input').get('domesticRegistrationForm').get('mainLineOfBusiness').value;
-    } */
-    console.log(empType)
-    this.listactivitePrincipal.items.forEach(element => {
+      c1= this.immatForm.get('input').get('mainRegistrationForm').get('mainLineOfBusiness').value;
+      console.log(empType)
+      this.listactivitePrincipal.items.forEach(element => {
       if(element.activitesprincipal==c1 || element.activitesprincipal==c2){
-     this.sectorName=element.secteuractivites;
-     this.sectorName1=element.secteuractivites;
+      this.sectorName=element.secteuractivites;
+      this.sectorName1=element.secteuractivites;
       let bs= this.immatForm.get('input').get('mainRegistrationForm').get('businessSector');
-     /* let bs1=this.immatForm.get('input').get('domesticRegistrationForm').get('businessSector'); */
-     bs.patchValue(this.sectorName); 
-     console.log(this.sectorName1);
-     /* bs1.patchValue(this.sectorName1); */
-    }
+      bs.patchValue(this.sectorName); 
+      }
       }
     ); 
   }
    
   maxRgGen:boolean=false;
+
+
   addNewEmp() { 
-    let empList=(this.immatForm.get('input').get('employeList') as FormArray)
+ 
+  let empList=(this.immatForm.get('input').get('employeList') as FormArray)
     empList.push(this.createItem());
     this.addEmpForm=true;
     this.editEmpForm=false;
@@ -1095,6 +1108,7 @@ for(let i=0;i<emplistRegion.length;i++){
      }
 
   }
+               
    }
    fillEmpForm(i){
     this.editIndex=i;

@@ -6,7 +6,7 @@ import { SaveEmployeeService } from '../services/save-employee.service';
 import { UserService } from '../services/user.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-const userName=window.localStorage.getItem("user");
+
 @Component({
   selector: 'app-immatriculation-exist',
   templateUrl: './immatriculation-exist.component.html',
@@ -15,6 +15,7 @@ const userName=window.localStorage.getItem("user");
 export class ImmatriculationExistComponent implements OnInit {
   immatExistanteForm:FormGroup;
   loader:boolean=false;
+  userName:string="";
   employeInfo={
     employerType: "",
     typeEtablissement: "",
@@ -71,6 +72,7 @@ export class ImmatriculationExistComponent implements OnInit {
    }
 
   ngOnInit() {
+     this.userName=window.localStorage.getItem("user");
     this.getUser();
   }
 
@@ -129,7 +131,7 @@ export class ImmatriculationExistComponent implements OnInit {
   }
   currentUser:any=[];
   getUser(){
-    this.userService.getUser(userName).subscribe(
+    this.userService.getUser(this.userName).subscribe(
       resp=>{this.currentUser =resp;
        console.log(this.currentUser) 
     }
