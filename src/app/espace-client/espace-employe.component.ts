@@ -19,7 +19,7 @@ export interface Declaration {
 }
 
 
-const userName=window.localStorage.getItem("user");
+//  const userName=window.localStorage.getItem("user");
 const ELEMENT_DATA: Declaration[] = [
   {num_id: "12220300033", type_declaration: 'D1', total_sal: 1.0079, mtn_cot: 1223098376564}
 ];
@@ -31,6 +31,7 @@ const ELEMENT_DATA: Declaration[] = [
 })
 
 export class EspaceEmployeComponent implements OnInit {
+  userName:string = "";
   validated:boolean=false;
   isExpanded:boolean=false;
   displayedColumns: string[] = ['nom', 'prenom', 'num_secu', 'icn'];
@@ -48,6 +49,7 @@ export class EspaceEmployeComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.userName=window.localStorage.getItem("user");
     this.tok=window.localStorage.getItem("token");
     this.getUserByLogin();
     this.getListEmploye();
@@ -61,7 +63,7 @@ export class EspaceEmployeComponent implements OnInit {
     });
   }
   getUserByLogin(){
-   this.userService.getUserByLogin(userName).subscribe(
+   this.userService.getUserByLogin( this.userName).subscribe(
      resp=>{
       console.log(resp)
       if(resp){
@@ -78,7 +80,6 @@ export class EspaceEmployeComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     this.dialog.open(template, dialogConfig,
-     
       );
   }
 
@@ -86,9 +87,13 @@ export class EspaceEmployeComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    this.dialog.open(ImmatriculationExistComponent, 
+    let dialogRef= this.dialog.open(ImmatriculationExistComponent, 
       {width: '900px'});
+    dialogRef.afterClosed().subscribe(()=>{
+        this.getListEmploye();
+      })     
   }
+  
   openImmatDialog(){
     const dialogConfig = new MatDialogConfig();
 
@@ -100,9 +105,11 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.width='1000px',
       dialogConfig.height='600px'
      
-     this.dialog.open(ImmatriculationComponent,
-      
-      dialogConfig);
+      let dialogRef=  this.dialog.open(ImmatriculationComponent,
+        dialogConfig);
+        dialogRef.afterClosed().subscribe(()=>{
+          this.getListEmploye();
+        })
   }
   openDeclarationDialog(emp?:any){
     console.log(emp);
@@ -126,14 +133,16 @@ export class EspaceEmployeComponent implements OnInit {
   }
 
 
-
+getEmployer(i){
+this.currentEmpl=this.listEmp[i];
+}
 
   openDemandeAttestationDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
       dialogConfig.data={
-        title:this.title, 
+      title:this.title, 
       }
       dialogConfig.width='800px',
       dialogConfig.height='600px'
@@ -141,12 +150,6 @@ export class EspaceEmployeComponent implements OnInit {
   }
 
 
-
-  getEmployer(i){
-    this.currentEmpl=this.listEmp[i];
-    console.log(this.currentEmpl);
-    }
-    
 
    openPaiementDialog(){
     const dialogConfig = new MatDialogConfig();

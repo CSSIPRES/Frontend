@@ -11,14 +11,14 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import * as XLSX from 'xlsx';
 import { EmployeExistService } from '../services/employe-exist.service';
 import { ActivatedRoute } from '@angular/router';
-
+  
 @Component({
   selector: 'app-declaration',
   templateUrl: './declaration.component.html',
   styleUrls: ['./declaration.component.css'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}]
-  
+  provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}]
+     
 })
 
 export class DeclarationComponent implements OnInit,AfterViewInit {

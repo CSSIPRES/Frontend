@@ -1,5 +1,5 @@
 <div  fxLayoutAlign="space-between center">
-  <h1 mat-dialog-title>Demande d'immatriculation</h1>
+  <h1 mat-dialog-title>Employeur existant</h1>
    <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
         <mat-icon color="warn">close</mat-icon>
     </button>
@@ -18,8 +18,8 @@
           <mat-label>Type identifiant </mat-label>
           <mat-select  formControlName="typeIdentifiant" required>
             <mat-option value="SCI">Ninea</mat-option>
-            <mat-option value="ANC">Numero CSS</mat-option>
-            <mat-option value="ANI">Numero Ipres</mat-option>
+            <mat-option value="ANI">Ancien numero CSS</mat-option>
+            <mat-option value="ANI">Ancien numero Ipres</mat-option>
           </mat-select>
           <mat-icon matSuffix>perm_identity</mat-icon>
           <mat-error>Ce champ est obligatoire</mat-error>
