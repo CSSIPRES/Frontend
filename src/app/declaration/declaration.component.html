@@ -78,7 +78,8 @@
             <div fxFlex="20" class="mt-3">
               <button  [disabled]="displayBtn" class="largeButt" (click)="preDns()"
                 mat-raised-button>
-                <div *ngIf="!loader"> PreDNS <mat-icon *ngIf="displayBtn"
+                <div *ngIf="!loader1">
+                  PreDNS <mat-icon *ngIf="displayBtn"
                     style="display: inline-block;font-size: 14px;">check</mat-icon>
                 </div>
                 <div>
@@ -639,9 +640,7 @@
           <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
           <button (click)="addDeclaration()" class="submit-button" mat-raised-button matStepperNext>Envoyer</button>
         </div>
-
       </mat-step>
-
       <ng-template matStepperIcon="genInfo">
         <mat-icon>create_new_folder</mat-icon>
       </ng-template>

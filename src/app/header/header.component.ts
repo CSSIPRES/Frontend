@@ -20,7 +20,7 @@ constructor(private ref: ChangeDetectorRef,private loginService:LoginService,
     this.user="";
   }
   
-  
+      
   getUser(){
     if(this.user!=null){
     this.checkConn=true;
