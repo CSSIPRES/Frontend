@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from
 
 import { MatSnackBar } from '@angular/material';
 import { LoginService } from '../services/login.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-mot-passe-oublie',
@@ -11,17 +12,67 @@ import { LoginService } from '../services/login.service';
 })
 export class MotPasseOublieComponent implements OnInit {
   motPassOublForm:FormGroup;
+  key:string;
+  isEmailSended:boolean = false;
   isSend:boolean = false;
-  constructor(private fb:FormBuilder,private loginService:LoginService,private snackB: MatSnackBar) { }
+  constructor(private fb:FormBuilder,
+    private loginService:LoginService,
+    private route:ActivatedRoute,
+    private router:Router,
+    private snackB: MatSnackBar) { }
 
   ngOnInit() {
     this.initForm();
+    this.route.paramMap.subscribe( 
+      paramMap => {
+        if(paramMap){
+          
+          this.key = paramMap.get('key');
+          if(this.key){
+            console.log(paramMap.get('key'));
+            if(this.key.length > 18){
+              this.isSend = true;
+              /*
+              this.authService.activateAccount(key)
+              .subscribe(
+                (data:any)=>{
+                  if(data.code == 200){
+                    this.toast.success(data.message,"Compte activé");
+                  }else{
+                    this.toast.warning("Votre compte n'est pas encore activé, Vueillez utiliser le lien envoyé sur votre messagérie pour l'activer.");
+                  }
+                },err=>{
+                  console.log(err);
+                }
+              )
+             */
+  
+            }else{
+              console.log("KEY non valide")
+              this.isEmailSended = false;
+            }
+           
+          }else{
+           this.isEmailSended = false;
+            console.log("KEY non présent")
+          }
+         
+        }
+    
+      },
+      err=>{
+        console.log(err);
+      }
+      )
   }
   initForm(){
     this.motPassOublForm=this.fb.group({
       email:new FormControl('',Validators.required),
       currentPassword:new FormControl('', Validators.required),
-      newPassword:new FormControl('', Validators.required)
+      password:new FormControl('', Validators.required),
+      newPassword:new FormControl('', Validators.required),
+      passwordConf:new FormControl('',Validators.required)
+
     })
   }
 
