@@ -1,47 +1,47 @@
 mat-form-field{
-    width: 80%;
+  width: 80%;
 }
 .mat-dialog-content{
-    
-    overflow-x: hidden;
+  
+  overflow-x: hidden;
 }
 .mat-autocomplete-panel.overflow-hidden {
-    overflow: hidden !important;
-    position: relative !important;
-  
-  }
-  .mat-dialog-title{
-    color: #999999;
-  }
-  .submit-button{
-    background-color: rgb(255, 104, 49);
-    color:#ffffff;
-    display:inline-block;
-    vertical-align:middle;
-      width: 30%; 
-     font-size:15px;
-     color:#ffffff;
-     height: 40px;
-     border-radius: 25px ;
-  }
-   
-  .center {
-    position: absolute; 
-    top: 50%;
-    left: 50%; 
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%); 
-    z-index: 2000;
-    background-color: #1818183a;
-    height:100%;
-    width:100%;
+  overflow: hidden !important;
+  position: relative !important;
+
+}
+.mat-dialog-title{
+  color: #999999;
+}
+.submit-button{
+  background-color: rgb(255, 104, 49);
+  color:#ffffff;
+  display:inline-block;
+  vertical-align:middle;
+    width: 30%; 
+   font-size:15px;
+   color:#ffffff;
+   height: 40px;
+   border-radius: 25px ;
+}
+ 
+.center {
+  position: absolute; 
+  top: 50%;
+  left: 50%; 
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%); 
+  z-index: 2000;
+  background-color: #1818183a;
+  height:100%;
+  width:100%;
 }
 .mat-progress-spinner::ng-deep circle {
-  stroke: rgb(240, 60, 15)!important;
+stroke: rgb(240, 60, 15)!important;
 }
 ::ng-deep mat-progress-spinner{
-  /*  top: 100px; */
-  top:50%;
-  left:600px;
- }
+/*  top: 100px; */
+top:50%;
+left:600px;
+}

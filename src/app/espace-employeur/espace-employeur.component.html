@@ -1,0 +1,64 @@
+<div>
+    <app-header></app-header>
+  </div>
+ 
+
+ 
+    <mat-drawer-container class="example-container mat-typography" autosize>
+      <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+        <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
+          <mat-icon aria-label="Menu">menu</mat-icon>
+        </button>
+        <mat-nav-list>
+          <mat-list-item>
+            <mat-icon mat-list-icon>person</mat-icon>
+            <h4 mat-line *ngIf="isExpanded">Immatrculation</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>assignment</mat-icon>
+            <h4 mat-line *ngIf="isExpanded">Declaration</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>attach_money</mat-icon>
+            <h4 mat-line *ngIf="isExpanded">Paiements</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>cached</mat-icon>
+            <h4 mat-line *ngIf="isExpanded">Statut & Suivi demande</h4>
+          </mat-list-item>
+           <mat-list-item>
+            <mat-icon mat-list-icon>folder_shared</mat-icon>
+            <h4 mat-line *ngIf="isExpanded">Paramtres</h4>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-drawer>
+    
+      <div class="example-sidenav-content">
+        <div fxLayout="column">
+          <div class="container" fxLayoutAlign="start start">
+          <h2  class="mt-2">Espace de l'employeur</h2>
+          </div>  
+          <mat-divider class="inset mb-2"></mat-divider>
+          <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">  
+            <mat-card class="empCard mt-3">
+              <mat-card-header><h4>Information employeur</h4></mat-card-header>
+            <mat-card-content>  
+              <div fxLayout="column wrap">
+              <span class="mt-2">Nom: {{empInfo?.firstName}}</span>
+              <span class="mt-2">Prenom: {{empInfo?.lastName}}</span>
+              <span class="mt-2">Numero identifiant:  {{empInfo?.numeroIdentifiant}}</span>
+              <span class="mt-2">Raison sociale:  {{empInfo?.raisonSociale}}</span>
+              <span class="mt-2">processFlowId: {{empInfo?.processFlowId}}</span>
+              <span class="mt-2">tauxAt:  {{empInfo?.tauxAT}}</span>
+              <span class="mt-2">Telephone  <strong>{{empInfo?.telephone}}</strong></span> 
+              <span class="mt-2">Quartier: {{empInfo?.qartier}}</span>
+             </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-container>
+    <div>
+    </div>  
+ 

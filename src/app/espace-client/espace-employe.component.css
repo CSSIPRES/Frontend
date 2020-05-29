@@ -33,11 +33,50 @@ table{
       font-size: 12px;
   }
 
+ 
+  span mat-icon{
+    font-size: 16px;
+  }
+  .addImmButt button {
+      margin-left: 30px; 
+      margin-top:30px; 
+      background-color:#f2f2f2;
+      border:2px solid #999999;
+      color:#999999;
+  }
+
+
+  span mat-icon{
+    font-size: 16px;
+  }
   .immatCard{
       /* margin-top: 20px; */
-      width: 150px;
-      height: 150px;
-      border:1px solid #f2f2f2;
+      min-width: 300px;
+      min-height: 130px;
+      height: 100px;
+      box-shadow: rgba(0, 0, 0, 0.3) 0 1px 5px;
+      /* box-shadow: ; */
+  }
+  .immatCard  mat-icon{
+    color:#f2f2f2;
+    font-size:40px;
+    margin-bottom: 35px;
+    
+  }
+  .immatCard_detail .mat-toolbar{
+    height: 15px;
+    background-color:#0bca04b6;
+    font-size: 14px;
+    border-radius: 5px;
+    color:#ffffff;
+    width: 60%;
+    
+  }
+  .immatCard_detail .mat-toolbar span{
+    text-align: center;
+  }
+  .immatCard_detail a{
+    font-size: 12px;
   }
   span mat-icon{
     font-size: 16px;
@@ -50,10 +89,15 @@ table{
       color:#999999;
   }
   .immatCard span{
-      font-size:9px;
+      font-size:12px;
       color:#999999;
       text-align: center;
   }
+  .immatCard b{
+    color:#0c0c0c;
+    font-size:12px;
+    text-align: center;
+}
   .mat-horizontal-stepper-header .mat-stepper-horizontal-line {
       border-top-color: rgba(37, 82, 245, 0.54) !important;
   }
@@ -105,4 +149,22 @@ header{
   border-bottom: 1px solid #bbb;
   margin-bottom: 2px;
   box-shadow: 0px 0px 10px #ccc;
+}
+
+
+.small-card{
+  width:300px;
+}
+
+.submit-button{
+  background-color: rgba(255, 104, 49, 0.712);
+  color:#ffffff;
+  display:inline-block;
+  vertical-align:middle;
+    width: 25%; 
+   font-size:15px;
+   color:#ffffff;
+   height: 40px;
+   border-radius: 25px ;
+   margin-right: 55px;
 }

@@ -40,6 +40,10 @@
    ::ng-deep .mat-input-element {
     caret-color: rgba(0,0,0,.6)!important;
    }
+   .card{
+    border:2px solid rgb(255, 104, 49);
+    /* background-color: #f9f9f9; */
+   } 
 
    .img-logo{
     text-align: center;

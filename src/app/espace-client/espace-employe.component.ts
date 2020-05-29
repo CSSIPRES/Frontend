@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef ,ChangeDetectorRef} from '@angular/core';
 import { MatSidenav, MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
 import { ImmatriculationComponent } from '../immatriculation/immatriculation.component';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
@@ -38,11 +38,12 @@ export class EspaceEmployeComponent implements OnInit {
   listEmp:any;
   title:string;
   loader:boolean=true;
-
+  currentEmpl:any=[];
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
   tok:any=""
-  constructor(private dialog:MatDialog,private userService:LoginService,private empExistServ:EmployeExistService) {
+  constructor(private dialog:MatDialog,private userService:LoginService, private empExistServ:EmployeExistService,
+    private changeDecRef:ChangeDetectorRef) {
    
    }
 
@@ -103,16 +104,25 @@ export class EspaceEmployeComponent implements OnInit {
       
       dialogConfig);
   }
-  openDeclarationDialog(){
+  openDeclarationDialog(emp?:any){
+    console.log(emp);
     const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      dialogConfig.data={
+      /* dialogConfig.data={
         title:this.title, 
+      } */
+      dialogConfig.data={
+        idIdentifiant:emp.numeroIdentifiant,
+        raisonSociale:emp.raisonSociale,
+        typeIdentifiant:emp.typeIdentifiant,
+        address:emp.address
       }
+      console.log(dialogConfig.data);
       dialogConfig.width='1000px',
       dialogConfig.height='600px'
      this.dialog.open(DeclarationComponent, dialogConfig);
+     
   }
 
 
@@ -132,6 +142,11 @@ export class EspaceEmployeComponent implements OnInit {
 
 
 
+  getEmployer(i){
+    this.currentEmpl=this.listEmp[i];
+    console.log(this.currentEmpl);
+    }
+    
 
    openPaiementDialog(){
     const dialogConfig = new MatDialogConfig();
