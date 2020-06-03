@@ -17,9 +17,10 @@ export class LoginService {
 
 
   logout(){
-     localStorage.removeItem('token'); 
-     localStorage.removeItem('user');
-     this.router.navigate(['/accueil']);  
+    localStorage.removeItem('token'); 
+    localStorage.removeItem('userConnecter'); 
+    localStorage.removeItem('user');
+    this.router.navigate(['/accueil']);  
   }
 
 

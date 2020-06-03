@@ -85,9 +85,6 @@
                 <div>
                   <mat-spinner *ngIf="loader1" strokeWidth="2" [diameter]="25"></mat-spinner>
                 </div>
-                <div>
-                  <!-- <mat-spinner *ngIf="loader1" strokeWidth="2" [diameter]="25"><span>Laoding</span></mat-spinner> -->
-                </div>
               </button>
               <!-- <button [disabled]="!displayBtn"  class="submit-button" mat-raised-button matStepperNext>Suivant</button> -->
             </div>
@@ -154,7 +151,7 @@
               <h2 matDialogTitle>Etes vous sur de vouloir supprimer se salaries</h2>
               <mat-dialog-content>
                   <button mat-button matDialogClose="no">Annuler</button>
-                  <button mat-button matDialogClose="yes" (click)="removeSal(j)">Confirmer</button>
+                  <button mat-button matDialogClose="yes">Confirmer</button>
               </mat-dialog-content>
           </ng-template> -->
           </ng-container>

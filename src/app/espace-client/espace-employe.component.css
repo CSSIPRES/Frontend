@@ -1,12 +1,26 @@
+.toolbar-header{
+  background-color: #FFFFFF;
+}
+
 table{
     width: 100%;
 }
 ::ng-deep .mat-drawer-inner-container {
   width: 80%;
-  height: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  /* height: 100%; */
+  overflow-y: hidden;
+  /* -webkit-overflow-scrolling: touch; */
 }
+
+::ng-deep .mat-drawer-content {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 100%;
+  max-height: 100%;
+ overflow: hidden; 
+}
+
  ::ng-deep .mat-sidenav:not(.mat-drawer-opened) {
     transform: translate3d(0, 0, 0) !important;
     visibility: visible !important;
@@ -21,10 +35,12 @@ table{
   mat-sidenav:not(.mat-drawer-opened) .profileTitle {
     display: none;
   }
-   .example-sidenav-content{
-      background-color: #f5f5f6f3;
-      padding-bottom: 300px;
-  } 
+  .example-sidenav-content{
+      background-color: #eceef0;
+      height: 600px;
+      overflow-y: hidden;
+  }
+
 
   mat-list-item mat-icon{
       color:#999999;
@@ -34,28 +50,54 @@ table{
       font-size: 12px;
   }
 
+ 
+  span mat-icon{
+    font-size: 16px;
+  }
+  .addImmButt button {
+      margin-left: 30px; 
+      margin-top:30px; 
+      background-color:#f2f2f2;
+      border:2px solid #999999;
+      color:#999999;
+  }
+
+
+  span mat-icon{
+    font-size: 16px;
+  }
   .immatCard{
       /* margin-top: 20px; */
       min-width: 300px;
       min-height: 130px;
-      height: 100px;
+      height: 150px;
       box-shadow: rgba(0, 0, 0, 0.3) 0 1px 5px;
+      padding-top: -50px;   
       /* box-shadow: ; */
+  }
+  .decButton{
+    margin-top:5px
   }
   .immatCard  mat-icon{
     color:#f2f2f2;
-    font-size:40px;
+    font-size:40px;   
     margin-bottom: 35px;
-    
   }
   .immatCard_detail .mat-toolbar{
     height: 15px;
-    background-color:#0bca04b6;
-    font-size: 14px;
+    background-color:rgb(255, 104, 49);
+    border-radius: 5px;
+    font-size: 12px;
     border-radius: 5px;
     color:#ffffff;
     width: 60%;
+    text-align: center;
     
+  }
+  .first_title h2{
+    color: #4d5b64;
+    font-family: Verdana, Geneva, sans-serif; 
+
   }
   .immatCard_detail .mat-toolbar span{
     text-align: center;
@@ -78,67 +120,115 @@ table{
       color:#999999;
       text-align: center;
   }
+  
   .immatCard b{
     color:#0c0c0c;
     font-size:12px;
     text-align: center;
 }
+
   .mat-horizontal-stepper-header .mat-stepper-horizontal-line {
       border-top-color: rgba(37, 82, 245, 0.54) !important;
   }
-.example-sidenav-content h2{
-  color: #686868;
-}
-
+                      
 h1{
   /* font-weight: 300; */
   display: inline-block;
   padding-bottom: 5px;
   position: relative;
   font-size:25px;
-  color: #999999;
+  color: #1d1d1d;
+  font-family: Verdana, Geneva, sans-serif;   
 }
-h1:before{
-  content: "";
-  position: absolute;
-  width: 30%;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  border-bottom: 5px solid rgba(255, 66, 19, 0.822)!important;
+
+.vertical_divider ::ng-deep  mat-divider{
+  border:2px solid rgba(255, 104, 49, 0.253);
+  height: 50%;
+  margin-top:20px;
   border-radius: 5px;
+  margin-right: 41px;
 }
+
 h2{
   /* font-weight: 300; */
   display: inline-block;
   padding-bottom: 5px;
   position: relative;
-  font-size: 25px;
+  color: #2e2d2d;
+  font-family: Verdana, Geneva, sans-serif;  
 }
- h2:before{
-  content: "";
-  position: absolute;
-  width: 10%;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  border-radius:5px;
-  border-bottom: 5px solid rgba(255, 66, 19, 0.822)!important;
-} 
+
+.header{
+  background-color: rgb(232, 236, 240);
+}
+
+.header h2{
+  color:#2e2d2d;
+  font-family: Verdana, Geneva, sans-serif; 
+}
+
+.immatCard mat-toolbar{     
+   background-color: rgb(255, 104, 49);
+   height: 20px;
+   border-radius: 5px;             
+   font-size: 12px;               
+   color: #f2f2f2;   
+       
+}
+
+::ng-deep  .mat-divider {
+  border:1px solid rgb(179, 189, 192);
+}
+
+.menu-divider ::ng-deep  .mat-divider {
+  border:1px solid rgb(179, 189, 192);
+}
+
+.btn-orange{
+  background-color: rgb(255, 104, 49);
+  color:white;
+  border-radius: 15px;
+}
+
+header{
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 2px;
+  box-shadow: 0px 0px 10px #ccc;
+}
+
 
 .small-card{
   width:300px;
 }
 
 .submit-button{
-  background-color: rgba(255, 104, 49, 0.712);
+  background-color: rgb(255, 104, 49);
   color:#ffffff;
   display:inline-block;
   vertical-align:middle;
-    width: 25%; 
+    width: 25%;     
    font-size:15px;
    color:#ffffff;
+   font-weight: 400;
    height: 40px;
    border-radius: 25px ;
    margin-right: 55px;
 }
+
+.card_activite strong {
+  font-size:15px;
+  font-weight: 500;
+}         
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+   /* opacity: 0.1 !important; */  /*click effect color change*/
+  background-color: rgb(255, 104, 49) !important;  }
+  
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: rgb(255, 104, 49) !important; /*inner circle color change*/  }
+  
+  ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: rgb(255, 104, 49) !important; /*outer ring color change*/  }
+  .mat-dialog-header{
+    height: 40px;
+  }

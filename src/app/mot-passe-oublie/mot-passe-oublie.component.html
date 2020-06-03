@@ -1,56 +1,96 @@
+ <!-- ======= Header ======= -->
+ <header id="header">
+  <div class="container d-flex">
+
+    <div class="logo mr-auto">
+      <p class="text-light"><img src="assets/logoCSS.png" width="100px" alt=""><img src="assets/logoIPRES.png" width="100px"  alt=""></p>
+    
+    </div>
+
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li class="active"><a routerLink="/accueil">Accueil</a></li>
+        <li><a routerLink="/accueil">Qui sommes nous </a></li>
+       <!-- <li><a href="#clients">Nos partenaires</a></li> --> 
+        <li><a routerLink="/accueil">Démarches</a></li>
+         
+        <li><a routerLink="/accueil">Nos Agences</a></li>
+        <li>
+          <a routerLink="/accueil" class="btn btn-orange btn-sm btn-round btn-rounder">
+            Connexion
+          </a>
+          
+        
+        </li>
+      
+
+      </ul>
+    </nav><!-- .nav-menu -->
+
+  </div>
+</header><!-- End Header -->
+<!--
+  <div class="top_line">
+    <mat-toolbar></mat-toolbar>
+</div>
+-->
    <div class="back_page">
    <div fxLayout="row" fxLayoutAlign="center">
-    <div fxFlex="40" class="card mt-5">
-      <mat-card class="forgetPass mat-elevation-z8">
-       <!--  <mat-card-header fxLayout="row">
-          <h4 class="pt-2">Mot de passe oublie</h4>
-        </mat-card-header> -->
-        <mat-card-header class="mb-1" fxLayout="row" >
-          <a routerLink="/accueil">   
-            <button  class="mt-1" mat-icon-button>
-              <mat-icon > keyboard_backspace</mat-icon>
-            </button>
-          </a>
-          <h4 class="pt-2" fxFlexOffset="18" >Mot de passe oublie</h4>
-        </mat-card-header>
+    <div fxFlex="50" class="card mt-5">
+      
        
         <mat-card-content>
-          <div fxLayout="column">
-            <div >
+          <br>
+          <div class="row">
+            <div class="img-logo">
               <img src="assets/images/logoCSS.png" height="40px" width="80px" alt="">
+              <img src="assets/images/logoIPRES.png" height="40px" width="80px" alt="">
             </div>
-            &nbsp;
-            <h4 class="title ml-5">Changement mot de passe</h4>
+          
+          
           </div>
+          <div class="row text text-center">
+            <h4 class="col-md-12">Réinitialiser mon mot de passe</h4>
+          </div>
+          <div class="row">
+             <p class="text">  Entrez votre email et nous vous enverrons un courriel contenant les instructions de réinitialisation de mot de passe.</p>
+          </div>
+          <br>
           <div fxLayout="row">
           <form [formGroup]="motPassOublForm"  fxLayout="column" fxFlex>
-             <mat-form-field appearance="outline" class="pl-5 pr-5">
-              <mat-label>Email</mat-label>
+             <mat-form-field *ngIf="!isSend" appearance="outline" class="pl-5 pr-5">
+              <mat-label>Votre adresse e-mail</mat-label>
               <input type="email" matInput formControlName="email" required />
               <mat-icon matSuffix>email</mat-icon>
               <mat-error>Email obligatoire</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="pl-5 pr-5">
-              <mat-label>Mot De Passe</mat-label>
+            <div fxLayout="column" *ngIf="!isSend" class="pb-5" fxLayoutAlign="center center">
+              <button fxLayoutAlign="center" (click)="resetPassword()" mat-raised-button class="submit-button1" aria-label="CONNEXION">
+                Envoyer
+              </button>
+            </div>
+            <mat-form-field *ngIf="isSend" appearance="outline" class="pl-5 pr-5">
+              <mat-label>Nouveau mot de passe</mat-label>
               <input type="password" matInput formControlName="password" required />
               <mat-icon matSuffix>lock</mat-icon>
-              <mat-error>Entrer votre nouveau mot de passe</mat-error>
+              <mat-error>Confirmer votre mot de passe</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="pl-5 pr-5">
+            <mat-form-field *ngIf="isSend" appearance="outline" class="pl-5 pr-5">
               <mat-label>Confirmer Mot De Passe</mat-label>
               <input type="password" matInput formControlName="passwordConf" required />
               <mat-icon matSuffix>lock</mat-icon>
               <mat-error>Confirmer le mot de passe</mat-error>
             </mat-form-field>
-            <div fxLayout="column" class="pb-5" fxLayoutAlign="center center">
+            <div fxLayout="column" *ngIf="isSend" class="pb-5" fxLayoutAlign="center center">
               <button fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
-                Envoyer
+                Réinitialiser
               </button>
             </div>
           </form>
         </div>
+
+
         </mat-card-content>
-      </mat-card>
     </div>
     </div>
   </div>

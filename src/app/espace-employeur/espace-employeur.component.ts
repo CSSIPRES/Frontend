@@ -23,6 +23,6 @@ empInfo:any=[];
         this.empService.getEmployer(id).subscribe(resp=>{
           this.empInfo=resp;
           console.log(this.empInfo);
-        })
+    })
   }
 }

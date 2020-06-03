@@ -1,158 +1,158 @@
 .mat-dialog-content{
-    width: 800px;
+  width: 800px;
 }
 .mat-form-field{
-    width: 100%;
-    min-width: 25%;
+  width: 100%;
+  min-width: 25%;
 }
 .min-form
 h1{
-    color:#999999;
+  color:#999999;
 }
 .mat-dialog-content{
-    width:1000px;
-    background-color: #f2f2f2;
-    height: auto;
-  }
+  width:1000px;
+  background-color: #f2f2f2;
+  height: auto;
+}
 
-  .mat-form-field{
-     min-width: 20%;
-  }
- 
- .largeButt{ 
-    display:inline-block;
-    vertical-align:middle;
-     width: 70%;
-     color:#ffffff;
-     height: 40px;
-     background-color:#0aca04;
-     border-radius: 25px ;   
- }
- mat-toolbar{
-     color:#0aca04;
-     border-radius: 5px;
-     background-color: #0bca0428;
-     height: 50px;
- }
+.mat-form-field{
+   min-width: 20%;
+}
 
- .mat-progress-spinner::ng-deep circle {
-    stroke: #ffffff!important;
+.largeButt{ 
+  display:inline-block;
+  vertical-align:middle;
+   width: 70%;
+   color:#ffffff;
+   height: 40px;
+   background-color:#0aca04;
+   border-radius: 25px ;   
+}
+mat-toolbar{
+   color:#0aca04;
+   border-radius: 5px;
+   background-color: #0bca0428;
+   height: 50px;
+}
+
+.mat-progress-spinner::ng-deep circle {
+  stroke: #ffffff!important;
 }
 .report_infoFen{
-    margin-top: 10px;
-    border:2px solid #f2f2f2;
-    border-radius: 5px;
-    padding:20px;
-  }
-  .report_infoFen span b{
-    color:#999999;
-    font-size: 14px;
-  }
-  
+  margin-top: 10px;
+  border:2px solid #f2f2f2;
+  border-radius: 5px;
+  padding:20px;
+}
+.report_infoFen span b{
+  color:#999999;
+  font-size: 14px;
+}
+
 ::ng-deep .mat-tab-labels, .mat-tab-label, .mat-tab-link {
-    font-size: 16px;
-    background-color: rgb(255, 104, 49);
-    border-radius: 5px;
+  font-size: 16px;
+  background-color: rgb(255, 104, 49);
+  border-radius: 5px;
 
-  }
-  ::ng-deep .mat-tab-label {
-    background-color:transparent;
-    color:rgb(250, 250, 250);
 }
-  
-  ::ng-deep  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
-    background: rgb(245, 245, 245);
-    height: 2px; 
-  }
-  .submit-button{
-    background-color: rgb(255, 104, 49);
-    color:#ffffff;
-     width: 20%; 
-    font-size:15px;
-    color:#ffffff;
-    height: 40px;
-    border-radius: 25px ;
-  }
-  .submit-add-edit{
-    background-color: #0aca04;
-    color:#ffffff;
-    width: 10%; 
-    font-size:15px;
-    color:#ffffff;
-    height: 40px;
-  }
-  .submit-button-small{
-    background-color: rgb(255, 104, 49);
-    color:#ffffff;
-     width: 30%; 
-    font-size:15px;
-    color:#ffffff;
-    height: 40px;
-    border-radius: 25px ;
-  }
-  .submit-button-right{
-    background-color: rgb(255, 104, 49);
-    color:#ffffff;
-     width: 100%; 
-    font-size:15px;
-    color:#ffffff;
-    height: 40px;
-    border-radius: 25px ;
-  }
-  .submit-secondary{
-    background-color: #f2f2f2;
-   /*  display:inline-block; */
-   /*  vertical-align:middle; */
-     font-size:15px;
-     color:#999999;;
-     height: 40px;
-     border: 2px solid #d8d8d8;  
-  }
-  table{
-    width: 100%;
+::ng-deep .mat-tab-label {
+  background-color:transparent;
+  color:rgb(250, 250, 250);
 }
-  table th{
-    font-weight: bold;
-    color:#999999;
-     /* background-color: #f9f9f9;  */
-  } 
-   table td  .mat-mini-fab{
-    max-width: 30px;
-    max-height: 30px;
-  }
-  table td  .mat-icon{
-   font-size: 14px;
-  }
-  table td  .mat-mini-fab{
+
+::ng-deep  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background: rgb(245, 245, 245);
+  height: 2px; 
+}
+.submit-button{
+  background-color: rgb(255, 104, 49);
+  color:#ffffff;
+   width: 20%; 
+  font-size:15px;
+  color:#ffffff;
+  height: 40px;
+  border-radius: 25px ;
+}
+.submit-add-edit{
+  background-color: #0aca04;
+  color:#ffffff;
+  width: 10%; 
+  font-size:15px;
+  color:#ffffff;
+  height: 40px;
+}
+.submit-button-small{
+  background-color: rgb(255, 104, 49);
+  color:#ffffff;
+   width: 30%; 
+  font-size:15px;
+  color:#ffffff;
+  height: 40px;
+  border-radius: 25px ;
+}
+.submit-button-right{
+  background-color: rgb(255, 104, 49);
+  color:#ffffff;
+   width: 100%; 
+  font-size:15px;
+  color:#ffffff;
+  height: 40px;
+  border-radius: 25px ;
+}
+.submit-secondary{
   background-color: #f2f2f2;
-  box-shadow: none;
-  }
-  
-  tr:nth-child(even){
-    background-color:#f2f2f2;
-    }
-  .addSal{
-    background-color: #f2f2f2;
-  }
-  .addSal mat-icon{
-      color: #999999;
-  }
-  table td  .edit{
-    color: #0aca04;;
-  }
-  table td  .edit{
-    color: #0aca04;;
-  }
-  table td  .delete{
-    color: rgb(187, 2, 18);
-  } 
+ /*  display:inline-block; */
+ /*  vertical-align:middle; */
+   font-size:15px;
+   color:#999999;;
+   height: 40px;
+   border: 2px solid #d8d8d8;  
+}
+table{
+  width: 100%;
+}
+table th{
+  font-weight: bold;
+  color:#999999;
+   /* background-color: #f9f9f9;  */
+} 
+ table td  .mat-mini-fab{
+  max-width: 30px;
+  max-height: 30px;
+}
+table td  .mat-icon{
+ font-size: 14px;
+}
+table td  .mat-mini-fab{
+background-color: #f2f2f2;
+box-shadow: none;
+}
 
- ::ng-deep .report_infoFen .mat-divider {
-    display: block;
-    margin: 0;
-    border-top-width:2px;
-    border-top-style: solid;
-    color:rgb(255, 104, 49);
+tr:nth-child(even){
+  background-color:#f2f2f2;
+  }
+.addSal{
+  background-color: #f2f2f2;
+}
+.addSal mat-icon{
+    color: #999999;
+}
+table td  .edit{
+  color: #0aca04;;
+}
+table td  .edit{
+  color: #0aca04;;
+}
+table td  .delete{
+  color: rgb(187, 2, 18);
+} 
+
+::ng-deep .report_infoFen .mat-divider {
+  display: block;
+  margin: 0;
+  border-top-width:2px;
+  border-top-style: solid;
+  color:rgb(255, 104, 49);
 }
 
 
@@ -178,4 +178,4 @@ border-radius:20px;
 
 .center .mat-progress-spinner::ng-deep  circle {
   stroke: rgb(240, 60, 15)!important;
-}
+} 

@@ -21,15 +21,6 @@ export class ImmatriculationService {
 addImmatriculation(immatriculation){
 return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation)
 }
-addImmatriculationDom(immatriculation){
-  return this.http.post(environment.BASE_URL + 'domestique', immatriculation)
-  }
-addImmatriculationPP(immatriculation){
-    return this.http.post(environment.BASE_URL + 'publique-parapublique', immatriculation)
-    }
-addImmatriculationRP(immatriculation){
-      return this.http.post(environment.BASE_URL + 'representation-diplomatique', immatriculation)
-      }
  getNineaNumber(numeroIdentifiant){
    let typeIdentifiant="SCI"
    return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant);
@@ -61,6 +52,12 @@ addImmatriculationRP(immatriculation){
     ))
   }
 
+  /*
+  getNinNumber(numeroIdentifiant){
+    let typeIdentifiant="NIN"
+    return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant);
+  } 
+  */
   createAttestationRegularite(typeIdentifiant:string,identifiant:string){
      return this.http.get(environment.BASE_URL+"attestation/create/"+typeIdentifiant+"/"+identifiant);
   }

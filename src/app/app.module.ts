@@ -11,7 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CreationcompteComponent } from './creationcompte/creationcompte.component';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+// import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { MatInputModule,MatFormFieldModule,MatToolbarModule,MatMenuModule, 
 MatIconModule,MatButtonModule,MatCardModule, MatSelectModule, 
@@ -34,7 +34,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { DemarcheComponent } from './demarche/demarche.component';
 import { ContactComponent } from './contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
- import { MotPasseOublieComponent } from './mot-passe-oublie/mot-passe-oublie.component';
+import { MotPasseOublieComponent } from './mot-passe-oublie/mot-passe-oublie.component';
 import { EspaceEmployeComponent } from './espace-client/espace-employe.component';
 import { ImmatriculationComponent } from './immatriculation/immatriculation.component';
 import { ImmatriculationExistComponent } from './immatriculation-exist/immatriculation-exist.component';
@@ -49,12 +49,13 @@ import { ViewPdfComponent } from './view-pdf/view-pdf.component';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { PaiementComponent } from './paiement/paiement.component';
 import { RedirectionComponent } from './redirection/redirection.component';
+import { SendMailComponent } from './send-mail/send-mail.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MonProfilComponent } from './mon-profil/mon-profil.component';
 import { ChangePasswordComponent } from './mon-profil/change-password/change-password.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { ConnexionComponent } from './connexion/connexion.component';
 import { EspaceEmployeurComponent } from './espace-employeur/espace-employeur.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { SendMailComponent } from './send-mail/send-mail.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -86,9 +87,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PaiementComponent,
     RedirectionComponent,
     SendMailComponent,
-    EspaceEmployeurComponent,  
-     MonProfilComponent, 
-    ChangePasswordComponent
+    MonProfilComponent,
+    ChangePasswordComponent,
+    ConnexionComponent,
+    EspaceEmployeurComponent
     
   ],
   imports: [
@@ -127,7 +129,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatMomentDateModule,
     MatSortModule,
     MatPaginatorModule,
-    SweetAlert2Module.forRoot()
+  //  SweetAlert2Module.forRoot()
   ],
 
   exports:[
@@ -149,6 +151,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
-  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent,ChangePasswordComponent]
+  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent,ChangePasswordComponent,ConnexionComponent]
 })
 export class AppModule { }

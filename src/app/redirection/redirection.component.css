@@ -1,15 +1,14 @@
 
-
 .succes_toolbar mat-toolbar{
-     color:#0aca04;
-     border-radius: 5px;
-     background-color: #0bca0428;
-     height: 30px;
-     font-size: 17px;;
-     margin-top: 70px;
+    color:#0aca04;
+    border-radius: 5px;
+    background-color: #0bca0428;
+    height: 30px;
+    font-size: 17px;;
+    margin-top: 70px;
 } 
 .back{
-    
-    padding-bottom: 250px;
-    background-color: #fafafa;
+   
+   padding-bottom: 250px;
+   background-color: #fafafa;
 }

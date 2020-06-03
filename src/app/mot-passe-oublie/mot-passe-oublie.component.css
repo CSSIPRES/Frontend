@@ -10,27 +10,7 @@
 .forgetPass{
     padding: 0;
 }
-.forgetPass mat-card-header {
-    background-color: rgb(255, 104, 49);
-    color:#ffffff;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-.forgetPass mat-card-header mat-icon{
-    color: #ffffff;
-    font-size: 30px;
-}
-forgetPass
 
-mat-card{
-    
-    border:1px solid rgb(255, 104, 49);
-    border-radius: 5px;
-}
-img{
-    margin-left:40px; 
-    margin-top:20px;  
-}
 .title{
     color:#c8c8c8e8;
     margin-top:-20px;
@@ -60,3 +40,29 @@ img{
    ::ng-deep .mat-input-element {
     caret-color: rgba(0,0,0,.6)!important;
    }
+   .card{
+    border:2px solid rgb(255, 104, 49);
+    /* background-color: #f9f9f9; */
+   } 
+
+   .img-logo{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.text{
+    margin: 8px;
+    padding: 8px;
+    text-align: center;
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.text-center{
+    text-align: center;
+}
+
+
+.btn-orange{
+    background-color: rgb(255, 104, 49);
+   
+}

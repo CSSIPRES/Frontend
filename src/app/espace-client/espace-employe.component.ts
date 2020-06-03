@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef ,ChangeDetectorRef} from '@angular/core';
 import { MatSidenav, MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
 import { ImmatriculationComponent } from '../immatriculation/immatriculation.component';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { ImmatriculationExistComponent } from '../immatriculation-exist/immatriculation-exist.component';
 import { DeclarationComponent } from '../declaration/declaration.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
 import { PaiementComponent } from '../paiement/paiement.component';
 import { LoginService } from '../services/login.service';
 import { EmployeExistService } from '../services/employe-exist.service';
+import { Router } from '@angular/router';
 
 
 
@@ -17,8 +19,10 @@ export interface Declaration {
   mtn_cot: number;
 }
 
+
+//  const userName=window.localStorage.getItem("user");
 const ELEMENT_DATA: Declaration[] = [
-  {num_id: "12220300033", type_declaration: 'D1', total_sal:1.0079, mtn_cot: 1223098376564}
+  {num_id: "12220300033", type_declaration: 'D1', total_sal: 1.0079, mtn_cot: 1223098376564}
 ];
 
 @Component({
@@ -28,6 +32,7 @@ const ELEMENT_DATA: Declaration[] = [
 })
 
 export class EspaceEmployeComponent implements OnInit {
+  userName:string = "";
   validated:boolean=false;
   isExpanded:boolean=false;
   displayedColumns: string[] = ['nom', 'prenom', 'num_secu', 'icn'];
@@ -35,22 +40,26 @@ export class EspaceEmployeComponent implements OnInit {
   listEmp:any;
   title:string;
   loader:boolean=true;
+  checkConn:boolean=false;
   currentEmpl:any=[];
+  nomUser:string="";
+  prenomUser:string=""
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
-  tok:any=""
-  userName:any=""
-
+  tok:any="";
   constructor(private dialog:MatDialog,private userService:LoginService,
-    private empExistServ:EmployeExistService) {
+    private empExistServ:EmployeExistService,private router:Router) {
    
    }
 
   ngOnInit() {
-    this.tok=window.localStorage.getItem("token");
     this.userName=window.localStorage.getItem("user");
-    this.getUserByLogin();
+    this.tok=window.localStorage.getItem("token");
+    this.getUserByLogin(); 
     this.getListEmploye();
+    if(this.tok!=null){
+      this.checkConn=true;
+    }
   }
 
   getListEmploye(){
@@ -60,13 +69,16 @@ export class EspaceEmployeComponent implements OnInit {
       console.log(this.listEmp);
     });
   }
-
   getUserByLogin(){
-   this.userService.getUserByLogin(this.userName).subscribe(
-     resp=>
-     console.log(resp))
+   this.userService.getUserByLogin( this.userName).subscribe(
+     (resp:any)=>{
+      console.log(resp);
+      this.nomUser= resp.lastName;
+      this.prenomUser=resp.firstName;
+      if(resp){
+        localStorage.setItem("userConnecter",JSON.stringify(resp));
+      }})
   }
-
   openImmatPopup(template:TemplateRef<any>){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -74,7 +86,6 @@ export class EspaceEmployeComponent implements OnInit {
     this.dialog.open(template, dialogConfig,
       );
   }
-
   openImmatDialogExist(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -85,25 +96,28 @@ export class EspaceEmployeComponent implements OnInit {
         this.getListEmploye();
       })     
   }
-
   openImmatDialog(){
     const dialogConfig = new MatDialogConfig();
-
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.data={
         title:this.title
-      } 
+      }     
       dialogConfig.width='1000px',
       dialogConfig.height='600px'
      
-    let dialogRef=  this.dialog.open(ImmatriculationComponent,
-      dialogConfig);
-      dialogRef.afterClosed().subscribe(()=>{
-        this.getListEmploye();
-      })
+      let dialogRef=  this.dialog.open(ImmatriculationComponent,
+        dialogConfig);
+        dialogRef.afterClosed().subscribe(()=>{
+          this.getListEmploye();
+        })
   }
-
+  logout(){
+    localStorage.removeItem('token'); 
+    localStorage.removeItem('userConnecter'); 
+    localStorage.removeItem('user');
+    this.router.navigate(['/accueil']);  
+  }
   openDeclarationDialog(emp){
     console.log(emp);
     const dialogConfig = new MatDialogConfig();
@@ -123,7 +137,7 @@ export class EspaceEmployeComponent implements OnInit {
 }
 
 getEmployer(i){
-this.currentEmpl=this.listEmp[i];
+this.currentEmpl=this.listEmp[i];     
 }
 
 openDemandeAttestationDialog(){
@@ -149,5 +163,4 @@ openPaiementDialog(){
       dialogConfig.height='650px'
      this.dialog.open(PaiementComponent, dialogConfig);
   }
- 
 } 

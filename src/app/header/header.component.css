@@ -1,6 +1,4 @@
-mat-toolbar{
-    background-color: #FFFFFF;
-}
+
 
 .menu{
     float: right;
@@ -78,3 +76,4 @@ button:visited mat-icon{
 .rouge{
     background-color: red;
 }
+
