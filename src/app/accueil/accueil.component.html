@@ -1,10 +1,8 @@
-
-<div >
+<!-- 
+<div>
   <app-header></app-header>
 </div> 
-  <div class="top_line">
-    <mat-toolbar></mat-toolbar>
-</div>
+
 <div fxLayout="row" class="back_page pl-5 pr-5">
   <div fxFlex="65" class="backImg" >
     <img class="mat-elevation-z8" src="assets/images/homeCSS.jpg" 
@@ -45,7 +43,7 @@
             <mat-error>Saisir votre mot de passe </mat-error>
             <mat-hint *ngIf="errorMess" class="text-danger">Veiller verifier vos identifiant</mat-hint>
           </mat-form-field>
-          <!-- </div> -->
+
           <div fxLayout="column" fxLayoutAlign="center center">
             <button (click)="authenticate()" fxLayoutAlign="center" mat-raised-button 
             class="submit-button1" aria-label="CONNEXION">
@@ -62,7 +60,9 @@
       </div>
       </mat-card-content>
     </mat-card>
+    
   </div>
+
   <div fxFlex="30" *ngIf="newAccout">
     <mat-card class="mat-elevation-z8 card_portail wow fadeInDown" data-wow-delay="1s">
       <mat-card-header>
@@ -90,107 +90,168 @@
       </div>
       </mat-card-content>
     </mat-card>
+
   </div>
 
-  
+
+</div>
+<br>
+<div class="content-text-institution-top">
+  <div class="row">
+    <div class="col-md-4">
+
+      <img src="assets/images/logoIPRES.png" alt="">
+    </div>
+    <div class="col-md-8">
+      L'institution de Prévoyance Retraite du Sénégal (I.P.RE.S.) est un organisme de droit privé placé sous la tutelle technique et financière de l'Etat. Il dispose d'une réelle autonomie dans sa gestion et son organisation est régi par :
+
+       <br><br><br>
+       <div>
+            <button class="read-more-right btn btn-sm">
+              EN SAVOIR PLUS  <i class="fas fa-angle-right"></i>
+            </button>
+       </div>
+    </div>
+  </div>
+</div>
+<div class="row content-color-spacing">
+  <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 vert">
+
+  </div>
+  <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 jaune">
+
+  </div>
+  <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 rouge">
+
+  </div>
 </div>
 
-<div class="container" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="2%" class="mt-5 mb-5">
-  <div   >
-    <h4 class="ml-2">
+<div class="content-text-institution-bottom">
+  <div class="row">
+ 
+    <div class="col-md-8">
+     
+
+Créée le 1er Janvier 1956, la Caisse de Sécurité Sociale, par la loi n° 91-33 du 26 Juin 1991, est devenue depuis un organisme de droit privé chargé d'une mission de service public.
+Elle est implantée sur toute l'étendue du territoire national avec 14 agences, dont 8 au niveau des chefs lieux de région, 2 centres de protection maternelle et infantile à Colobane et à Guédiawaye et 1 antenne de planning familial à Kolda . . .
+
+       <br><br><br>
+       <div>
+            <button class="read-more-left btn btn-sm">
+              EN SAVOIR PLUS  <i class="fas fa-angle-right"></i>
+            </button>
+       </div>
+    </div>
+    <div class="col-md-4 img-css">
+
+      <img src="assets/images/logoCSS.png" alt="">
+    </div>
+  </div>
+</div>
+
+<div class="spacing"></div>
+
+<div class="content-espaces">
+   <div class="text-center">
+    <h3 class="ml-2">
       Des informations pour mieux vous aider à comprendre votre statut
-    </h4><br />
-    <span class="ml-2 info">Trouver des informations par rapports à votre 
-      statut et des documents importants à fournir.
-    </span>
-  </div>
-</div>
-
-<div class="container" fxLayout="row" fxLayoutGap="2%" class="mt-5 mb-5">
+    </h3>
+    <p class="text-center">
+       
+    Trouver des informations par rapports à votre 
+    statut et des documents importants à fournir.
+    </p>
+   </div>
+   <div class="row content-espace-connexion">
+        <div class="col-md-4">
+          <h3> Espace Employeur</h3>
+          <p>Informations et tous les documents à fournir pour toutes demarches
+            de l'employeur
   
-  
-  <mat-divider [vertical]="true"></mat-divider>
-  <div fxFlex="30">
-    <mat-card class="card_info mat-elevation-z4 ">
-      <mat-card-header>
-        <h2>
-          Espace employeur
-        </h2>
-      </mat-card-header>
-      <mat-card-content class="pb-5 pt-2" fxLayout="column" 
-      fxLayoutAlign="start center">
-        <span>Informations et tous les documents à fournir pour toutes demarches
-          de l'employeur
-        </span>
-        <span class="details pt-3" fxLayoutAlign="center">Voire les détails 
-          <mat-icon>arrow_right_alt</mat-icon></span>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <mat-divider [vertical]="true"></mat-divider>
-  <div fxFlex="30">
-    <mat-card class="card_info1 mat-elevation-z4">
-      <mat-card-header>
-        <h2>
-          Espace salarié
-        </h2>
-      </mat-card-header>
-      <mat-card-content class="pb-5 pt-2" fxLayout="column" fxLayoutAlign="center">
-        <span>Droits et devoirs de salarié, informations retraites et 
+          </p>
+          <br>
+          <button class="btn btn-sm">Espace Employeur</button>
+           
+        </div>
+        <div class="col-md-4">
+          <h3>
+            Espace Salarié
+          </h3>
+          <p>
+            Droits et devoirs de salarié, informations retraites et 
           documents à fournir
-        </span>
-        <span class="details pt-3" fxLayoutAlign="center">Voire les détails <mat-icon>arrow_right_alt</mat-icon></span> 
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <mat-divider [vertical]="true"></mat-divider>
-  <div fxFlex="30">
-    <mat-card class="card_info2 mat-elevation-z4">
-      <mat-card-header>
-        <h2>
-          Espace allocataire
-        </h2>
-      </mat-card-header>
-      <mat-card-content class="pb-5 pt-2" fxLayout="column" fxLayoutAlign="center">
-        <span>Informations et document à fournir pour allocataires
-        </span>
-        <span class="details pt-3" fxLayoutAlign="center">Voire les détails <mat-icon>arrow_right_alt</mat-icon></span> 
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
-<div  fxLayout="row" fxLayoutGap="5%" class="mt-5 mb-5">
-  <div fxFlex="60" fxLayout="column">
-     <mat-card class="mat-elevation-z8 ml-5">
-      <mat-card-title>
-        <mat-icon style="color:#9c9c9c85;font-size: 35px;">help_outline</mat-icon>
-        <h2 style="color:rgb(255, 104, 49);">Foire aux questions 
-          </h2>
-          <span class="titleforum">Trouver des reponses aux questions frequemment pose</span>
-      </mat-card-title> 
-       <mat-card-content>
-        <mat-accordion>
-        <!--   <mat-expansion-panel  (opened)="panelOpenState2 = true"
-        (closed)="panelOpenState2 = false"> -->
-          <mat-expansion-panel >
+          </p>
+          <br>
+          <button class="btn btn-sm">Espace Salarié</button>
+        </div>
+        <div class="col-md-3">
+          <h3>
+            Espace Allocataire
+          </h3>
+          <p>
+            Informations et document à fournir pour allocataires
+          </p>
+          <br>
+          <button class="btn btn-sm">Espace Allocataire</button>
+        </div>
+    </div>
+
+
+
+
+    <div  fxLayout="row" fxLayoutGap="5%" class="mt-5 mb-5">
+      <div fxFlex="60" fxLayout="column">
+         <mat-card class="mat-elevation-z8 ml-5">
+          <mat-card-title>
+            <mat-icon style="color:#9c9c9c85;font-size: 35px;">help_outline</mat-icon>
+            <h2 style="color:rgb(255, 104, 49);">Foire aux questions 
+              </h2>
+              <span class="titleforum">Trouver des reponses aux questions frequemment pose</span>
+          </mat-card-title> 
+           <mat-card-content>
+            <mat-accordion>
+       
+              <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                   <h5 [ngStyle]="{'color':panelOpenState1 === true ? 'rgb(255, 104, 49);' : '' }"> Comment adherer a l'IPRES ? </h5>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+            
+               <span>Des que votre entreprise est contitue et que vous avec 
+                 emabauche un nouveau salarie vous devez venir a l'IPRES faire votre adhesion.
+               </span>
+              </mat-expansion-panel>
+        
+              <mat-expansion-panel  >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                 <h5> Qu'est qu'un participant ? </h5>
+                </mat-panel-title>
+                <mat-panel-description>
+                 
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <span>Response</span>
+            </mat-expansion-panel>
+  
+            <mat-expansion-panel >
             <mat-expansion-panel-header>
               <mat-panel-title>
-               <h5 [ngStyle]="{'color':panelOpenState1 === true ? 'rgb(255, 104, 49);' : '' }"> Comment adherer a l'IPRES ? </h5>
+               <h5> Comment faire les cotisation ? </h5>
               </mat-panel-title>
               <mat-panel-description>
+               
               </mat-panel-description>
             </mat-expansion-panel-header>
-        
-           <span>Des que votre entreprise est contitue et que vous avec 
-             emabauche un nouveau salarie vous devez venir a l'IPRES faire votre adhesion.
-           </span>
+            <span>Response</span>
           </mat-expansion-panel>
-          <!-- <mat-expansion-panel  (opened)="panelOpenState2 = true"
-          (closed)="panelOpenState2 = false"> -->
-          <mat-expansion-panel  >
+          <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-             <h5> Qu'est qu'un participant ? </h5>
+             <h5> Comment faire les cotisation ? </h5>
             </mat-panel-title>
             <mat-panel-description>
              
@@ -198,12 +259,11 @@
           </mat-expansion-panel-header>
           <span>Response</span>
         </mat-expansion-panel>
-       <!--  <mat-expansion-panel  (opened)="panelOpenState2 = true"
-        (closed)="panelOpenState2 = false"> -->
-        <mat-expansion-panel >
+        <mat-expansion-panel  >
         <mat-expansion-panel-header>
           <mat-panel-title>
-           <h5> Comment faire les cotisation ? </h5>
+           <h5> Comment obtenir son releve de points 
+             et sa carte affilisation ? </h5>
           </mat-panel-title>
           <mat-panel-description>
            
@@ -211,76 +271,1000 @@
         </mat-expansion-panel-header>
         <span>Response</span>
       </mat-expansion-panel>
-      <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-         <h5> Comment faire les cotisation ? </h5>
-        </mat-panel-title>
-        <mat-panel-description>
-         
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <span>Response</span>
-    </mat-expansion-panel>
-    <mat-expansion-panel  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-       <h5> Comment obtenir son releve de points 
-         et sa carte affilisation ? </h5>
-      </mat-panel-title>
-      <mat-panel-description>
-       
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <span>Response</span>
-  </mat-expansion-panel>
+    
+                
+            </mat-accordion>
+           </mat-card-content>
+         </mat-card>
+      </div>
+      <div fxFlex="30" fxLayout="column">
+        <mat-card class="mat-elevation-z8 mr-5">
+          <mat-card-title>
+            <mat-icon style="color:#9c9c9c85;font-size: 35px;">folder_open</mat-icon>
+            <h2 style="color:rgb(255, 104, 49);">Document a telecharger
+              </h2>
+             
+          </mat-card-title> 
+           <mat-card-content>
+             <div>
+             <span>Revalorisation des affaire familiale</span>
+            </div>
+              <mat-divider inset="true"></mat-divider>
+              <div class="mt-2">
+                <span>Statut de l'integration de prevoyance retraite de Senegal IPRES </span>
+               </div>
+               <mat-divider inset="true"></mat-divider>
+               <div class="mt-2">
+                <span>Loi n 75-50 du 3 Avril relative au institutions de prevoyance sociale </span>
+               </div>
+               <mat-divider inset="true"></mat-divider>
+               <div class="mt-2">
+                <span>Demande d'assurance volontaire </span>
+               </div>
+               <mat-divider inset="true"></mat-divider>
+           </mat-card-content>
+          
+        </mat-card>
+      </div>
+    </div>
+    <div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}">
+      <button mat-raised-button (click)="scrollToTop()">
+           <mat-icon>keyboard_arrow_up</mat-icon> 
+      </button>
+    </div>
+    
+    
+   </div>
+ 
 
-            
-        </mat-accordion>
-       </mat-card-content>
-     </mat-card>
-  </div>
-  <div fxFlex="30" fxLayout="column">
-    <mat-card class="mat-elevation-z8 mr-5">
-      <mat-card-title>
-        <mat-icon style="color:#9c9c9c85;font-size: 35px;">folder_open</mat-icon>
-        <h2 style="color:rgb(255, 104, 49);">Document à télécharger
-          </h2>
-         
-      </mat-card-title> 
-       <mat-card-content>
-         <div>
-         <span>Revalorisation des affaire familiale</span>
+  -->
+
+
+    <!-- ======= Header ======= -->
+    <header id="header">
+      <div class="container d-flex">
+  
+        <div class="logo mr-auto">
+          <p class="text-light"><img src="assets/logoCSS.png" width="100px" alt=""><img src="assets/logoIPRES.png" width="100px"  alt=""></p>
+        
         </div>
-          <mat-divider inset="true"></mat-divider>
-          <div class="mt-2">
-            <span>Statut de l'integration de prevoyance retraite de Senegal IPRES </span>
-           </div>
-           <mat-divider inset="true"></mat-divider>
-           <div class="mt-2">
-            <span>Loi n 75-50 du 3 Avril relative au institutions de prévoyance sociale </span>
-           </div>
-           <mat-divider inset="true"></mat-divider>
-           <div class="mt-2">
-            <span>Demande d'assurance volontaire </span>
-           </div>
-           <mat-divider inset="true"></mat-divider>
-           <div class="mt-2">
-            <span> Template de déclaration nominative des salariés </span>
-           </div>
-           <mat-divider inset="true"></mat-divider>
-           <div class="mt-2">
-            <span>Template de l'immatriculation en masse des salariés </span>
-           </div>
-           <mat-divider inset="true"></mat-divider>
-       </mat-card-content>
-      
-    </mat-card>
-  </div>
-</div>
-<div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}">
-  <button mat-raised-button (click)="scrollToTop()">
-       <mat-icon>keyboard_arrow_up</mat-icon> 
-  </button>
-</div>
+  
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li class="active"><a href="index.html">Accueil</a></li>
+            <li><a href="#about">Qui sommes nous </a></li>
+           <!-- <li><a href="#clients">Nos partenaires</a></li> --> 
+            <li><a href="#services">Démarches</a></li>
+             
+            <li><a href="#contact">Nos agences</a></li>
+            <li *ngIf="!checkConn">
+              <a (click)="openConnexionDialog()" class="btn btn-orange btn-sm btn-round btn-rounder">
+                Connexion
+              </a>
+              
+            
+            </li>
+            <li *ngIf="checkConn">
+          
+                <a routerLink="/espaceEmploye" class="btn btn-orange btn-sm btn-round btn-rounder">
+                  Acceder à mon espace
+                </a>
+             
+            </li>
+          
+  
+          </ul>
+        </nav><!-- .nav-menu -->
+  
+      </div>
+    </header><!-- End Header -->
 
+
+
+
+     <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container" data-aos="fade-in">
+      <h1>Bienvenue sur le portail de service 
+        dédié à la sécurité sociale au Sénégal !
+        </h1>
+      <!-- <h2>Imatriculez votre entreprise et déclarez les salaires de vos employés
+        a travers une plateforme unique sans vous déplacer.</h2>  -->
+     
+     <!--  <div class="d-flex align-items-center">
+        <i class="bx bxs-right-arrow-alt get-started-icon"></i>
+        <a href="#" class="btn-get-started scrollto">Créé un compte</a>
+      </div> --> 
+    </div><br><br><br><br><br><br>
+  </section><!-- End Hero -->
+
+
+
+  <main id="main">
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-xl-4 col-lg-5" data-aos="fade-up">
+            <div class="content">
+              <!-- <h3>Caisse de sécurité social</h3> -->
+              <p>
+                Augmenter l’efficacité et l’efficience du service rendu, c’est faire en sorte que les institutions de sécurité sociale se saisissent des opportunités de se rapprocher de vous pour mieux vous servir. Ce portail, ainsi, mis à disposition, vous offre la possibilité de procéder à distance à certaines opérations, jusque-là effectuées qu’en agence et contribuera largement à optimiser le parcours usager.
+              
+              </p>
+        
+            </div>
+          </div>
+          <div class="col-xl-8 col-lg-7 d-flex">
+            <div class="icon-boxes d-flex flex-column justify-content-center">
+              <div class="row">
+                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                  <div class="icon-box mt-4 mt-xl-0">
+                    <i class="bx bx-receipt"></i>
+                    <h4>Accidents du travail et les maladies professionnelles </h4>
+                      <div class="text-center">
+                        <a class="more-btn"><span>En savoir plus </span><i class="bx bx-chevron-right"></i></a>
+                      </div>
+                  
+                  </div>
+                </div> 
+                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                  <div class="icon-box mt-4 mt-xl-0">
+                    <i class="bx bx-cube-alt"></i>
+                    <h4>Prestations familiales</h4>
+                    <br>
+                    <div class="text-center">
+                      <a class="more-btn"><span>En savoir plus </span><i class="bx bx-chevron-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                  <div class="icon-box mt-4 mt-xl-0">
+                    <i class="bx bx-receipt"></i>
+                    <h4>	Vieillesse et <br> Retraites</h4>
+                    <div class="text-center">
+                      <a class="more-btn"><span>En savoir plus </span><i class="bx bx-chevron-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Why Us Section -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about section-bg">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-xl-5 col-lg-6 d-flex justify-content-center align-items-stretch" data-aos="fade-right">
+           <!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>  -->
+           <img src="assets/css.jpg" width="100%" height="100%" alt="">
+          </div>
+
+          <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
+            <h3 data-aos="fade-up" class="text-orange">La Caisse de Sécurité Sociale</h3>
+         
+            <p data-aos="fade-up">
+              Créée le 1er Janvier 1956, la Caisse de Sécurité Sociale du Sénégal, par la loi n° 91-33 du 26 Juin 1991, est devenue depuis un organisme de droit privé chargé d'une mission de service public. <br>
+               </p>
+
+
+   
+               <!--
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon"><i class="bx bx-fingerprint"></i></div>
+              <p class="description"> l'Arrêté n° 3043 du 9 mars 1978 du Ministre de la Fonction Publique, du Travail et de l'Emploi qui confie à l'IPRES la responsabilité de la gestion du régime de retraite de base, institué par le Décret n° 75-455 susvisé et qui approuve les statuts et règlements intérieurs n° 1 et 2 de cette institution relatifs respectivement au régime général de retraite et au régime complémentaire de retraite des cadres</p>
+            </div>
+                -->
+            <div class="text-center">
+              <a href="http://www.secusociale.sn/" class="more-btn">En savoir plus <i class="bx bx-chevron-right"></i></a>
+            </div>
+        
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+
+
+
+
+
+
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about section-bg">
+          <div class="container">
+    
+          
+        <div class="row">
+       
+
+          <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
+            <h3 data-aos="fade-up" class="text-orange">L’Institution de Prévoyance Retraite du Sénégal (IPRES)</h3>
+         
+            <p data-aos="fade-up">
+              L'institution de Prévoyance Retraite du Sénégal (I.P.RE.S.) est un organisme de droit privé placé sous la tutelle technique et financière de l'Etat.
+
+        
+         
+            </p>
+
+
+   
+               
+
+              
+            <div class="text-center">
+              <a href="http://www.ipres.sn" class="more-btn">En savoir plus <i class="bx bx-chevron-right"></i></a>
+            </div>
+        
+
+          </div>
+
+          <div class="col-xl-5 col-lg-6 d-flex justify-content-center align-items-stretch" data-aos="fade-right">
+            <!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>  -->
+            <img src="assets/ipres.jpg" width="100%" height="100%" alt="">
+           </div>
+        </div>
+        </div>
+        </section><!-- End About Section -->
+
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h4> Des informations pour mieux vous aider à comprendre votre statut</h4>
+          <p>  Trouver des informations par rapports à votre 
+            statut et des documents importants à fournir.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up">
+            <div class="icon-box">
+              <div class="icon"><i class="icofont-search-job"></i></div>
+              <br>
+              <h4 class="title text-center espace"><a href="">Espace Employeur</a></h4>
+              <p class="description">Informations et tous les documents à fournir pour toutes demarches
+                de l'employeur</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="icofont-search-job"></i></div>
+              <br>
+              <h4 class="title text-center espace"><a href=""> Espace Salarié</a></h4>
+              <p class="description">  Droits et devoirs de salarié, informations retraites et 
+                documents à fournir</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="icofont-search-job"></i></div>
+              <br>
+              <h4 class="title text-center espace"><a href="">Espace Allocataire</a></h4>
+              <p class="description">Informations et document à fournir pour allocataires</p>
+            </div>
+          </div>
+        
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+
+    
+
+
+    <!-- ======= Values Section ======= -->
+    <section id="values" class="values">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+            <div class="card" style="background-image: url(assets/mission.jpg);">
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Notre Mission</a></h5>
+                <p class="card-text">Avec comme mission principale la gestion du régime de sécurité sociale institué par l’Etat du Sénégal en faveur des travailleurs salariés et assimilés et des retraités, nous avons respectivement pour rôle de recouvrer les cotisations des personnes assujetties et de les redistribuer sous forme de prestations techniques (pensions, allocations familiales, assurance vieillesse...) et d’assurer le service d’une pension ou allocation de retraite aux anciens salariés.</p>
+                <div class="read-more"><a href="#"><i class="icofont-arrow-right"></i> En savoir plus</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="100">
+            <div class="card" style="background-image: url(assets/homeCSS.jpg);">
+              <div class="card-body">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/k8d5_3hhgJk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+            </div>
+
+          </div>
+    
+      
+        </div>
+
+      </div>
+    </section><!-- End Values Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container" data-aos="fade-up">
+
+        <div>
+
+
+          <div class="testimonial-item">
+         <!--  <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+            <h3>John Larson</h3>
+            <h4>Entrepreneur</h4>  --> 
+            <p>
+              <i class="bx"></i>
+              Permettre à nos retraités de bénéficier d'un régime de retraite de qualité, efficient et équitable, est l'essence de notre mission de Service Public ; ce qui confère, à notre action, toute sa noblesse.
+              <i class="bx"></i>
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+
+
+        <!-- ======= Clients Section ======= -->
+        <section id="clients" class="clients">
+          <div class="container-fluid" data-aos="fade-up">
+            <h3 class="text-center text-orange">Nos partenaires</h3> <br>
+  
+
+
+
+
+            <!-- Flickity HTML init -->
+            <div class="gallery js-flickity"
+            data-flickity-options='{ "wrapAround": true }'>
+            <div class="gallery-cell">
+              <a href="https://investinsenegal.com/" target="_blank"><img width="100%" height="150px" src="assets/apix.jpg" alt=""></a> 
+            </div>
+            <div class="gallery-cell">
+              <a href="https://www.senegalpme.com/conseil-national-du-patronat-du-senegal-cnp/" target="_blank"> <img width="100%" height="150px" src="assets/cnp.jpg" alt=""></a> 
+            </div>
+            <div class="gallery-cell">
+              <a href="http://www.travail.gouv.sn/" target="_blank"><img width="100%" height="150px" src="assets/mdt.jpg" alt=""></a> 
+            
+            </div>
+            <div class="gallery-cell">
+              <a href="http://transfusionsenegal.sn/" target="_blank"><img width="100%" height="150px" src="assets/cnts.jpeg" alt=""></a> 
+            
+            </div>
+            <div class="gallery-cell">
+              <a href="https://investinsenegal.com/" target="_blank"><img width="100%" height="150px" src="assets/apix.jpg" alt=""></a> 
+            </div>
+            <div class="gallery-cell">
+              <a href="https://www.senegalpme.com/conseil-national-du-patronat-du-senegal-cnp/" target="_blank"> <img width="100%" height="150px" src="assets/cnp.jpg" alt=""></a> 
+            </div>
+            <div class="gallery-cell">
+              <a href="http://www.travail.gouv.sn/" target="_blank"><img width="100%" height="150px" src="assets/mdt.jpg" alt=""></a> 
+            
+            </div>
+            <div class="gallery-cell">
+              <a href="http://transfusionsenegal.sn/" target="_blank"><img width="100%" height="150px" src="assets/cnts.jpeg" alt=""></a> 
+            
+            </div>
+            </div>
+
+
+
+
+
+<!--
+            <div class="owl-carousel clients-carousel">
+    
+             <a href="https://investinsenegal.com/" target="_blank"><img src="assets/apix.jpg" alt=""></a> 
+             <a href="https://www.senegalpme.com/conseil-national-du-patronat-du-senegal-cnp/" target="_blank"> <img src="assets/cnp.jpg" alt=""></a> 
+             <a href="http://www.travail.gouv.sn/" target="_blank"><img src="assets/mdt.jpg" alt=""></a> 
+             <a href="http://transfusionsenegal.sn/" target="_blank"><img src="assets/cnts.jpeg" alt=""></a> 
+             <a href="http://www.ituc-africa.org/Confederation-des-Syndicats.html?lang=fr" target="_blank"><img src="assets/csa.jpeg" alt=""></a> 
+              <a href="https://investinsenegal.com/" target="_blank"><img src="assets/apix.jpg" alt=""></a> 
+              <a href="https://www.senegalpme.com/conseil-national-du-patronat-du-senegal-cnp/" target="_blank"> <img src="assets/cnp.jpg" alt=""></a> 
+              <a href="http://www.travail.gouv.sn/" target="_blank"><img src="assets/mdt.jpg" alt=""></a> 
+              <a href="http://transfusionsenegal.sn/" target="_blank"><img src="assets/cnts.jpeg" alt=""></a> 
+              <a href="http://www.csa.sn/" target="_blank"> <img src="assets/csa.jpeg" alt=""></a>
+            </div>
+            -->
+    
+          </div>
+        </section><!-- End Clients Section -->
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container-fluid">
+
+        <div class="section-title">
+          <h3 data-aos="fade-up">NOS AGENCES</h3>
+        <!-- <p data-aos="fade-up">Quelques textes . . .</p> --> 
+       
+        
+    
+          <button (click)="isClickAgence = true" class="btn btn-sm btn-orange">
+            Toutes nos agences   <i class="fas fa-angle-right"></i>
+          </button>
+          <br><br>
+
+
+
+        <ul *ngIf="isClickAgence" class="nav nav-tabs">
+          <li (click)="isCSS = true" [ngClass]="{'active-tab': isCSS == true}" class="css">Caise de Sécurité sociale</li>
+          <li (click)="isCSS = false" [ngClass]="{'active-tab': isCSS == false}" class="ipres">IPRES</li>
+        </ul>
+
+
+        </div>
+
+        <div *ngIf="isCSS && isClickAgence" class="row nos-agences">
+
+          <div class="col-sm-4 col-md-3 col-lg-3 mt-3" data-aos="fade-up">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Dakar - Plateau</h3> 
+         
+         
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                2 Boulevard Canal V1, Dakar</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 389 19 89
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  21830
+                </p>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Dakar - Port </h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                20, Bd Djily Mbaye</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 823 83 01
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  4101
+                </p>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Pikine - Guédiawaye</h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Quartier médina Gounass</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 837 03 01
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  100
+                </p>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Rufisque</h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Rue Kounoune</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 836 33 90
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  145
+                </p>
+            </div>
+          </div>
+          
+          
+        </div>
+
+
+        <div *ngIf="isCSS && isClickAgence" class="row nos-agences">
+
+          <div class="col-sm-4 col-md-3 col-lg-3 mt-3" data-aos="fade-up">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Thiès</h3> 
+         
+         
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Av. Houphouet Boigny</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 851 12 64 / 33 852 31 64
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  145
+                </p>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Diourbel </h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Quartier Escale, lot n° 293</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 971 17 58 
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  48
+                </p>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Saint-Louis</h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Rue de France , Nord</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 961 14 35 / 33 961 59 04
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  253
+                </p>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Kaolack</h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Rue Cheikh Ibra Fall</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 841 13 13 / 33 842 13 14
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                 52
+                </p>
+            </div>
+          </div>
+          
+          
+        </div>
+
+
+        
+        <div *ngIf="isCSS && isClickAgence" class="row nos-agences">
+
+          <div class="col-sm-6 col-md-3 col-lg-3 mt-3" data-aos="fade-up">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Ziguinchor</h3> 
+         
+         
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+               Rue de la poste</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 991 36 55 / 33 991 12 82
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  70
+                </p>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Richard - Toll </h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Route nationale</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 963 34 68 / 33 963 35 76
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  69
+                </p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Kolda</h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Quartier Escale</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 996 12 38 
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  165
+                </p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Tambacounda</h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Quartier Liberté</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 981 11 29 / 33 981 25 32
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                 164
+                </p>
+            </div>
+          </div>
+          
+          
+        </div>
+
+
+
+
+        <div *ngIf="!isCSS && isClickAgence" class="row nos-agences">
+
+          <div class="col-sm-6 col-md-3 col-lg-3 mt-3" data-aos="fade-up">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Ziguinchor</h3> 
+         
+         
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+               Rue de la poste</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 991 36 55 / 33 991 12 82
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  70
+                </p>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Richard - Toll </h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Route nationale</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 963 34 68 / 33 963 35 76
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  69
+                </p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Kolda</h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Quartier Escale</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 996 12 38 
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                  165
+                </p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3 col-lg-3 mt-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3 class="text-orange">Tambacounda</h3>
+              <p>
+                <svg class="bi bi-house" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Quartier Liberté</p>
+                <p>
+                  <svg class="bi bi-phone" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                    <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  ( +221 ) 33 981 11 29 / 33 981 25 32
+                </p>
+                <p>
+                  <svg class="bi bi-envelope-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                  </svg>
+                 164
+                </p>
+            </div>
+          </div>
+          
+          
+        </div>
+        
+
+   
+
+    
+
+      </div>
+<!--
+           <div class="row justify-content-center">
+          <div class="col-xl-9 col-lg-12 mt-4">
+            <form class="php-email-form">
+              <div class="form-row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Votre Nom" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Votre adresse e-mail" data-rule="email" data-msg="Please enter a valid email" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Votre message" placeholder="Message"></textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <div class="loading">Chargement</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Votre message à été envoyé avec succès!</div>
+              </div>
+              <div class="text-center"><button type="submit">Soumettre votre message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+        -->
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+   
+
+          <div class="col-lg-5 col-md-6 footer-links">
+            <h4 class="text-left">Liens utiles</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="http://www.cnp.sn/">Conseil National du Patronat (CNP)</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="http://www.gouv.sn/">Confédération Nationale des Employeurs du Sénégal</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="http://www.oit.org/">Le Bureau International du Travail</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="http://www.lacipres.org/">La Conférence Interafricaine de la Prévoyance Sociale</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="http://www.inrs.fr/">L'Institut National de Recherches et de Sécurité</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4 class="text-left">CSS / IPRES</h4>
+            <ul>
+             
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos representants</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos actualités</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos réseaux d'agences</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Evénements</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">FAQ</a></li>
+            </ul>
+          </div>
+
+          
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+          <!-- <h4>Rejoigner notre Newsletter</h4>
+            <form #form="ngForm">
+              <input type="email" name="email"><button type="submit">Soumettre</button>
+
+            </form>
+            --> 
+
+            <img src="assets/image-paralaxe.jpg" width="100%" height="100%" alt="">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-lg-flex py-4">
+
+      <div class="mr-lg-auto text-center text-lg-left">
+        <div class="copyright">
+          &copy; Copyright <strong><span>C.S.S / I.P.R.E.S</span></strong>. Tous les drois sont réservés
+        </div>
+    
+      </div>
+      <div class="social-links text-center text-lg-right pt-3 pt-lg-0">
+ 
+        <a href="https://twitter.com" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="https://facebook.com" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="https://instagram.com" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="https://linkedin.com" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+
+
+  

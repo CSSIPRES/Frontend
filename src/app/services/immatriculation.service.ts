@@ -25,6 +25,10 @@ return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation)
    let typeIdentifiant="SCI"
    return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant);
  } 
+ getNinNumber(numeroIdentifiant){
+  let typeIdentifiant="NIN"
+  return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant);
+} 
 
   getListActivite(){
      return this.http.get(environment.BASE_URL +'').pipe(map(
@@ -48,6 +52,12 @@ return this.http.post(environment.BASE_URL + 'immatPortail', immatriculation)
     ))
   }
 
+  /*
+  getNinNumber(numeroIdentifiant){
+    let typeIdentifiant="NIN"
+    return this.http.get(environment.BASE_URL +'checkExistenceEmployeur/'+typeIdentifiant+'/'+ +numeroIdentifiant);
+  } 
+  */
   createAttestationRegularite(typeIdentifiant:string,identifiant:string){
      return this.http.get(environment.BASE_URL+"attestation/create/"+typeIdentifiant+"/"+identifiant);
   }

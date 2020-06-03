@@ -61,3 +61,21 @@ button:visited{
 button:visited mat-icon{
     color:#ffffff;
 }
+
+.content-color-header{
+    height: 4px !important;
+}
+
+.vert{
+    background-color: green;
+   
+}
+
+.jaune{
+    background-color: yellow;
+    
+}
+.rouge{
+    background-color: red;
+}
+

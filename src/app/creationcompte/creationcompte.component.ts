@@ -37,9 +37,9 @@ loader:boolean;
  )
 } */
 
-opensweetalert(title, icon){
+opensweetalert(title, icon, text){
   
-  const Toast = Swal.mixin({
+  /* const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
@@ -50,10 +50,14 @@ opensweetalert(title, icon){
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
-  
-  Toast.fire({
+   */
+  Swal.fire({
+    position: 'center',
     icon: icon,
-    title: title
+    title: title,
+    text: text,
+    showConfirmButton: false,
+    timer: 3000
   })
   
 }
@@ -66,6 +70,7 @@ opensweetalert(title, icon){
       lastName:new FormControl('', Validators.required),
       email:new FormControl('',{ updateOn: 'blur', validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
       login:new FormControl('', Validators.required),
+      langKey:new FormControl('fr', Validators.required),
       password:new FormControl('', Validators.required)
       
     })
@@ -80,7 +85,7 @@ opensweetalert(title, icon){
       console.log(resp);
      if(resp==null){
        this.loader=false;
-       this.opensweetalert("Votre compte a été créé avec succés","success");
+       this.opensweetalert("Félicitation!","success","Votre compte a été créé");
         this.router.navigate(['/accueil']); 
      }
     
@@ -90,7 +95,7 @@ opensweetalert(title, icon){
       if(error.status==400){
         this.loader=false;
         this.snackB.open(error.error.title,"", {
-          duration: 2500000,
+          duration: 5000,
           panelClass: ['my-snack-bar4', "mat-warn"],
           verticalPosition: 'bottom',
           horizontalPosition:'center',

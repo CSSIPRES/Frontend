@@ -11,7 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CreationcompteComponent } from './creationcompte/creationcompte.component';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+// import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { MatInputModule,MatFormFieldModule,MatToolbarModule,MatMenuModule, 
 MatIconModule,MatButtonModule,MatCardModule, MatSelectModule, 
@@ -51,7 +51,12 @@ import { PaiementComponent } from './paiement/paiement.component';
 import { RedirectionComponent } from './redirection/redirection.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MonProfilComponent } from './mon-profil/mon-profil.component';
+import { ChangePasswordComponent } from './mon-profil/change-password/change-password.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { ConnexionComponent } from './connexion/connexion.component';
+import { EspaceEmployeurComponent } from './espace-employeur/espace-employeur.component';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
   scrollXMarginOffset:300,
@@ -81,7 +86,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ViewPdfComponent,
     PaiementComponent,
     RedirectionComponent,
-    SendMailComponent
+    SendMailComponent,
+    MonProfilComponent,
+    ChangePasswordComponent,
+    ConnexionComponent,
+    EspaceEmployeurComponent
     
   ],
   imports: [
@@ -120,7 +129,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatMomentDateModule,
     MatSortModule,
     MatPaginatorModule,
-    SweetAlert2Module.forRoot()
+  //  SweetAlert2Module.forRoot()
   ],
 
   exports:[
@@ -142,6 +151,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   bootstrap: [AppComponent],
   entryComponents:[ImmatriculationComponent,ImmatriculationExistComponent,
-  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent]
+  DeclarationComponent,SuiviDemandeComponent,ViewPdfComponent,PaiementComponent,ChangePasswordComponent,ConnexionComponent]
 })
 export class AppModule { }

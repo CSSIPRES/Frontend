@@ -11,16 +11,16 @@ export class HeaderComponent implements OnInit,OnDestroy {
 @Output() event:EventEmitter<any>;
 user:any=""
 checkConn:boolean=false;
-  constructor(private ref: ChangeDetectorRef,private loginService:LoginService,
-    private router:Router) {
-      this.user=window.localStorage.getItem("token");
-      
+constructor(private ref: ChangeDetectorRef,private loginService:LoginService,
+  private router:Router) {
+    this.user=window.localStorage.getItem("token");
+
    }
   ngOnDestroy(): void {
     this.user="";
   }
   
-  
+      
   getUser(){
     if(this.user!=null){
     this.checkConn=true;
@@ -34,7 +34,23 @@ checkConn:boolean=false;
   logout(){
     this.checkConn = false;
     this.loginService.logout();
-     this.router.navigate(['/accueil']); 
+    this.checkConn = false;
+    if( localStorage.getItem('token')!=null){
+      this.checkConn = true;
+      console.log(this.checkConn);
+     }   
+    else{
+      this.checkConn = false;
+      console.log( this.checkConn);
+    } 
+    this.router.navigate(['/accueil']);
+
+
+     
   }
 
+
+  goToProfil(){
+    this.router.navigate(['/mon-profil']);
+  }
 }

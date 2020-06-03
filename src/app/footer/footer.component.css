@@ -16,3 +16,24 @@ mat-toolbar h5{
 /* mat-card{
     height: 50px;
 } */
+
+
+
+.content-color-spacing{
+    height: 4px !important;
+    width: 100%;
+}
+
+
+.vert{
+    background-color: green;
+   
+}
+
+.jaune{
+    background-color: yellow;
+    
+}
+.rouge{
+    background-color: red;
+}

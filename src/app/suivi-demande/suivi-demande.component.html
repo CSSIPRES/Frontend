@@ -92,12 +92,12 @@
          <p *ngIf="urlAtt != ''">
           <a href="{{ urlAtt }}" target="_blank">
          <button mat-button class="icon-file-dowload">
-          <mat-icon>visibility</mat-icon> Voir 
+          <mat-icon>visibility</mat-icon> Télécharger  
          </button> 
         </a> 
         <a> 
          <button (click)="openViewPDFDialog('Attestation de régularité',urlAtt)" class="icon-file-dowload" mat-button> 
-           <mat-icon>cloud_download</mat-icon> Télécharger 
+           <mat-icon>cloud_download</mat-icon> Visualiser 
           </button>
         </a>
         </p>
@@ -151,13 +151,13 @@
       <p *ngIf="urlImmat != ''">
         <a href="{{ urlImmat }}" target="_blank">
         <button mat-button class="icon-file-dowload">
-          <mat-icon>visibility</mat-icon> Voir
+          <mat-icon>visibility</mat-icon> Télécharger
         </button> 
         </a>
         
         <a>
         <button (click)="openViewPDFDialog('Certificat d\'immatriculation',urlImmat)" class="icon-file-dowload" mat-button> 
-          <mat-icon>cloud_download</mat-icon> Télécharger
+          <mat-icon>cloud_download</mat-icon> Visualiser
          </button>
         </a>
        </p>

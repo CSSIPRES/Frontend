@@ -6,7 +6,7 @@ import { SaveEmployeeService } from '../services/save-employee.service';
 import { UserService } from '../services/user.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-const userName=window.localStorage.getItem("user");
+
 @Component({
   selector: 'app-immatriculation-exist',
   templateUrl: './immatriculation-exist.component.html',
@@ -15,6 +15,7 @@ const userName=window.localStorage.getItem("user");
 export class ImmatriculationExistComponent implements OnInit {
   immatExistanteForm:FormGroup;
   loader:boolean=false;
+  userName:string="";
   employeInfo={
     employerType: "",
     typeEtablissement: "",
@@ -71,6 +72,7 @@ export class ImmatriculationExistComponent implements OnInit {
    }
 
   ngOnInit() {
+     this.userName=window.localStorage.getItem("user");
     this.getUser();
   }
 
@@ -99,8 +101,8 @@ export class ImmatriculationExistComponent implements OnInit {
   initForm(){
     this.immatExistanteForm=this.fb.group({
       input:this.fb.group({
-        numeroIdentifiant:this.fb.control("998010808", Validators.required) ,
-        typeIdentifiant:this.fb.control("SCI",Validators.required),
+        numeroIdentifiant:this.fb.control("",{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}) ,
+        typeIdentifiant:this.fb.control("",Validators.required),
         numeroUnique:this.fb.control(''),
       })
     })
@@ -129,7 +131,7 @@ export class ImmatriculationExistComponent implements OnInit {
   }
   currentUser:any=[];
   getUser(){
-    this.userService.getUser(userName).subscribe(
+    this.userService.getUser(this.userName).subscribe(
       resp=>{this.currentUser =resp;
        console.log(this.currentUser) 
     }
@@ -157,5 +159,9 @@ export class ImmatriculationExistComponent implements OnInit {
   console.log(this.employeInfo);
   return this.employeInfo;
   }
-
+ 
+ 
+  get numeroIdentifiant(){
+   return this.immatExistanteForm.get('input').get('numeroIdentifiant');
+   }
 }

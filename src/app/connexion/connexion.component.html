@@ -1,0 +1,124 @@
+
+
+
+
+<div fxLayoutAlign="space-between center">
+    <h1 mat-dialog-title>Authentification</h1>
+     <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
+          <mat-icon color="warn">close</mat-icon>
+      </button>
+  </div>
+  <div>
+    <br>
+<div class="row container panel-auth">
+    <div (click)="isLogin = true" [ngClass]="{'active': isLogin == true}" class="col-md-6 login">
+        Se connecter
+    </div>
+    <div (click)="isLogin = false" [ngClass]="{'active': isLogin == false}" class="col-md-6 register">
+        Créer un compte
+    </div>
+</div>
+<br>
+
+<div class="row imgLogo">
+    <img src="assets/images/logoIPRES.png" width="148px" alt=""><img width="148px" src="assets/images/logoCSS.png" alt="">
+</div>
+
+
+
+
+<br>
+
+<div>
+
+<form *ngIf="isLogin" [formGroup]="loginForm" class="loginForm"  fxLayout="column" fxFlex>
+    <mat-form-field fxFlex="70" appearance="outline">
+      <mat-label>Nom de l'utilisateur</mat-label>
+      <input matInput  formControlName="username" required />
+      <mat-icon matSuffix>person_outlined</mat-icon>
+      <mat-error>Saisir votre nom d'utilsateur</mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex="70" appearance="outline">
+      <mat-label>Mot de passe</mat-label>
+      <input formControlName="password" matInput type="password" required />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-error>Saisir votre mot de passe </mat-error>
+      <mat-hint *ngIf="errorMess" class="text-danger">Veiller verifier vos identifiant</mat-hint>
+    </mat-form-field>
+    <!-- </div> -->
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <button (click)="authenticate()" class="btn btn-block btn-orange" mat-raised-button>
+       <div *ngIf="!loader"> Connexion </div>
+       <div>  
+         <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+      </div> 
+      </button>
+      <br>
+       <span (click)="forgetPassword()" fxLayoutAlign="center center" 
+       class="forget_pw mb-5">Mot de passe oublié ?</span>
+    </div>
+  </form>
+
+
+</div>
+
+
+
+
+
+<div>
+  <form *ngIf="!isLogin" [formGroup]="creationCpteForm" class="loginForm" fxLayout="column" fxFlex>
+
+    <mat-form-field fxFlex="70" appearance="outline">
+      <mat-label>Nom</mat-label>
+      <input type="text" matInput formControlName="firstName" required />
+      <mat-icon matSuffix>person_outlined</mat-icon>
+      <mat-error>Nom obligatoire</mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex="70" appearance="outline">
+      <mat-label>Prenom</mat-label>
+      <input type="text" matInput formControlName="lastName"  required />
+      <mat-icon matSuffix>person_outlined</mat-icon>
+      <mat-error>Prenom obligatoire</mat-error>
+    </mat-form-field>
+  <mat-form-field fxFlex="70" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input type="email"  matInput formControlName="email" required />
+    <mat-icon matSuffix>email</mat-icon>
+    <mat-error *ngIf="email.hasError('required')">Email est obligatoire</mat-error>
+    <mat-error *ngIf="email.hasError('pattern')">L'addresse Email est invalide</mat-error> 
+  </mat-form-field>
+    <mat-form-field fxFlex="70" appearance="outline">
+      <mat-label>Login</mat-label>
+      <input type="email"  matInput formControlName="login" required />
+      <mat-icon matSuffix>email</mat-icon>
+      
+      <mat-error>Ce champ est obligatoire</mat-error>
+    </mat-form-field>
+
+  <mat-form-field fxFlex="70" appearance="outline">
+    <mat-label>Mot de passe</mat-label>
+    <input type="password"  matInput formControlName="password" required />
+    <mat-icon matSuffix>lock</mat-icon>
+    <mat-error>Mot de passe est obligatoire</mat-error>
+  </mat-form-field>
+    <mat-form-field appearance="outline" fxFlex="70">
+      <mat-label>Confirmer mot de passe</mat-label>
+      <input type="password"  matInput required />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-error>Confirmer mot de passe</mat-error>
+    </mat-form-field>
+  <div fxLayout="column" class="mb-4 mt-2" fxLayoutAlign="center center">
+   <!--  <button (click)="creationCompte()" fxLayoutAlign="center" mat-raised-button class="submit-button1" aria-label="CONNEXION">
+      Envoyer
+    </button> -->
+    <button [disabled]="creationCpteForm.invalid" (click)="creationCompte()" mat-raised-button 
+    class="btn btn-block btn-orange">
+     <div *ngIf="!loader"> Envoyer </div>
+     <div>  
+       <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
+    </div> 
+    </button>
+  </div>
+  </form>
+</div>

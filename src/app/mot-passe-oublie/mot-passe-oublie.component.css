@@ -43,4 +43,26 @@
    .card{
     border:2px solid rgb(255, 104, 49);
     /* background-color: #f9f9f9; */
-   }
+   } 
+
+   .img-logo{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.text{
+    margin: 8px;
+    padding: 8px;
+    text-align: center;
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.text-center{
+    text-align: center;
+}
+
+
+.btn-orange{
+    background-color: rgb(255, 104, 49);
+   
+}
