@@ -106,9 +106,9 @@ export class ConnexionComponent implements OnInit {
  )
 } */
 
-opensweetalert(title, icon, text){
+opensweetalert(title, icon){
   
-  /* const Toast = Swal.mixin({
+  const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
@@ -119,18 +119,13 @@ opensweetalert(title, icon, text){
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
-   */
-  Swal.fire({
-    position: 'center',
+  
+  Toast.fire({
     icon: icon,
-    title: title,
-    text: text,
-    showConfirmButton: false,
-    timer: 3000
+    title: title
   })
   
 }
-
 
 
 
@@ -155,7 +150,7 @@ opensweetalert(title, icon, text){
       console.log(resp);
      if(resp==null){
        this.loader=false;
-       this.opensweetalert("Félicitation!","success","Votre compte a été créé");
+       this.opensweetalert("Votre compte a été créé avec succés","success");
         this.router.navigate(['/accueil']); 
         this.dialog.closeAll();
      }

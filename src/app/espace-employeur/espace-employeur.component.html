@@ -1,14 +1,11 @@
 <div>
     <app-header></app-header>
-  </div>
- 
-
- 
-    <mat-drawer-container class="example-container mat-typography" autosize>
-      <mat-drawer #drawer mode="side" disableClose="true" opened="true">
-        <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
-          <mat-icon aria-label="Menu">menu</mat-icon>
-        </button>
+</div>
+<mat-drawer-container class="example-container mat-typography" autosize>
+  <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+    <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
+       <mat-icon aria-label="Menu">menu</mat-icon>
+    </button>
         <mat-nav-list>
           <mat-list-item>
             <mat-icon mat-list-icon>person</mat-icon>
@@ -28,14 +25,14 @@
           </mat-list-item>
            <mat-list-item>
             <mat-icon mat-list-icon>folder_shared</mat-icon>
-            <h4 mat-line *ngIf="isExpanded">Paramtres</h4>
+            <h4 mat-line *ngIf="isExpanded">Parametres</h4>
           </mat-list-item>
         </mat-nav-list>
       </mat-drawer>
       <div class="example-sidenav-content">
         <div fxLayout="column">
           <div class="container" fxLayoutAlign="start start">
-          <h2  class="mt-2">Espace de l'employeur</h2>
+             <h2  class="mt-2">Espace de l'employeur</h2>
           </div>  
           <mat-divider class="inset mb-2"></mat-divider>
           <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">  
@@ -43,14 +40,18 @@
               <mat-card-header><h4>Information employeur</h4></mat-card-header>
             <mat-card-content>  
               <div fxLayout="column wrap">
-              <span class="mt-2">Nom: {{empInfo?.firstName}}</span>
+              <div *ngIf="employerType=='PUB_PARA'">
+              <span class="mt-2">Nom: {{empInfo?.firstName}}</span>  
               <span class="mt-2">Prenom: {{empInfo?.lastName}}</span>
+            </div>
               <span class="mt-2">Numero identifiant:  {{empInfo?.numeroIdentifiant}}</span>
+             <!--  <div *ngIf="employerType=='PVT'"> -->
               <span class="mt-2">Raison sociale:  {{empInfo?.raisonSociale}}</span>
-              <span class="mt-2">processFlowId: {{empInfo?.processFlowId}}</span>
+              <!-- </div> -->
+              <span class="mt-2">Numero dossier: {{empInfo?.processFlowId}}</span>
               <span class="mt-2">tauxAt:  {{empInfo?.tauxAT}}</span>
               <span class="mt-2">Telephone  <strong>{{empInfo?.telephone}}</strong></span> 
-              <span class="mt-2">Quartier: {{empInfo?.qartier}}</span>
+              <span class="mt-2">Quartie: {{empInfo?.qartier}}</span>
              </div>
               </mat-card-content>
             </mat-card>

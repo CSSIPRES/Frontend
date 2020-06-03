@@ -410,7 +410,7 @@ export class ImmatriculationComponent implements OnInit {
     qartier:this.fb.control('', Validators.required),
     address:this.fb.control('', Validators.required),
     telephone:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.phonePattern)]}),
-    email:this.fb.control('', { updateOn: 'blur',validators: [Validators.pattern(this.emailPattern)]}),
+    email:this.fb.control('', { updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
     website:this.fb.control(''),
     noOfWorkersInBasicScheme:this.fb.control('', Validators.required),
     noOfWorkersInGenScheme:this.fb.control('', Validators.required)
@@ -658,6 +658,7 @@ getUser(){
   }
   )
 }
+
 getEmployee(outputValue){
  /*  console.log(this.employeInfo); */
  let legalRepInfo=this.immatForm.get('input').get('legalRepresentativeForm');
@@ -666,10 +667,19 @@ getEmployee(outputValue){
  this.employeInfo.prenom=employeurInfo.get('employerName').value;
  this.employeInfo.businessSector=empMainInfo.get('businessSector').value;
  this.employeInfo.mainLineOfBusiness=empMainInfo.get('mainLineOfBusiness').value;
+ if(this.employeInfo.employerType)
  this.employeInfo.employerType=employeurInfo.get('employerType').value;
  this.employeInfo.typeEtablissement=employeurInfo.get('typeEtablissement').value;
  this.employeInfo.raisonSociale=employeurInfo.get('employerName').value;
- this.employeInfo.typeIdentifiant=legalRepInfo.get('typeOfIdentity').value;
+ /* if(this.employeInfo.employerType==){
+   this.employeInfo.typeIdentifiant='SCI';
+ } */
+ 
+ if(employeurInfo.get('employerType').value=="PVT"){
+  console.log(employeurInfo.get('employerType').value);
+  this.employeInfo.typeIdentifiant='SCI';
+}
+ /* this.employeInfo.typeIdentifiant=legalRepInfo.get('typeOfIdentity').value; */
  this.employeInfo.numeroIdentifiant=employeurInfo.get('nineaNumber').value;
  this.employeInfo.legalStatus=employeurInfo.get('legalStatus').value;
  this.employeInfo.shortName=empMainInfo.get('shortName').value;
@@ -865,6 +875,25 @@ getEmployee(outputValue){
      
   });
   }
+  contrat:boolean=true;
+  selectContrat(i){ 
+  let emp=  this.immatForm.get('input').get('employeList').value;
+  console.log(this.immatForm.get('input').get('employeList').value[i]);
+    if(emp[i].natureContrat=="CDI"){
+      this.contrat=false;
+      console.log(this.contrat);
+    }
+    else{
+      this.contrat=true;
+    } 
+  }
+  /* selectDateEmbauchche(i){
+    let entCreation=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value;  
+    let dateOuv=this.immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value;
+    console.log(empCreation);
+    let d3: number = this.dateDiff1(new Date(empCreation),new Date(dateOuv));
+    console.log(d3);
+  } */
   fillEmployeeForm(dec){
     return    new FormGroup({
         numeroAssureSocial:new FormControl(dec.numeroAssureSocial),
@@ -1125,8 +1154,13 @@ for(let i=0;i<emplistRegion.length;i++){
    }
    
  
-  updateEmp(){
+  updateEmp(i){
     let empList=(this.immatForm.get('input').get('employeList') as FormArray)
+    /* let emp=this.immatForm.get('input').get('employeList').value; */
+    let d=empList.value[i].dateNaissance;
+    let d1=moment(d).format('YYYY-MM-DD');
+    empList.value[i].dateNaissance=d1;
+    console.log(d1); 
     this.dataSource=empList.value; 
     /* this.dataSource.sort=this.sort; */
     this.addEmpForm=false;

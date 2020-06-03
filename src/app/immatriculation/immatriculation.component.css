@@ -217,8 +217,11 @@ h1:before{
     height: 40px;
   }
   .addEmp{
-    background-color: #f2f2f2;
+    background-color: #0aca04;
   }  
+  .addEmp mat-icon{
+    color: #ffffff;
+  }
   table{
     width: 100%;
   }
@@ -246,13 +249,12 @@ h1:before{
   }
   table td  .delete{
     color: rgb(187, 2, 18);
-  
   } 
   tr:nth-child(even){
     background-color:#f2f2f2;
     }
   .mat-mini-fab mat-icon{
-    color:#999999;
+    color:#ffffff;
   }
   .report_infoFen .back_report{
     background-color: #f6f6f6;
@@ -264,15 +266,14 @@ h1:before{
     background-color: #f6f6f6;
   }
   .back_report b{
-    font-weight: 600;
-    color:#585858;
+    font-weight: 500;
+    color:#272727;
   }
   .back_report1 b{
-    font-weight: 600;
-    color:#999999;
+    font-weight: 500;
+    color:#272727;
   }
   ::ng-deep  .mat-divider {
-
     border-top-width:2px;
     border-top-color: #f0f0f0;
     border-top-style: solid;
@@ -305,12 +306,12 @@ h1:before{
    height: 40px;
    border: 2px solid #d8d8d8;  
 }
-table{
+table{                  
   width: 100%;
-}
+}        
 table th{
-  font-weight: bold;
-  color:#999999;
+  font-weight: 500;
+  color:#272727;
    /* background-color: #f9f9f9;  */
 } 
  table td  .mat-mini-fab{

@@ -37,9 +37,8 @@ loader:boolean;
  )
 } */
 
-opensweetalert(title, icon, text){
-  
-  /* const Toast = Swal.mixin({
+opensweetalert(title, icon){
+  const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
@@ -50,20 +49,11 @@ opensweetalert(title, icon, text){
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
-   */
-  Swal.fire({
-    position: 'center',
+  Toast.fire({
     icon: icon,
-    title: title,
-    text: text,
-    showConfirmButton: false,
-    timer: 3000
-  })
-  
+    title: title
+  })  
 }
-
-
-
   initForm(){
     this.creationCpteForm=this.fb.group({
       firstName:new FormControl('',Validators.required),
@@ -85,7 +75,7 @@ opensweetalert(title, icon, text){
       console.log(resp);
      if(resp==null){
        this.loader=false;
-       this.opensweetalert("Félicitation!","success","Votre compte a été créé");
+       this.opensweetalert("Votre compte a été crée avec succès. Un mail d'activation vous a été envoyé","success");
         this.router.navigate(['/accueil']); 
      }
     
@@ -94,12 +84,12 @@ opensweetalert(title, icon, text){
        this.loader=false;
       if(error.status==400){
         this.loader=false;
-        this.snackB.open(error.error.title,"", {
+       /*  this.snackB.open(error.error.title,"", {
           duration: 5000,
           panelClass: ['my-snack-bar4', "mat-warn"],
           verticalPosition: 'bottom',
           horizontalPosition:'center',
-       })
+       }) */     
       } 
     }
     )

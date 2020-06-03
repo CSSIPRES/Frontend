@@ -1,14 +1,12 @@
 
 
-
-
 <div fxLayoutAlign="space-between center">
     <h1 mat-dialog-title>Authentification</h1>
      <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
           <mat-icon color="warn">close</mat-icon>
       </button>
   </div>
-  <div>
+<div>
     <br>
 <div class="row container panel-auth">
     <div (click)="isLogin = true" [ngClass]="{'active': isLogin == true}" class="col-md-6 login">
@@ -19,18 +17,11 @@
     </div>
 </div>
 <br>
-
 <div class="row imgLogo">
     <img src="assets/images/logoIPRES.png" width="148px" alt=""><img width="148px" src="assets/images/logoCSS.png" alt="">
 </div>
-
-
-
-
 <br>
-
 <div>
-
 <form *ngIf="isLogin" [formGroup]="loginForm" class="loginForm"  fxLayout="column" fxFlex>
     <mat-form-field fxFlex="70" appearance="outline">
       <mat-label>Nom de l'utilisateur</mat-label>
@@ -61,14 +52,8 @@
 
 
 </div>
-
-
-
-
-
 <div>
   <form *ngIf="!isLogin" [formGroup]="creationCpteForm" class="loginForm" fxLayout="column" fxFlex>
-
     <mat-form-field fxFlex="70" appearance="outline">
       <mat-label>Nom</mat-label>
       <input type="text" matInput formControlName="firstName" required />
