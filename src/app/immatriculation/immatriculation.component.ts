@@ -292,23 +292,15 @@ export class ImmatriculationComponent implements OnInit {
 
     ////// End File Upload 
 
-    opensweetalert(title, icon){
+    opensweetalert(title, icon, text){
   
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 4000,
-        timerProgressBar: true,
-        onOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-      
-      Toast.fire({
+   
+  
+      Swal.fire({
         icon: icon,
-        title: title
+        title: title,
+        text: text,
+        timer: 5000
       })
       
     }
@@ -373,7 +365,7 @@ export class ImmatriculationComponent implements OnInit {
        if(resp.value.output.employerRegistrationFormId!=0){
          console.log(resp)
          this.loader=false;
-        this.opensweetalert("Demande immatriculation envoyée avec succes","success");
+        this.opensweetalert("Immatriculation","success","Demande immatriculation soumise avec succès");
         this.dialog.closeAll();
         let emplObject=this.getEmployee(resp.value.output);
         this.saveEmp.saveEmploye(emplObject).subscribe(resp=>console.log(resp)) ;
@@ -385,11 +377,11 @@ export class ImmatriculationComponent implements OnInit {
         
          this.loader=false;      
          
-        this.opensweetalert(error.error.detail, "error") ;
+        this.opensweetalert("Erreur...", "error", error.error.detail) ;
        }
        else if(error.status==0){
           this.loader=false;  
-        this.opensweetalert("Erreur d'envoie veuillez vérifier la connexion","error");
+        this.opensweetalert("Erreur...","error","Erreur d'envoi veuillez vérifier la connexion");
        }   
      })
    }    
