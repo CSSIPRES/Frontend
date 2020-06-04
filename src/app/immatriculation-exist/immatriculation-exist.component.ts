@@ -86,7 +86,7 @@ export class ImmatriculationExistComponent implements OnInit {
       icon: icon,
       title: title,
       text: text,
-      timer: 5000
+      timer: 6000
     })
     
   }
@@ -114,7 +114,7 @@ export class ImmatriculationExistComponent implements OnInit {
            verticalPosition: 'bottom',
            horizontalPosition:'center'
         }); */
-        this.opensweetalert("Enregistrement Employeur","success","Employeur enregistré avec succès");
+        this.opensweetalert("","success","Employeur enregistré avec succès");
         this.dialog.closeAll();
        let emp= this.getEmployee(resp.value.output);
        console.log(emp);

@@ -300,7 +300,7 @@ export class ImmatriculationComponent implements OnInit {
         icon: icon,
         title: title,
         text: text,
-        timer: 5000
+        timer: 7000
       })
       
     }
@@ -365,7 +365,7 @@ export class ImmatriculationComponent implements OnInit {
        if(resp.value.output.employerRegistrationFormId!=0){
          console.log(resp)
          this.loader=false;
-        this.opensweetalert("Immatriculation","success","Demande immatriculation soumise avec succès");
+        this.opensweetalert("","success","Demande immatriculation soumise avec succès");
         this.dialog.closeAll();
         let emplObject=this.getEmployee(resp.value.output);
         this.saveEmp.saveEmploye(emplObject).subscribe(resp=>console.log(resp)) ;
@@ -377,11 +377,11 @@ export class ImmatriculationComponent implements OnInit {
         
          this.loader=false;      
          
-        this.opensweetalert("Erreur...", "error", error.error.detail) ;
+        this.opensweetalert("", "error", error.error.detail) ;
        }
        else if(error.status==0){
           this.loader=false;  
-        this.opensweetalert("Erreur...","error","Erreur d'envoi veuillez vérifier la connexion");
+        this.opensweetalert("","error","Erreur d'envoi veuillez vérifier la connexion");
        }   
      })
    }    

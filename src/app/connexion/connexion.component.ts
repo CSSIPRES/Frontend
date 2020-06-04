@@ -114,7 +114,7 @@ opensweetalert(title, icon, text){
     icon: icon,
     title: title,
     text: text,
-    timer: 5000
+    timer: 6000
   })
   
 }
@@ -142,7 +142,7 @@ opensweetalert(title, icon, text){
       console.log(resp);
      if(resp==null){
        this.loader=false;
-       this.opensweetalert("Compte créé avec succés ","success","un mail vous a été envoyé");
+       this.opensweetalert("","success","un mail vous a été envoyé");
         this.router.navigate(['/accueil']); 
         this.dialog.closeAll();
      }
@@ -152,7 +152,7 @@ opensweetalert(title, icon, text){
        this.loader=false;
       if(error.status==400){
         this.loader=false;
-        this.opensweetalert("Erreur... ","error",error.error.title);
+        this.opensweetalert("","error",error.error.title);
       } 
     }
     )

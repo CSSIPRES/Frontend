@@ -64,7 +64,7 @@ opensweetalert(title, icon, text){
     icon: icon,
     title: title,
     text: text,
-    timer: 5000
+    timer: 6000
   })
   
 }
@@ -305,7 +305,7 @@ dateErrors:boolean=false;
     this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>{ 
       if(resp!=null){         
         this.loader=false;
-      this.opensweetalert("Déclaration","success","Declaration soumise avec succès");
+      this.opensweetalert("","success","Declaration soumise avec succès");
        this.dialog.closeAll();  
       }
       console.log(resp);
@@ -313,7 +313,7 @@ dateErrors:boolean=false;
       console.log(err.error.detail);
       if(err.status==500){
         this.loader=false;
-       this.opensweetalert("Erreur...","error",err.error.detail);
+       this.opensweetalert("","error",err.error.detail);
       }
       }
     )
