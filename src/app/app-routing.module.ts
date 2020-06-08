@@ -17,6 +17,7 @@ import { MonProfilComponent } from './mon-profil/mon-profil.component';
 const routes: Routes = [ 
   { path: '',redirectTo: 'accueil',pathMatch: 'full'},
   { path:'accueil', component:AccueilComponent },
+  { path:'accueil/:key', component:AccueilComponent },
   { path:'creationCompte', component:CreationcompteComponent },
 
   { path:'envoieMail', component:SendMailComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'espace-employer/:id', component:EspaceEmployeurComponent},
   { path:'immatriculation', component:ImmatriculationComponent },
   { path:'motPasseOublie', component:MotPasseOublieComponent },
+  { path:'motPasseOublie/:key', component:MotPasseOublieComponent },
   { path:'contact', component:ContactComponent },
   { path:'demarche', component:DemarcheComponent },
   

@@ -2,11 +2,11 @@ import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgwWowService } from 'ngx-wow';
 import { LoginService } from '../services/login.service';
 import { EmployeExistService } from '../services/employe-exist.service';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
 import { ConnexionComponent } from '../connexion/connexion.component';
 
 @Component({
@@ -15,6 +15,7 @@ import { ConnexionComponent } from '../connexion/connexion.component';
   styleUrls: ['./accueil.component.css']
 })
 export class AccueilComponent implements OnInit {
+  key:string = "";
   loginForm:FormGroup;
   connection:boolean=false;
   newAccout:boolean=true;
@@ -26,12 +27,51 @@ export class AccueilComponent implements OnInit {
   checkConn:boolean=false;
 
   windowScrolled: boolean;
-  constructor(private dialog:MatDialog,private fb:FormBuilder,@Inject(DOCUMENT) private document: Document,
-  private login: LoginService,private router:Router) {
+  constructor(private dialog:MatDialog,private fb:FormBuilder,
+    @Inject(DOCUMENT) private document: Document,
+    private route:ActivatedRoute,
+    private snackB: MatSnackBar,
+    private router:Router,
+  private login: LoginService) {
     
    }
 
   ngOnInit() {
+    this.route.paramMap.subscribe( 
+      paramMap => {
+        if(paramMap){
+
+         
+
+          console.log(paramMap);
+          
+         this.key = paramMap.get('key');
+         if(this.key){
+           if(this.key.length > 5){
+            
+           }else{
+        
+           }
+            //  this.openConnexionDialog();
+
+
+
+         }
+         /* if(this.key){
+            console.log(paramMap.get('key'));
+           
+           
+          }else{
+            console.log("KEY non présent")
+          }
+         */
+        }
+    
+      },
+      err=>{
+        console.log(err);
+      }
+      )
     this.isCSS = true;
     this.checkConn =false;
     this.isClickAgence = false;

@@ -60,8 +60,13 @@
       </div>  
       <mat-divider class="inset mb-2"></mat-divider>
       <div class="container mb-5" fxLayout="row" fxLayoutAlign="end start">
-          <button  (click)=" openImmatPopup(choiceTemplate)"  class="submit-button" mat-raised-button><mat-icon>add</mat-icon> Immatriculer un employeur</button>
+          <button  (click)="openImmatPopup(choiceTemplate)"  class="submit-button" mat-raised-button><mat-icon>add</mat-icon> Immatriculer un employeur</button>
       </div>
+        <div class="container mb-5" fxLayout="row" fxLayoutAlign="end start">
+          <button  class="submit-button btn btn-round" mat-raised-button><mat-icon>assignment</mat-icon>Certificat d'immatriculation</button>
+ 
+        </div>
+
       <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">  
         <mat-card class="immatCard mt-3" *ngFor="let emp of listEmp; let i=index;">
           <mat-card-content fxLayoutAlign="space-between center">
