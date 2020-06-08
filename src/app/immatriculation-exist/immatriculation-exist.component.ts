@@ -77,23 +77,16 @@ export class ImmatriculationExistComponent implements OnInit {
   }
 
 
-  opensweetalert(title, icon){
+ 
+  opensweetalert(title, icon, text){
   
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 4000,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-    
-    Toast.fire({
+   
+  
+    Swal.fire({
       icon: icon,
-      title: title
+      title: title,
+      text: text,
+      timer: 6000
     })
     
   }
@@ -121,7 +114,7 @@ export class ImmatriculationExistComponent implements OnInit {
            verticalPosition: 'bottom',
            horizontalPosition:'center'
         }); */
-        this.opensweetalert("Employeur enregistré avec succés","succes")
+        this.opensweetalert("","success","Employeur enregistré avec succès");
         this.dialog.closeAll();
        let emp= this.getEmployee(resp.value.output);
        console.log(emp);

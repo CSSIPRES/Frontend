@@ -8,6 +8,7 @@ import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component'
 import { PaiementComponent } from '../paiement/paiement.component';
 import { LoginService } from '../services/login.service';
 import { EmployeExistService } from '../services/employe-exist.service';
+import { Router } from '@angular/router';
 
 
 
@@ -39,20 +40,26 @@ export class EspaceEmployeComponent implements OnInit {
   listEmp:any;
   title:string;
   loader:boolean=true;
+  checkConn:boolean=false;
   currentEmpl:any=[];
+  nomUser:string="";
+  prenomUser:string=""
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
-  tok:any=""
-  constructor(private dialog:MatDialog,private userService:LoginService, private empExistServ:EmployeExistService,
-    private changeDecRef:ChangeDetectorRef) {
+  tok:any="";
+  constructor(private dialog:MatDialog,private userService:LoginService,
+    private empExistServ:EmployeExistService,private router:Router) {
    
    }
 
   ngOnInit() {
     this.userName=window.localStorage.getItem("user");
     this.tok=window.localStorage.getItem("token");
-    this.getUserByLogin();
+    this.getUserByLogin(); 
     this.getListEmploye();
+    if(this.tok!=null){
+      this.checkConn=true;
+    }
   }
 
   getListEmploye(){
@@ -64,16 +71,13 @@ export class EspaceEmployeComponent implements OnInit {
   }
   getUserByLogin(){
    this.userService.getUserByLogin( this.userName).subscribe(
-     resp=>{
-      console.log(resp)
+     (resp:any)=>{
+      console.log(resp);
+      this.nomUser= resp.lastName;
+      this.prenomUser=resp.firstName;
       if(resp){
         localStorage.setItem("userConnecter",JSON.stringify(resp));
-      }
-      
-     }
-     
-     
-     )
+      }})
   }
   openImmatPopup(template:TemplateRef<any>){
     const dialogConfig = new MatDialogConfig();
@@ -82,7 +86,6 @@ export class EspaceEmployeComponent implements OnInit {
     this.dialog.open(template, dialogConfig,
       );
   }
-
   openImmatDialogExist(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -96,12 +99,11 @@ export class EspaceEmployeComponent implements OnInit {
   
   openImmatDialog(){
     const dialogConfig = new MatDialogConfig();
-
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.data={
         title:this.title
-      } 
+      }     
       dialogConfig.width='1000px',
       dialogConfig.height='600px'
      
@@ -111,14 +113,17 @@ export class EspaceEmployeComponent implements OnInit {
           this.getListEmploye();
         })
   }
+  logout(){
+    localStorage.removeItem('token'); 
+    localStorage.removeItem('userConnecter'); 
+    localStorage.removeItem('user');
+    this.router.navigate(['/accueil']);  
+  }
   openDeclarationDialog(emp?:any){
     console.log(emp);
     const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      /* dialogConfig.data={
-        title:this.title, 
-      } */
       dialogConfig.data={
         idIdentifiant:emp.numeroIdentifiant,
         raisonSociale:emp.raisonSociale,
@@ -130,14 +135,13 @@ export class EspaceEmployeComponent implements OnInit {
       dialogConfig.height='600px'
      this.dialog.open(DeclarationComponent, dialogConfig);
      
-  }
-
-
-getEmployer(i){
-this.currentEmpl=this.listEmp[i];
 }
 
-  openDemandeAttestationDialog(){
+getEmployer(i){
+this.currentEmpl=this.listEmp[i];     
+}
+
+openDemandeAttestationDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -146,12 +150,10 @@ this.currentEmpl=this.listEmp[i];
       }
       dialogConfig.width='800px',
       dialogConfig.height='600px'
-     this.dialog.open(SuiviDemandeComponent, dialogConfig);
-  }
+    let dialogRef= this.dialog.open(SuiviDemandeComponent, dialogConfig);
+} 
 
-
-
-   openPaiementDialog(){
+openPaiementDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -162,5 +164,4 @@ this.currentEmpl=this.listEmp[i];
       dialogConfig.height='650px'
      this.dialog.open(PaiementComponent, dialogConfig);
   }
- 
 } 

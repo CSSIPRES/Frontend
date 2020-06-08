@@ -28,6 +28,7 @@ MAT_DATE_LOCALE,
 MatSortModule,
 MatPaginatorModule}
 from '@angular/material';
+import { MatDateFormats } from '@angular/material/core';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DocumentComponent } from './document/document.component';
 import { AccueilComponent } from './accueil/accueil.component';
@@ -46,7 +47,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeclarationComponent } from './declaration/declaration.component';
 import { SuiviDemandeComponent } from './suivi-demande/suivi-demande.component';
 import { ViewPdfComponent } from './view-pdf/view-pdf.component';
-import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { PaiementComponent } from './paiement/paiement.component';
 import { RedirectionComponent } from './redirection/redirection.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
@@ -62,6 +63,18 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   scrollXMarginOffset:300,
   suppressScrollY:false
 };
+
+export const MY_FORMAT: MatDateFormats = {
+  parse: {
+  dateInput: 'DD-MM-YYYY',
+  },
+  display: {
+  dateInput: 'DD-MM-YYYY',
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'DD-MM-YYYY',
+  monthYearA11yLabel: 'MMMM YYYY',
+  },
+  };
 
 @NgModule({
   declarations: [
@@ -141,6 +154,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useClass: HttpInterceptorService,
       multi: true
     },
+    { provide: MAT_MOMENT_DATE_FORMATS, useValue: MY_FORMAT },
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}, 
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]},
