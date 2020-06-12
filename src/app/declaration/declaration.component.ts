@@ -61,25 +61,19 @@ public employeData: EmployeData[];
 data:any = [];
 
 
-  opensweetalert(title, icon){
+opensweetalert(title, icon, text){
   
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 4000,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-    
-    Toast.fire({
-      icon: icon,
-      title: title
-    })
-  }
+   
+  
+  Swal.fire({
+    icon: icon,
+    title: title,
+    text: text,
+    timer: 6000
+  })
+  
+}
+
 ///// Adding function to upload ////
   onFileChange(evt: any) {
     const target: DataTransfer = <DataTransfer>(evt.target);
@@ -430,7 +424,7 @@ dateErrors:boolean=false;
     this.decService.addDeclaration(this.declarationForm.value).subscribe(resp=>{ 
       if(resp!=null){         
         this.loader=false;
-      this.opensweetalert("Declaration effectuée avec succes","success");
+      this.opensweetalert("","success","Declaration soumise avec succès");
        this.dialog.closeAll();  
       }
       console.log(resp);
@@ -438,7 +432,7 @@ dateErrors:boolean=false;
       console.log(err.error.detail);
       if(err.status==500){
         this.loader=false;
-       this.opensweetalert(err.error.detail,"error");
+       this.opensweetalert("","error",err.error.detail);
       }
       }
     )

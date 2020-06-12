@@ -1,5 +1,3 @@
-
-
 <div fxLayoutAlign="space-between center">
     <h1 mat-dialog-title>Authentification</h1>
      <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
@@ -75,10 +73,8 @@
       <mat-label>Login</mat-label>
       <input type="email"  matInput formControlName="login" required />
       <mat-icon matSuffix>person_outlined</mat-icon>
-      
       <mat-error>Ce champ est obligatoire</mat-error>
     </mat-form-field>
-
     <mat-form-field fxFlex="70" appearance="outline">
     <mat-label>Mot de passe</mat-label>
     <input type="password" (blur)="confirmPasswords()" [type]="hide ?'text': 'password'"

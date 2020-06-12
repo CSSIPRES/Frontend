@@ -115,23 +115,15 @@ export class ConnexionComponent implements OnInit {
  )
 } */
 
-opensweetalert(title, icon){
+opensweetalert(title, icon, text){
   
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 4000,
-    timerProgressBar: true,
-    onOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
+   
   
-  Toast.fire({
+  Swal.fire({
     icon: icon,
-    title: title
+    title: title,
+    text: text,
+    timer: 6000
   })
   
 }
@@ -160,7 +152,7 @@ opensweetalert(title, icon){
       console.log(resp);
      if(resp==null){
        this.loader=false;
-       this.opensweetalert("Votre compte a été créé avec succés","success");
+       this.opensweetalert("","success","un mail vous a été envoyé");
         this.router.navigate(['/accueil']); 
         this.dialog.closeAll();
      }
@@ -170,12 +162,7 @@ opensweetalert(title, icon){
        this.loader=false;
       if(error.status==400){
         this.loader=false;
-        this.snackB.open(error.error.title,"", {
-          duration: 2500000,
-          panelClass: ['my-snack-bar4', "mat-warn"],
-          verticalPosition: 'bottom',
-          horizontalPosition:'center',
-       })
+        this.opensweetalert("","error",error.error.title);
       } 
     }
     )

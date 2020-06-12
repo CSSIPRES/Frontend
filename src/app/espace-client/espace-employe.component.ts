@@ -124,7 +124,7 @@ export class EspaceEmployeComponent implements OnInit {
     localStorage.removeItem('user');
     this.router.navigate(['/accueil']);  
   }
-  openDeclarationDialog(emp?:any){      
+  openDeclarationDialog(emp?:any){
     console.log(emp);
     const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
