@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -57,6 +55,7 @@ import { ChangePasswordComponent } from './mon-profil/change-password/change-pas
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { EspaceEmployeurComponent } from './espace-employeur/espace-employeur.component';
+import { AppRoutingModule } from './app-routing.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,

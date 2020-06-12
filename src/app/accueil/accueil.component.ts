@@ -85,7 +85,7 @@ export class AccueilComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
    /*   dialogConfig.data={
-        title:this.title, 
+        title:this.title,         
       }*/
       dialogConfig.width='500px',
       dialogConfig.height='600px'

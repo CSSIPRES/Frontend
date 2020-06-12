@@ -30,7 +30,7 @@ export class MotPasseOublieComponent implements OnInit {
           this.key = paramMap.get('key');
           if(this.key){
             console.log(paramMap.get('key'));
-            if(this.key.length > 18){
+            if(this.key.length > 5){
               this.isSend = true;
               /*
               this.authService.activateAccount(key)
@@ -61,7 +61,7 @@ export class MotPasseOublieComponent implements OnInit {
     
       },
       err=>{
-        console.log(err);
+        console.error(err);
       }
       )
   }
