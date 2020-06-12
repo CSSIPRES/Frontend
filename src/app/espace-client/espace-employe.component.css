@@ -140,6 +140,14 @@ h1{
   color: #1d1d1d;
   font-family: Verdana, Geneva, sans-serif;   
 }
+.welcome h4{
+  font-size:17px;
+  color: #1d1d1d;
+}
+.welcome h1{
+  color:rgb(255, 104, 49);
+  font-weight: 500;
+}
 
 .vertical_divider ::ng-deep  mat-divider{
   border:2px solid rgba(255, 104, 49, 0.253);
@@ -231,4 +239,10 @@ header{
   border-color: rgb(255, 104, 49) !important; /*outer ring color change*/  }
   .mat-dialog-header{
     height: 40px;
+  }
+
+  .welcome{
+    min-width: 70%;
+    width: 70%;
+    height: 150px;
   }

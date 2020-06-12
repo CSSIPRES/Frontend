@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import * as departement from '../departement.json';
 import * as regions from '../regions.json';
@@ -53,7 +53,7 @@ export const APP_DATE_FORMATS =
   selector: 'app-immatriculation',
   templateUrl: './immatriculation.component.html',
   styleUrls: ['./immatriculation.component.css'],
-  
+  /* encapsulation: ViewEncapsulation.None, */
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}
   ]
@@ -100,7 +100,6 @@ export class ImmatriculationComponent implements OnInit {
   loader:boolean=false;
   userName:string="";
   dataSource:MatTableDataSource<any>;
-  
   nineaExist:boolean=false;
   validICN:boolean=false;
   validPassport:boolean=false;
@@ -119,6 +118,7 @@ export class ImmatriculationComponent implements OnInit {
   immatPara:boolean=false;
   immatDip:boolean=false;
   immatDom:boolean=false;
+  sectorName1:string="";
   
   domesticRegistrationForm:FormGroup;
 
@@ -280,6 +280,7 @@ export class ImmatriculationComponent implements OnInit {
       for(let i=0;i< this.employeData.length;i++){
         decXslsFile.push(this.fillEmployeeForm(this.employeData[i])); 
       }
+      console.log(decXslsFile);
       
       console.log(decXslsFile.value);
      this.dataSource=this.immatForm.get('input').get('employeList').value; 
@@ -457,7 +458,28 @@ export class ImmatriculationComponent implements OnInit {
     })
     })
    }
-
+    incrementDate(event){
+      let identityType= this.immatForm.get('input').get('legalRepresentativeForm')
+      .get('typeOfIdentity').value;
+      let dateDebut= this.immatForm.get('input').get('legalRepresentativeForm')
+      .get('issuedDate').value;
+      let dateFin=this.immatForm.get('input').get('legalRepresentativeForm')
+      .get('expiryDate');
+      if(identityType=="NIN"){
+      let endDate = moment(dateDebut).add(10,'year').format('YYYY-MM-DD');
+      console.log(endDate); 
+      dateFin.patchValue(endDate);
+      }
+      else if(identityType=="PASS"){
+        let endDate1 = moment(dateDebut).add(5,'year').format('YYYY-MM-DD');
+        console.log(endDate1); 
+        dateFin.patchValue(endDate1);
+      }
+      /*else{
+        dateDebut="";
+         this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value=""; 
+      }*/
+   }
    initImmatFormPP(){
     this.immatForm=this.fb.group({
      input:  this.fb.group({ 
@@ -734,7 +756,6 @@ getEmployee(outputValue){
       this.dateErrors=false;
     }
   }
-  
   validationPiece(event){
     let d1:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('issuedDate').value;
     let d2:Date=this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value;
@@ -871,8 +892,7 @@ getEmployee(outputValue){
       conventionApplicable:  this.fb.control(''),
       salaireContractuel:  this.fb.control(''),
       tempsTravail:  this.fb.control(''),
-      categorie:  this.fb.control('9B')
-     
+      categorie:  this.fb.control('')
   });
   }
   contrat:boolean=true;
@@ -896,52 +916,49 @@ getEmployee(outputValue){
   } */
   fillEmployeeForm(dec){
     return    new FormGroup({
-        numeroAssureSocial:new FormControl(dec.numeroAssureSocial),
-        nomEmploye:new FormControl(dec.nomEmploye),
-        prenomEmploye:new FormControl(dec.prenomEmploye), 
-        dateNaissance:new FormControl(dec.dateNaissance), 
-        typePieceIdentite:new FormControl(dec.typePieceIdentite),  
-        numPieceIdentite:new FormControl( dec.numPieceIdentite), 
-        natureContrat: new FormControl(''),
-        dateEntree: new FormControl(dec.dateEntree),
-        dateSortie:new FormControl(dec.dateSortie), 
-        motifSortie: new FormControl(dec.motifSortie), 
-        totSalAssCssPf1: new FormControl(dec.totSalAssCssPf1), 
-        totSalAssCssAtmp1: new FormControl(dec.totSalAssCssAtmp1), 
-        totSalAssIpresRg1: new FormControl(dec.totSalAssIpresRg1), 
-        totSalAssIpresRcc1: new FormControl(dec.totSalAssIpresRcc1), 
-        salaireBrut1: new FormControl(dec.salaireBrut1), 
-        nombreJours1: new FormControl(dec.nombreJours1), 
-        nombreHeures1: new FormControl(dec.nombreHeures1), 
-        tempsTravail1: new FormControl(dec.tempsTravail1), 
-        trancheTravail1: new FormControl(dec.trancheTravail1), 
-        regimeGeneral1: new FormControl(dec.regimeGeneral1), 
-        regimCompCadre1: new FormControl(dec.regimCompCadre1), 
-        dateEffetRegimeCadre1: new FormControl(dec.dateEffetRegimeCadre1), 
-        totSalAssCssPf2:new FormControl(dec.totSalAssCssPf2),  
-        totSalAssCssAtmp2:new FormControl(dec.totSalAssCssAtmp2),
-        totSalAssIpresRg2: new FormControl(dec.totSalAssIpresRg2),
-        totSalAssIpresRcc2:  new FormControl(dec.totSalAssIpresRg2),
-        salaireBrut2: new FormControl(dec.salaireBrut2),
-        nombreJours2: new FormControl(dec.nombreJours2),
-        nombreHeures2: new FormControl(dec.nombreHeures2),
-        tempsTravail2:new FormControl(dec.tempsTravail2), 
-        trancheTravail2: new FormControl(dec.trancheTravail2),
-        regimeGeneral2: new FormControl(dec.regimeGeneral2),
-        regimCompCadre2: new FormControl(dec.regimCompCadre2),
-        dateEffetRegimeCadre2:new FormControl(dec.dateEffetRegimeCadre2), 
-        totSalAssCssPf3: new FormControl(dec.totSalAssCssPf3),
-        totSalAssCssAtmp3: new FormControl(dec.totSalAssCssAtmp3),
-        totSalAssIpresRg3: new FormControl(dec.totSalAssIpresRg3),
-        totSalAssIpresRcc3: new FormControl(dec.totSalAssIpresRcc3),
-        salaireBrut3: new FormControl(dec.salaireBrut3),
-        nombreJours3: new FormControl(dec.nombreJours3),
-        nombreHeures3: new FormControl(dec.nombreHeures3),
-        tempsTravail3: new FormControl(dec.tempsTravail3),
-        trancheTravail3: new FormControl(dec.trancheTravail3),
-        regimeGeneral3:new FormControl(dec.regimeGeneral3), 
-        regimCompCadre3: new FormControl(dec.regimCompCadre3),
-        dateEffetRegimeCadre3: new FormControl(dec.dateEffetRegimeCadre3) })
+      rechercheEmploye: this.fb.control(dec.rechercheEmploye),
+      nomEmploye:  this.fb.control(dec.nomEmploye),
+      prenomEmploye:  this.fb.control(dec.prenomEmploye),
+      sexe:  this.fb.control(dec.sexe),
+      etatCivil:  this.fb.control(dec.etatCivil),
+      dateNaissance:  this.fb.control(dec.dateNaissance),
+      numRegNaiss:  this.fb.control(dec.numRegNaiss),
+      nomPere:  this.fb.control(dec.nomPere),
+      prenomPere:  this.fb.control(dec.prenomPere),
+      nomMere:  this.fb.control(dec.nomMere),
+      prenomMere:  this.fb.control(dec.prenomMere),
+      nationalite:  this.fb.control(dec.nationalite),  
+      typePieceIdentite:  this.fb.control(dec.typePieceIdentite),
+      nin:  this.fb.control(dec.nin),
+      ninCedeao:  this.fb.control(dec.ninCedeao),
+      numPieceIdentite:  this.fb.control(dec.numPieceIdentite),
+      delivreLe:  this.fb.control(dec.delivreLe),
+      lieuDelivrance: this.fb.control(dec.lieuDelivrance),
+      expireLe:  this.fb.control(dec.expireLe),
+      villeNaissance:  this.fb.control(dec.villeNaissance),
+      paysNaissance:  this.fb.control(dec.paysNaissance),
+      employeurPrec: this.fb.control(dec.employeurPrec),
+      pays:  this.fb.control(dec.pays),
+      region: this.fb.control(dec.region),
+      departement:  this.fb.control(dec.departement),
+      arrondissement:  this.fb.control(dec.arrondissement),
+      commune:  this.fb.control(dec.commune),
+      quartier:  this.fb.control(dec.quartier),
+      adresse:  this.fb.control(dec.adresse),
+      boitePostale:  this.fb.control(dec.boitePostale),
+      typeMouvement:  this.fb.control(dec.typeMouvement),
+      natureContrat:  this.fb.control(dec.natureContrat),
+      dateDebutContrat:  this.fb.control(dec.dateDebutContrat),
+      dateFinContrat: this.fb.control(dec.dateFinContrat),
+      profession: this.fb.control(dec.profession),
+      emploi: this.fb.control(dec.emploi),
+      /* nonCadre: this.fb.control(dec.nonCadre), */
+      ouiCadre: this.fb.control(dec.ouiCadre),
+      conventionApplicable:  this.fb.control(dec.conventionApplicable),
+      salaireContractuel:  this.fb.control(dec.salaireContractuel),
+      tempsTravail:  this.fb.control(dec.tempsTravail),
+      categorie:  this.fb.control('9B')
+         })
     }
   addItem(): void { 
     this.employeList.push(this.createItem()); 
@@ -981,8 +998,6 @@ this.initlistDept.items.forEach(element => {
       });
   }
   
-
-
 selectDepartement(event){
   this.listA=[];
   this.listA1=[];
@@ -1090,7 +1105,7 @@ for(let i=0;i<emplistRegion.length;i++){
      }
     ); 
   }
-  sectorName1:string="";
+  
   selectSector(event){ 
     let c1:string="";
     let c2:string="";
