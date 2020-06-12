@@ -61,6 +61,7 @@ export class SuiviDemandeComponent implements OnInit {
   }
 
   createAttestationregularite(){
+    this.loader = false;
   
     console.log(this.attestationForm.getRawValue().typeIdentifiant);
    
@@ -71,8 +72,7 @@ export class SuiviDemandeComponent implements OnInit {
         panelClass: ['my-snack-bar1', "mat-warn"],
         verticalPosition: 'top',
         horizontalPosition:'right'
-     })
-     this.loader = false;
+     });
     
     }else{
       this.loader = true;

@@ -8,6 +8,7 @@ import { LoginService } from '../services/login.service';
 import { EmployeExistService } from '../services/employe-exist.service';
 import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
 import { ConnexionComponent } from '../connexion/connexion.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-accueil',
@@ -43,18 +44,19 @@ export class AccueilComponent implements OnInit {
 
          
 
-          console.log(paramMap);
+          console.log(paramMap.get('key'));
           
          this.key = paramMap.get('key');
          if(this.key){
-           if(this.key.length > 5){
+           if(this.key.length > 10){
+
+              // this.login.activatedAccount(this.key);
+              this.opensweetalert("","success","Votre compte est activé avec succès ! Veuillez vous connecter avec vos nouveaux identifiants");
             
            }else{
-        
+             this.opensweetalert("","error","Veuillez cliquer sur le lien qui vous a été envoyé");
            }
             //  this.openConnexionDialog();
-
-
 
          }
          /* if(this.key){
@@ -79,6 +81,20 @@ export class AccueilComponent implements OnInit {
     this.isAuth();
     
     /* this.wowService.init(); */
+  }
+
+
+  opensweetalert(title, icon, text){
+  
+   
+  
+    Swal.fire({
+      icon: icon,
+      title: title,
+      text: text,
+      timer: 6000
+    })
+    
   }
   initForm(){
     this.loginForm=this.fb.group({

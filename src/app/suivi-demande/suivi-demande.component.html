@@ -79,9 +79,6 @@
                 </mat-form-field>
                 <button (click)="createAttestationregularite()" class="submit-button" mat-button [disabled]="loader">Valider</button>
        
-                <div>  
-                  <mat-spinner *ngIf="loader" strokeWidth="2" [diameter]="34" ></mat-spinner>
-               </div> 
       </div>
     </form>
       
@@ -119,7 +116,7 @@
 
 
     
-
+<!--
   <mat-expansion-panel [expanded]="step === 1" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
@@ -137,10 +134,7 @@
                   <mat-error>Ce champ est obligatoire</mat-error> 
                 </mat-form-field>
                 <button (click)="createCertificatImmatriculation()" class="submit-button" mat-button [disabled]="loaderUrlImmat">Valider</button>
-       
-               <!-- <div>  
-                  <mat-spinner *ngIf="loaderUrlImmat" strokeWidth="2" [diameter]="34" ></mat-spinner>
-               </div>  -->
+   
       </div>
     </form>
       
@@ -170,5 +164,6 @@
 
      </div>
   </mat-expansion-panel>
+-->
   
 </mat-accordion>
