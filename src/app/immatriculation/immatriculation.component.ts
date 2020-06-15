@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 /* import Swal from 'sweetalert2/dist/sweetalert2.js'; */
 import * as XLSX from 'xlsx';
 
-/* export class AppDateAdapter extends NativeDateAdapter {
+ export class AppDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
       if (displayFormat === 'input') {
           const day = date.getDate();
@@ -48,7 +48,7 @@ export const APP_DATE_FORMATS =
         dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
         monthYearA11yLabel: { year: 'numeric', month: 'long' },
     }
-}; */
+}; 
 @Component({
   selector: 'app-immatriculation',
   templateUrl: './immatriculation.component.html',
@@ -180,13 +180,11 @@ export class ImmatriculationComponent implements OnInit {
       imageUrl: "",
       resetDate: ""
     }
-  }
+  }  
 
   constructor(private fb:FormBuilder,private dialog:MatDialog,
     private immService:ImmatriculationService,private snackB: MatSnackBar
     ,private saveEmp:SaveEmployeeService,private userService:UserService) {}
-
-
 ///// File Upload //////
 
     onFileChange(evt: any) {
@@ -287,16 +285,10 @@ export class ImmatriculationComponent implements OnInit {
       /* this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort; */
     }
-  
-
-
 
     ////// End File Upload 
 
     opensweetalert(title, icon, text){
-  
-   
-  
       Swal.fire({
         icon: icon,
         title: title,
@@ -395,7 +387,7 @@ export class ImmatriculationComponent implements OnInit {
     dateOfFirstHire:this.fb.control('', Validators.required),
     shortName:this.fb.control(''),
     businessSector:this.fb.control('', Validators.required),
-    mainLineOfBusiness:this.fb.control('', Validators.required),
+    mainLineOfBusiness:this.fb.control('', Validators.required),     
     region:this.fb.control('', Validators.required),
     department:this.fb.control('', Validators.required),
     arondissement:this.fb.control('', Validators.required),
@@ -409,7 +401,7 @@ export class ImmatriculationComponent implements OnInit {
     noOfWorkersInGenScheme:this.fb.control('', Validators.required)
       }),
       employerQuery:this.fb.group({
-        employerType:this.fb.control('PVT', Validators.required),
+        employerType:this.fb.control('', Validators.required),
         legalStatus: this.fb.control('',Validators.required),
         typeEtablissement:this.fb.control('', Validators.required),
         employerName:this.fb.control('', Validators.required),
@@ -450,34 +442,13 @@ export class ImmatriculationComponent implements OnInit {
     })
     })
    }
-    incrementDate(event){
-      let identityType= this.immatForm.get('input').get('legalRepresentativeForm')
-      .get('typeOfIdentity').value;
-      let dateDebut= this.immatForm.get('input').get('legalRepresentativeForm')
-      .get('issuedDate').value;
-      let dateFin=this.immatForm.get('input').get('legalRepresentativeForm')
-      .get('expiryDate');
-      if(identityType=="NIN"){
-      let endDate = moment(dateDebut).add(10,'year').format('YYYY-MM-DD');
-      console.log(endDate); 
-      dateFin.patchValue(endDate);
-      }
-      else if(identityType=="PASS"){
-        let endDate1 = moment(dateDebut).add(5,'year').format('YYYY-MM-DD');
-        console.log(endDate1); 
-        dateFin.patchValue(endDate1);
-      }
-      /*else{
-        dateDebut="";
-         this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value=""; 
-      }*/
-   }
+
    initImmatFormPP(){
     this.immatForm=this.fb.group({
      input:  this.fb.group({ 
       employerQuery:this.fb.group({
       regType:this.fb.control('BVOLN', Validators.required),
-      employerType:this.fb.control('PUB_PARA', Validators.required),
+      employerType:this.fb.control('', Validators.required),
       estType:this.fb.control('', Validators.required),
       employerName:this.fb.control('', Validators.required),
       hqId:this.fb.control(''),
@@ -527,7 +498,7 @@ export class ImmatriculationComponent implements OnInit {
     this.immatForm=this.fb.group({
     input:  this.fb.group({
     domesticRegistrationForm:this.fb.group({
-     dateEmbauchePremierSalarie:new FormControl(  'dateEmbauchePremierSalarie', Validators.required), 
+     dateEmbauchePremierSalarie:new FormControl('dateEmbauchePremierSalarie', Validators.required), 
      regType:this.fb.control('BVOLN', Validators.required),
      idType:this.fb.control('NIN', Validators.required),
      nin:this.fb.control('1549198204473', Validators.required),
@@ -599,46 +570,44 @@ export class ImmatriculationComponent implements OnInit {
      })
     })
     }
-    controlPara:boolean=false;
+    /* controlPara:boolean=false;
     controlRd:boolean=false;
     controlPv:boolean=false;
-    controlRp:boolean=false;
+    controlRp:boolean=false; */
+infoGen:boolean=false;
+infoEmp:boolean=false;
+infoRepLeg:boolean=false;
+infoPersoneContact:boolean=false;
+empInfoField:boolean=false;
+domInfo:boolean=false;
     selectForm(event){
       let empType=this.immatForm.get('input').get('employerQuery').get('employerType').value;
-     
-      if(empType=='PUB_PARA') {       
-        this.initImmatFormPP();
-        this.immatPara=true;
-        this.immatFormBoolean=true; 
-        this.immatDip=false; 
-        this.controlPara=true; 
-        this.controlPv=false; 
-      }
-      else if(empType=='DOM'){  
+      if(empType=='DOM'){  
         this.initImmatFormSD();
-        this.immatDom=true;
-        this.immatDip=false;
-        this.immatFormBoolean=true;
-        this.immatPara=false;
+        this.infoGen=true;
+        this.infoEmp=false;
+        this.infoRepLeg=false;
+        this.infoPersoneContact=false;
       }
-      else if(empType=='PVT'){
-        this.initImmatForm();
-        this.immatFormBoolean=false; 
-        this.controlPv=true; 
-        this.immatDip=false; 
-        this.immatPara=false;
-        this.controlPara=false;  
-      }
-      else if(empType=='REP_DIP'){
+       if(empType=='PUB_PARA') {       
+        this.initImmatFormPP();
+        console.log(this.initImmatFormPP())
+        this.infoGen=true;
+        this.infoEmp=true;
+        this.empInfoField=true;
+        this.infoPersoneContact=true;
+        this.infoRepLeg=false;
+      } 
+      if(empType=='REP_DIP') {
         this.initImmatFormRD();
-         this.immatFormBoolean=true; 
-        this.immatDip=true;
-        this.immatPara=false;
-        this.controlPv=false; 
+        this.domInfo=true;
+        this.infoGen=false;
+        this.infoEmp=false;
+        this.empInfoField=false;
+        this.infoPersoneContact=false;
+        this.infoRepLeg=false;
       }
      
-  
-      console.log(empType);
     }  
 
   
@@ -658,13 +627,33 @@ export class ImmatriculationComponent implements OnInit {
     console.log(this.listactivitePrincipal);
     this.getUser();
 
-    this.immatFormBoolean=false; 
-    this.controlPv=true; 
-    this.immatDip=false; 
-    this.immatPara=false;
-    this.controlPara=false;
+    this.infoGen=true;
+    this.infoEmp=true;
+    this.infoRepLeg=true;
+    this.infoPersoneContact=false;
 }  
-
+incrementDate(event){
+  let identityType= this.immatForm.get('input').get('legalRepresentativeForm')
+  .get('typeOfIdentity').value;
+  let dateDebut= this.immatForm.get('input').get('legalRepresentativeForm')
+  .get('issuedDate').value;
+  let dateFin=this.immatForm.get('input').get('legalRepresentativeForm')
+  .get('expiryDate');
+  if(identityType=="NIN" || identityType=="CDEAO"){
+  let endDate = moment(dateDebut).add(10,'year').format('YYYY-MM-DD');
+  console.log(endDate); 
+  dateFin.patchValue(endDate);
+  }
+  else if(identityType=="PASS"){
+    let endDate1 = moment(dateDebut).add(5,'year').format('YYYY-MM-DD');
+    console.log(endDate1); 
+    dateFin.patchValue(endDate1);
+  }
+  /*else{
+    dateDebut="";
+     this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value=""; 
+  }*/
+}
 getUser(){
   this.userService.getUser(this.userName).subscribe(
     resp=>{this.currentUser =resp;
@@ -906,6 +895,7 @@ getEmployee(outputValue){
     let d3: number = this.dateDiff1(new Date(empCreation),new Date(dateOuv));
     console.log(d3);
   } */
+
   fillEmployeeForm(dec){
     return    new FormGroup({
       rechercheEmploye: this.fb.control(dec.rechercheEmploye),
@@ -1119,8 +1109,7 @@ for(let i=0;i<emplistRegion.length;i++){
 
 
   addNewEmp() { 
- 
-  let empList=(this.immatForm.get('input').get('employeList') as FormArray)
+    let empList=(this.immatForm.get('input').get('employeList') as FormArray)
     empList.push(this.createItem());
     this.addEmpForm=true;
     this.editEmpForm=false;

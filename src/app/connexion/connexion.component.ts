@@ -28,12 +28,13 @@ export class ConnexionComponent implements OnInit {
   windowScrolled: boolean;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   /* passwordPattern="/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/" */
-  passwordPattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+  /* passwordPattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" */
   
   creationCpteForm:FormGroup;
   key:string;
   @ViewChild('confirmPassword',{static:false}) confirmPassword:ElementRef;
   confPass:boolean=false;
+  hide:boolean=false;
   constructor(private fb:FormBuilder,
     private creCompteServ:CreationCompteService,
     private routerActive:ActivatedRoute,private snackB: MatSnackBar,
@@ -137,7 +138,7 @@ opensweetalert(title, icon, text){
       email:new FormControl('',{ updateOn: 'blur', validators: [Validators.required,Validators.pattern(this.emailPattern)]}),
       login:new FormControl('', Validators.required),
       langKey:new FormControl('fr', Validators.required),
-      password:new FormControl('', { updateOn: 'blur', validators: [Validators.required,Validators.pattern(this.passwordPattern)]})
+      password:new FormControl('', Validators.required)
       /* password:new FormControl('', { updateOn: 'blur', validators: [Validators.required,Validators.pattern(this.passwordPattern)]}) */
       
     })

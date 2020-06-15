@@ -9,7 +9,7 @@ import { EmployeExistService } from '../services/employe-exist.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ConnexionComponent } from '../connexion/connexion.component';
 
-@Component({
+@Component({  
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
   styleUrls: ['./accueil.component.css']
@@ -91,13 +91,10 @@ export class AccueilComponent implements OnInit {
       dialogConfig.height='600px'
      this.dialog.open(ConnexionComponent, dialogConfig);
   }
-
-
-    
+ 
   isAuth(){
     if(localStorage.getItem('token')!=null){
     this.checkConn=true;
     }
   }
-
 }

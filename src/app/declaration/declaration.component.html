@@ -520,7 +520,7 @@
           </div>
           <div fxLayoutAlign="end" fxLayoutGap="10%">
             <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-            <button [disabled]="!declarationForm.valid" class="submit-button" mat-raised-button matStepperNext>Suivant</button>
+            <button (click)="cumulTotal()" [disabled]="!declarationForm.valid" class="submit-button" mat-raised-button matStepperNext>Suivant</button>
           </div>
       </div>
       </mat-step>   
@@ -630,12 +630,12 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action </th>
             <td mat-cell *matCellDef="let element">
-              <mat-icon>edit</mat-icon>
+              <!-- <mat-icon>edit</mat-icon> -->
             </td>
             <td mat-cell *matCellDef="let element">
-              <mat-icon>delete_outline</mat-icon>
+             <!--  <mat-icon>delete_outline</mat-icon> -->
             </td>
-          </ng-container>
+          </ng-container> 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>

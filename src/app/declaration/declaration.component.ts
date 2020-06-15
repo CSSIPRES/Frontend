@@ -307,13 +307,14 @@ dateErrors:boolean=false;
     this.loader1=true;
     this.decService.preDns(prDns).subscribe(
        (resp:any)=>{
+       
          console.log(resp);
          if(resp!=null){     
            this.loader=false;
            this.loader1=false;
            this.displayBtn=true;
-           this.cumulTotal();
           }
+       
         this.dataSource=resp.value.informationSalaries;
         
         /* console.log(this.fillListDecForm(resp.value.informationSalaries)); */
@@ -338,6 +339,7 @@ dateErrors:boolean=false;
           mntCotRccCalcParEmployeur:new FormControl(''),
           informationSalaries:new FormArray(this.fillListSalForm(resp.value.informationSalaries))
         });
+        this.cumulTotal();
        },error=>{
         if(error.status==400 || error.status==500){
           this.loader=false;
@@ -884,7 +886,7 @@ applyFilter(filterValue: string) {
     +Number.parseInt(totSalAssIpresRg2.toString()) +
     Number.parseInt(totSalAssIpresRg3.toString());
     this.totalCotRg=  Number.parseInt((this.totSalAssIpresRg*0.14).toString()); 
-    /* console.log("Total Cotisation Rg",this.totalCotRg);  */
+    console.log("Total Cotisation Rg",this.totalCotRg); 
    
    } 
    this.totSalVerse=salBrut1 +salBrut2 +salBrut3;
