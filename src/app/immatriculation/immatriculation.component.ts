@@ -654,6 +654,21 @@ incrementDate(event){
      this.immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value=""; 
   }*/
 }
+incrementSalDate(event,i){
+  let dateDebut=this.immatForm.get('input').get('employeList').value[i].delivreLe;
+  let dateFin=this.immatForm.get('input').get('employeList').value[i].expireLe;
+  let typeIdentity=this.immatForm.get('input').get('employeList').value[i].typePieceIdentite;
+  
+  if(typeIdentity=="NIN" || typeIdentity=="CDEAO" ){
+   let d= moment(dateDebut).format('YYYY-MM-DD');
+    let d1= moment(d).add(10,'year').format('YYYY-MM-DD');
+    dateFin=d1;
+  }
+  else if(typeIdentity=="PASS"){
+    dateFin= moment(dateDebut).add(5,'year').format('YYYY-MM-DD');
+  }
+
+}
 getUser(){
   this.userService.getUser(this.userName).subscribe(
     resp=>{this.currentUser =resp;
@@ -703,12 +718,12 @@ getEmployee(outputValue){
  this.employeInfo.sectorIpres=outputValue.sectorIpres;
  this.employeInfo.tauxAT=outputValue.tauxAt
  this.employeInfo.agencyCss=outputValue.agenceCss;
- this.employeInfo.agencyIpres=outputValue.agenceIpres;
+ this.employeInfo.agencyIpres=outputValue.agenceIpres;  
  this.employeInfo.processFlowId=outputValue.processFlowId;
  this.employeInfo.statutDossier="statutDossier";
   this.employeInfo.statutImmatriculation=""; 
  this.employeInfo.idDossiers=null;
- this.employeInfo.documents=null;
+ this.employeInfo.documents=null;     
  this.employeInfo.user.id=this.currentUser.id;
  this.employeInfo.user.login=this.currentUser.login;
  this.employeInfo.user.firstName=this.currentUser.firstName;
@@ -854,7 +869,7 @@ getEmployee(outputValue){
       villeNaissance:  this.fb.control(''),
       paysNaissance:  this.fb.control(''),
       employeurPrec: this.fb.control(''),
-      pays:  this.fb.control(''),
+      pays:  this.fb.control('SEN'),
       region: this.fb.control(''),
       departement:  this.fb.control(''),
       arrondissement:  this.fb.control(''),
@@ -1109,7 +1124,7 @@ for(let i=0;i<emplistRegion.length;i++){
 
 
   addNewEmp() { 
-    let empList=(this.immatForm.get('input').get('employeList') as FormArray)
+    let empList=(this.immatForm.get('input').get('employeList') as FormArray);
     empList.push(this.createItem());
     this.addEmpForm=true;
     this.editEmpForm=false;
@@ -1148,10 +1163,8 @@ for(let i=0;i<emplistRegion.length;i++){
       this.maxRgGen=false; 
      }
    }
-   
- 
   updateEmp(i){
-    let empList=(this.immatForm.get('input').get('employeList') as FormArray)
+    let empList=(this.immatForm.get('input').get('employeList') as FormArray);
     /* let emp=this.immatForm.get('input').get('employeList').value; */
     let d=empList.value[i].dateNaissance;
     let d1=moment(d).format('YYYY-MM-DD');
@@ -1163,7 +1176,7 @@ for(let i=0;i<emplistRegion.length;i++){
     this.editEmpForm=false;
     
   }
- 
+
   /*  @Input() private format = 'YYYY/MM/DD HH:mm:ss';
 addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.dateValue = moment(event.value, this.format);

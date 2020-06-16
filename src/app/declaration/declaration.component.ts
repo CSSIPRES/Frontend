@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit, TemplateRef, Inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit, TemplateRef, Inject, Pipe, PipeTransform, NgModule } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
@@ -11,14 +11,43 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import * as XLSX from 'xlsx';
 import { EmployeExistService } from '../services/employe-exist.service';
 import { ActivatedRoute } from '@angular/router';
-  
+import { formatCurrency, getCurrencySymbol } from '@angular/common';
+
+@Pipe({
+  name: 'mycurrency',
+})
+export class MycurrencyPipe implements PipeTransform {
+  transform(
+      value: number,
+      currencyCode: string = 'XOF',
+      display:
+          | 'code'
+          | 'symbol'
+          | 'symbol-narrow'
+          | string
+          | boolean = 'symbol',
+      digitsInfo: string = '3.2-2',
+      locale: string = 'fr',
+  ): string | null {
+      return formatCurrency(
+        value,
+        locale,
+        getCurrencySymbol(currencyCode, 'wide'),
+        currencyCode,
+        digitsInfo,
+      );
+  }
+} 
+@NgModule({
+  declarations: [MycurrencyPipe]
+})
 @Component({
   selector: 'app-declaration',
   templateUrl: './declaration.component.html',
   styleUrls: ['./declaration.component.css'],
   providers: [{
-  provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}]
-     
+  provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}],
+ 
 })
 
 export class DeclarationComponent implements OnInit,AfterViewInit {
@@ -461,7 +490,7 @@ dateErrors:boolean=false;
     natureContrat: new FormControl(dec.natureContrat),
     dateEntree: new FormControl(dec.dateEntree),
     dateSortie: new FormControl(dec.dateSortie),
-    motifSortie: new FormControl(dec.motifSortie),
+    motifSortie: new FormControl(dec.motifSortie),   
     totSalAssCssPf1: new FormControl(dec.totSalAssCssPf1),
     totSalAssCssAtmp1: new FormControl(dec.totSalAssCssAtmp1),
     totSalAssIpresRg1: new FormControl(dec.totSalAssIpresRg1),
@@ -561,12 +590,11 @@ fillListSalForm(listSal){
   }
  
   addNewSalarie() { 
-    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray);
     dec.push(this.newEmployeeForm());
     this.addSalForm=true;
     this.editSalForm=false;
     for(let i=0;i<dec.value.length; i++){
-      console.log(dec.value[i]);
     if(dec.value[i].numeroAssureSocial==""){
       this.addIndex=i;
      }
@@ -579,14 +607,17 @@ fillListSalForm(listSal){
     this.editSalForm=true;
   }
    removeSal(i) {
-    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray);
      dec.removeAt(i); 
      this.dataSource=dec.value;
      console.log(dec.value);
      this.cumulTotal();
    }
-  updateSal(){
-    let dec=(this.declarationForm.get('informationSalaries') as FormArray)
+  updateSal(i){
+    let dec=(this.declarationForm.get('informationSalaries') as FormArray);
+    let d=dec.value[i].dateNaissance;
+    let d1=moment(d).format('YYYY-MM-DD');
+    dec.value[i].dateNaissance=d1;
     this.dataSource=dec.value; 
     this.dataSource.sort=this.sort;
     this.addSalForm=false;

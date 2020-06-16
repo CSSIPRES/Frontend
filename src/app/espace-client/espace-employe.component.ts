@@ -9,6 +9,7 @@ import { PaiementComponent } from '../paiement/paiement.component';
 import { LoginService } from '../services/login.service';
 import { EmployeExistService } from '../services/employe-exist.service';
 import { Router } from '@angular/router';
+import { ImmatriculationService } from '../services/immatriculation.service';
 
 
 
@@ -46,9 +47,10 @@ export class EspaceEmployeComponent implements OnInit {
   prenomUser:string=""
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
-  tok:any=""
+  tok:any="";
+  statusList:any=[];
   constructor(private dialog:MatDialog,private userService:LoginService, private empExistServ:EmployeExistService,
-    private router:Router) {
+    private router:Router,private immatServ:ImmatriculationService) {
    
    }
 
@@ -60,12 +62,20 @@ export class EspaceEmployeComponent implements OnInit {
     if(this.tok!=null){
       this.checkConn=true;
     }
+    
   }
   welcome_card:boolean=false;
   getListEmploye(){
     this.empExistServ.getEmpExist().subscribe((resp:any)=>
       {
+    for(let i=0;i<resp.length;i++){
+      console.log(resp[i].processFlowId);
+      if(resp[i].processFlowId!=undefined){
+      console.log(this.getStatutImmatriculation(resp[i].processFlowId));
+      }
+    } 
     if(resp.length==0){
+    
       this.welcome_card=true;
     }
     else{  
@@ -171,5 +181,15 @@ openDemandeAttestationDialog(){
       dialogConfig.width='1000px',
       dialogConfig.height='650px'
      this.dialog.open(PaiementComponent, dialogConfig);
+  }
+ 
+  
+  getStatutImmatriculation(id){
+    this.immatServ.getStatutCertificatImmat(id).subscribe(
+      (resp:any)=>{
+      console.log(resp);
+      this.statusList=resp;
+      }
+    )
   }
 } 
