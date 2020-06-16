@@ -18,7 +18,6 @@
   </div> 
 </div>
 </mat-toolbar> 
-<<<<<<< HEAD
 
 <mat-divider></mat-divider>
 <!--  -->
@@ -111,105 +110,5 @@
         </mat-radio-group>
       </div>
   </ng-template>
-=======
-<div class="menu-divider">
-<mat-divider ></mat-divider> 
-</div>
-<mat-drawer-container class="example-container mat-typography" autosize>
-  <mat-drawer #drawer mode="side" disableClose="true" opened="true">
-    <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
-      <mat-icon aria-label="Menu">menu</mat-icon>
-    </button>              
-    <mat-nav-list>
-      <mat-list-item (click)="openImmatPopup(choiceTemplate)">
-        <mat-icon mat-list-icon>person</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Immatriculation</h4>
-      </mat-list-item>
-      <mat-list-item (click)="openImmatPopup(choiceTemplate)">
-        <mat-icon mat-list-icon>assignment</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Declaration</h4>
-      </mat-list-item>
-      <mat-list-item (click)="openPaiementDialog()">
-        <mat-icon mat-list-icon>attach_money</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Paiements</h4>
-      </mat-list-item>
-      <mat-list-item (click)="openDemandeAttestationDialog()">
-      <mat-icon mat-list-icon >cached</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Statut & Suivi demande</h4>
-      </mat-list-item>
-      <mat-list-item>
-        <mat-icon mat-list-icon>folder_shared</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Paramètres</h4>
-      </mat-list-item>
-    </mat-nav-list>
-  </mat-drawer>
-
-  <div class="example-sidenav-content">
-    <div fxLayout="column">
-      <div class="container" fxLayoutAlign="start start">
-      <h2  class="mt-2">Espace employeur</h2>
-      </div>  
-      <mat-divider class="inset mb-2"></mat-divider>
-      <div class="container mb-5" fxLayout="row" fxLayoutAlign="end start">
-          <button  (click)="openImmatPopup(choiceTemplate)"  class="submit-button" mat-raised-button><mat-icon>add</mat-icon> Immatriculer un employeur</button>
-      </div>
-    
-
-      <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">  
-        <mat-card class="immatCard mt-3" *ngFor="let emp of listEmp; let i=index;">
-          <mat-card-content fxLayoutAlign="space-between center">
-            <mat-icon>person_outlined</mat-icon>
-            <div class="card_activite">
-              <span fxLayout="row"><p>Raison sociale</p>&nbsp; | {{emp?.raisonSociale}} </span>
-              <span fxLayout="row"><b>NINEA</b>&nbsp;<mat-toolbar>{{emp?.numeroIdentifiant}}</mat-toolbar> </span>
-              <button class="decButton" (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Declarer</button>
-              <a class="details" [routerLink]="['/espace-employer/',emp.id]">Voir Dossier </a> 
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>            
-      <div class="vertical_divider mt-5">
-      <mat-divider inset="vertical"></mat-divider>
-      </div>
-    <div class="container" fxFlex="30">
-       <h2>Vos Activites</h2>
-       <mat-card class="card_activite mt-3 mb-3">  
-        <mat-card-content>
-          <div fxFlex="column">
-            <div class="mb-3">
-            <strong>Votre demande d'immatriculation en cours
-              de traitement
-            </strong> 
-          </div>
-          <div  class="mb-3"> 
-            <span>Votre facture trimestriel est disponible pour paiement
-            </span> 
-          </div>
-          <div  class="mb-3">
-            <span>Vous avez ajoute 3 nouveaux employes
-            </span>
-          </div>
-          <div  class="mb-3">
-            <span>Le paiement de votre facture a ete valide
-            </span>
-          </div> 
-          </div>
-        </mat-card-content>
-      </mat-card>
-     <!--  <h2>Vos documents</h2>
-      <mat-card class="card_activite mt-3">  
-        <mat-card-content>
-          <div fxFlex="column">
-            <div class="mb-3">
-            <strong>Votre demande d'immatriculation en cours
-              de traitement
-            </strong> 
-          </div>
-        </div>
-        </mat-card-content>
-       </mat-card>  -->
-    </div>
-  </div>
->>>>>>> c45402f298e14cd84f49f099a87a1193070cd2d9
   </div>
 <!-- </perfect-scrollbar> -->
