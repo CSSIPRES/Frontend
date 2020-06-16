@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div>
     <app-header></app-header>
 </div> 
@@ -6,6 +7,16 @@
         <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
           <mat-icon aria-label="Menu">menu</mat-icon>
         </button>
+=======
+  <div>
+      <app-header></app-header>
+  </div>
+  <mat-drawer-container class="example-container mat-typography" autosize>
+  <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+    <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
+       <mat-icon aria-label="Menu">menu</mat-icon>
+    </button>
+>>>>>>> c45402f298e14cd84f49f099a87a1193070cd2d9
         <mat-nav-list>
           <mat-list-item>
             <mat-icon mat-list-icon>person</mat-icon>
@@ -15,11 +26,11 @@
             <mat-icon mat-list-icon>assignment</mat-icon>
             <h4 mat-line *ngIf="isExpanded">Declaration</h4>
           </mat-list-item>
-          <mat-list-item>
+          <mat-list-item (click)="openPaiementDialog()" >
             <mat-icon mat-list-icon>attach_money</mat-icon>
             <h4 mat-line *ngIf="isExpanded">Paiements</h4>
           </mat-list-item>
-          <mat-list-item>
+          <mat-list-item (click)="openDemandeAttestationDialog()">
             <mat-icon mat-list-icon>cached</mat-icon>
             <h4 mat-line *ngIf="isExpanded">Statut & Suivi demande</h4>
           </mat-list-item>
@@ -52,6 +63,28 @@
               <!-- <span class="mt-2">tauxAt:  {{empInfo?.tauxAT}}</span> -->
               <span class="mt-2">Telephone  <strong>{{empInfo?.telephone}}</strong></span> 
               <span class="mt-2">Quartier: {{empInfo?.qartier}}</span>
+             
+             </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">  
+            <mat-card class="empCard mt-3">
+              <mat-card-header><h4>Statut & Document</h4></mat-card-header>
+            <mat-card-content>  
+              <div fxLayout="column wrap">
+  
+              <h3 class="mt-2">Statut du dossier : </h3>
+    
+          
+                <span class="alert alert-dark mt-2"> <mat-spinner *ngIf="loaderStatutImmat" strokeWidth="2" [diameter]="34"></mat-spinner>{{statutCertImm}}</span>
+               
+                <h3 class="mt-2">Certificat d'immatriculation ( pdf ) </h3>
+               <mat-spinner *ngIf="urlCertImmat === ''" strokeWidth="2" [diameter]="34"></mat-spinner>
+              
+                <button *ngIf="urlCertImmat != ''" (click)="openViewPDFDialog(urlCertImmat)" class="icon-file-dowload" mat-button> 
+                  <mat-icon>cloud_download</mat-icon> Visualiser
+                 </button>
              </div>
               </mat-card-content>
             </mat-card>

@@ -66,7 +66,7 @@ export class ImmatriculationComponent implements OnInit {
   listProfession:any=[];
   showFiller = false;
   currentUser:any=[]
-  empl:any={};
+  empl:any={}; 
   documents:FormGroup;
   dateErrors:boolean=false
   listPays:any=[];
@@ -132,6 +132,8 @@ export class ImmatriculationComponent implements OnInit {
   
   displayedColumns: string[] = ['nomEmploye', 'prenomEmploye', 'dateNaissance', 'numPieceIdentite','adresse','action'];  
   displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'dateNaissance', 'numPieceIdentite','adresse'];
+
+
   employeInfo={
     employerType: "",
     typeEtablissement: "",
@@ -168,7 +170,6 @@ export class ImmatriculationComponent implements OnInit {
     statutDossier: "",
     statutImmatriculation: "",
     idDossiers: "",
-    documents: "",
     user: {
       id: "",
       login: "",
@@ -179,6 +180,29 @@ export class ImmatriculationComponent implements OnInit {
       langKey: "",
       imageUrl: "",
       resetDate: ""
+    },
+    documents:{
+      demandeEcrit:{url:""},
+      formDemande:{url:""},
+      registreCommerce:{url:""},
+      declarationEtablissement:{url:""},
+      photocopieStatus:{url:""},
+      decretMinisteriel:{url:""},
+      avisImmatriculation:{url:""},
+      dmt:{url:""},
+      contratsTravail:{url:""},
+      cni:{url:""},
+      carteIdentiteConsulaire:{url:""},
+      etatRecensement:{url:""},
+      attestationChomage:{url:""},
+      bulletinsSalaire:{url:""},
+      cessationActivity:{url:""},
+      carteNationaleIdentite:{url:""},
+      derniersBulletins:{url:""},
+      manuscriteAdessee:{url:""},
+      passportDoc:{url:""},
+      pieceIdDoc:{url:""},
+      pieceIdGerantDoc:{url:""}
     }
   }  
 
@@ -1123,6 +1147,109 @@ for(let i=0;i<emplistRegion.length;i++){
   maxRgGen:boolean=false;
 
 
+
+
+
+
+
+  // Upload file 
+
+
+fileChangeEvent(fileInput: any,fileName:string) {
+
+  if (fileInput.target.files && fileInput.target.files[0]) {
+
+      // Size Filter Bytes
+      const max_size = 20971520;
+      const allowed_types = ['image/png', 'image/jpeg','image/jpg','application/pdf'];
+     // const max_height = 15200;
+     // const max_width = 25600;
+
+      if (fileInput.target.files[0].size > max_size) {
+          console.log('Votre image est trop volumuneux');
+
+          return false;
+      }
+
+      if (!allowed_types.includes(fileInput.target.files[0].type)) {
+          console.log('Seuls les documents au format ( JPG | JPEG | PNG | PDF ) sont prises en compte');
+          return false;
+      }
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+
+        const docBase64Path = e.target.result;
+        if(fileName == "demandeEcrit"){
+            this.employeInfo.documents.demandeEcrit.url = docBase64Path;
+            console.log(this.employeInfo.documents.demandeEcrit.url);
+        }
+        if(fileName == "formDemande"){
+          this.employeInfo.documents.formDemande.url = docBase64Path;
+        }
+        if(fileName == "registerCommerce"){
+          this.employeInfo.documents.registreCommerce.url = docBase64Path;
+        }
+        if(fileName == "declarationEtablissement"){
+          this.employeInfo.documents.declarationEtablissement.url = docBase64Path;
+        }
+        if(fileName == "photocopieStatus"){
+          this.employeInfo.documents.photocopieStatus.url = docBase64Path;
+        }
+        if(fileName == "decretMinisteriel"){
+          this.employeInfo.documents.decretMinisteriel.url = docBase64Path;
+        }
+        if(fileName == "avisImmatriculation"){
+          this.employeInfo.documents.avisImmatriculation.url = docBase64Path;
+        }
+        if(fileName == "carteNationaleIdentite"){
+          this.employeInfo.documents.carteNationaleIdentite.url = docBase64Path;
+        }
+        if(fileName == "dmt"){
+          this.employeInfo.documents.dmt.url = docBase64Path;
+        }
+        if(fileName == "contratsTravail"){
+          this.employeInfo.documents.contratsTravail.url = docBase64Path;
+        }
+        if(fileName == "cni"){
+          this.employeInfo.documents.cni.url = docBase64Path;
+        }
+        if(fileName == "carteIdentiteConsulaire"){
+          this.employeInfo.documents.carteIdentiteConsulaire.url = docBase64Path;
+        }
+        if(fileName == "etatRecensement"){
+          this.employeInfo.documents.etatRecensement.url = docBase64Path;
+        }
+        if(fileName == "attestationChomage"){
+          this.employeInfo.documents.attestationChomage.url = docBase64Path;
+        }
+        if(fileName == "bulletinsSalaire"){
+          this.employeInfo.documents.bulletinsSalaire.url = docBase64Path;
+        }
+        if(fileName == "cessationActivity"){
+          this.employeInfo.documents.cessationActivity.url = docBase64Path;
+        }
+        if(fileName == "derniersBulletins"){
+          this.employeInfo.documents.derniersBulletins.url = docBase64Path;
+        }
+        if(fileName == "manuscrieAdressee"){
+          this.employeInfo.documents.manuscriteAdessee.url = docBase64Path;
+        }
+        if(fileName == "passportDoc"){
+          this.employeInfo.documents.passportDoc.url = docBase64Path;
+        }
+        if(fileName == "pieceIdDoc"){
+          this.employeInfo.documents.pieceIdDoc.url = docBase64Path;
+        }
+        if(fileName == "pieceIdGerantDoc"){
+          this.employeInfo.documents.pieceIdDoc.url = docBase64Path;
+        }
+
+      };
+
+      reader.readAsDataURL(fileInput.target.files[0]);
+  }
+}
+
   addNewEmp() { 
     let empList=(this.immatForm.get('input').get('employeList') as FormArray);
     empList.push(this.createItem());
@@ -1480,7 +1607,6 @@ interface EmployeData {
   
 
   
-   
-  
+
 
 }

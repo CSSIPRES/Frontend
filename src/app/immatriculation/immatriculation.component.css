@@ -182,6 +182,7 @@ h1:before{
   left: 0;
   border-bottom: 3px solid rgba(255, 66, 19, 0.822)!important;
 }
+
 ::ng-deep .my-snack-bar {
   background-color: rgb(31, 139, 4);
   color: #E8EAF6;
@@ -375,4 +376,8 @@ table td  .delete{
  /* .ps__rail-y:hover {
       background-color: transparent !important;
  } */
+}
+
+.btn-join-file{
+  background-color:rgba(255, 66, 19, 0.822)!important;
 }
