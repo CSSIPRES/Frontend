@@ -1,11 +1,11 @@
-  <div>
-      <app-header></app-header>
-  </div>
-  <mat-drawer-container class="example-container mat-typography" autosize>
-  <mat-drawer #drawer mode="side" disableClose="true" opened="true">
-    <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
-       <mat-icon aria-label="Menu">menu</mat-icon>
-    </button>
+<div>
+    <app-header></app-header>
+</div> 
+    <mat-drawer-container class="example-container mat-typography" autosize>
+      <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+        <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
+          <mat-icon aria-label="Menu">menu</mat-icon>
+        </button>
         <mat-nav-list>
           <mat-list-item>
             <mat-icon mat-list-icon>person</mat-icon>
@@ -40,7 +40,7 @@
               <mat-card-header><h4>Information employeur</h4></mat-card-header>
             <mat-card-content>  
               <div fxLayout="column wrap">
-              <div *ngIf="employerType=='PUB_PARA'">
+              <div>
               <span class="mt-2">Nom: {{empInfo?.firstName}}</span>  
               <span class="mt-2">Prenom: {{empInfo?.lastName}}</span>
             </div>
@@ -49,7 +49,7 @@
               <span class="mt-2">Raison sociale:  {{empInfo?.raisonSociale}}</span>
               <!-- </div> -->
               <span class="mt-2">Numero dossier: {{empInfo?.processFlowId}}</span>
-              <span class="mt-2">tauxAt:  {{empInfo?.tauxAT}}</span>
+              <!-- <span class="mt-2">tauxAt:  {{empInfo?.tauxAT}}</span> -->
               <span class="mt-2">Telephone  <strong>{{empInfo?.telephone}}</strong></span> 
               <span class="mt-2">Quartier: {{empInfo?.qartier}}</span>
              

@@ -58,7 +58,6 @@ table td  .mat-mini-fab{
     color: rgb(187, 2, 18);
   }
   table th{
-    font-weight: bold;
-    color:#999999;
-    /* background-color: #f9f9f9; */
+   /*  font-weight: bold; */
+    /* color:#999999; */
   }

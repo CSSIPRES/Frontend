@@ -281,13 +281,13 @@ h1:before{
     color:rgb(255, 104, 49);
 }
 .submit-button-small{
-  background-color: rgb(255, 104, 49);
+  background-color: #0aca04;
   color:#ffffff;
-   width: 30%; 
+   width: 40%; 
   font-size:15px;
   color:#ffffff;
   height: 40px;
-  border-radius: 25px ;
+  /* border-radius: 25px ; */
 }
 .submit-button-right{
   background-color: rgb(255, 104, 49);
@@ -303,13 +303,15 @@ h1:before{
  /*  display:inline-block; */
  /*  vertical-align:middle; */
    font-size:15px;
-   color:#999999;;
+   color:#616060;
    height: 40px;
    border: 2px solid #d8d8d8;  
+   width: 250px;
+   font-weight: 400;
 }
 table{                  
   width: 100%;
-}        
+}               
 table th{
   font-weight: 500;
   color:#272727;
@@ -352,6 +354,28 @@ table td  .delete{
   border-top-width:2px;
   border-top-style: solid;
   color:rgb(255, 104, 49);
+}
+::ng-deep .mat-dialog-actions {
+  display: block !important;
+  padding: 12px 0 0 !important;
+  margin-bottom: 0 !important;
+  max-height: 70px;
+}
+/* ::ng-deep .mat-select-arrow {
+  border-left: 15px solid transparent !important;
+  border-right: none !important;
+  border-top: 15px solid transparent !important;
+   border-image-source: url('my img url') !important; 
+  border-image-repeat: stretch !important;
+} */
+
+
+:ng-deep .mat-select {
+  overflow: hidden !important;
+  position: relative !important;
+ /* .ps__rail-y:hover {
+      background-color: transparent !important;
+ } */
 }
 
 .btn-join-file{

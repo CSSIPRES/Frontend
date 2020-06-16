@@ -1,21 +1,18 @@
 
-<mat-toolbar class="toolbar-header mat-elevation-z8"> 
-  <div fxFlex fxLayout="row" fxLayoutGap="10%">
+<mat-toolbar class="toolbar-header"> 
+  <div class="container" fxFlex fxLayout="row" fxLayoutGap="10%">
   <div fxFlex="80%">
    <img src="assets/images/logoCSS.png" class="mt-2" height="50" width="100" alt="">
    <img src="assets/images/logoIPRES.png" class="mt-2" height="50" width="100" alt="">
-   <h1><mat-icon>arrow back ios icon</mat-icon>Espace employeur</h1>  
-  </div>   
-  <!--  <div *ngIf="checkConn" fxFlex="10%" class="mt-2">
-     <button mat-button mat-raised-button routerLink="/espaceEmploye"><mat-icon>person_outlined</mat-icon>
-     Acceder a mon espace</button>
-  </div> -->   
-  <div *ngIf="checkConn" fxFlex="10%"  fxLayout="column" class="mt-2">
-     <button  mat-button [matMenuTriggerFor]="menu" ><span>{{nomUser}} {{ prenomUser }}</span><br>
-     <!-- <mat-icon class="keyboard">keyboard_arrow_down</mat-icon> --></button>
+  </div>
+  <div *ngIf="checkConn" fxFlex="20%"  fxLayout="column" class="mt-2">
+     <button  mat-button [matMenuTriggerFor]="menu" >
+      {{prenomUser}}  {{nomUser}} 
+     </button>
+     <!-- <mat-icon class="keyboard">keyboard_arrow_down</mat-icon></button> -->
      <mat-menu #menu="matMenu">
-       <button mat-menu-item (click)="goToProfil()"><mat-icon>person_outlined</mat-icon>Mon profil</button>
-       <button  mat-menu-item><mat-icon>person_outlined</mat-icon>Nouveau mot de passe</button>
+       <button mat-menu-item><mat-icon>person_outlined</mat-icon>Mon profil</button>
+       <button mat-menu-item><mat-icon>person_outlined</mat-icon>Nouveau mot de passe</button>
        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Deconnexion</button>
     </mat-menu>                           
   </div> 
@@ -120,15 +117,4 @@
     </div>
   </div>
   </div>
-</mat-drawer-container>
-<div>     
-<ng-template #choiceTemplate>
-    <h1 mat-dialog-title style="font-size: 20px;">Immatriculation</h1>
-    <div mat-dialog-content>
-      <mat-radio-group aria-label="Type d'immatriculation" fxFlex="column" fxFlex="row">
-        <mat-radio-button (click)="openImmatDialog()">Nouvelle Immatriculation</mat-radio-button><br>
-        <mat-radio-button (click)="openImmatDialogExist()"  value="true"  class="mt-1">Employeur Existante</mat-radio-button><br>
-      </mat-radio-group>
-    </div>
-</ng-template>
-</div>
+<!-- </perfect-scrollbar> -->

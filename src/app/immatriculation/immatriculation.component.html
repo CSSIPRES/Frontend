@@ -2,10 +2,11 @@
 <!--  <h1 mat-dialog-title>
    Demande d'Immatriculation
   </h1> -->
+  
   <div  fxLayoutAlign="space-between center">
     <h1 mat-dialog-title>Demande d'immatriculation</h1>
      <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
-          <mat-icon color="warn">close</mat-icon>
+          <mat-icon color="warn">close</mat-icon>  
       </button>
   </div>
  
@@ -15,9 +16,163 @@
           </mat-progress-spinner>
       </div> 
      
-      <form [formGroup]="immatForm">    
-      <mat-horizontal-stepper formGroupName="input"  #stepper class="mt-1">
-      <mat-step *ngIf="!immatDip"   label="Information General" state="phone">
+      <form [formGroup]="immatForm">   
+      <div formGroupName="input"> 
+      <mat-horizontal-stepper   #stepper class="mt-1">   
+    <mat-step *ngIf="infoEmp"   label="Information Employeur" state="chat">
+    <div class="mt-5" formGroupName="employerQuery">
+      <ng-template matStepLabel>
+        <span [ngStyle]="{'color': immatForm.get('input').get('employerQuery').valid ? 'rgb(14, 189, 8)' : ''}">Information Employeur
+        </span>
+      </ng-template>
+      <div fxLayout="row" fxLayoutGap="5%">
+        <mat-form-field  appearance="outline">
+          <mat-label>Type employe</mat-label>
+          <mat-select (selectionChange)="selectForm($event)" formControlName="employerType">
+            <perfect-scrollbar>
+            <mat-option value="PVT">Société privée</mat-option>
+          <!--   <mat-option value="TIND">Travailleur indépendant</mat-option>
+            <mat-option value="REP_DIP">Représentation diplomatique</mat-option>
+            <mat-option value="PUB_PARA">Structure publique et parapublique</mat-option>
+            <mat-option value="PROJ">Projet</mat-option>
+            <mat-option value="NGO">ONG</mat-option>
+            <mat-option value="MAIN">Maintien Affiliation</mat-option>
+            <mat-option value="LIB">Profession Libérale</mat-option>
+            <mat-option value="ASSO">Association</mat-option>
+            <mat-option value="INDV">Entreprise Individuelle</mat-option> -->
+            <mat-option value="ONG">ONG</mat-option>
+            <mat-option value="GIE">GIE</mat-option>
+            <!-- <mat-option value="DOM">Domestique</mat-option> -->
+           
+            <!-- <mat-option value="COOP">Coopérative</mat-option>
+            <mat-option value="ASSO">Association</mat-option> -->
+          </perfect-scrollbar>  
+          </mat-select>
+          <mat-icon matSuffix>work_outline</mat-icon>
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Raison sociale</mat-label>
+          <input matInput formControlName="employerName" >
+          <mat-icon matSuffix>drag_handle</mat-icon>
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field>
+       </div>
+       <div fxLayout="row" fxLayoutGap="5%">
+        <mat-form-field appearance="outline">
+          <mat-label>Statut juridique</mat-label>
+          <mat-select formControlName="legalStatus">
+            <mat-option value="CONC">GIE</mat-option>
+            <mat-option value="DEVP">Projet de développement</mat-option>
+            <mat-option value="DIPR">Représentant diplomatique / Organisation International</mat-option>
+            <mat-option value="ENTE">SA</mat-option>
+            <mat-option value="LIBP">Profession Libérale</mat-option>
+            <mat-option value="LOCE">SARL</mat-option>
+            <mat-option value="PHYP">SUARL</mat-option>
+            <mat-option value="PUB">Société en commandite</mat-option>
+            <mat-option value="PUBP">Etablissement publique et parapublique</mat-option>
+          </mat-select> 
+          <mat-icon matSuffix>drag_handle</mat-icon>
+           <mat-error >Ce champ est obligatoire.</mat-error>
+          <!-- <mat-error 
+          *ngIf="immatForm.get('input').get('employerQuery').controls['legalStatus'].dirty 
+          || immatForm.get('input').get('employerQuery')').controls['legalStatus'].touched">Ce champ est obligatoire.</mat-error> -->
+         
+        </mat-form-field>
+        <mat-form-field  appearance="outline">
+          <mat-label>Ninea Number</mat-label>
+          <input (blur)="getNineaNumber()" matInput formControlName="nineaNumber">
+          <mat-icon matSuffix> short_text</mat-icon>
+         <mat-error *ngIf="nineaNumber.hasError('required')">Ce champs est obligatoire.</mat-error>
+          <mat-error   
+          *ngIf="(nineaNumber.hasError('maxlength'))||(nineaNumber.hasError('minlength'))">
+          Le NINEA doit etre de 9 chiffres.</mat-error>
+          <mat-hint class="text-danger"   
+          *ngIf="nineaExist">
+          Ce NINEA existe deja.</mat-hint>       
+        </mat-form-field>
+      </div>             
+      <div fxLayout="row" fxLayoutGap="1%">
+       <mat-form-field fxFlex="50%"  fxLayoutGap="5%" appearance="outline">
+        <mat-label>Type etablissement</mat-label>
+        <mat-select formControlName="typeEtablissement" required>
+          <mat-option value="HDQT">Siége</mat-option>
+          <mat-option value="BRNC">Agence/Sucursale</mat-option>
+          <mat-option value="CNST">Chantier</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>people_outline</mat-icon>
+        <mat-error>Ce champ est obligatoire.</mat-error>
+      </mat-form-field> 
+      <mat-form-field fxFlex="15%" appearance="outline">
+        <mat-label>Date taxe</mat-label>
+        <input matInput formControlName="taxIdDate" required [matDatepicker]="taxIdDate">
+        <mat-datepicker-toggle matSuffix [for]="taxIdDate"></mat-datepicker-toggle>
+        <mat-datepicker #taxIdDate></mat-datepicker>
+        <mat-error>Ce champ est obligatoire.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Date registre de commerce</mat-label>
+        <input matInput formControlName="tradeRegisterDate" required [matDatepicker]="tradeRegisterDate">
+        <mat-datepicker-toggle matSuffix [for]="tradeRegisterDate"></mat-datepicker-toggle>
+        <mat-datepicker #tradeRegisterDate></mat-datepicker>
+        <mat-error>Ce champ est obligatoire.</mat-error>   
+      </mat-form-field>
+      </div>
+      <div *ngIf="empInfoField" fxLayout="row" fxLayoutGap="5%">
+         <mat-form-field appearance="outline">
+          <mat-label>Arret decret</mat-label>
+          <input matInput formControlName="arretOuDecret">
+          <mat-icon matSuffix>drag_handle</mat-icon>
+          <mat-error>Ce champ est obligatoire.</mat-error>                        
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date arret decret</mat-label>
+          <input matInput formControlName="dateArreteOuDecret">
+          <mat-icon matSuffix>drag_handle</mat-icon>
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field> 
+      </div>
+      <div *ngIf="empInfoField" fxLayout="row" fxLayoutGap="5%">
+         <mat-form-field appearance="outline">
+          <mat-label>estType</mat-label>
+          <input matInput formControlName="estType" required>
+          <mat-icon matSuffix>drag_handle</mat-icon>
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field>
+         <mat-form-field appearance="outline">
+          <mat-label>HQID</mat-label>
+          <input matInput formControlName="hqId" required>
+          <mat-icon matSuffix>drag_handle</mat-icon>
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field>
+      </div>
+      <div *ngIf="!empInfoField"  fxLayout="row" fxLayoutGap="5%">
+         <mat-form-field  fxFlex="47.5%"  appearance="outline">
+          <mat-label>Numero registre de commerce</mat-label>
+          <input type="text" matInput formControlName="tradeRegisterNumber" placeholder="SN.AAA.0000.A.00000" required>
+           <mat-error *ngIf="tradeRegisterNumber.hasError('required')">
+            Ce champ est obligatoire.
+          </mat-error>
+          <mat-error *ngIf="tradeRegisterNumber.hasError('pattern')">
+            Numero de registre de commerce invalide.
+          </mat-error> 
+        </mat-form-field > 
+        
+          <mat-form-field   *ngIf="typeEtablissement.value=='BRNC' || typeEtablissement.value=='CNST'"  appearance="outline">
+            <mat-label>Ninet</mat-label>
+            <input matInput formControlName="ninetNumber">
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          
+      </div>
+     
+        <div fxLayoutAlign="end" fxLayoutGap="5%">
+          <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
+          <button [disabled]="!immatForm.get('input').get('employerQuery').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
+        </div> 
+  </div>
+  </mat-step>
+  <mat-step *ngIf="infoGen" [stepControl]="mainRegistrationForm"   label="Information General" state="phone">
       <div class="mt-5" formGroupName="mainRegistrationForm">
       <ng-template matStepLabel>
         <span [ngStyle]="{'color': immatForm.get('input').get('mainRegistrationForm').valid ? 'rgb(14, 189, 8)' : ''}">Information General</span>
@@ -140,7 +295,7 @@
         <mat-error *ngIf="email.hasError('pattern')" >
           Adresse email invalide.</mat-error>
       </mat-form-field>
-     
+       
       <mat-form-field appearance="outline">
         <mat-label>Site web</mat-label>
         <input matInput formControlName="website">
@@ -179,153 +334,7 @@
    
   </div>
   </mat-step>
-  <mat-step *ngIf="!immatDom"  label="Information Employeur" state="chat">
-    <div class="mt-5" formGroupName="employerQuery">
-      <ng-template matStepLabel>
-        <span [ngStyle]="{'color': immatForm.get('input').get('employerQuery').valid ? 'rgb(14, 189, 8)' : ''}">Information Employeur
-        </span>
-      </ng-template>
-      <div fxLayout="row" fxLayoutGap="5%">
-        <mat-form-field  appearance="outline">
-          <mat-label>Type employe</mat-label>
-          <mat-select (selectionChange)="selectForm($event)" formControlName="employerType" required>
-            <mat-option value="PVT">Société privée</mat-option>
-            <mat-option value="TIND">Travailleur indépendant</mat-option>
-            <mat-option value="REP_DIP">Représentation diplomatique</mat-option>
-            <mat-option value="PUB_PARA">Structure publique et parapublique</mat-option>
-            <mat-option value="PROJ">Société privée</mat-option>
-            <mat-option value="NGO">ONG</mat-option>
-            <mat-option value="MAIN">Maintien Affiliation</mat-option>
-            <mat-option value="ASSO">Profession Libérale</mat-option>
-            <mat-option value="LIB">Association</mat-option>
-            <mat-option value="INDV">Entreprise Individuelle</mat-option>
-            <mat-option value="GIE">GIE</mat-option>
-            <mat-option value="DOM">Domestique</mat-option>
-            <mat-option value="ONG">ONG</mat-option>
-            <mat-option value="COOP">Coopérative</mat-option>
-            <mat-option value="ASSO">Association</mat-option>  
-          </mat-select>
-          <mat-icon matSuffix>work_outline</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Raison sociale</mat-label>
-          <input matInput formControlName="employerName" required>
-          <mat-icon matSuffix>drag_handle</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
-       </div>
-       <div fxLayout="row" fxLayoutGap="5%">
-        <mat-form-field *ngIf="controlPv" appearance="outline">
-          <mat-label>Statut juridique</mat-label>
-          <mat-select formControlName="legalStatus" required>
-            <mat-option value="CONC">GIE</mat-option>
-            <mat-option value="DEVP">Projet de développement</mat-option>
-            <mat-option value="DIPR">Représentant diplomatique / Organisation International</mat-option>
-            <mat-option value="ENTE">SA</mat-option>
-            <mat-option value="LIBP">Profession Libérale</mat-option>
-            <mat-option value="LOCE">SARL</mat-option>
-            <mat-option value="PHYP">SUARL</mat-option>
-            <mat-option value="PUB">Société en commandite</mat-option>
-            <mat-option value="PUBP">Etablissement publique et parapublique</mat-option>
-          </mat-select> 
-          <mat-icon matSuffix>drag_handle</mat-icon>
-          <mat-error >Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
-        <mat-form-field  appearance="outline">
-          <mat-label>Ninea Number</mat-label>
-          <input (blur)="getNineaNumber()" matInput formControlName="nineaNumber" required>
-          <mat-icon matSuffix> short_text</mat-icon>
-         <mat-error *ngIf="nineaNumber.hasError('required')">Ce champs est obligatoire.</mat-error>
-          <mat-error   
-          *ngIf="(nineaNumber.hasError('maxlength'))||(nineaNumber.hasError('minlength'))">
-          Le NINEA doit etre de 9 chiffres.</mat-error>
-          <mat-hint class="text-danger"   
-          *ngIf="nineaExist">
-          Ce NINEA existe deja.</mat-hint>       
-        </mat-form-field>
-      </div>             
-      <div fxLayout="row" fxLayoutGap="1%">
-       <mat-form-field *ngIf="controlPv" fxFlex="50%"  fxLayoutGap="5%" appearance="outline">
-        <mat-label>Type etablissement</mat-label>
-        <mat-select formControlName="typeEtablissement" required>
-          <mat-option value="HDQT">Siége</mat-option>
-          <mat-option value="BRNC">Agence/Sucursale</mat-option>
-          <mat-option value="CNST">Chantier</mat-option>
-        </mat-select>
-        <mat-icon matSuffix>people_outline</mat-icon>
-        <mat-error>Ce champ est obligatoire.</mat-error>
-      </mat-form-field> 
-      <mat-form-field *ngIf="controlPv" fxFlex="15%" appearance="outline">
-        <mat-label>Date taxe</mat-label>
-        <input matInput formControlName="taxIdDate" required [matDatepicker]="taxIdDate">
-        <mat-datepicker-toggle matSuffix [for]="taxIdDate"></mat-datepicker-toggle>
-        <mat-datepicker #taxIdDate></mat-datepicker>
-        <mat-error>Ce champ est obligatoire.</mat-error>
-      </mat-form-field>
-      <mat-form-field *ngIf="controlPv"  appearance="outline">
-        <mat-label>Date registre de commerce</mat-label>
-        <input matInput formControlName="tradeRegisterDate" required [matDatepicker]="tradeRegisterDate">
-        <mat-datepicker-toggle matSuffix [for]="tradeRegisterDate"></mat-datepicker-toggle>
-        <mat-datepicker #tradeRegisterDate></mat-datepicker>
-        <mat-error>Ce champ est obligatoire.</mat-error>   
-      </mat-form-field>
-      </div>
-      <div *ngIf="controlPara" fxLayout="row" fxLayoutGap="5%">
-        <mat-form-field appearance="outline">
-          <mat-label>Arret decret</mat-label>
-          <input matInput formControlName="arretOuDecret" required>
-          <mat-icon matSuffix>drag_handle</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>                        
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Date arret decret</mat-label>
-          <input matInput formControlName="dateArreteOuDecret" required>
-          <mat-icon matSuffix>drag_handle</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
-      </div>
-      <div *ngIf="controlPara" fxLayout="row" fxLayoutGap="5%">
-        <mat-form-field appearance="outline">
-          <mat-label>estType</mat-label>
-          <input matInput formControlName="estType" required>
-          <mat-icon matSuffix>drag_handle</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>HQID</mat-label>
-          <input matInput formControlName="hqId" required>
-          <mat-icon matSuffix>drag_handle</mat-icon>
-          <mat-error>Ce champ est obligatoire.</mat-error>
-        </mat-form-field>
-      </div>
-      <div *ngIf="controlPv" fxLayout="row" fxLayoutGap="5%">
-        <mat-form-field  fxFlex="47.5%"  appearance="outline">
-          <mat-label>Numero registre de commerce</mat-label>
-          <input type="text" matInput formControlName="tradeRegisterNumber" placeholder="SN.AAA.0000.A.00000" required>
-           <mat-error *ngIf="tradeRegisterNumber.hasError('required')">
-            Ce champ est obligatoire.
-          </mat-error>
-          <mat-error *ngIf="tradeRegisterNumber.hasError('pattern')">
-            Numero de registre de commerce invalide.
-          </mat-error> 
-        </mat-form-field > 
-        
-          <mat-form-field   *ngIf="typeEtablissement.value=='BRNC' || typeEtablissement.value=='CNST'"  appearance="outline">
-            <mat-label>Ninet</mat-label>
-            <input matInput formControlName="ninetNumber">
-            <mat-error>Ce champ est obligatoire.</mat-error>
-          </mat-form-field> 
-          
-      </div>
-     
-        <div fxLayoutAlign="end" fxLayoutGap="5%">
-          <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
-          <button [disabled]="!immatForm.get('input').get('employerQuery').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
-        </div> 
-  </div>
-    </mat-step>
-    <mat-step *ngIf="!immatFormBoolean"  label="Representant legale" state="person_outlined">
+    <mat-step *ngIf="infoRepLeg"   label="Representant legale" state="person_outlined">
       <div class="mt-5" formGroupName="legalRepresentativeForm">
         <ng-template matStepLabel> 
          <span [ngStyle]="{'color': immatForm.get('input').get('legalRepresentativeForm').valid ? 'rgb(14, 189, 8)' : ''}"> Representant legale</span></ng-template>
@@ -355,7 +364,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Nationalite</mat-label>
             <mat-select formControlName="nationality" required>
-              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>people_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -376,7 +385,8 @@
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
             <mat-label>Type de piece</mat-label>
-            <mat-select (selectionChange)="validationPiece($event)" formControlName="typeOfIdentity" required>
+            <!-- <mat-select (selectionChange)="validationPiece($event)" formControlName="typeOfIdentity" required>-->           
+            <mat-select (selectionChange)="incrementDate($event)" formControlName="typeOfIdentity" required>         
               <mat-option value="NIN">Carte national d'identite</mat-option>
               <mat-option value="CDEAO">Carte identité CDEAO</mat-option>
               <mat-option value="CONC">Carte Consulaire</mat-option>
@@ -401,21 +411,22 @@
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label>Date Delivrance</mat-label>
-            <input (dateChange)="validationPiece($event)" matInput formControlName="issuedDate" required [matDatepicker]="issuedDate">
-            <mat-datepicker-toggle matSuffix [for]="issuedDate"></mat-datepicker-toggle>
+           <!--  <input (dateChange)="validationPiece($event)" matInput formControlName="issuedDate" required [matDatepicker]="issuedDate"> -->
+           <input (dateChange)="incrementDate($event)" matInput formControlName="issuedDate" required [matDatepicker]="issuedDate">
+           <mat-datepicker-toggle matSuffix [for]="issuedDate"></mat-datepicker-toggle>
             <mat-datepicker #issuedDate></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline">
+          <mat-form-field disabled appearance="outline">
             <mat-label>Date Expiration</mat-label>
             <input (dateChange)="validationPiece($event)"  matInput formControlName="expiryDate" required [matDatepicker]="expiryDate">
             <mat-datepicker-toggle  matSuffix [for]="expiryDate"></mat-datepicker-toggle>
             <mat-datepicker #expiryDate></mat-datepicker>
             <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
             <mat-error>Ce champ est obligatoire.</mat-error>
-            <mat-hint class="text-danger" *ngIf="validICN">
+          <!--   <mat-hint class="text-danger" *ngIf="validICN">
               La duree de votre <b class="text-danger">cni</b> validite doit etre de 10 ans.
-            </mat-hint>  
+            </mat-hint> -->  
             <mat-hint class="text-danger" *ngIf="validPassport">
               La duree de validite du <b class="text-danger">passport</b> doit etre 5 et 10 ans.
             </mat-hint>
@@ -499,7 +510,7 @@
       
     </div> 
     </mat-step>
-    <mat-step *ngIf="immatPara" label="Information contact" state="chat">
+     <mat-step *ngIf="infoPersoneContact" label="Information contact" state="chat">
       <div class="mt-5" formGroupName="personneContact">
         <ng-template matStepLabel>
           <span [ngStyle]="{'color': immatForm.get('input').get('personneContact').valid ? 'rgb(14, 189, 8)' : ''}">Personne conact
@@ -565,8 +576,8 @@
           <button [disabled]="!immatForm.get('input').get('personneContact').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
         </div> 
       </div>
-     </mat-step>  
-     <mat-step *ngIf="immatDip"  label="Information contact" state="chat">
+     </mat-step> 
+     <mat-step *ngIf="domInfo"  label="Information contact" state="chat">
       <div class="mt-5" formGroupName="domesticRegistrationForm"> 
         <ng-template matStepLabel>
           <span [ngStyle]="{'color': immatForm.get('input').get('domesticRegistrationForm').valid ? 'rgb(14, 189, 8)' : ''}">Formulaire registration
@@ -613,7 +624,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Nationalite</mat-label>
             <mat-select formControlName="nationality" required>
-              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>people_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -632,14 +643,7 @@
             <input  matInput formControlName="expiryDate" required [matDatepicker]="expiryDate">
             <mat-datepicker-toggle  matSuffix [for]="expiryDate"></mat-datepicker-toggle>
             <mat-datepicker #expiryDate></mat-datepicker>
-            <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
             <mat-error>Ce champ est obligatoire.</mat-error>
-           <!--  <mat-hint class="text-danger" *ngIf="validICN">
-              La duree de votre <b class="text-danger">cni</b> validite doit etre de 10 ans.
-            </mat-hint>  
-            <mat-hint class="text-danger" *ngIf="validPassport">
-              La duree de validite du <b class="text-danger">passport</b> doit etre 5 et 10 ans.
-            </mat-hint> -->
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
@@ -652,13 +656,13 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Pays de naissance</mat-label>
-            <mat-select formControlName="nationality" required>
-              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
-            </mat-select>
+            <mat-select formControlName="countryOfBirth" required>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
+            </mat-select>    
             <mat-icon matSuffix>people_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
-        </div>
+       </div>  
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
             <mat-label>Ville de naissance </mat-label>
@@ -687,31 +691,78 @@
             <input type="email" matInput formControlName="email" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
-         
-        </div>
-        <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
             <mat-label>Secteur d'activite</mat-label>
             <input  matInput formControlName="businessSector" readonly required>  
             <mat-icon matSuffix>perm_identity</mat-icon>
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
-          
+        </div>
+        <div fxLayout="row" fxLayoutGap="5%">
+          <mat-form-field  appearance="outline">
+            <mat-label>Region</mat-label>
+            <mat-select (selectionChange)="selectRegion($event)"  formControlName="region" required>
+              <mat-option  *ngFor="let r of listRegions.items"
+               [value]="r.region">{{r.region | titlecase}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label>Departement</mat-label>
+            <mat-select (selectionChange)="selectDepartement($event)"  formControlName="departement" required>
+              <mat-option *ngFor="let d of listD2" [value]="d.departement">
+                {{d.departement | titlecase}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Arrondissement</mat-label>
+            <mat-select (selectionChange)="selectArrondissement($event)" formControlName="arrondissement" required>
+              <mat-option *ngFor="let ar of listA2" [value]="ar.arrondissement">{{ar.arrondissement | titlecase}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="5%">
+          <mat-form-field  appearance="outline">
+            <mat-label>Commune</mat-label>
+            <mat-select  (selectionChange)="selectCommne($event)" formControlName="commune" required>
+              <mat-option *ngFor="let c of listC2" [value]="c.commune">{{c.commune | titlecase}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>work_outline</mat-icon>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Quartier</mat-label>
+            <mat-select formControlName="quartier" required>
+               <mat-option *ngFor="let q of listQ2" [value]="q.quartier">{{q.quartier | titlecase}}</mat-option> 
+            </mat-select>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Adresse</mat-label>
+            <input matInput formControlName="adresse" required>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field>
         </div>
         </div>    
-     </mat-step>  
+     </mat-step>
        <mat-step  label="Ajouter salaries" state="person_outlined">
         <div class="mt-5" formArrayName="employeList">
           <ng-template matStepLabel>
-            <span [ngStyle]="{'color': immatForm.get('input').get('employeList').valid ? 'rgb(14, 189, 8)' : ''}">Liste des employes
+            <span 
+            [ngStyle]="{'color': immatForm.get('input').get('employeList').valid && immatForm.get('input').get('employeList').value.length>0 ? 'rgb(14, 189, 8)' : ''}">Liste des employes
             </span>
           </ng-template>
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <div class="mt-3" fxFlex="50"> 
-              <mat-form-field style="width: 70%;"  appearance="outline" class="filter">
+              <!-- <mat-form-field style="width: 70%;"  appearance="outline" class="filter">
                 <mat-label>Rechercher un salarie</mat-label>
                 <input matInput>
-              </mat-form-field>
+              </mat-form-field> -->
              </div>  
             <div  class="mt-3" fxLayoutAlign="end" fxLayoutGap="2%">
               <button mat-raised-button class="submit-secondary" (click)="fileInput.click()" color="primary">Importer un fichier .xlsx
@@ -776,13 +827,13 @@
           <div [formGroupName]="i">
         <div  fxLayout="row" fxLayoutGap="5%"> 
            <mat-form-field appearance="outline">
-             <mat-label>Nom Employé</mat-label>
+             <mat-label>Nom Salarié</mat-label>
              <input matInput formControlName="nomEmploye" required>
              <mat-icon matSuffix>email</mat-icon>
              <mat-error>Ce champ est obligatoire.</mat-error>
            </mat-form-field>
            <mat-form-field appearance="outline">
-             <mat-label>Prenom Employé</mat-label>
+             <mat-label>Prenom Salarié</mat-label>
              <input matInput formControlName="prenomEmploye" required>
              <mat-icon matSuffix>email</mat-icon>
              <mat-error>Ce champ est obligatoire.</mat-error>
@@ -821,7 +872,7 @@
           <mat-form-field  appearance="outline">
             <mat-label>Nationalite</mat-label>
             <mat-select formControlName="nationalite" required>
-              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -881,7 +932,7 @@
           <mat-form-field  appearance="outline">
             <mat-label>Pays de naissance</mat-label>
             <mat-select formControlName="paysNaissance" required>
-              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -889,7 +940,7 @@
           <mat-form-field  appearance="outline">
             <mat-label>Pays de residence</mat-label>
             <mat-select formControlName="pays" required>
-              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.descr">{{listPay.descr  | titlecase}}</mat-option>
+              <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -977,7 +1028,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Date debut contrat</mat-label>
-            <input matInput (dateChange)="selectDateEmbauchche(i)" formControlName="dateDebutContrat" required [matDatepicker]="dateDebutContrat">
+            <input matInput formControlName="dateDebutContrat" required [matDatepicker]="dateDebutContrat">
             <mat-datepicker-toggle matSuffix [for]="dateDebutContrat"></mat-datepicker-toggle>
             <mat-datepicker #dateDebutContrat></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -1006,7 +1057,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Employe cadre</mat-label>
-            <mat-select formControlName="nonCadre" required> 
+            <mat-select formControlName="ouiCadre" required> 
               <mat-option value="true">Oui</mat-option>
               <mat-option value="false">Non</mat-option>
             </mat-select>
@@ -1023,6 +1074,28 @@
               <mat-option value="CC2">CC du transport aérien, 08 novembre 1965</mat-option>
               <mat-option value="CC3">CC des industries fédérales du vêtement, 10 janvier 1963</mat-option>
               <mat-option value="CC4">CC du transport routier professionnel, 17 décembre 1959</mat-option>
+              <mat-option value="CC5">CC de l'industrie du corps gras, 04 juillet 1958</mat-option>
+              <mat-option value="CC6">CC du Commerce, 16 November 1956</mat-option>
+              <mat-option value="CC7">CC des Ouvriers Boulangeries de la Délégation de Dakar</mat-option>
+              <mat-option value="CC8">CC Fédérale des Entreprises du Bâtiment et des Travaux Publics,06 juillet 1</mat-option>
+              <mat-option value="CC9">CCF des Industries de Mécanique Générale de l'AOF</mat-option>
+              <mat-option value="CC10">CCF des Auxiliaires de Transports de l'AOF,10 décembre 1957</mat-option>
+              <mat-option value="CC11">CCNP de Banques et Etablissements Financiers du Sénégal</mat-option>
+              <mat-option value="CC12">CC fixant les RGE de Trav relev de Prof Cin</mat-option>
+              <mat-option value="CC13">CC Indus extrac et de Prosp Min de Féd du Mali</mat-option>
+              <mat-option value="CC14">CCF des Industries Polygraphiques, 28 septembre 1960</mat-option>
+              <mat-option value="CC15">Les CT dans les Prof Agric Ass au Sénégal</mat-option>
+              <mat-option value="CC16">CCF des Industries de la Confection</mat-option>
+              <mat-option value="CC17">CC Fixant les CGE des dom et gens de maison, janvier 1968</mat-option>
+              <mat-option value="CC18">CC des Journalistes,Techniciens de Com Soc du Sénégal,1973</mat-option>
+              <mat-option value="CC19">CC fixant les Conditions des Officiers et MMMS,1 mars 1976</mat-option>
+              <mat-option value="CC20">CCN du Pers de l'Enseignement Privé du Sénégal</mat-option>
+              <mat-option value="CC21">CCN des Industries Hôtelières de la République du Sénégal</mat-option>
+              <mat-option value="CC22">CC des marins pêcheurs industriels</mat-option>
+              <mat-option value="NCA1">CC pour les industries alimentaires, 19 juillet 1958</mat-option>
+              <mat-option value="NCA2">CC Inter professionnelle du Sénégal, 27 mai 1982</mat-option>
+              <mat-option value="NCA3">CC des industries chimiques, 23 juillet 1958</mat-option>
+              <mat-option value="NCATI">CC nationale des industries textiles</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -1043,7 +1116,11 @@
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
-          
+          <mat-form-field appearance="outline">
+            <mat-label>Categorie</mat-label>
+            <input matInput formControlName="categorie" required>
+            <mat-error>Ce champ est obligatoire.</mat-error>
+          </mat-form-field> 
         </div>
         <!--         <button *ngIf="addEmpForm"  class="submit-add-edit"  [disabled]="!immatForm.get('input').get('employeList').valid"  mat-raised-button (click)="updateEmp()">Ajouter</button>
 -->        
@@ -1904,12 +1981,12 @@
     <button class="submit-button" mat-raised-button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Confirmer</button>
   </div>
   </mat-step> -->
-  <mat-step editable="false" label="Comfirmation" class="mt-1" state="done_all">
+  <mat-step  editable="false" label="Comfirmation" class="mt-1" state="done_all">
           <ng-template matStepLabel>
            <span [ngStyle]="{'color': immatForm.get('input').valid ? 'rgb(14, 189, 8)' : ''}"> Comfirmation</span>
           </ng-template> 
           <h4 class="mt-2 mb-2">Confirmation Demande</h4><br>
-          <div class="report_infoFen pb-5">
+          <div *ngIf="infoGen" class="report_infoFen pb-5">
          <mat-icon class="icon">person_outline</mat-icon> <h5 >Information General</h5><br>
          <!-- <mat-divider class="inset"></mat-divider> -->
          <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
@@ -1967,7 +2044,7 @@
          <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
               <b>Commune</b>
-              &nbsp;   
+              &nbsp;     
               <span> {{commune.value | titlecase}}</span>
           </div> 
             <div fxFlex="50">
@@ -2001,16 +2078,16 @@
               <span> {{website.value}}</span>
             </div>
           </div>
-         <!--  <mat-divider class="inset"></mat-divider> -->
+         
         </div>
-          <div class="report_infoEmpl pb-5 mt-3">
+          <!-- <div *ngIf="infoEmp" class="report_infoEmpl pb-5 mt-3">
               <mat-icon class="icon">person_outline</mat-icon> <h5 >Information Employeur</h5><br> 
-          <!-- <mat-divider class="inset"></mat-divider> -->
+
           <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
              <div fxFlex="50">
               <b>Type employeur</b>
               &nbsp;
-            <span> {{employerType.value}}</span> 
+             <span> {{employerType.value}}</span>
             </div> 
             <div fxFlex="50">
               <b>Type etablissement</b>
@@ -2018,7 +2095,7 @@
               <span>{{typeEtablissement.value}}</span>
             </div>
           </div>
-          <!-- <mat-divider class="inset"></mat-divider> -->
+          
          <div fxLayout="row" class="back_report1 pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
               <b>Nom employeur</b>
@@ -2031,7 +2108,7 @@
               <span>{{nineaNumber.value}}</span>
             </div>
           </div>
-         <!--  <mat-divider class="inset"></mat-divider> -->
+         
           <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
               <b>Numero ninet</b>
@@ -2039,9 +2116,9 @@
              <span> {{regType.value}}</span>
             </div>
           </div>
-          <!-- <mat-divider class="inset"></mat-divider> -->
-        </div>
-        <div class="report_repLeagl pb-5">  
+         
+        </div> -->
+        <div *ngIf="infoRepLeg" class="report_repLeagl pb-5">  
           <mat-icon class="icon">person_outline</mat-icon>  <h5>Representant Legal</h5><br>
           <!-- <mat-divider class="inset"></mat-divider> -->
           <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
@@ -2167,15 +2244,16 @@
              <span> {{address1.value}}</span>
             </div>
           </div> 
+          
           <!-- <mat-divider class="inset"></mat-divider> -->
         </div> 
         <div class="mt-3" fxLayoutAlign="end" fxLayoutGap="10%">
           <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button class="submit-button" mat-raised-button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Confirmer</button>
+          <button class="submit-button" mat-raised-button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Soumettre</button>
         </div>
         </mat-step> 
         <ng-template matStepperIcon="phone">
-               <mat-icon> create_new_folder</mat-icon>
+          <mat-icon> create_new_folder</mat-icon>
         </ng-template>
         <ng-template matStepperIcon="chat">
           <mat-icon>library_books</mat-icon>
@@ -2193,5 +2271,9 @@
           <mat-icon>done_all</mat-icon>
         </ng-template>
   </mat-horizontal-stepper>
+</div>
 </form>
 </div>
+
+
+<!-- <div>{{immatForm.get('input')}}</div> -->

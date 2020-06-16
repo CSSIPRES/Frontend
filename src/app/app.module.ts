@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -57,6 +55,7 @@ import { ChangePasswordComponent } from './mon-profil/change-password/change-pas
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { EspaceEmployeurComponent } from './espace-employeur/espace-employeur.component';
+import { AppRoutingModule } from './app-routing.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false,
@@ -64,7 +63,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollY:false
 };
 
-export const MY_FORMAT: MatDateFormats = {
+/* export const MY_FORMAT: MatDateFormats = {
   parse: {
   dateInput: 'DD-MM-YYYY',
   },
@@ -74,7 +73,7 @@ export const MY_FORMAT: MatDateFormats = {
   dateA11yLabel: 'DD-MM-YYYY',
   monthYearA11yLabel: 'MMMM YYYY',
   },
-  };
+  }; */
 
 @NgModule({
   declarations: [
@@ -154,7 +153,7 @@ export const MY_FORMAT: MatDateFormats = {
       useClass: HttpInterceptorService,
       multi: true
     },
-    { provide: MAT_MOMENT_DATE_FORMATS, useValue: MY_FORMAT },
+    /* { provide: MAT_MOMENT_DATE_FORMATS, useValue: MY_FORMAT }, */
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}, 
     {provide: LocationStrategy, useClass: HashLocationStrategy},

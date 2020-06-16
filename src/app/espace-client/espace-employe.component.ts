@@ -46,27 +46,32 @@ export class EspaceEmployeComponent implements OnInit {
   prenomUser:string=""
   @ViewChild('drawer', { static: false })
   drawer: MatSidenav; 
-  tok:any="";
-  constructor(private dialog:MatDialog,private userService:LoginService,
-    private empExistServ:EmployeExistService,private router:Router) {
+  tok:any=""
+  constructor(private dialog:MatDialog,private userService:LoginService, private empExistServ:EmployeExistService,
+    private router:Router) {
    
    }
 
   ngOnInit() {
     this.userName=window.localStorage.getItem("user");
     this.tok=window.localStorage.getItem("token");
-    this.getUserByLogin(); 
+    this.getUserByLogin();
     this.getListEmploye();
     if(this.tok!=null){
       this.checkConn=true;
     }
   }
-
+  welcome_card:boolean=false;
   getListEmploye(){
-    this.empExistServ.getEmpExist().subscribe(resp=>
+    this.empExistServ.getEmpExist().subscribe((resp:any)=>
       {
+    if(resp.length==0){
+      this.welcome_card=true;
+    }
+    else{  
       this.listEmp=resp;
-      console.log(this.listEmp);
+      this.welcome_card=false
+      }
     });
   }
   getUserByLogin(){
@@ -88,7 +93,7 @@ export class EspaceEmployeComponent implements OnInit {
   }
   openImmatDialogExist(){
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
+    dialogConfig.disableClose = false;     
     dialogConfig.autoFocus = true;
     let dialogRef= this.dialog.open(ImmatriculationExistComponent, 
       {width: '900px'});
@@ -105,8 +110,8 @@ export class EspaceEmployeComponent implements OnInit {
         title:this.title
       }     
       dialogConfig.width='1000px',
-      dialogConfig.height='600px'
-     
+      dialogConfig.height='600px'     
+       
       let dialogRef=  this.dialog.open(ImmatriculationComponent,
         dialogConfig);
         dialogRef.afterClosed().subscribe(()=>{
@@ -128,7 +133,8 @@ export class EspaceEmployeComponent implements OnInit {
         idIdentifiant:emp.numeroIdentifiant,
         raisonSociale:emp.raisonSociale,
         typeIdentifiant:emp.typeIdentifiant,
-        address:emp.address
+        address:emp.address,
+        tauxAT:emp.tauxAT
       }
       console.log(dialogConfig.data);
       dialogConfig.width='1000px',
@@ -150,15 +156,17 @@ openDemandeAttestationDialog(){
       }
       dialogConfig.width='800px',
       dialogConfig.height='600px'
-    let dialogRef= this.dialog.open(SuiviDemandeComponent, dialogConfig);
-} 
+     this.dialog.open(SuiviDemandeComponent, dialogConfig);
+  }
 
-openPaiementDialog(){
+
+
+   openPaiementDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
       dialogConfig.data={
-        title:"Mes Paiements", 
+        title:"Mes Paiements",   
       }
       dialogConfig.width='1000px',
       dialogConfig.height='650px'

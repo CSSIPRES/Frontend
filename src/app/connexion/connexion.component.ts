@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgModule } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { CreationCompteService } from '../services/creation-compte.service';
 import Swal from 'sweetalert2';
+import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @Component({
   selector: 'app-connexion',
@@ -21,10 +26,15 @@ export class ConnexionComponent implements OnInit {
   errorMess:boolean=false;
   panelOpenState1:boolean=false;
   windowScrolled: boolean;
-
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  /* passwordPattern="/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/" */
+  /* passwordPattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" */
+  
   creationCpteForm:FormGroup;
-     key:string;
+  key:string;
+  @ViewChild('confirmPassword',{static:false}) confirmPassword:ElementRef;
+  confPass:boolean=false;
+  hide:boolean=false;
   constructor(private fb:FormBuilder,
     private creCompteServ:CreationCompteService,
     private routerActive:ActivatedRoute,private snackB: MatSnackBar,
@@ -129,6 +139,7 @@ opensweetalert(title, icon, text){
       login:new FormControl('', Validators.required),
       langKey:new FormControl('fr', Validators.required),
       password:new FormControl('', Validators.required)
+      /* password:new FormControl('', { updateOn: 'blur', validators: [Validators.required,Validators.pattern(this.passwordPattern)]}) */
       
     })
   }
@@ -159,5 +170,18 @@ opensweetalert(title, icon, text){
   }
   get email(){
    return this.creationCpteForm.get('email');
+  }
+  get password(){
+    return this.creationCpteForm.get('password');
+   }
+  confirmPasswords(){
+   let password=this.creationCpteForm.get('password').value;
+   let confPassword=this.confirmPassword.nativeElement.value;
+   if(password!=confPassword && confPassword!=""){
+     this.confPass=true;
+   }
+   else{
+     this.confPass=false;
+   }
   }
 }

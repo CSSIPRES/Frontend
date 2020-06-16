@@ -2,18 +2,18 @@
   <h1 mat-dialog-title>Declaration</h1>
   <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
     <mat-icon color="warn">close</mat-icon>
-  </button>
+  </button>   
 </div>
 <div mat-dialog-content>
   <div *ngIf="loader"  class="center">
     <mat-progress-spinner strokeWidth="3" diameter=35 mode="indeterminate"color="primary">
     </mat-progress-spinner>
-</div> 
+</div>        
   <form [formGroup]="declarationForm">
     <mat-horizontal-stepper #stepper class="mt-1">
       <mat-step label="Information General" state="genInfo">
         <ng-template matStepLabel>Information General</ng-template>
-        <div class="mt-3">
+        <div class="mt-3">     
           <div fxLayout="row" fxLayoutGap="5%">
             <mat-form-field appearance="outline">
               <mat-label>Type identifiant</mat-label>
@@ -47,7 +47,7 @@
           <div fxLayout="row" fxLayoutGap="2%">
             <mat-form-field appearance="outline">
               <mat-label>Type declaration</mat-label>
-              <mat-select formControlName="typeDeclaration" required>
+              <mat-select (selectionChange)="incrementDate($event)" (blur)="swictActiveDesactiveButton($event)" formControlName="typeDeclaration" required>
                 <mat-option value="MENSUEL">Mensuel</mat-option>
                 <mat-option value="TRIMESTRIEL">Trimestriel</mat-option>
               </mat-select>
@@ -55,18 +55,18 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Date debut cotisation</mat-label>
-              <input (dateChange)="displayMensualite($event)" matInput formControlName="dateDebutCotisation" required
+              <input (dateChange)="incrementDate($event)" matInput formControlName="dateDebutCotisation" required
                 [matDatepicker]="dateDebutCotisation">
               <mat-datepicker-toggle matSuffix [for]="dateDebutCotisation"></mat-datepicker-toggle>
               <mat-datepicker #dateDebutCotisation></mat-datepicker>
-              <mat-error>
+              <mat-error>                
                 Ce champs est obligatoire
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Date fin cotisation</mat-label>
-              <input matInput formControlName="dateFinPeriodeCotisation" required
-                [matDatepicker]="dateFinPeriodeCotisation ">
+              <input matInput formControlName="dateFinPeriodeCotisation" readonly
+                [matDatepicker]="dateFinPeriodeCotisation" disabled>
               <mat-datepicker-toggle matSuffix [for]="dateFinPeriodeCotisation "></mat-datepicker-toggle>
               <mat-datepicker #dateFinPeriodeCotisation></mat-datepicker>
               <mat-error>
@@ -97,18 +97,18 @@
       <mat-step label="Information Liste salaries" state="infoSalList">
         <div fxLayout="row" fxLayoutAlign="space-between center">
         <div class="mt-3" fxFlex="50"> 
-          <mat-form-field style="width: 70%;"  appearance="outline" class="filter">
+          <!-- <mat-form-field style="width: 70%;"  appearance="outline" class="filter">
             <mat-label>Rechercher un salarie</mat-label>
             <input matInput (keyup)="applyFilter($event.target.value)">
-          </mat-form-field>
+          </mat-form-field>   --> 
          </div>  
         <div  class="mt-3" fxLayoutAlign="end" fxLayoutGap="2%">
           <button mat-raised-button class="submit-secondary" (click)="fileInput.click()" color="primary">Importer un fichier .xlsx
             <input hidden #fileInput type="file" (change)=" onFileChange($event)" />
           </button>       
-            <button  mat-raised-button class="submit-button-small" (click)="uploadfile()">Charger</button>
+            <button  mat-raised-button class="submit-button-small" (click)="uploadfile()">Charger </button>
         </div>
-      </div>
+      </div>   
         <mat-divider class="inset mt-3"></mat-divider>
         <table mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="numeroAssureSocial">
@@ -122,11 +122,11 @@
           <ng-container matColumnDef="prenomEmploye">
             <th mat-header-cell *matHeaderCellDef> Prenom </th>
             <td mat-cell *matCellDef="let element"> <b>{{element.prenomEmploye}}</b> </td>
-          </ng-container>
+          </ng-container>           
           <ng-container matColumnDef="dateNaissance">
             <th mat-header-cell *matHeaderCellDef>Date Naissance</th>
             <td mat-cell *matCellDef="let element"> <b> {{element.dateNaissance}}</b> </td>
-          </ng-container>
+          </ng-container>                 
           <ng-container matColumnDef="typePieceIdentite">
             <th mat-header-cell *matHeaderCellDef> Type d'identite </th>
             <td mat-cell *matCellDef="let element"> <b>{{element.typePieceIdentite}}</b> </td>
@@ -161,10 +161,24 @@
         <mat-paginator #paginator [pageSize]="3" [pageSizeOptions]="[3, 5, 10]">
         </mat-paginator>
         <div class="mt-2 mb-2" fxLayoutAlign="end" fxLayoutGap="10%">
-          <button [disabled]="!declarationForm.valid" class="addSal" (click)="addNewSalarie()" mat-mini-fab>
+          <button class="addEmp" [disabled]="!declarationForm.valid" class="addSal" (click)="addNewSalarie()" mat-mini-fab>
             <mat-icon>add</mat-icon>
           </button>
         </div>
+         <div fxFlex="row">
+          <div fxFlex="25">
+          <mat-toolbar>TotalPF:{{totSalAssCssPf}}</mat-toolbar>
+          </div> 
+          <div fxFlex="25">
+          <mat-toolbar>totalAssCssAtmp:{{totSalAssCssAtmp}}</mat-toolbar>
+        </div>
+        <div fxFlex="25">
+          <mat-toolbar>TotalRg:{{totSalAssIpresRg}}</mat-toolbar>
+        </div>  
+        <div fxFlex="25">
+          <mat-toolbar>TotalRCC:{{totSalAssIpresRcc}}</mat-toolbar>
+        </div> 
+        </div> 
         <div formArrayName="informationSalaries">
           <div *ngFor="let item of declarationForm.get('informationSalaries')['controls']; let i=index">
             <div *ngIf="addIndex==i && addSalForm || editIndex==i && editSalForm">
@@ -224,9 +238,8 @@
                       <mat-option value="CDI">Contrat à durée indeterminé</mat-option>
                       <mat-option value="JOU">Journalier</mat-option>
                       <mat-option value="STA">Contrat de stage</mat-option>
-                      <mat-option value="SPE">Contrat Spécial</mat-option>
+                      <mat-option value="SPE">Contrat spécial</mat-option>
                     </mat-select>
-
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                   <mat-form-field fxFlex="10" appearance="outline">
@@ -262,46 +275,45 @@
                     </mat-select>
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
-                </div>
-                <mat-divider class="inset"></mat-divider>
+                </div>       
                 <mat-tab-group fxLayoutGap="20" mat-align-tabs="center">
-                  <mat-tab label="Mois 1">
+                  <mat-tab *ngIf="displayMonth1" label="Montant cotisation du Mois 1">
                     <div class="mt-5" fxLayout="row" fxLayoutGap="5%">
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetis Pf1</mat-label>
-                        <input formControlName="totSalAssCssPf1" matInput />
+                        <input type="number" formControlName="totSalAssCssPf1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetis ATMP1</mat-label>
-                        <input formControlName="totSalAssCssAtmp1" matInput />
+                        <input  type="number" formControlName="totSalAssCssAtmp1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
-                      </mat-form-field>
+                      </mat-form-field>       
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetisI IPRES RG1</mat-label>
-                        <input formControlName="totSalAssIpresRg1" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRg1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetisI IPRES RCC1</mat-label>
-                        <input formControlName="totSalAssIpresRcc1" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRcc1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                     </div>
                     <div fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Salaire brut</mat-label>
-                        <input formControlName="salaireBrut1" matInput />
+                        <input  type="number" formControlName="salaireBrut1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Nombre de jour</mat-label>
-                        <input formControlName="nombreJours1" matInput />
+                        <input  type="number" formControlName="nombreJours1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Nombre d'heure</mat-label>
-                        <input formControlName="nombreHeures1" matInput />
+                        <input  type="number" formControlName="nombreHeures1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
@@ -326,7 +338,6 @@
                         <mat-select formControlName="regimeGeneral1" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
-                            <mat-error>Ce champ est obligatoire</mat-error>
                           </mat-select>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -335,7 +346,6 @@
                         <mat-select formControlName="regimCompCadre1" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
-                            <mat-error>Ce champ est obligatoire</mat-error>
                           </mat-select>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -346,45 +356,44 @@
                         <mat-datepicker #dateEffetRegimeCadre1></mat-datepicker>
                       </mat-form-field>
                     </div>
-                   
                   </mat-tab>
-                  <mat-tab label="Mois 2">
+                  <mat-tab *ngIf="displayMonth2" label="Montant cotisation du Mois 2">
                     <div class="mt-5" fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetis Pf2</mat-label>
-                        <input formControlName="totSalAssCssPf2" matInput />
+                        <input  type="number" formControlName="totSalAssCssPf2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetis ATMP2</mat-label>
-                        <input formControlName="totSalAssCssAtmp2" matInput />
+                        <input  type="number" formControlName="totSalAssCssAtmp2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetisI IPRES RG2</mat-label>
-                        <input formControlName="totSalAssIpresRg2" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRg2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetisI IPRES RCC2</mat-label>
-                        <input formControlName="totSalAssIpresRcc2" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRcc2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                     </div>
                     <div fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Salaire brut</mat-label>
-                        <input formControlName="salaireBrut2" matInput />
+                        <input  type="number" formControlName="salaireBrut2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
                         <mat-label>Nombre de jour</mat-label>
-                        <input formControlName="nombreJours2" matInput />
+                        <input  type="number" formControlName="nombreJours2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
                         <mat-label>Nombre d'heure</mat-label>
-                        <input formControlName="nombreHeures2" matInput />
+                        <input  type="number" formControlName="nombreHeures2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
@@ -396,9 +405,7 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                     </div>
-                    <div fxLayout="row" fxLayoutGap="2%">
-
-                     
+                    <div fxLayout="row" fxLayoutGap="2%">   
                       <mat-form-field fxFlex="10" appearance="outline">
                         <mat-label>Tranche de travail</mat-label>
                         <input formControlName="trancheTravail2" matInput />
@@ -409,7 +416,6 @@
                         <mat-select formControlName="regimeGeneral2" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
-                            <mat-error>Ce champ est obligatoire</mat-error>
                           </mat-select>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -418,7 +424,6 @@
                         <mat-select formControlName="regimCompCadre2" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
-                            <mat-error>Ce champ est obligatoire</mat-error>
                           </mat-select>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -427,46 +432,46 @@
                         <input matInput formControlName="dateEffetRegimeCadre2" [matDatepicker]="dateEffetRegimeCadre2">
                         <mat-datepicker-toggle matSuffix [for]="dateEffetRegimeCadre2"></mat-datepicker-toggle>
                         <mat-datepicker #dateEffetRegimeCadre2></mat-datepicker>
-                      </mat-form-field>
-                    </div>
+                      </mat-form-field>   
+                    </div>   
                   </mat-tab>
-                  <mat-tab label="Mois 3">
+                  <mat-tab *ngIf="displayMonth3" label="Montant cotisation du Mois 3">
                     <div class="mt-5" fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetis CSS3</mat-label>
-                        <input formControlName="totSalAssCssPf3" matInput />
+                        <mat-label>Total salaries assujetis Pf3</mat-label>
+                        <input  type="number" formControlName="totSalAssCssPf3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetis ATMP3</mat-label>
-                        <input formControlName="totSalAssCssAtmp3" matInput />
+                        <input  type="number" formControlName="totSalAssCssAtmp3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetisI IPRES RG3</mat-label>
-                        <input formControlName="totSalAssIpresRg3" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRg3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaries assujetisI IPRES RCC3</mat-label>
-                        <input formControlName="totSalAssIpresRcc3" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRcc3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>      
                     </div>
                     <div fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Salaire brut</mat-label>
-                        <input formControlName="salaireBrut3" matInput />
+                        <input  type="number" formControlName="salaireBrut3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
                         <mat-label>Nombre de jour</mat-label>
-                        <input formControlName="nombreJours3" matInput />
+                        <input  type="number" formControlName="nombreJours3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
                         <mat-label>Nombre d'heure</mat-label>
-                        <input formControlName="nombreHeures3" matInput />
+                        <input  type="number" formControlName="nombreHeures3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
@@ -488,8 +493,7 @@
                         <mat-label>Regime general</mat-label>
                         <mat-select formControlName="regimeGeneral3" matInput>
                         <mat-option value="true">Oui</mat-option>
-                        <mat-option value="false">Non</mat-option>
-                          <mat-error>Ce champ est obligatoire</mat-error>
+                        <mat-option value="false">Non</mat-option>   
                         </mat-select>
                       </mat-form-field>
                       <mat-form-field fxFlex="40" appearance="outline">
@@ -497,7 +501,6 @@
                         <mat-select formControlName="regimCompCadre3" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
-                            <mat-error>Ce champ est obligatoire</mat-error>
                           </mat-select>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -508,19 +511,19 @@
                         <mat-datepicker #dateEffetRegimeCadre3></mat-datepicker>
                       </mat-form-field>
                     </div>
-                  </mat-tab>
+                  </mat-tab>  
                 </mat-tab-group>
               </div>
               <button *ngIf="addSalForm"  class="submit-add-edit"  [disabled]="!declarationForm.get('informationSalaries').valid"  mat-raised-button (click)="updateSal()">Ajouter</button>
               <button *ngIf="editSalForm" class="submit-add-edit" [disabled]="!declarationForm.get('informationSalaries').valid"  mat-raised-button (click)="updateSal()">Modifier</button>
-              </div>
+            </div>
           </div>
           <div fxLayoutAlign="end" fxLayoutGap="10%">
             <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-            <button [disabled]="!declarationForm.valid" class="submit-button" mat-raised-button matStepperNext>Suivant</button>
+            <button (click)="cumulTotal()" [disabled]="!declarationForm.valid" class="submit-button" mat-raised-button matStepperNext>Suivant</button>
           </div>
-        </div>
-      </mat-step>
+      </div>
+      </mat-step>   
       <mat-step class="confirmation" label="Confirmation" state="confirmation">
         <mat-toolbar class="mt-3">
           <mat-icon>check_circle_outline</mat-icon>&nbsp;Synthese
@@ -597,7 +600,7 @@
           <mat-divider class="inset mt-3"></mat-divider>
         </div>
         <mat-toolbar class="mt-3">
-          <mat-icon>check_circle_outline</mat-icon>&nbsp;Liste des employes
+          <mat-icon>check_circle_outline</mat-icon>&nbsp;Liste des Salariés
         </mat-toolbar>
         <table mat-table [dataSource]="dataSource">
           <ng-container matColumnDef="numeroAssureSocial">
@@ -627,18 +630,18 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action </th>
             <td mat-cell *matCellDef="let element">
-              <mat-icon>edit</mat-icon>
+              <!-- <mat-icon>edit</mat-icon> -->
             </td>
             <td mat-cell *matCellDef="let element">
-              <mat-icon>delete_outline</mat-icon>
+             <!--  <mat-icon>delete_outline</mat-icon> -->
             </td>
-          </ng-container>
+          </ng-container> 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         <div class="mt-3" fxLayoutAlign="end" fxLayoutGap="10%">
           <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button (click)="addDeclaration()" class="submit-button" mat-raised-button matStepperNext>Envoyer</button>
+          <button (click)="addDeclaration()" class="submit-button" mat-raised-button matStepperNext>Declarer</button>
         </div>
       </mat-step>
       <ng-template matStepperIcon="genInfo">

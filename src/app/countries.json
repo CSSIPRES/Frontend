@@ -386,6 +386,6 @@
         ,{"codenat":"UMI","descr":"Territoires non incorporés des États-Unis ","version":1,"language_cd":"FRA"}
         ,{"codenat":"URY","descr":"Uruguay","version":1,"language_cd":"FRA"}
         ,{"codenat":"USA","descr":"United States of America","version":1,"language_cd":"FRA"}
-        ,{"codenat":"SN","descr":"Senegal","version":1,"language_cd":"ENG"}
-        ,{"codenat":"SN","descr":"Senegal","version":1,"language_cd":"FRA"}]}
+        ,{"codenat":"SEN","descr":"Senegal","version":1,"language_cd":"ENG"}
+        ,{"codenat":"SEN","descr":"Senegal","version":1,"language_cd":"FRA"} ]}
 ]
