@@ -18,8 +18,9 @@
      
       <form [formGroup]="immatForm">   
       <div formGroupName="input"> 
-      <mat-horizontal-stepper   #stepper class="mt-1">   
-    <mat-step *ngIf="infoEmp"   label="Information Employeur" state="chat">
+      <mat-horizontal-stepper [linear]="true" 
+      (selectionChange)="stepChanged($event, stepper);"   #stepper class="mt-1">   
+    <mat-step *ngIf="infoEmp" [stepControl]="immatForm.get('input').get('employerQuery')"  label="Information Employeur" state="chat">
     <div class="mt-5" formGroupName="employerQuery">
       <ng-template matStepLabel>
         <span [ngStyle]="{'color': immatForm.get('input').get('employerQuery').valid ? 'rgb(14, 189, 8)' : ''}">Information Employeur
@@ -166,12 +167,14 @@
       </div>
      
         <div fxLayoutAlign="end" fxLayoutGap="5%">
-          <button [disabled]="!immatForm.get('input').get('employerQuery').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
+          <button [disabled]="!immatForm.get('input').get('employerQuery').valid" 
+           class="submit-button" mat-raised-button (click)="goForward($event)">Suivant<mat-icon>arrow_forward</mat-icon></button>
         </div> 
   </div>
   </mat-step>
-  <mat-step *ngIf="infoGen" [stepControl]="mainRegistrationForm"   label="Information General" state="phone">
-      <div class="mt-5" formGroupName="mainRegistrationForm">
+  <mat-step   *ngIf="infoGen" formGroupName="mainRegistrationForm" 
+  [stepControl]="immatForm.get('input').get('mainRegistrationForm')"   label="Information General" state="phone">
+      <!-- <div class="mt-5" formGroupName="mainRegistrationForm"> -->
       <ng-template matStepLabel>
         <span [ngStyle]="{'color': immatForm.get('input').get('mainRegistrationForm').valid ? 'rgb(14, 189, 8)' : ''}">Information General</span>
       </ng-template> 
@@ -330,7 +333,7 @@
       <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
       <button [disabled]="!immatForm.get('input').get('mainRegistrationForm').valid || validError"  class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
     </div>
-  </div>
+  <!-- </div> -->
   </mat-step>
     <mat-step *ngIf="infoRepLeg"   label="Representant legale" state="person_outlined">
       <div class="mt-5" formGroupName="legalRepresentativeForm">
@@ -1173,17 +1176,12 @@
        <div class="col-md-6">
         <div class="field">   
           <div class="file">
-         
             <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
-          </div> 
-
-
-          
+          </div>       
         </div>
        </div>
      </div>
      <hr>
-
      <div class="row">
       <div class="col-md-6">
         Photocopie du registre du commerce <span class="required">*</span>
@@ -1308,16 +1306,11 @@
         
            <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'cni')" class="fileInputProfile"></a>
          </div> 
-
-
-         <!-- (change)="fileChangeEvent($event)" -->
-               
+         <!-- (change)="fileChangeEvent($event)" -->       
        </div>
       </div>
     </div>
     <hr>
-
-
     <div class="row">
       <div class="col-md-6">
         Un bulletin d'adhésion à remplir ( imprimé à retirer à l'IPRES )   <span class="required">*</span>
@@ -1328,15 +1321,11 @@
         
            <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'bulletinsSalaire')" class="fileInputProfile"></a>
          </div> 
-
-
-         <!-- (change)="fileChangeEvent($event)" -->
-               
+         <!-- (change)="fileChangeEvent($event)" -->         
        </div>
       </div>
     </div>
     <hr>
-
     <div class="row">
       <div class="col-md-6">
         Photocopie pièce d'identités du gérant <span class="required">*</span>
@@ -1470,16 +1459,11 @@
       
          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'declarationEtablissement')" class="fileInputProfile"></a>
        </div> 
-
-
-       <!-- (change)="fileChangeEvent($event)" -->
-             
+       <!-- (change)="fileChangeEvent($event)" -->       
      </div>
     </div>
   </div>
   <hr>
-
-
   <div class="row">
     <div class="col-md-6">
      Déclaration du mouvement du travail <span class="required">*</span>
@@ -1918,18 +1902,13 @@
  <div class="col-md-6">
   <div class="field">   
     <div class="file">
-   
       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'carteNationaleIdentite')" class="fileInputProfile"></a>
     </div> 
-
-
     <!-- (change)="fileChangeEvent($event)" -->
-          
   </div>
  </div>
 </div>
 <hr>
-
 <div class="row">
  <div class="col-md-6">
    Photocopie pièce d'identités de l'emloyeur <span class="required">*</span>

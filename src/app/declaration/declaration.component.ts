@@ -215,7 +215,7 @@ initDeclarationForm(){
   idIdentifiant:this.fb.control(this.data1.idIdentifiant, Validators.required),
   raisonSociale:this.fb.control(this.data1.raisonSociale, Validators.required),
   adresse:this.fb.control(this.data1.address),
-  typeDeclaration:this.fb.control('', Validators.required),
+  typeDeclaration:this.fb.control('', Validators.required),   
   dateDebutCotisation:this.fb.control('', Validators.required),
   dateFinPeriodeCotisation :this.fb.control('', Validators.required), 
   totalNouvSalaries:this.fb.control(''),
@@ -345,13 +345,14 @@ dateErrors:boolean=false;
           }
        
         this.dataSource=resp.value.informationSalaries;
+        console.log(this.fillListSalForm(resp.value.informationSalaries).values);
         
         /* console.log(this.fillListDecForm(resp.value.informationSalaries)); */
        this.declarationForm=new FormGroup({
         typeIdentifiant:new FormControl('SCI', Validators.required),
           idIdentifiant:new FormControl(this.data1.idIdentifiant, Validators.required),
           raisonSociale:new FormControl(this.data1.raisonSociale, Validators.required),
-          adresse:new FormControl(this.data1.address, Validators.required),
+          adresse:new FormControl(this.data1.address),
           typeDeclaration:new FormControl(typDec, Validators.required),
           dateDebutCotisation:new FormControl(d1, Validators.required),
           dateFinPeriodeCotisation:new FormControl(d2, Validators.required),  
@@ -500,8 +501,8 @@ dateErrors:boolean=false;
     nombreHeures1: new FormControl(dec.nombreHeures1),
     tempsTravail1: new FormControl(dec.tempsTravail1),
     trancheTravail1: new FormControl(dec.trancheTravail1),
-    regimeGeneral1: new FormControl(dec.regimeGeneral1),
-    regimCompCadre1: new FormControl(dec.regimCompCadre1),
+    regimeGeneral1: new FormControl(dec.regimeGeneral1.toString()),
+    regimCompCadre1: new FormControl(dec.regimCompCadre1.toString()),
     dateEffetRegimeCadre1: new FormControl(dec.dateEffetRegimeCadre1),
     totSalAssCssPf3: new FormControl(dec.totSalAssCssPf3),
     totSalAssCssAtmp3: new FormControl(dec.totSalAssCssAtmp3),
@@ -512,8 +513,8 @@ dateErrors:boolean=false;
     nombreHeures3: new FormControl(dec.nombreHeures3),
     tempsTravail3: new FormControl(dec.tempsTravail3),
     trancheTravail3: new FormControl(dec.trancheTravail3),
-    regimeGeneral3: new FormControl(dec.regimeGeneral3),
-    regimCompCadre3: new FormControl(dec.regimCompCadre3),
+    regimeGeneral3: new FormControl(dec.regimeGeneral3.toString()),
+    regimCompCadre3: new FormControl(dec.regimCompCadre3.toString()),
     dateEffetRegimeCadre3: new FormControl(dec.dateEffetRegimeCadre3),
     totSalAssCssPf2: new FormControl(dec.totSalAssCssPf2),
     totSalAssCssAtmp2: new FormControl(dec.totSalAssCssAtmp2),
@@ -524,8 +525,8 @@ dateErrors:boolean=false;
     nombreHeures2: new FormControl(dec.nombreHeures2),
     tempsTravail2: new FormControl(dec.tempsTravail2),
     trancheTravail2: new FormControl(dec.trancheTravail2),
-    regimeGeneral2: new FormControl(dec.regimeGeneral2),
-    regimCompCadre2: new FormControl(dec.regimCompCadre2),
+    regimeGeneral2: new FormControl(dec.regimeGeneral2.toString()),
+    regimCompCadre2: new FormControl(dec.regimCompCadre2.toString()),
     dateEffetRegimeCadre2: new FormControl(dec.dateEffetRegimeCadre2)
   })
 /* }  */ 

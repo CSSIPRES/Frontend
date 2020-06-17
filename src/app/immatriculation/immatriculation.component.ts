@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Component, OnInit, Input, ViewEncapsulation, ViewChild } from '@angular/core';
+import { STEPPER_GLOBAL_OPTIONS, StepperSelectionEvent } from '@angular/cdk/stepper';
 import * as departement from '../departement.json';
 import * as regions from '../regions.json';
 import * as communes from '../communes.json';
@@ -11,7 +11,7 @@ import * as main_sectors from '../main_sectors.json';
 import { FormGroup, FormBuilder, Validators, 
   FormControl, FormArray } from '@angular/forms';  
 import {  MatDialog, MatSnackBar,  NativeDateAdapter
-  ,MatTableDataSource, MatDatepickerInputEvent, DateAdapter, MAT_DATE_FORMATS} from '@angular/material';
+  ,MatTableDataSource, MatDatepickerInputEvent, DateAdapter, MAT_DATE_FORMATS, MatStepper} from '@angular/material';
 import { LOCALE_ID } from '@angular/core'; 
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
@@ -55,7 +55,9 @@ export const APP_DATE_FORMATS =
   styleUrls: ['./immatriculation.component.css'],
   /* encapsulation: ViewEncapsulation.None, */
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}}
+    provide: STEPPER_GLOBAL_OPTIONS,
+     useValue: {displayDefaultIndicatorType: false
+    }}
   ]
   })
   
@@ -405,7 +407,20 @@ export class ImmatriculationComponent implements OnInit {
    
    initImmatForm(){
      this.immatForm=this.fb.group({
-          input:  this.fb.group({
+     input:  this.fb.group({
+     employerQuery:this.fb.group({
+              employerType:this.fb.control('', Validators.required),
+              legalStatus: this.fb.control('',Validators.required),
+              typeEtablissement:this.fb.control('', Validators.required),
+              employerName:this.fb.control('', Validators.required),
+              nineaNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}),
+              ninetNumber:this.fb.control(''),
+              regType:this.fb.control('BVOLN', Validators.required),
+              taxId:this.fb.control('2G3'),
+              taxIdDate:this.fb.control('',Validators.required),
+              tradeRegisterDate: this.fb.control('',Validators.required),
+              tradeRegisterNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.registreComPattern)]}),
+            }),
       mainRegistrationForm:this.fb.group({
     dateOfInspection:new FormControl('', Validators.required),
     dateOfFirstHire:this.fb.control('', Validators.required),
@@ -424,19 +439,7 @@ export class ImmatriculationComponent implements OnInit {
     noOfWorkersInBasicScheme:this.fb.control('', Validators.required),
     noOfWorkersInGenScheme:this.fb.control('', Validators.required)
       }),
-      employerQuery:this.fb.group({
-        employerType:this.fb.control('', Validators.required),
-        legalStatus: this.fb.control('',Validators.required),
-        typeEtablissement:this.fb.control('', Validators.required),
-        employerName:this.fb.control('', Validators.required),
-        nineaNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.maxLength(9),Validators.minLength(9)]}),
-        ninetNumber:this.fb.control(''),
-        regType:this.fb.control('BVOLN', Validators.required),
-        taxId:this.fb.control('2G3'),
-        taxIdDate:this.fb.control('',Validators.required),
-        tradeRegisterDate: this.fb.control('',Validators.required),
-        tradeRegisterNumber:this.fb.control('',{ updateOn: 'blur',validators: [Validators.required,Validators.pattern(this.registreComPattern)]}),
-      }),
+     
       legalRepresentativeForm:new FormGroup({
         lastName:this.fb.control('', Validators.required),
         firstName:this.fb.control('', Validators.required),
@@ -1277,6 +1280,40 @@ fileChangeEvent(fileInput: any,fileName:string) {
     this.addEmpForm=false;
     this.editEmpForm=true;
   }
+  /*  stepChanged(event: StepperSelectionEvent) {
+    if (event.previouslySelectedIndex < event.selectedIndex) {
+     event.previouslySelectedStep.interacted = false;
+    }
+  }  */ 
+    stepChanged(event, stepper){
+    stepper.selected.interacted = false;
+  }  
+ /*  stepChanged(event: StepperSelectionEvent) {
+    if (event.previouslySelectedIndex > event.selectedIndex) {
+     event.previouslySelectedStep.interacted = false; 
+    }
+    } */
+  @ViewChild('stepper',{static:false}) private myStepper: MatStepper;
+ 
+/*goBack(){
+    this.myStepper.previous();
+}*/
+
+ goForward(event){
+    this.myStepper.next();
+    
+    console.log(this.myStepper.selected);
+   /*  this.myStepper.selected.stepControl.dirty=false;
+    this.myStepper.selected.stepControl.touched=false; */
+    this.myStepper.selected.stepControl.pristine=false;
+   /*  this.myStepper.selected.completed=false
+    console.log(this.myStepper.selected._displayDefaultIndicatorType); */
+   /* this.immatForm.get('input').get('employerQuery').markAsUntouched(); 
+     this.immatForm.get('input').get('employerQuery').markAsPristine();
+    this.immatForm.get('input').get('employerQuery').setErrors(null); */
+  /*   console.log(this.immatForm.get('input').get('employerQuery'));
+    console.log(this.immatForm.markAsPristine()); */
+ }  
    removeEmp(i) {
     let empList=(this.immatForm.get('input').get('employeList') as FormArray)
     empList.removeAt(i); 

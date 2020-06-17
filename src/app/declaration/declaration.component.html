@@ -33,7 +33,7 @@
           <div fxLayout="row" fxLayoutGap="5%">
             <mat-form-field appearance="outline">
               <mat-label>Adresse</mat-label>
-              <input matInput formControlName="adresse" readonly required/>
+              <input matInput formControlName="adresse" readonly/>
               <mat-error>Ce champ est obligatoire</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
@@ -153,7 +153,7 @@
                   <button mat-button matDialogClose="no">Annuler</button>
                   <button mat-button matDialogClose="yes">Confirmer</button>
               </mat-dialog-content>
-            </ng-template>  -->
+            </ng-template>  -->      
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -478,7 +478,7 @@
                         <mat-label>Temps de travail</mat-label>
                         <mat-select formControlName="tempsTravail3" matInput>
                           <mat-option value="TPS_PLEIN">Temps plein</mat-option>
-                          <mat-option value="TPS_PLEIN">Temps partiel</mat-option>
+                          <mat-option value="TPS_PARTIEL">Temps partiel</mat-option>
                         </mat-select>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>

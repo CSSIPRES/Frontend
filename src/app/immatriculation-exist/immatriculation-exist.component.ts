@@ -48,7 +48,7 @@ export class ImmatriculationExistComponent implements OnInit {
     agencyCss: "",
     agencyIpres: "",
     processFlowId: "",
-    tauxAt:"",
+    tauxAT:"",
     statutDossier: "",
     statutImmatriculation: "",
     idDossiers: "",
@@ -135,8 +135,36 @@ export class ImmatriculationExistComponent implements OnInit {
   let empExist= this.immatExistanteForm.get('input');
   this.employeInfo.typeIdentifiant=empExist.get('typeIdentifiant').value;
   this.employeInfo.numeroIdentifiant=empExist.get('numeroIdentifiant').value;
-  this.employeInfo.tauxAt=outputValue.tauxAt;
+  this.employeInfo.tauxAT=outputValue.tauxAt;
   this.employeInfo.raisonSociale=outputValue.raisonSocial;
+  this.employeInfo.maisonMere=outputValue.maisonMere;
+  this.employeInfo.prenom=outputValue.prenom;
+  this.employeInfo.nom=outputValue.nom;
+  this.employeInfo.legalStatus=outputValue.legalStatus;
+  this.employeInfo.shortName=outputValue.shortName;
+  this.employeInfo.businessSector=outputValue.businessSector;
+  this.employeInfo.mainLineOfBusiness=outputValue.mainLineOfBusiness;
+  this.employeInfo.noOfWorkersInGenScheme=outputValue.noOfWorkersInGenScheme;
+  this.employeInfo.noOfWorkersInBasicScheme=outputValue.noOfWorkersInBasicScheme;
+  this.employeInfo.region=outputValue.region;
+  this.employeInfo.department=outputValue.department;
+  this.employeInfo.arondissement=outputValue.arondissement;
+  this.employeInfo.commune=outputValue.commune;
+  this.employeInfo.qartier=outputValue.qartier;
+  this.employeInfo.address=outputValue.address;
+  this.employeInfo.postboxNo=outputValue.postboxNo;
+  this.employeInfo.telephone=outputValue.telephone;
+  this.employeInfo.email=outputValue.email;
+  this.employeInfo.website=outputValue.website;
+  this.employeInfo.zoneCss=outputValue.zoneCss;
+  this.employeInfo.zoneIpres=outputValue.zoneIpres;
+  this.employeInfo.sectorCss=outputValue.sectorCss;
+  this.employeInfo.sectorIpres=outputValue.sectorIpres;
+  this.employeInfo.agencyCss=outputValue.agencyCss;
+  this.employeInfo.agencyIpres=outputValue.agencyIpres;
+  this.employeInfo.processFlowId=outputValue.processFlowId;
+  this.employeInfo.statutDossier=outputValue.statutDossier;
+  this.employeInfo.statutImmatriculation=outputValue.statutImmatriculation;
   this.employeInfo.idDossiers=null;
  this.employeInfo.documents=null;
   this.employeInfo.user.id=this.currentUser.id;

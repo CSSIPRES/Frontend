@@ -37,7 +37,8 @@ table{
   }
   .example-sidenav-content{
       background-color: #eceef0;
-      height: 600px;
+      min-height: 600px;
+      max-height: 1200px;
       overflow-y: hidden;
   }
 
