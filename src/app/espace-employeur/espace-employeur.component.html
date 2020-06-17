@@ -69,9 +69,10 @@
                 <span class="alert alert-dark mt-2"> <mat-spinner *ngIf="loaderStatutImmat" strokeWidth="2" [diameter]="34"></mat-spinner>{{statutCertImm}}</span>
                
                 <h3 class="mt-2">Certificat d'immatriculation ( pdf ) </h3>
-               <mat-spinner *ngIf="urlCertImmat === ''" strokeWidth="2" [diameter]="34"></mat-spinner>
-              
-                <button *ngIf="urlCertImmat != ''" (click)="openViewPDFDialog(urlCertImmat)" class="icon-file-dowload" mat-button> 
+               <mat-spinner *ngIf="urlCertImmat === '' && statutCertImm != 'Votre demande est en cours de traitement'" trokeWidth="2" [diameter]="34"></mat-spinner>
+               <span *ngIf="statutCertImm == 'Votre demande est en cours de traitement'" class="alert alert-dark mt-2">En attente de validation</span>
+    
+                <button *ngIf="urlCertImmat != ''" (click)="openViewPDFDialog('',urlCertImmat)" class="icon-file-dowload" mat-button> 
                   <mat-icon>cloud_download</mat-icon> Visualiser
                  </button>
              </div>

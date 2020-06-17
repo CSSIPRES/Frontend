@@ -1,5 +1,5 @@
 <div fxLayoutAlign="space-between center">
-  <h1 mat-dialog-title>Declaration</h1>
+  <h1 mat-dialog-title>Déclaration</h1>
   <button mat-dialog-title mat-button class="close-icon" [mat-dialog-close]="true">
     <mat-icon color="warn">close</mat-icon>
   </button>   
@@ -12,7 +12,7 @@
   <form [formGroup]="declarationForm">
     <mat-horizontal-stepper #stepper class="mt-1">
       <mat-step label="Information General" state="genInfo">
-        <ng-template matStepLabel>Information General</ng-template>
+        <ng-template matStepLabel>Informations Générales</ng-template>
         <div class="mt-3">     
           <div fxLayout="row" fxLayoutGap="5%">
             <mat-form-field appearance="outline">
@@ -24,7 +24,7 @@
               <mat-error>Ce champ est obligatoire</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>Numero identifiant</mat-label>
+              <mat-label>Numéro identifiant</mat-label>
               <input matInput formControlName="idIdentifiant" readonly required />
               <!--  <mat-icon matSuffix>email</mat-icon> -->
               <mat-error>Ce champ est obligatoire</mat-error>
@@ -46,7 +46,7 @@
           </div>
           <div fxLayout="row" fxLayoutGap="2%">
             <mat-form-field appearance="outline">
-              <mat-label>Type declaration</mat-label>
+              <mat-label>Type déclaration</mat-label>
               <mat-select (selectionChange)="incrementDate($event)" (blur)="swictActiveDesactiveButton($event)" formControlName="typeDeclaration" required>
                 <mat-option value="MENSUEL">Mensuel</mat-option>
                 <mat-option value="TRIMESTRIEL">Trimestriel</mat-option>
@@ -54,7 +54,7 @@
               <mat-error>Ce champ est obligatoire</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>Date debut cotisation</mat-label>
+              <mat-label>Date début cotisation</mat-label>
               <input (dateChange)="incrementDate($event)" matInput formControlName="dateDebutCotisation" required
                 [matDatepicker]="dateDebutCotisation">
               <mat-datepicker-toggle matSuffix [for]="dateDebutCotisation"></mat-datepicker-toggle>
@@ -112,7 +112,7 @@
         <mat-divider class="inset mt-3"></mat-divider>
         <table mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="numeroAssureSocial">
-            <th mat-header-cell *matHeaderCellDef> Numero Securite </th>
+            <th mat-header-cell *matHeaderCellDef> Numéro Assuré Social </th>
             <td mat-cell *matCellDef="let element"><b> {{element.numeroAssureSocial}}</b> </td>
           </ng-container>
           <ng-container matColumnDef="nomEmploye">
@@ -120,19 +120,19 @@
             <td mat-cell *matCellDef="let element"><b> {{element.nomEmploye}} </b> </td>
           </ng-container>
           <ng-container matColumnDef="prenomEmploye">
-            <th mat-header-cell *matHeaderCellDef> Prenom </th>
+            <th mat-header-cell *matHeaderCellDef> Prénom </th>
             <td mat-cell *matCellDef="let element"> <b>{{element.prenomEmploye}}</b> </td>
           </ng-container>           
           <ng-container matColumnDef="dateNaissance">
-            <th mat-header-cell *matHeaderCellDef>Date Naissance</th>
+            <th mat-header-cell *matHeaderCellDef>Date de naissance</th>
             <td mat-cell *matCellDef="let element"> <b> {{element.dateNaissance}}</b> </td>
           </ng-container>                 
           <ng-container matColumnDef="typePieceIdentite">
-            <th mat-header-cell *matHeaderCellDef> Type d'identite </th>
+            <th mat-header-cell *matHeaderCellDef> Type d'identité </th>
             <td mat-cell *matCellDef="let element"> <b>{{element.typePieceIdentite}}</b> </td>
           </ng-container>
           <ng-container matColumnDef="numPieceIdentite">
-            <th mat-header-cell *matHeaderCellDef>Numero piece </th>
+            <th mat-header-cell *matHeaderCellDef>Numéro de pièce d'identité</th>
             <td mat-cell *matCellDef="let element"> <b>{{element.numPieceIdentite}}</b> </td>
           </ng-container>
           <ng-container matColumnDef="action">
@@ -167,16 +167,16 @@
         </div>
          <div fxFlex="row">
           <div fxFlex="25">
-          <mat-toolbar>TotalPF:{{totSalAssCssPf}}</mat-toolbar>
+          <mat-toolbar>Total CSS - PF : {{totSalAssCssPf}}</mat-toolbar>
           </div> 
           <div fxFlex="25">
-          <mat-toolbar>totalAssCssAtmp:{{totSalAssCssAtmp}}</mat-toolbar>
+          <mat-toolbar>Total CSS - ATMP : {{totSalAssCssAtmp}}</mat-toolbar>
         </div>
         <div fxFlex="25">
-          <mat-toolbar>TotalRg:{{totSalAssIpresRg}}</mat-toolbar>
+          <mat-toolbar>Total IPRES - RG : {{totSalAssIpresRg}}</mat-toolbar>
         </div>  
         <div fxFlex="25">
-          <mat-toolbar>TotalRCC:{{totSalAssIpresRcc}}</mat-toolbar>
+          <mat-toolbar>Total IPRES - RCC : {{totSalAssIpresRcc}}</mat-toolbar>
         </div> 
         </div> 
         <div formArrayName="informationSalaries">
@@ -191,14 +191,14 @@
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
-                    <mat-label>Prenom</mat-label>
+                    <mat-label>Prénom</mat-label>
                     <input formControlName="prenomEmploye" matInput />
                     <mat-icon matSuffix>person_outline</mat-icon>
                     <mat-error>Ce champ est obligatoire</mat-error>
 
                   </mat-form-field>
                   <mat-form-field fxFlex="10" appearance="outline">
-                    <mat-label>Date naissance</mat-label>
+                    <mat-label>Date de naissance</mat-label>
                     <input matInput formControlName="dateNaissance" [matDatepicker]="dateNaissance">
                     <mat-datepicker-toggle matSuffix [for]="dateNaissance"></mat-datepicker-toggle>
                     <mat-datepicker #dateNaissance></mat-datepicker>
@@ -209,22 +209,22 @@
                 </div>
                 <div fxLayout="row" fxLayoutGap="5%">
                   <mat-form-field appearance="outline">
-                    <mat-label>Numero assurance social</mat-label>
+                    <mat-label>Numéro assuré social</mat-label>
                     <input formControlName="numeroAssureSocial" matInput />
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-label>Type identifiant</mat-label>
                     <mat-select formControlName="typePieceIdentite" readonly>
-                      <mat-option value="NIN">Carte national d'identite</mat-option>
-                      <mat-option value="PASS">Passport</mat-option>
+                      <mat-option value="NIN">Carte nationale d'identité</mat-option>
+                      <mat-option value="PASS">Passeport</mat-option>
                       <mat-option value="CDAO">Carte CEDEAO</mat-option>
                       <mat-option value="CONC">Carte consulaire</mat-option>
                     </mat-select>
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                   <mat-form-field fxFlex="10" appearance="outline">
-                    <mat-label>Numero identifiant</mat-label>
+                    <mat-label>Numéro identifiant</mat-label>
                     <input formControlName="numPieceIdentite" matInput/>
                     <mat-icon matSuffix>person_outline</mat-icon>
                     <mat-error>Ce champ est obligatoire</mat-error>
@@ -234,8 +234,8 @@
                   <mat-form-field appearance="outline">
                     <mat-label>Type contrat</mat-label>
                     <mat-select formControlName="natureContrat">
-                      <mat-option value="CDD">Contrat à durée determiné</mat-option>
-                      <mat-option value="CDI">Contrat à durée indeterminé</mat-option>
+                      <mat-option value="CDD">Contrat à durée determinée</mat-option>
+                      <mat-option value="CDI">Contrat à durée indeterminée</mat-option>
                       <mat-option value="JOU">Journalier</mat-option>
                       <mat-option value="STA">Contrat de stage</mat-option>
                       <mat-option value="SPE">Contrat spécial</mat-option>
@@ -243,7 +243,7 @@
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                   <mat-form-field fxFlex="10" appearance="outline">
-                    <mat-label>Date entree</mat-label>
+                    <mat-label>Date entrée</mat-label>
                     <input matInput formControlName="dateEntree" required [matDatepicker]="dateEntree">
                     <mat-datepicker-toggle matSuffix [for]="dateEntree"></mat-datepicker-toggle>
                     <mat-datepicker #dateEntree></mat-datepicker>
@@ -266,12 +266,12 @@
                     <mat-label>Motif sortie</mat-label>
                     <mat-select formControlName="motifSortie">
                       <mat-option value="EXPIRATION_DE_CONTRAT">Expiration contrat</mat-option>
-                      <mat-option value="DEMISSION">Demission</mat-option>
+                      <mat-option value="DEMISSION">Démission</mat-option>
                       <mat-option value="LICENCIEMENT">Licenciement</mat-option>
                       <mat-option value="ABANDON_DE_POSTE">Abandon de poste</mat-option>
                       <mat-option value="MUTATION">Mutation</mat-option>
                       <mat-option value="RETRAITE">Retraite</mat-option>
-                      <mat-option value="DECES">Deces</mat-option>
+                      <mat-option value="DECES">Décès</mat-option>
                     </mat-select>
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
@@ -280,22 +280,22 @@
                   <mat-tab *ngIf="displayMonth1" label="Montant cotisation du Mois 1">
                     <div class="mt-5" fxLayout="row" fxLayoutGap="5%">
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetis Pf1</mat-label>
+                        <mat-label>Total salaires assujettis PF1</mat-label>
                         <input type="number" formControlName="totSalAssCssPf1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetis ATMP1</mat-label>
+                        <mat-label>Total salaires assujettis ATMP1</mat-label>
                         <input  type="number" formControlName="totSalAssCssAtmp1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>       
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetisI IPRES RG1</mat-label>
+                        <mat-label>Total salaires assujettis IPRES RG1</mat-label>
                         <input  type="number" formControlName="totSalAssIpresRg1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetisI IPRES RCC1</mat-label>
+                        <mat-label>Total salaires assujettis IPRES RCC1</mat-label>
                         <input  type="number" formControlName="totSalAssIpresRcc1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -307,12 +307,12 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Nombre de jour</mat-label>
+                        <mat-label>Nombre de jours</mat-label>
                         <input  type="number" formControlName="nombreJours1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Nombre d'heure</mat-label>
+                        <mat-label>Nombre d'heures</mat-label>
                         <input  type="number" formControlName="nombreHeures1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -334,7 +334,7 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
-                        <mat-label>Regime general</mat-label>
+                        <mat-label>Régime général</mat-label>
                         <mat-select formControlName="regimeGeneral1" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
@@ -342,7 +342,7 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="40" appearance="outline">
-                        <mat-label>Regime cadre</mat-label>
+                        <mat-label>Régime cadre</mat-label>
                         <mat-select formControlName="regimCompCadre1" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
@@ -350,7 +350,7 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="25" appearance="outline">
-                        <mat-label>Date effectif regime cadre</mat-label>
+                        <mat-label>Date d'effet regime cadre</mat-label>
                         <input matInput formControlName="dateEffetRegimeCadre1" [matDatepicker]="dateEffetRegimeCadre1">
                         <mat-datepicker-toggle matSuffix [for]="dateEffetRegimeCadre1"></mat-datepicker-toggle>
                         <mat-datepicker #dateEffetRegimeCadre1></mat-datepicker>
@@ -360,22 +360,22 @@
                   <mat-tab *ngIf="displayMonth2" label="Montant cotisation du Mois 2">
                     <div class="mt-5" fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetis Pf2</mat-label>
+                        <mat-label>Total salaires assujettis PF2</mat-label>
                         <input  type="number" formControlName="totSalAssCssPf2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetis ATMP2</mat-label>
+                        <mat-label>Total salaires assujettis ATMP2</mat-label>
                         <input  type="number" formControlName="totSalAssCssAtmp2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetisI IPRES RG2</mat-label>
+                        <mat-label>Total salaires assujettis IPRES RG2</mat-label>
                         <input  type="number" formControlName="totSalAssIpresRg2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetisI IPRES RCC2</mat-label>
+                        <mat-label>Total salaires assujettis IPRES RCC2</mat-label>
                         <input  type="number" formControlName="totSalAssIpresRcc2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -387,12 +387,12 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
-                        <mat-label>Nombre de jour</mat-label>
+                        <mat-label>Nombre de jours</mat-label>
                         <input  type="number" formControlName="nombreJours2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
-                        <mat-label>Nombre d'heure</mat-label>
+                        <mat-label>Nombre d'heures</mat-label>
                         <input  type="number" formControlName="nombreHeures2" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -412,7 +412,7 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
-                        <mat-label>Regime general</mat-label>
+                        <mat-label>Régime général</mat-label>
                         <mat-select formControlName="regimeGeneral2" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
@@ -420,7 +420,7 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="40" appearance="outline">
-                        <mat-label>Regime cadre</mat-label>
+                        <mat-label>Régime cadre</mat-label>
                         <mat-select formControlName="regimCompCadre2" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
@@ -428,7 +428,7 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="25" appearance="outline">
-                        <mat-label>Date effectif regime cadre</mat-label>
+                        <mat-label>Date d'effet du regime cadre</mat-label>
                         <input matInput formControlName="dateEffetRegimeCadre2" [matDatepicker]="dateEffetRegimeCadre2">
                         <mat-datepicker-toggle matSuffix [for]="dateEffetRegimeCadre2"></mat-datepicker-toggle>
                         <mat-datepicker #dateEffetRegimeCadre2></mat-datepicker>
@@ -438,22 +438,22 @@
                   <mat-tab *ngIf="displayMonth3" label="Montant cotisation du Mois 3">
                     <div class="mt-5" fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetis Pf3</mat-label>
+                        <mat-label>Total salaires assujettis PF3</mat-label>
                         <input  type="number" formControlName="totSalAssCssPf3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetis ATMP3</mat-label>
+                        <mat-label>Total salaires assujettis ATMP3</mat-label>
                         <input  type="number" formControlName="totSalAssCssAtmp3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetisI IPRES RG3</mat-label>
+                        <mat-label>Total salaires assujettis IPRES RG3</mat-label>
                         <input  type="number" formControlName="totSalAssIpresRg3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Total salaries assujetisI IPRES RCC3</mat-label>
+                        <mat-label>Total salaires assujettis IPRES RCC3</mat-label>
                         <input  type="number" formControlName="totSalAssIpresRcc3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>      
@@ -465,12 +465,12 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
-                        <mat-label>Nombre de jour</mat-label>
+                        <mat-label>Nombre de jours</mat-label>
                         <input  type="number" formControlName="nombreJours3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
-                        <mat-label>Nombre d'heure</mat-label>
+                        <mat-label>Nombre d'heures</mat-label>
                         <input  type="number" formControlName="nombreHeures3" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -490,14 +490,14 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="10" appearance="outline">
-                        <mat-label>Regime general</mat-label>
+                        <mat-label>Régime général</mat-label>
                         <mat-select formControlName="regimeGeneral3" matInput>
                         <mat-option value="true">Oui</mat-option>
                         <mat-option value="false">Non</mat-option>   
                         </mat-select>
                       </mat-form-field>
                       <mat-form-field fxFlex="40" appearance="outline">
-                        <mat-label>Regime cadre</mat-label>
+                        <mat-label>Régime cadre</mat-label>
                         <mat-select formControlName="regimCompCadre3" matInput>
                           <mat-option value="true">Oui</mat-option>
                           <mat-option value="false">Non</mat-option>
@@ -505,7 +505,7 @@
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="25" appearance="outline">
-                        <mat-label>Date effectif regime cadre</mat-label>
+                        <mat-label>Date d'effet du régime cadre</mat-label>
                         <input matInput formControlName="dateEffetRegimeCadre3" [matDatepicker]="dateEffetRegimeCadre3">
                         <mat-datepicker-toggle matSuffix [for]="dateEffetRegimeCadre3"></mat-datepicker-toggle>
                         <mat-datepicker #dateEffetRegimeCadre3></mat-datepicker>
@@ -519,26 +519,26 @@
             </div>
           </div>
           <div fxLayoutAlign="end" fxLayoutGap="10%">
-            <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+            <button mat-raised-button mat-button matStepperPrevious>Précédent</button>
             <button (click)="cumulTotal()" [disabled]="!declarationForm.valid" class="submit-button" mat-raised-button matStepperNext>Suivant</button>
           </div>
       </div>
       </mat-step>   
       <mat-step class="confirmation" label="Confirmation" state="confirmation">
         <mat-toolbar class="mt-3">
-          <mat-icon>check_circle_outline</mat-icon>&nbsp;Synthese
+          <mat-icon>check_circle_outline</mat-icon>&nbsp;Synthèse
         </mat-toolbar>
         <!--  <mat-icon class="icon">person_outline</mat-icon> <h5 >Information General</h5><br> -->
         <div fxLayout="column" class="report_infoFen">
           <div fxLayout="row" class="mt-2" fxLayoutGap="5%">
             <div fxFlex="50">
               <span>
-                <b>Total Nouveaux salarie</b> &nbsp;{{ declarationForm.get('totalSalaries').value }}
+                <b>Total des nouveaux salariés</b> &nbsp;{{ declarationForm.get('totalSalaries').value }}
               </span>
             </div>
             <div fxFlex="50">
               <span>
-                <b> Cumule total salaire assujetis Ipres RG &nbsp;</b>
+                <b> Cumule total salaires assujettis IPRES - RG &nbsp;</b>
                 {{ declarationForm.get('cumulTotSalAssIpresRg').value }}
               </span>
             </div>
@@ -546,54 +546,54 @@
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex="50">
-              <span><b>Cumule total salaire assujetis Ipres RCC</b> &nbsp;
+              <span><b>Cumule total salaires assujettis IPRES - RCC</b> &nbsp;
                 {{ declarationForm.get('cumulTotSalAssIpresRcc').value }}</span>
             </div>
             <div fxFlex="50">
-              <span><b>Cumule total salaire assujetis CSS PF</b> &nbsp;
+              <span><b>Cumule total salaires assujettis CSS - PF</b> &nbsp;
                 {{ declarationForm.get('cumulTotSalAssCssPf').value }}</span>
             </div>
           </div>
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex="50">
-              <span><b>Cumule total salaire assujetis Ipres RCC</b>
+              <span><b>Cumul total salaires assujettis IPRES - RCC</b>
                 &nbsp;{{ declarationForm.get('cumulTotSalAssIpresRcc').value }}</span>
             </div>
             <div fxFlex="50">
-              <span><b>Cumule total salaire assujetis CSS PF</b> &nbsp;
+              <span><b>Cumule total salaires assujettis CSS - PF</b> &nbsp;
                 {{ declarationForm.get('cumulTotSalAssCssPf').value }}</span>
             </div>
           </div>
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex="50">
-              <span><b>Cumule total salaire assujetis Ass Css Atmp</b> &nbsp;
+              <span><b>Cumule total salaires assujettis CSS - ATMP</b> &nbsp;
                 {{ declarationForm.get('cumulTotSalAssCssAtmp').value }}</span>
             </div>
             <div fxFlex=50>
-              <span><b>Total salaire verses</b> &nbsp; {{ declarationForm.get('totalSalVerses').value }}</span>
+              <span><b>Total des salaires versés</b> &nbsp; {{ declarationForm.get('totalSalVerses').value }}</span>
             </div>
           </div>
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex=50>
-              <span><b>Montant cotisation calcule par Employe</b> &nbsp;
+              <span><b>Montant cotisation calculé par Employeur</b> &nbsp;
                 {{ declarationForm.get('mntCotPfCalcParEmployeur').value }}</span>
             </div>
             <div fxFlex="50">
-              <span><b>Montant cotisation calcule par Employeur</b> &nbsp;
+              <span><b>Montant cotisation calculé par Employeur</b> &nbsp;
                 {{ declarationForm.get('mntCotAtMpCalcParEmployeur').value }}</span>
             </div>
           </div>
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex="50">
-              <span><b>Montant cotisation RG calcule par Employe</b> &nbsp;
+              <span><b>Montant cotisation RG calculé par Employeur</b> &nbsp;
                 {{ declarationForm.get('mntCotRgCalcParEmployeur').value }}</span>
             </div>
             <div fxFlex="50">
-              <span><b>Montant cotisation RCC calcule par Employeur</b> &nbsp;
+              <span><b>Montant cotisation RCC calculé par Employeur</b> &nbsp;
                 {{ declarationForm.get('mntCotRccCalcParEmployeur').value }}</span>
             </div>
           </div>
@@ -604,7 +604,7 @@
         </mat-toolbar>
         <table mat-table [dataSource]="dataSource">
           <ng-container matColumnDef="numeroAssureSocial">
-            <th mat-header-cell *matHeaderCellDef> Numero Securite </th>
+            <th mat-header-cell *matHeaderCellDef> Numéro Assuré Social </th>
             <td mat-cell *matCellDef="let element"> {{element.numeroAssureSocial}} </td>
           </ng-container>
           <ng-container matColumnDef="nomEmploye">
@@ -612,19 +612,19 @@
             <td mat-cell *matCellDef="let element"> {{element.nomEmploye}} </td>
           </ng-container>
           <ng-container matColumnDef="prenomEmploye">
-            <th mat-header-cell *matHeaderCellDef> Prenom </th>
+            <th mat-header-cell *matHeaderCellDef> Prénom </th>
             <td mat-cell *matCellDef="let element"> {{element.prenomEmploye}} </td>
           </ng-container>
           <ng-container matColumnDef="dateNaissance">
-            <th mat-header-cell *matHeaderCellDef> Date Naissance </th>
+            <th mat-header-cell *matHeaderCellDef> Date de naissance </th>
             <td mat-cell *matCellDef="let element"> {{element.dateNaissance}} </td>
           </ng-container>
           <ng-container matColumnDef="typePieceIdentite">
-            <th mat-header-cell *matHeaderCellDef> Type d'identite </th>
+            <th mat-header-cell *matHeaderCellDef> Type d'identité </th>
             <td mat-cell *matCellDef="let element"> {{element.typePieceIdentite}} </td>
           </ng-container>
           <ng-container matColumnDef="numPieceIdentite">
-            <th mat-header-cell *matHeaderCellDef>Numero piece </th>
+            <th mat-header-cell *matHeaderCellDef>Numéro pièce </th>
             <td mat-cell *matCellDef="let element"> {{element.numPieceIdentite}} </td>
           </ng-container>
           <ng-container matColumnDef="action">
@@ -640,8 +640,8 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         <div class="mt-3" fxLayoutAlign="end" fxLayoutGap="10%">
-          <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-          <button (click)="addDeclaration()" class="submit-button" mat-raised-button matStepperNext>Declarer</button>
+          <button mat-raised-button mat-button matStepperPrevious>Précédent</button>
+          <button (click)="addDeclaration()" class="submit-button" mat-raised-button matStepperNext>Déclarer</button>
         </div>
       </mat-step>
       <ng-template matStepperIcon="genInfo">

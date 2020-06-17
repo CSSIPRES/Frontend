@@ -172,4 +172,10 @@ openDemandeAttestationDialog(){
       dialogConfig.height='650px'
      this.dialog.open(PaiementComponent, dialogConfig);
   }
+
+
+
+  goToProfil(){
+    this.router.navigate(['/mon-profil']);
+  }
 } 

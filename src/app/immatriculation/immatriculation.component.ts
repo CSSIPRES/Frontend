@@ -130,8 +130,8 @@ export class ImmatriculationComponent implements OnInit {
   phonePattern = "^((\\+91-?)|0)?[0-9]{9}$";
   registreComPattern="^(SN)[.][A-Za-z0-9]{3}[.][0-9]{4}[.](A|B|C|E|M){1}[.][0-9]{1,5}$"
   
-  displayedColumns: string[] = ['nomEmploye', 'prenomEmploye', 'dateNaissance', 'numPieceIdentite','adresse','action'];  
-  displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'dateNaissance', 'numPieceIdentite','adresse'];
+  displayedColumns: string[] = ['nomEmploye', 'prenomEmploye','sexe', 'dateNaissance', 'numPieceIdentite','adresse','natureContrat','salaireContractuel','action'];  
+  displayedColumns1 = ['nomEmploye', 'prenomEmploye','sexe' ,'dateNaissance', 'numPieceIdentite','adresse','natureContrat','salaireContractuel'];
 
 
   employeInfo={
