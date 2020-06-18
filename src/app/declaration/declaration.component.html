@@ -253,7 +253,7 @@
                   </mat-form-field>
                   <mat-form-field fxFlex="10" appearance="outline">
                     <mat-label>Date sortie</mat-label>
-                    <input matInput formControlName="dateSortie" required [matDatepicker]="dateSortie">
+                    <input matInput formControlName="dateSortie" [matDatepicker]="dateSortie">
                     <mat-datepicker-toggle matSuffix [for]="dateSortie"></mat-datepicker-toggle>
                     <mat-datepicker #dateSortie></mat-datepicker>
                     <mat-error>
