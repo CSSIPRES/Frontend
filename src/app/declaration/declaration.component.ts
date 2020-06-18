@@ -930,11 +930,15 @@ applyFilter(filterValue: string) {
   autoFillMontantMonth1(i){
     let listSal=(this.declarationForm.get('informationSalaries') as FormArray);
     if(listSal.value[i].salaireBrut1>=63000 && listSal.value[i].salaireBrut1<360000){
-        listSal.value[i].totSalAssCssPf1=63000;
-        listSal.value[i].totSalAssCssPf1.patchValue(63000);
-        console.log(listSal.value[i].totSalAssCssPf1);
-        listSal.value[i].totSalAssCssAtmp1=63000;
-        listSal.value[i].totSalAssIpresRg1=listSal.value[i].salaireBrut1;
+
+let salAss1=<FormArray>this.declarationForm.controls["informationSalaries"];
+      salAss1.controls[i].patchValue(true);
+
+      listSal.value[i].totSalAssCssPf1=63000;
+      listSal.value[i].totSalAssCssPf1.patchValue(63000);
+      console.log(listSal.value[i].totSalAssCssPf1);
+      listSal.value[i].totSalAssCssAtmp1=63000;
+      listSal.value[i].totSalAssIpresRg1=listSal.value[i].salaireBrut1;
     if(listSal.value[i].regimCompCadre1==true) {    
           listSal.value[i].totSalAssIpresRcc1=listSal.value[i].salaireBrut1;
         }    

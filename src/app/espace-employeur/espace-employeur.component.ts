@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeExistService } from '../services/employe-exist.service';
 import { ImmatriculationService } from '../services/immatriculation.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ViewPdfComponent } from '../view-pdf/view-pdf.component';
 import { PaiementComponent } from '../paiement/paiement.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
+import { LoginService } from '../services/login.service';
 @Component({
   selector: 'app-espace-employeur',
   templateUrl: './espace-employeur.component.html',
@@ -21,26 +22,52 @@ loaderUrlImmat:boolean = false;
 loaderStatutImmat:boolean = false;
 statutCertImm:string = '';
 urlCertImmat:string = '';
-
-
-  constructor(private route : ActivatedRoute,
+nomUser:string="";
+prenomUser:string="";
+userName:string="";
+tok:string="";
+checkConn:boolean=false;
+constructor(private route : ActivatedRoute,
     private immatriculationService:ImmatriculationService,
     private dialog:MatDialog,
-    private empService:EmployeExistService) { }
+    private empService:EmployeExistService,private userService:LoginService,private router:Router) { }
+    
 
-  ngOnInit() {
+    ngOnInit() {
+    this.userName=window.localStorage.getItem("user");
+    console.log(this.userName);
+    this.tok=window.localStorage.getItem("token");
     this.loaderUrlImmat = false;
     this.loaderStatutImmat = false;
     this.statutCertImm = '';
     this.urlCertImmat = '';
-    
+    this.getUserByLogin();
+    if(this.tok!=null){
+      this.checkConn=true;
+    }
     this.id = this.route.snapshot.params.id;
     console.log(this.id);
     this.getEmployer(this.id);
 
   }
 
-
+  getUserByLogin(){
+    this.userService.getUserByLogin( this.userName).subscribe(
+      (resp:any)=>{
+       console.log(resp);
+       this.nomUser= resp.lastName;
+       this.prenomUser=resp.firstName;
+       console.log(this.nomUser)
+       if(resp){
+         localStorage.setItem("userConnecter",JSON.stringify(resp));
+       }})
+   }
+   logout(){
+    localStorage.removeItem('token'); 
+    localStorage.removeItem('userConnecter'); 
+    localStorage.removeItem('user');
+    this.router.navigate(['/accueil']);  
+  }
   getEmployer(id){
         this.empService.getEmployer(id).subscribe((resp:any)=>{
           this.empInfo=resp;
