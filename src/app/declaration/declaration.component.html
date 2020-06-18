@@ -303,7 +303,7 @@
                     <div fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Salaire brut</mat-label>
-                        <input  type="number" formControlName="salaireBrut1" matInput />
+                        <input  type="number" (blur)="autoFillMontantMonth1(i)" formControlName="salaireBrut1" matInput />
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">

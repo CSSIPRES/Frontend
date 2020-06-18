@@ -192,4 +192,7 @@ openDemandeAttestationDialog(){
       }
     )
   }
+  goToProfil(){
+    this.router.navigate(['/mon-profil']);
+  }
 } 

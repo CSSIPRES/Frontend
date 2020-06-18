@@ -16,7 +16,7 @@ import { formatCurrency, getCurrencySymbol } from '@angular/common';
 @Pipe({
   name: 'mycurrency',
 })
-export class MycurrencyPipe implements PipeTransform {
+/* export class MycurrencyPipe implements PipeTransform {
   transform(
       value: number,
       currencyCode: string = 'XOF',
@@ -40,7 +40,7 @@ export class MycurrencyPipe implements PipeTransform {
 } 
 @NgModule({
   declarations: [MycurrencyPipe]
-})
+}) */
 @Component({
   selector: 'app-declaration',
   templateUrl: './declaration.component.html',
@@ -682,6 +682,9 @@ applyFilter(filterValue: string) {
       console.log(this.empInfo);
     })
 } 
+/* autoFillMonth1(){
+ this.declarationForm.get("")
+} */
   cumulTotal(){
     /* let arr=this.declarationForm.get('informationSalaries').value; */
     /* let arr1=["totSalAssCssPf1","totSalAssCssPf2","totSalAssCssPf3"]
@@ -924,6 +927,34 @@ applyFilter(filterValue: string) {
    this.totSalVerse=salBrut1 +salBrut2 +salBrut3;
    console.log(this.totSalVerse); 
   }         
+  autoFillMontantMonth1(i){
+    let listSal=(this.declarationForm.get('informationSalaries') as FormArray);
+    if(listSal.value[i].salaireBrut1>=63000 && listSal.value[i].salaireBrut1<360000){
+        listSal.value[i].totSalAssCssPf1=63000;
+        listSal.value[i].totSalAssCssPf1.patchValue(63000);
+        console.log(listSal.value[i].totSalAssCssPf1);
+        listSal.value[i].totSalAssCssAtmp1=63000;
+        listSal.value[i].totSalAssIpresRg1=listSal.value[i].salaireBrut1;
+    if(listSal.value[i].regimCompCadre1==true) {    
+          listSal.value[i].totSalAssIpresRcc1=listSal.value[i].salaireBrut1;
+        }    
+    else{   
+          listSal.value[i].totSalAssIpresRcc1=0
+        }
+      }
+    else if(listSal.value[i].salaireBrut1>=360000){
+        listSal.value[i].totSalAssCssPf1=63000;
+        listSal.value[i].totSalAssCssAtmp1=63000;
+        listSal.value[i].totSalAssIpresRg1=360000;
+          if(listSal.value[i].regimCompCadre1==true){
+          listSal.value[i].totSalAssIpresRcc1=listSal[i].value.salaireBrut1;
+        }
+          else{
+          listSal[i].value.totSalAssIpresRcc1=0
+        }
+      }
+    
+  }
   get typeIdentifiant() {
     return this.declarationForm.get('typeIdentifiant');
   }
