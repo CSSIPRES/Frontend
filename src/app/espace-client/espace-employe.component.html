@@ -1,4 +1,3 @@
-
 <mat-toolbar class="toolbar-header"> 
   <div class="container" fxFlex fxLayout="row" fxLayoutGap="10%">
   <div fxFlex="80%">
@@ -11,8 +10,7 @@
      </button>
      <!-- <mat-icon class="keyboard">keyboard_arrow_down</mat-icon></button> -->
      <mat-menu #menu="matMenu">
-       <button mat-menu-item><mat-icon>person_outlined</mat-icon>Mon profil</button>
-       <button mat-menu-item><mat-icon>person_outlined</mat-icon>Nouveau mot de passe</button>
+       <button mat-menu-item (click)="goToProfil()"><mat-icon>person_outlined</mat-icon>Mon profil</button>
        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Deconnexion</button>
     </mat-menu>                           
   </div> 
@@ -32,20 +30,20 @@
       <mat-nav-list>
         <mat-list-item (click)="openImmatPopup(choiceTemplate)">
           <mat-icon mat-list-icon>person</mat-icon>
-          <h4 mat-line *ngIf="isExpanded">Immatrculation</h4>
+          <h4 mat-line *ngIf="isExpanded">Immatriculation</h4>
         </mat-list-item>
         <mat-list-item (click)="openImmatPopup(choiceTemplate)">
           <mat-icon mat-list-icon>assignment</mat-icon>
-          <h4 mat-line *ngIf="isExpanded">Declaration</h4>
+          <h4 mat-line *ngIf="isExpanded">Déclaration</h4>
         </mat-list-item>
        <!-- <mat-list-item>
           <mat-icon mat-list-icon>domain</mat-icon>
           <h4 mat-line *ngIf="isExpanded">Documents</h4>
         </mat-list-item>
         -->
-        <mat-list-item>
+        <mat-list-item (click)="openPaiementDialog()">
           <mat-icon mat-list-icon>attach_money</mat-icon>
-          <h4 mat-line (click)="openPaiementDialog()" *ngIf="isExpanded">Paiements</h4>
+          <h4 mat-line *ngIf="isExpanded">Paiements</h4>
         </mat-list-item>
         <mat-list-item (click)="openDemandeAttestationDialog()">
         <mat-icon mat-list-icon >cached</mat-icon>
@@ -57,7 +55,7 @@
         </mat-list-item> -->
         <mat-list-item>
           <mat-icon mat-list-icon>folder_shared</mat-icon>
-          <h4 mat-line *ngIf="isExpanded">Paramtres</h4>
+          <h4 mat-line *ngIf="isExpanded">Paramètres</h4>
         </mat-list-item>      
       </mat-nav-list>
     </mat-drawer>
@@ -74,13 +72,14 @@
           <mat-card class="welcome" *ngIf="welcome_card">
             <mat-card-content fxLayout="column" fxLayoutAlign="space-between center">
               <div>
-                <h1>Bienvenue dans votre espace employeur</h1> 
+                <h1>Bienvenue dans votre espace !</h1> 
               </div>
-             <div>
+           <!--  <div>
               <h4>Immatrculer des employeurs, declarer des salaries, effectuez des 
                 pres DNS, cotisations et des payements.
               </h4>
              </div>
+             -->
             </mat-card-content>
           </mat-card>  
           <mat-card class="immatCard mt-3" *ngFor="let emp of listEmp; let i=index;">
@@ -89,7 +88,7 @@
               <div class="immatCard_detail">
                 <span fxLayout="row"><p>Raison sociale</p>&nbsp; | {{emp?.raisonSociale}} </span>
                 <span fxLayout="row"><b>NINEA</b>&nbsp;<mat-toolbar>{{emp?.numeroIdentifiant}}</mat-toolbar> </span>
-                <button (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Declarer</button>
+                <button (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Déclarer</button>
                 <a [routerLink]="['/espace-employer/',emp.id]">Voir dossier </a> 
               </div>
             </mat-card-content>

@@ -93,7 +93,8 @@ urlCertImmat:string = '';
   }
 
 
-  openViewPDFDialog(titre:string = "Certificat d'immatriculation",url){
+  openViewPDFDialog(titre:string,url){
+    titre = "Certificat d'immatriculation";
     this.immatriculationService.attestationType = titre;
     this.immatriculationService.urlAttestation = url;
     const dialogConfig = new MatDialogConfig();

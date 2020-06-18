@@ -23,12 +23,12 @@
     <mat-step *ngIf="infoEmp" [stepControl]="immatForm.get('input').get('employerQuery')"  label="Information Employeur" state="chat">
     <div class="mt-5" formGroupName="employerQuery">
       <ng-template matStepLabel>
-        <span [ngStyle]="{'color': immatForm.get('input').get('employerQuery').valid ? 'rgb(14, 189, 8)' : ''}">Information Employeur
+        <span [ngStyle]="{'color': immatForm.get('input').get('employerQuery').valid ? 'rgb(14, 189, 8)' : ''}">Informations Employeur
         </span>
       </ng-template>
       <div fxLayout="row" fxLayoutGap="5%">
         <mat-form-field  appearance="outline">
-          <mat-label>Type employe</mat-label>
+          <mat-label>Type employeur</mat-label>
           <mat-select (selectionChange)="selectForm($event)" formControlName="employerType">
             <perfect-scrollbar>
             <mat-option value="PVT">Société privée</mat-option>
@@ -80,7 +80,7 @@
          
         </mat-form-field>
         <mat-form-field  appearance="outline">
-          <mat-label>Ninea Number</mat-label>
+          <mat-label>NINEA</mat-label>
           <input (blur)="getNineaNumber()" matInput formControlName="nineaNumber">
           <mat-icon matSuffix> short_text</mat-icon>
          <mat-error *ngIf="nineaNumber.hasError('required')">Ce champs est obligatoire.</mat-error>
@@ -94,7 +94,7 @@
       </div>             
       <div fxLayout="row" fxLayoutGap="1%">
        <mat-form-field fxFlex="50%"  fxLayoutGap="5%" appearance="outline">
-        <mat-label>Type etablissement</mat-label>
+        <mat-label>Type établissement</mat-label>
         <mat-select formControlName="typeEtablissement" required>
           <mat-option value="HDQT">Siége</mat-option>
           <mat-option value="BRNC">Agence/Sucursale</mat-option>
@@ -104,7 +104,7 @@
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field> 
       <mat-form-field fxFlex="15%" appearance="outline">
-        <mat-label>Date taxe</mat-label>
+        <mat-label>Date d'identification fiscale</mat-label>
         <input matInput formControlName="taxIdDate" required [matDatepicker]="taxIdDate">
         <mat-datepicker-toggle matSuffix [for]="taxIdDate"></mat-datepicker-toggle>
         <mat-datepicker #taxIdDate></mat-datepicker>
@@ -148,7 +148,7 @@
       </div>
       <div *ngIf="!empInfoField"  fxLayout="row" fxLayoutGap="5%">
          <mat-form-field  fxFlex="47.5%"  appearance="outline">
-          <mat-label>Numero registre de commerce</mat-label>
+          <mat-label>Numéro registre de commerce</mat-label>
           <input type="text" matInput formControlName="tradeRegisterNumber" placeholder="SN.AAA.0000.A.00000" required>
            <mat-error *ngIf="tradeRegisterNumber.hasError('required')">
             Ce champ est obligatoire.
@@ -172,11 +172,10 @@
         </div> 
   </div>
   </mat-step>
-  <mat-step   *ngIf="infoGen" formGroupName="mainRegistrationForm" 
-  [stepControl]="immatForm.get('input').get('mainRegistrationForm')"   label="Information General" state="phone">
-      <!-- <div class="mt-5" formGroupName="mainRegistrationForm"> -->
+  <mat-step *ngIf="infoGen" [stepControl]="mainRegistrationForm"   label="Informations Générales" state="phone">
+      <div class="mt-5" formGroupName="mainRegistrationForm">
       <ng-template matStepLabel>
-        <span [ngStyle]="{'color': immatForm.get('input').get('mainRegistrationForm').valid ? 'rgb(14, 189, 8)' : ''}">Information General</span>
+        <span [ngStyle]="{'color': immatForm.get('input').get('mainRegistrationForm').valid ? 'rgb(14, 189, 8)' : ''}">Informations Générales</span>
       </ng-template> 
       <div class="mt-3" fxLayout="row" fxLayoutGap="5%">
       <mat-form-field  appearance="outline">
@@ -187,7 +186,7 @@
       <mat-error >Ce champ est obligatoire</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Activite principale </mat-label>
+        <mat-label>Activité principale </mat-label>
         <mat-select (selectionChange)="selectSector($event)" formControlName="mainLineOfBusiness" required>
           <perfect-scrollbar style="height: 100%;">
           <mat-option *ngFor="let mainSector of listactivitePrincipal.items" [value]="mainSector.activitesprincipal">{{ mainSector.activitesprincipal }}</mat-option>
@@ -199,7 +198,7 @@
      </div>   
      <div class="mt-3" fxLayout="row" fxLayoutGap="1%">
       <mat-form-field  appearance="outline">
-        <mat-label>Date d'inscription</mat-label>
+        <mat-label>Date d'inscription au registre de commerce</mat-label>
         <input (dateChange)="compareDate($event)" matInput formControlName="dateOfInspection"  required
         [matDatepicker]="dateOfInspection">
         <mat-datepicker-toggle matSuffix [for]="dateOfInspection"></mat-datepicker-toggle>
@@ -224,7 +223,7 @@
         </mat-hint> 
       </mat-form-field>
       <mat-form-field fxFlex="70"  appearance="outline">
-        <mat-label>Secteur d'activite</mat-label>
+        <mat-label>Secteur d'activité</mat-label>
         <input  matInput formControlName="businessSector" readonly required>  
         <mat-icon matSuffix>perm_identity</mat-icon>
         <mat-error>Ce champ est obligatoire</mat-error>
@@ -233,7 +232,7 @@
      <div class="mt-3" fxLayout="row" fxLayoutGap="5%">
       
       <mat-form-field  appearance="outline">
-        <mat-label>Region</mat-label>
+        <mat-label>Région</mat-label>
         <mat-select (selectionChange)="selectRegion($event)"  formControlName="region" required>
           <mat-option  *ngFor="let r of listRegions.items"
            [value]="r.region">{{ r.region | titlecase }}</mat-option>
@@ -242,7 +241,7 @@
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
       <mat-form-field  appearance="outline">
-        <mat-label>Department</mat-label>
+        <mat-label>Départment</mat-label>
         <mat-select (selectionChange)="selectDepartement($event)"   formControlName="department" required>
           <mat-option *ngFor="let d of listD" [value]="d.departement">
             {{d.departement | titlecase }}</mat-option>
@@ -251,7 +250,7 @@
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
       <mat-form-field  appearance="outline">
-        <mat-label>Arondissement</mat-label>
+        <mat-label>Arrondissement</mat-label>
         <mat-select (selectionChange)="selectArrondissement($event)" formControlName="arondissement" required>
           <mat-option *ngFor="let ar of listA" [value]="ar.arrondissement">
             {{ar.arrondissement | titlecase}}</mat-option>
@@ -271,7 +270,7 @@
         <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex="30"  appearance="outline">
-        <mat-label>Quartie</mat-label>
+        <mat-label>Quartier</mat-label>
         <mat-select formControlName="qartier" required>
            <mat-option *ngFor="let q of listQ" [value]="q.quartier">{{ q.quartier | titlecase}}</mat-option> 
         </mat-select>
@@ -280,7 +279,7 @@
           Ce champ est obligatoire.</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Addresse de l'entreprise</mat-label>
+        <mat-label>Adresse de l'entreprise</mat-label>
         <input matInput formControlName="address" required>
         <mat-icon matSuffix>email</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
@@ -288,7 +287,7 @@
      </div>
      <div class="mt-3" fxLayout="row" fxLayoutGap="5%">
       <mat-form-field appearance="outline">
-        <mat-label>Email entreprise</mat-label>
+        <mat-label>Email Entreprise</mat-label>
         <input matInput formControlName="email">
         <mat-icon matSuffix>email</mat-icon>
         <mat-error *ngIf="email.hasError('required')">
@@ -306,24 +305,24 @@
      </div>
      <div  class="mt-3" fxLayout="row" fxLayoutGap="5%">
       <mat-form-field appearance="outline">
-        <mat-label>Telephone Entreprise</mat-label>
+        <mat-label>Téléphone Entreprise</mat-label>
         <input type="number" matInput formControlName="telephone" required>
         <mat-icon matSuffix> phone</mat-icon>
         <mat-error  *ngIf="telephone.hasError('required')">Le numero de telephone est obligatoire.</mat-error>
         <mat-error  *ngIf="telephone.hasError('pattern')">Numero de telephone invalide.</mat-error>
       </mat-form-field>
       <mat-form-field   appearance="outline">
-        <mat-label>Nombre d'employes au regime general</mat-label>
+        <mat-label>Nombre de salariés au régime général</mat-label>
         <input type="number" (blur)="validateNumbEmployee()" matInput formControlName="noOfWorkersInGenScheme" required>
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       <mat-form-field  appearance="outline">
-        <mat-label>Nombre d'employes au regime cadre</mat-label>
+        <mat-label>Nombre de salariés au régime cadre</mat-label>
         <input type="number" (blur)="validateNumbEmployee()" matInput formControlName="noOfWorkersInBasicScheme" required>
         <mat-icon matSuffix>work_outline</mat-icon>
         <mat-error  *ngIf="noOfWorkersInBasicScheme.hasError('required')">Ce champ est obligatoire.</mat-error>
-        <mat-hint class="text-danger" *ngIf="validNumbOfworker">Ce nombre doit etre inferieur au nombre d'employes en regime general.</mat-hint>
+        <mat-hint class="text-danger" *ngIf="validNumbOfworker">Ce nombre doit être inférieur au nombre de salariés en régime général.</mat-hint>
       </mat-form-field>
      </div>
      <div  class="mt-3" fxLayout="row" fxLayoutGap="5%">
@@ -335,10 +334,10 @@
     </div>
   <!-- </div> -->
   </mat-step>
-    <mat-step *ngIf="infoRepLeg"   label="Representant legale" state="person_outlined">
+    <mat-step *ngIf="infoRepLeg"   label="Representant légal" state="person_outlined">
       <div class="mt-5" formGroupName="legalRepresentativeForm">
         <ng-template matStepLabel> 
-         <span [ngStyle]="{'color': immatForm.get('input').get('legalRepresentativeForm').valid ? 'rgb(14, 189, 8)' : ''}"> Representant legale</span></ng-template>
+         <span [ngStyle]="{'color': immatForm.get('input').get('legalRepresentativeForm').valid ? 'rgb(14, 189, 8)' : ''}"> Représentant légal</span></ng-template>
          <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline" >
             <mat-label>Nom</mat-label>
@@ -347,7 +346,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Prenom</mat-label>
+            <mat-label>Prénom</mat-label>
             <input matInput formControlName="firstName" required>
             <mat-icon matSuffix>person_outlined</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -355,7 +354,7 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
-            <mat-label>Date Naissance</mat-label>
+            <mat-label>Date de naissance</mat-label>
             <input (dateChange)="validDateNaissance($event)" matInput formControlName="birthdate" required [matDatepicker]="birthdate">
             <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
             <mat-datepicker #birthdate></mat-datepicker>
@@ -363,7 +362,7 @@
             <mat-hint class="text-danger" *ngIf="validDateNaiss">Vous devriez au moins avoir 18 ans.</mat-hint>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Nationalite</mat-label>
+            <mat-label>Nationalité</mat-label>
             <mat-select formControlName="nationality" required>
               <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
@@ -385,33 +384,33 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
-            <mat-label>Type de piece</mat-label>
+            <mat-label>Type de pièce</mat-label>
             <!-- <mat-select (selectionChange)="validationPiece($event)" formControlName="typeOfIdentity" required>-->           
             <mat-select (selectionChange)="incrementDate($event)" formControlName="typeOfIdentity" required>         
-              <mat-option value="NIN">Carte national d'identite</mat-option>
-              <mat-option value="CDEAO">Carte identité CDEAO</mat-option>
+              <mat-option value="NIN">Carte nationale d'identite</mat-option>
+              <mat-option value="CDEAO">Carte d'identité CDEAO</mat-option>
               <mat-option value="CONC">Carte Consulaire</mat-option>
-              <mat-option value="PASS">Passport</mat-option>
+              <mat-option value="PASS">Passeport</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">    
-            <mat-label>Numero de piece d'identite</mat-label>
+            <mat-label>Numero de pièce d'identité</mat-label>
             <input (blur)="getNinNumber()" type="number" matInput formControlName="nin" required>
             <mat-error *ngIf="nin.hasError('required')">Ce champ est obligatoire.</mat-error>
             <mat-error *ngIf="nin.hasError('pattern')">
-              Numero de piece d'identite invalide</mat-error>
+              Numéro de pièce d'identité invalide</mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
-            <mat-label>Numero de telephone</mat-label>
+            <mat-label>Numéro de téléphone</mat-label>
             <input type="number" matInput formControlName="landLineNumber" required/>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
-            <mat-label>Date Delivrance</mat-label>
+            <mat-label>Date de délivrance</mat-label>
            <!--  <input (dateChange)="validationPiece($event)" matInput formControlName="issuedDate" required [matDatepicker]="issuedDate"> -->
            <input (dateChange)="incrementDate($event)" matInput formControlName="issuedDate" required [matDatepicker]="issuedDate">
            <mat-datepicker-toggle matSuffix [for]="issuedDate"></mat-datepicker-toggle>
@@ -419,7 +418,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field disabled appearance="outline">
-            <mat-label>Date Expiration</mat-label>
+            <mat-label>Date d'expiration</mat-label>
             <input (dateChange)="validationPiece($event)"  matInput formControlName="expiryDate" required [matDatepicker]="expiryDate">
             <mat-datepicker-toggle  matSuffix [for]="expiryDate"></mat-datepicker-toggle>
             <mat-datepicker #expiryDate></mat-datepicker>
@@ -429,13 +428,13 @@
               La duree de votre <b class="text-danger">cni</b> validite doit etre de 10 ans.
             </mat-hint> -->  
             <mat-hint class="text-danger" *ngIf="validPassport">
-              La duree de validite du <b class="text-danger">passport</b> doit etre 5 et 10 ans.
+              La durée de validité du <b class="text-danger">passeport</b> doit être de 5 à 10 ans.
             </mat-hint>
           </mat-form-field>
         </div>
        <div fxLayout="row" fxLayoutGap="5%">
         <mat-form-field  appearance="outline">
-          <mat-label>Region</mat-label>
+          <mat-label>Région</mat-label>
           <mat-select (selectionChange)="selectRegion($event)" formControlName="region" required>
             <mat-option *ngFor="let r of listRegions.items" [value]="r.region">{{r.region | titlecase}}</mat-option>
           </mat-select>  
@@ -443,7 +442,7 @@
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
         <mat-form-field  appearance="outline">
-          <mat-label>Departement</mat-label>
+          <mat-label>Département</mat-label>
           <mat-select (selectionChange)="selectDepartement($event)"  formControlName="department" required>
             <mat-option *ngFor="let d of listD1" [value]="d.departement">
               {{d.departement | titlecase}}</mat-option>
@@ -470,7 +469,7 @@
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Quartie</mat-label>
+          <mat-label>Quartier</mat-label>
           <mat-select formControlName="qartier" required>
              <mat-option *ngFor="let q of listQ1" [value]="q.quartier">{{q.quartier | titlecase}}</mat-option> 
           </mat-select>
@@ -486,26 +485,26 @@
        </div>
        <div fxLayout="row" fxLayoutGap="5%"> 
         <mat-form-field appearance="outline">
-          <mat-label>Email representant legal</mat-label>
+          <mat-label>Email représentant legal</mat-label>
           <input matInput formControlName="email" required>
           <mat-icon matSuffix>email</mat-icon>
           <mat-error *ngIf="email1.hasError('required')">
             Ce champ est obligatoire.</mat-error>
           <mat-error *ngIf="email1.hasError('pattern')" >
-            Addresse email invalide.</mat-error>
+            Adresse email invalide.</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Telephone Entreprise</mat-label>
+          <mat-label>Téléphone Entreprise</mat-label>
           <input matInput formControlName="mobileNumber" required>
           <mat-icon matSuffix> phone</mat-icon>
           <mat-error *ngIf="mobileNumber.hasError('required')">Ce champ est obligatoire.</mat-error>
           <mat-error *ngIf="mobileNumber.hasError('pattern')">
-            Ce numero de telephone est invalide.
+            Ce numéro de téléphone est invalide.
           </mat-error>
         </mat-form-field>
        </div>
       <div fxLayoutAlign="end" fxLayoutGap="5%">
-          <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
+          <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Précédent</button>
           <button [disabled]="!immatForm.get('input').get('legalRepresentativeForm').valid || validError" class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
       </div>
       
@@ -525,7 +524,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Prenom</mat-label>
+            <mat-label>Prénom</mat-label>
             <input matInput formControlName="nom" required>
             <mat-icon matSuffix>drag_handle</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -533,34 +532,34 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
-            <mat-label>Type de piece</mat-label>
+            <mat-label>Type de pièce</mat-label>
             <mat-select (selectionChange)="validationPiece($event)" formControlName="typeOfIdentity" required>
-              <mat-option value="NIN">Carte national d'identite</mat-option>
-              <mat-option value="CDEAO">Carte identité CDEAO</mat-option>
+              <mat-option value="NIN">Carte nationale d'identité</mat-option>
+              <mat-option value="CDEAO">Carte d'identité CEDEAO</mat-option>
               <mat-option value="CONC">Carte Consulaire</mat-option>
-              <mat-option value="PASS">Passport</mat-option>
+              <mat-option value="PASS">Passeport</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
             
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Numero de piece d'identite</mat-label>
+            <mat-label>Numéro de pièce d'identité</mat-label>
             <input type="number" matInput formControlName="nin" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
             <mat-error >
-              Numero de piece d'identite invalide</mat-error>
+              Numéro de pièce d'identité invalide</mat-error>
           </mat-form-field>
   
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
-            <mat-label>Numero telephone fixe </mat-label>
+            <mat-label>Numéro téléphone fixe </mat-label>
             <input type="number" matInput formControlName="telephoneFixe" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Numero telephone mobile </mat-label>
+            <mat-label>Numéro téléphone mobile </mat-label>
             <input type="number" matInput formControlName="numeroMobile" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
@@ -573,7 +572,7 @@
           </mat-form-field>
         </div>
         <div fxLayoutAlign="end" fxLayoutGap="5%">
-          <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
+          <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Précédent</button>
           <button [disabled]="!immatForm.get('input').get('personneContact').valid"  class="submit-button" mat-raised-button matStepperNext>Suivant<mat-icon>arrow_forward</mat-icon></button>
         </div> 
       </div>
@@ -581,24 +580,24 @@
      <mat-step *ngIf="domInfo"  label="Information contact" state="chat">
       <div class="mt-5" formGroupName="domesticRegistrationForm"> 
         <ng-template matStepLabel>
-          <span [ngStyle]="{'color': immatForm.get('input').get('domesticRegistrationForm').valid ? 'rgb(14, 189, 8)' : ''}">Formulaire registration
+          <span [ngStyle]="{'color': immatForm.get('input').get('domesticRegistrationForm').valid ? 'rgb(14, 189, 8)' : ''}">Formulaire régistration
           </span>
         </ng-template>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
-            <mat-label>Date embauche premier salarie</mat-label>
+            <mat-label>Date embauche premier salarié</mat-label>
             <input  matInput formControlName="dateEmbauchePremierSalarie" required [matDatepicker]="dateEmbauchePremierSalarie">
             <mat-datepicker-toggle matSuffix [for]="dateEmbauchePremierSalarie"></mat-datepicker-toggle>
             <mat-datepicker #dateEmbauchePremierSalarie></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
-            <mat-label>Type de piece</mat-label>
+            <mat-label>Type de pièce</mat-label>
             <mat-select formControlName="idType" required>
-              <mat-option value="NIN">Carte national d'identite</mat-option>
-              <mat-option value="CDEAO">Carte identité CDEAO</mat-option>
+              <mat-option value="NIN">Carte nationale d'identité</mat-option>
+              <mat-option value="CDEAO">Carte d'identité CEDEAO</mat-option>
               <mat-option value="CONC">Carte Consulaire</mat-option>
-              <mat-option value="PASS">Passport</mat-option>
+              <mat-option value="PASS">Passeport</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
             <mat-error>Ce champ est obligatoire.</mat-error>
@@ -606,7 +605,7 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
-          <mat-label>Numero d'identifiant </mat-label>
+          <mat-label>Numéro d'identifiant  </mat-label>
           <input type="number" matInput formControlName="nin" required>
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
@@ -618,12 +617,12 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
-            <mat-label>Prenom </mat-label>
+            <mat-label>Prénom </mat-label>
             <input type="text" matInput formControlName="lastName" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Nationalite</mat-label>
+            <mat-label>Nationalité</mat-label>
             <mat-select formControlName="nationality" required>
               <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
@@ -633,14 +632,14 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
-            <mat-label>Date Delivrance</mat-label>
+            <mat-label>Date de délivrance</mat-label>
             <input matInput formControlName="issuedDate" required [matDatepicker]="issuedDate">
             <mat-datepicker-toggle matSuffix [for]="issuedDate"></mat-datepicker-toggle>
             <mat-datepicker #issuedDate></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Date Expiration</mat-label>
+            <mat-label>Date d'expiration</mat-label>
             <input  matInput formControlName="expiryDate" required [matDatepicker]="expiryDate">
             <mat-datepicker-toggle  matSuffix [for]="expiryDate"></mat-datepicker-toggle>
             <mat-datepicker #expiryDate></mat-datepicker>
@@ -676,7 +675,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Activite principale </mat-label>
+            <mat-label>Activité principale </mat-label>
             <mat-select (selectionChange)="selectSector($event)" formControlName="mainLineOfBusiness" required>
               <perfect-scrollbar style="height: 100%;">
               <mat-option *ngFor="let mainSector of listactivitePrincipal.items" [value]="mainSector.activitesprincipal">{{ mainSector.activitesprincipal }}</mat-option>
@@ -693,7 +692,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
-            <mat-label>Secteur d'activite</mat-label>
+            <mat-label>Secteur d'activité</mat-label>
             <input  matInput formControlName="businessSector" readonly required>  
             <mat-icon matSuffix>perm_identity</mat-icon>
             <mat-error>Ce champ est obligatoire</mat-error>
@@ -701,7 +700,7 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
-            <mat-label>Region</mat-label>
+            <mat-label>Région</mat-label>
             <mat-select (selectionChange)="selectRegion($event)"  formControlName="region" required>
               <mat-option  *ngFor="let r of listRegions.items"
                [value]="r.region">{{r.region | titlecase}}</mat-option>
@@ -710,7 +709,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
-            <mat-label>Departement</mat-label>
+            <mat-label>Département</mat-label>
             <mat-select (selectionChange)="selectDepartement($event)"  formControlName="departement" required>
               <mat-option *ngFor="let d of listD2" [value]="d.departement">
                 {{d.departement | titlecase}}</mat-option>
@@ -751,11 +750,11 @@
         </div>
         </div>    
      </mat-step>
-       <mat-step  label="Ajouter salaries" state="person_outlined">
+       <mat-step  label="Ajouter salarié" state="person_outlined">
         <div class="mt-5" formArrayName="employeList">
           <ng-template matStepLabel>
             <span 
-            [ngStyle]="{'color': immatForm.get('input').get('employeList').valid && immatForm.get('input').get('employeList').value.length>0 ? 'rgb(14, 189, 8)' : ''}">Liste des employes
+            [ngStyle]="{'color': immatForm.get('input').get('employeList').valid && immatForm.get('input').get('employeList').value.length>0 ? 'rgb(14, 189, 8)' : ''}">Liste des salariés
             </span>
           </ng-template>
           <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -775,7 +774,7 @@
             <!-- <mat-divider class="inset mt-3"></mat-divider> -->
           <table *ngIf="dataSource!=null" mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="numeroAssureSocial">
-              <th mat-header-cell *matHeaderCellDef> Numero securite social </th>
+              <th mat-header-cell *matHeaderCellDef> Numéro Sécurité Sociale </th>
               <td mat-cell *matCellDef="let element"> {{element.nomEmploye}} </td>
             </ng-container>
             <ng-container matColumnDef="nomEmploye">
@@ -783,20 +782,32 @@
               <td mat-cell *matCellDef="let element"> {{element.nomEmploye}} </td>
             </ng-container>
             <ng-container matColumnDef="prenomEmploye">
-              <th mat-header-cell *matHeaderCellDef> Prenom </th>
+              <th mat-header-cell *matHeaderCellDef> Prénom </th>
               <td mat-cell *matCellDef="let element"> {{element.prenomEmploye}} </td>
             </ng-container>
+            <ng-container matColumnDef="sexe">
+              <th mat-header-cell *matHeaderCellDef> Sexe </th>
+              <td mat-cell *matCellDef="let element"> {{element.sexe}} </td>
+            </ng-container>
             <ng-container matColumnDef="dateNaissance">
-              <th mat-header-cell *matHeaderCellDef> Date naissance </th>
+              <th mat-header-cell *matHeaderCellDef> Date de naissance </th>
               <td mat-cell *matCellDef="let element"> {{element.dateNaissance}} </td>
             </ng-container>
             <ng-container matColumnDef="numPieceIdentite">
-              <th mat-header-cell *matHeaderCellDef> Type d'identite </th>
+              <th mat-header-cell *matHeaderCellDef> Type d'identité </th>
               <td mat-cell *matCellDef="let element"> {{element.typePieceIdentite}} </td>
             </ng-container>
             <ng-container matColumnDef="adresse">
-              <th mat-header-cell *matHeaderCellDef>Numero piece </th>
+              <th mat-header-cell *matHeaderCellDef>Numéro pièce d'identité </th>
               <td mat-cell *matCellDef="let element"> {{element.nin}} </td>
+            </ng-container>
+            <ng-container matColumnDef="natureContrat">
+              <th mat-header-cell *matHeaderCellDef>Nature contrat </th>
+              <td mat-cell *matCellDef="let element"> {{element.natureContrat}} </td>
+            </ng-container>
+            <ng-container matColumnDef="salaireContractuel">
+              <th mat-header-cell *matHeaderCellDef>Salaire contractuel </th>
+              <td mat-cell *matCellDef="let element"> {{element.salaireContractuel}} </td>
             </ng-container>
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef>Action </th>
@@ -835,7 +846,7 @@
              <mat-error>Ce champ est obligatoire.</mat-error>
            </mat-form-field>
            <mat-form-field appearance="outline">
-             <mat-label>Prenom Salarié</mat-label>
+             <mat-label>Prénom Salarié</mat-label>
              <input matInput formControlName="prenomEmploye" required>
              <mat-icon matSuffix>email</mat-icon>
              <mat-error>Ce champ est obligatoire.</mat-error>
@@ -865,14 +876,14 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
-            <mat-label>Date naissance</mat-label>
+            <mat-label>Date de naissance</mat-label>
             <input matInput formControlName="dateNaissance" required [matDatepicker]="dateNaissance">
             <mat-datepicker-toggle matSuffix [for]="dateNaissance"></mat-datepicker-toggle>
             <mat-datepicker #dateNaissance></mat-datepicker>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
-            <mat-label>Nationalite</mat-label>
+            <mat-label>Nationalité</mat-label>
             <mat-select formControlName="nationalite" required>
               <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
@@ -882,10 +893,11 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field  appearance="outline">
-            <mat-label>Type identite</mat-label>
-            <mat-select (selectionChange)="incrementSalDate($event,i)" formControlName="typePieceIdentite" required>
-               <mat-option value="NIN">Carte national d'identite</mat-option> 
-              <mat-option value="PASS">Passport</mat-option>
+            <mat-label>Type d'identité</mat-label>
+            <mat-select formControlName="typePieceIdentite" required>
+              <mat-option value="NIN">Carte nationale d'identité</mat-option>
+              <mat-option value="PASS">Passeport</mat-option>
+              <mat-option value="NIN">Carte CEDEAO</mat-option>
               <mat-option value="CONC">Carte Consulaire</mat-option>
               <mat-option value="CDEAO">Carte CDEAO</mat-option>
             </mat-select>
@@ -893,7 +905,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Date Delivrance</mat-label>
+            <mat-label>Date Délivrance</mat-label>
             <input (dateChange)="incrementSalDate($event,i)" matInput formControlName="delivreLe" required [matDatepicker]="delivreLe">
             <mat-datepicker-toggle matSuffix [for]="delivreLe"></mat-datepicker-toggle>
             <mat-datepicker #delivreLe></mat-datepicker>
@@ -902,7 +914,7 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
-            <mat-label>Date expiration</mat-label>
+            <mat-label>Date d'expiration</mat-label>
             <input matInput formControlName="expireLe" required [matDatepicker]="expireLe">
             <mat-datepicker-toggle matSuffix [for]="expireLe"></mat-datepicker-toggle>
             <mat-datepicker #expireLe></mat-datepicker>
@@ -910,13 +922,13 @@
           </mat-form-field>
           <mat-form-field 
           *ngIf="immatForm.get('input').get('employeList').value[i].typePieceIdentite=='NIN'" appearance="outline">
-            <mat-label>Numero de carte d'identite</mat-label>
+            <mat-label>Numero de carte d'identité</mat-label>
             <input matInput formControlName="nin">
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field 
           *ngIf="immatForm.get('input').get('employeList').value[i].typePieceIdentite=='PASS'" appearance="outline">
-            <mat-label>Numero piece d'identite</mat-label>
+            <mat-label>Numero piece d'identité</mat-label>
             <input matInput formControlName="numPieceIdentite">
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
@@ -956,8 +968,8 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
-            <mat-label>Pays de residence</mat-label>
-            <mat-select formControlName="pays" required readonly>
+            <mat-label>Pays de résidence</mat-label>
+            <mat-select formControlName="pays" required>
               <mat-option *ngFor="let listPay of listPays.items" [value]="listPay.codenat">{{listPay.descr  | titlecase}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>work_outline</mat-icon>
@@ -967,7 +979,7 @@
         <div fxLayout="row" fxLayoutGap="5%">
          
           <mat-form-field  appearance="outline">
-            <mat-label>Region</mat-label>
+            <mat-label>Région</mat-label>
             <mat-select (selectionChange)="selectRegion($event)"  formControlName="region" required>
               <mat-option  *ngFor="let r of listRegions.items"
                [value]="r.region">{{r.region | titlecase}}</mat-option>
@@ -976,7 +988,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field  appearance="outline">
-            <mat-label>Departement</mat-label>
+            <mat-label>Département</mat-label>
             <mat-select (selectionChange)="selectDepartement($event)"  formControlName="departement" required>
               <mat-option *ngFor="let d of listD2" [value]="d.departement">
                 {{d.departement | titlecase}}</mat-option>
@@ -1017,7 +1029,7 @@
         </div>
         <div fxLayout="row" fxLayoutGap="5%">
           <mat-form-field appearance="outline">
-            <mat-label>Boite postal</mat-label>
+            <mat-label>Boite postale</mat-label>
             <input matInput formControlName="boitePostale">
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
@@ -1035,8 +1047,8 @@
           <mat-form-field  appearance="outline">
             <mat-label>Nature contrat</mat-label>
             <mat-select (selectionChange)="selectContrat(i)"  formControlName="natureContrat" required>
-              <mat-option value="CDD">Contrat à durée determiné</mat-option>
-              <mat-option value="CDI">Contrat à durée indeterminé</mat-option>
+              <mat-option value="CDD">Contrat à durée determinée</mat-option>
+              <mat-option value="CDI">Contrat à durée indeterminée</mat-option>
               <mat-option value="JOU">Journalier</mat-option>
               <mat-option value="SPE">Contrat Spécial</mat-option>
               <mat-option value="STA">Contrat de stage</mat-option>
@@ -1045,7 +1057,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Date debut contrat</mat-label>
+            <mat-label>Date début contrat</mat-label>
             <input matInput formControlName="dateDebutContrat" required [matDatepicker]="dateDebutContrat">
             <mat-datepicker-toggle matSuffix [for]="dateDebutContrat"></mat-datepicker-toggle>
             <mat-datepicker #dateDebutContrat></mat-datepicker>
@@ -1074,7 +1086,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Employe cadre</mat-label>
+            <mat-label>Salarié cadre</mat-label>
             <mat-select formControlName="ouiCadre" required> 
               <mat-option value="true">Oui</mat-option>
               <mat-option value="false">Non</mat-option>
@@ -1097,17 +1109,17 @@
               <mat-option value="CC7">CC des Ouvriers Boulangeries de la Délégation de Dakar</mat-option>
               <mat-option value="CC8">CC Fédérale des Entreprises du Bâtiment et des Travaux Publics,06 juillet 1</mat-option>
               <mat-option value="CC9">CCF des Industries de Mécanique Générale de l'AOF</mat-option>
-              <mat-option value="CC10">CCF des Auxiliaires de Transports de l'AOF,10 décembre 1957</mat-option>
-              <mat-option value="CC11">CCNP de Banques et Etablissements Financiers du Sénégal</mat-option>
+              <mat-option value="CC10">CCF des Auxilliaires de Transports de l'AOF,10 décembre 1957</mat-option>
+              <mat-option value="CC11">CCNP des Banques et Etablissements Financiers du Sénégal</mat-option>
               <mat-option value="CC12">CC fixant les RGE de Trav relev de Prof Cin</mat-option>
-              <mat-option value="CC13">CC Indus extrac et de Prosp Min de Féd du Mali</mat-option>
+              <mat-option value="CC13">CC Industries extractives et de Prospection Minière de la Fédération du Mali</mat-option>
               <mat-option value="CC14">CCF des Industries Polygraphiques, 28 septembre 1960</mat-option>
               <mat-option value="CC15">Les CT dans les Prof Agric Ass au Sénégal</mat-option>
               <mat-option value="CC16">CCF des Industries de la Confection</mat-option>
               <mat-option value="CC17">CC Fixant les CGE des dom et gens de maison, janvier 1968</mat-option>
               <mat-option value="CC18">CC des Journalistes,Techniciens de Com Soc du Sénégal,1973</mat-option>
               <mat-option value="CC19">CC fixant les Conditions des Officiers et MMMS,1 mars 1976</mat-option>
-              <mat-option value="CC20">CCN du Pers de l'Enseignement Privé du Sénégal</mat-option>
+              <mat-option value="CC20">CCN du Personnel de l'Enseignement Privé du Sénégal</mat-option>
               <mat-option value="CC21">CCN des Industries Hôtelières de la République du Sénégal</mat-option>
               <mat-option value="CC22">CC des marins pêcheurs industriels</mat-option>
               <mat-option value="NCA1">CC pour les industries alimentaires, 19 juillet 1958</mat-option>
@@ -1135,7 +1147,7 @@
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Categorie</mat-label>
+            <mat-label>Catégorie</mat-label>
             <input matInput formControlName="categorie" required>
             <mat-error>Ce champ est obligatoire.</mat-error>
           </mat-form-field> 
@@ -1148,74 +1160,81 @@
     </div>
   </div>         
     <div fxLayoutAlign="end" fxLayoutGap="5%">
-      <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Precedent</button>
+      <button mat-raised-button mat-button matStepperPrevious><mat-icon>arrow_back</mat-icon>Précédent</button>
       <button mat-raised-button [disabled]="!immatForm.get('input').get('employeList').valid"  class="submit-button"  mat-button matStepperNext>
         Suivant <mat-icon>arrow_forward</mat-icon>
       </button> 
   </div>
 </div>
-<mat-toolbar class="warn mt-2" *ngIf="maxRgGen">Vous avez atteint le nombre maximale d'employe en regime general</mat-toolbar>
-</mat-step> 
-<!--   <mat-step editable="false" label="Comfirmation" class="mt-1" state="done_all">
-  <div class="mt-3" fxLayoutAlign="end" fxLayoutGap="10%">
-    <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
-    <button class="submit-button" mat-raised-button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Confirmer</button>
-  </div>
-  </mat-step> -->
-<mat-step  label="Documents à joindre" state="attach_file">
-    <div class="mt-5" formArrayName="employeList">
-      <ng-template matStepLabel>
-        <span [ngStyle]="{'color': immatForm.get('input').get('employeList').valid ? 'rgb(14, 189, 8)' : ''}">Documents à joindre
-        </span>
-      </ng-template>
-<div *ngIf="immatForm.get('input').get('employerQuery').get('employerType').value === 'PVT'">
-     <div class="row">
-       <div class="col-md-6">
-        Demande écrite <span class="required">*</span>
-       </div>
-       <div class="col-md-6">
-        <div class="field">   
-          <div class="file">
-            <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
-          </div>       
-        </div>
-       </div>
-     </div>
-     <hr>
-     <div class="row">
-      <div class="col-md-6">
-        Photocopie du registre du commerce <span class="required">*</span>
-      </div>
-      <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
-        
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'registerCommerce')" class="fileInputProfile"></a>
-         </div> 
-         <!-- (change)="fileChangeEvent($event)" -->
-       </div>
-      </div>
-    </div>
-    <hr>
-
-    <div class="row">
-      <div class="col-md-6">
-        Déclaration d'établissement visée par l'inspection du travail et de la sécurité sociale ou acte notarié <span class="required">*</span>
-      </div>
-      <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
-        
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'declarationEtablissement')" class="fileInputProfile"></a>
-         </div> 
+<mat-toolbar class="warn mt-2" *ngIf="maxRgGen">Vous avez atteint le nombre maximal de salarié en régime général</mat-toolbar>
+    </mat-step> 
 
 
-         <!-- (change)="fileChangeEvent($event)" -->
-               
-       </div>
-      </div>
-    </div>
-    <hr>
+    <!--  ajout documents  -->
+    <mat-step  label="Documents à joindre" state="attach_file">
+      <div class="mt-5" formArrayName="employeList">
+        <ng-template matStepLabel>
+          <span [ngStyle]="{'color': immatForm.get('input').get('employeList').valid ? 'rgb(14, 189, 8)' : ''}">Documents à joindre
+          </span>
+        </ng-template>
+
+
+              <div *ngIf="immatForm.get('input').get('employerQuery').get('employerType').value === 'PVT'">
+                    <div class="row">
+                      <div class="col-md-6">
+                        Demande écrite <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="field">   
+                          <div class="file">
+                        
+                            <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
+                          </div> 
+
+
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        Photocopie du registre du commerce <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="field">   
+                        <div class="file">
+                        
+                          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'registerCommerce')" class="fileInputProfile"></a>
+                        </div> 
+
+
+                        <!-- (change)="fileChangeEvent($event)" -->
+                              
+                      </div>
+                      </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        Déclaration d'établissement visée par l'inspection du travail et de la sécurité sociale ou acte notarié <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="field">   
+                        <div class="file">
+                        
+                          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'declarationEtablissement')" class="fileInputProfile"></a>
+                        </div> 
+
+
+                        <!-- (change)="fileChangeEvent($event)" -->
+                              
+                      </div>
+                      </div>
+                    </div>
+                    <hr>
 
 
     <div class="row">
@@ -1228,6 +1247,404 @@
         
            <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'photocopieStatus')" class="fileInputProfile"></a>
          </div> 
+         <!-- (change)="fileChangeEvent($event)" -->       
+       </div>
+      </div>
+    </div>
+    <hr>
+
+
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        Photocopie de l'avis d'immatriculation de la direction de la statistique portant attribution du NINEA  <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="field">   
+                        <div class="file">
+                        
+                          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'avisImmatriculation')" class="fileInputProfile"></a>
+                        </div> 
+
+
+                        <!-- (change)="fileChangeEvent($event)" -->
+                              
+                      </div>
+                      </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        Déclaration du mouvement du travailleur  <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="field">   
+                        <div class="file">
+                        
+                          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'dmt')" class="fileInputProfile"></a>
+                        </div> 
+
+
+                        <!-- (change)="fileChangeEvent($event)" -->
+                              
+                      </div>
+                      </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        Contrat de travail des salariés  <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="field">   
+                        <div class="file">
+                        
+                          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'contratsTravail')" class="fileInputProfile"></a>
+                        </div> 
+
+
+                        <!-- (change)="fileChangeEvent($event)" -->
+                              
+                      </div>
+                      </div>
+                    </div>
+                    <hr>
+
+
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        Photocopie carte d'identité nationale de chaque salarié ou carte consulaire si salarié étranger   <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="field">   
+                        <div class="file">
+                        
+                          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'cni')" class="fileInputProfile"></a>
+                        </div> 
+
+
+                        <!-- (change)="fileChangeEvent($event)" -->
+                              
+                      </div>
+                      </div>
+                    </div>
+                    <hr>
+
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        Un bulletin d'adhésion à remplir ( imprimé à retirer à l'IPRES )   <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="field">   
+                        <div class="file">
+                        
+                          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'bulletinsSalaire')" class="fileInputProfile"></a>
+                        </div> 
+
+
+                        <!-- (change)="fileChangeEvent($event)" -->
+                              
+                      </div>
+                      </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        Photocopie pièce d'identité du gérant <span class="required">*</span>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="field">   
+                        <div class="file">
+                        
+                          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'carteNationaleIdentite')" class="fileInputProfile"></a>
+                        </div> 
+
+
+                        <!-- (change)="fileChangeEvent($event)" -->
+                              
+                      </div>
+                      </div>
+                    </div>
+
+                    
+                
+              </div>  
+
+         
+
+              <div *ngIf="immatForm.get('input').get('employerQuery').get('employerType').value === 'GIE'">
+                <div class="row">
+                  <div class="col-md-6">
+                  Demande écrite <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    Photocopie du registre du commerce <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                   <div class="field">   
+                     <div class="file">
+                    
+                       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'registerCommerce')" class="fileInputProfile"></a>
+                     </div> 
+                     <!-- (change)="fileChangeEvent($event)" -->
+                   </div>
+                  </div>
+                </div>
+                <hr>
+            
+
+                <div class="row">
+                  <div class="col-md-6">
+                  Déclaration d'établissement visée par l'inspection du travail et de la sécurité sociale ou acte notarié <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'declarationEtablissement')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    Photocopie des statuts ou agrément <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                   <div class="field">   
+                     <div class="file">
+                    
+                       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'photocopieStatus')" class="fileInputProfile"></a>
+                     </div> 
+            
+            
+                     <!-- (change)="fileChangeEvent($event)" -->
+                           
+                   </div>
+                  </div>
+                </div>
+                <hr>
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                  Décret ou arrêté ministériel ou protocole d'accord ou convention ( pour les projets ) <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'decretMinisteriel')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    Photocopie de l'avis d'immatriculation de la direction de la statistique portant attribution du NINEA  <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'avisImmatriculation')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                  Déclaration du mouvement du travail <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'dmt')" class="fileInputProfile"></a>
+                    </div> 
+
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-6">
+                  Contrat de travail des salariés  <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'contratsTravail')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-6">
+                  Photocopie carte d'identité nationale de chaque salarié ou carte consulaire si salarié étranger <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'cni')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-6">
+                  Un bulletin d'adhésion à remplir ( imprimé à retirer à l'IPRES ) <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'bulletinsSalaire')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-6">
+                  Photocopie de la pièce d'identité du gérant <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'carteNationaleIdentite')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+
+                
+
+              </div>  
+
+
+
+
+              <div *ngIf="immatForm.get('input').get('employerQuery').get('employerType').value === 'ONG'">
+                <div class="row">
+                  <div class="col-md-6">
+                    Demande écrite <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="field">   
+                      <div class="file">
+                    
+                        <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
+                      </div> 
+
+
+                      
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    Déclaration d'établissement visée par l'inspection du travail et de la sécurité sociale ou acte notarié <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'declarationEtablissement')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+
+
+
+    <div class="row">
+      <div class="col-md-6">
+       Décret ou arrêté ministériel ou protocole d'accord ou convention ( pour les projets ) <span class="required">*</span>
+      </div>
+      <div class="col-md-6">
+       <div class="field">   
+         <div class="file">
+        
+           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'decretMinisteriel')" class="fileInputProfile"></a>
+         </div> 
 
 
          <!-- (change)="fileChangeEvent($event)" -->
@@ -1235,7 +1652,8 @@
        </div>
       </div>
     </div>
-    <hr>
+
+
 
     <div class="row">
       <div class="col-md-6">
@@ -1256,21 +1674,22 @@
     </div>
     <hr>
 
+
     <div class="row">
       <div class="col-md-6">
         Déclaration du mouvement du travailleur  <span class="required">*</span>
       </div>
       <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
+      <div class="field">   
+        <div class="file">
         
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'dmt')" class="fileInputProfile"></a>
-         </div> 
+          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'dmt')" class="fileInputProfile"></a>
+        </div> 
 
 
-         <!-- (change)="fileChangeEvent($event)" -->
-               
-       </div>
+        <!-- (change)="fileChangeEvent($event)" -->
+              
+      </div>
       </div>
     </div>
     <hr>
@@ -1280,20 +1699,19 @@
         Contrat de travail des salariés  <span class="required">*</span>
       </div>
       <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
+      <div class="field">   
+        <div class="file">
         
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'contratsTravail')" class="fileInputProfile"></a>
-         </div> 
+          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'contratsTravail')" class="fileInputProfile"></a>
+        </div> 
 
 
-         <!-- (change)="fileChangeEvent($event)" -->
-               
-       </div>
+        <!-- (change)="fileChangeEvent($event)" -->
+              
+      </div>
       </div>
     </div>
     <hr>
-
 
 
     <div class="row">
@@ -1301,463 +1719,61 @@
         Photocopie carte d'identité nationale de chaque salarié ou carte consulaire si salarié étranger   <span class="required">*</span>
       </div>
       <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
+      <div class="field">   
+        <div class="file">
         
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'cni')" class="fileInputProfile"></a>
-         </div> 
-         <!-- (change)="fileChangeEvent($event)" -->       
-       </div>
+          <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'cni')" class="fileInputProfile"></a>
+        </div> 
+
+
+        <!-- (change)="fileChangeEvent($event)" -->
+              
       </div>
-    </div>
-    <hr>
-    <div class="row">
-      <div class="col-md-6">
-        Un bulletin d'adhésion à remplir ( imprimé à retirer à l'IPRES )   <span class="required">*</span>
-      </div>
-      <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
-        
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'bulletinsSalaire')" class="fileInputProfile"></a>
-         </div> 
-         <!-- (change)="fileChangeEvent($event)" -->         
-       </div>
-      </div>
-    </div>
-    <hr>
-    <div class="row">
-      <div class="col-md-6">
-        Photocopie pièce d'identités du gérant <span class="required">*</span>
-      </div>
-      <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
-        
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'carteNationaleIdentite')" class="fileInputProfile"></a>
-         </div> 
-
-
-         <!-- (change)="fileChangeEvent($event)" -->
-               
-       </div>
-      </div>
-    </div>
-
-     
- 
-  </div>  
-
-
-  <div *ngIf="immatForm.get('input').get('employerQuery').get('employerType').value === 'TIND'">
-    <div class="row">
-      <div class="col-md-6">
-       Demande écrite <span class="required">*</span>
-      </div>
-      <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
-        
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
-         </div> 
-
-
-         <!-- (change)="fileChangeEvent($event)" -->
-               
-       </div>
       </div>
     </div>
     <hr>
 
 
-    <div class="row">
-      <div class="col-md-6">
-       Decret ou arrêté ministériel ou protocole d'accord ou convention ( pour les projets ) <span class="required">*</span>
-      </div>
-      <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
-        
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'decretMinisteriel')" class="fileInputProfile"></a>
-         </div> 
-
-
-         <!-- (change)="fileChangeEvent($event)" -->
-               
-       </div>
-      </div>
-    </div>
-    <hr>
-
-    <div class="row">
-      <div class="col-md-6">
-       Un bulletin d'adhésion à remplir ( imprimé à retirer à l'IPRES ) <span class="required">*</span>
-      </div>
-      <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
-        
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'bulletinsSalaire')" class="fileInputProfile"></a>
-         </div> 
-
-
-         <!-- (change)="fileChangeEvent($event)" -->
-               
-       </div>
-      </div>
-    </div>
-    <hr>
-
-    <div class="row">
-      <div class="col-md-6">
-       Photocopie légalisée de la Carte nationale d'identité ( pour les nationaux ) et passeport ou carte consulaire ( pour les étrangers ) du demandeur <span class="required">*</span>
-      </div>
-      <div class="col-md-6">
-       <div class="field">   
-         <div class="file">
-        
-           <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'cni')" class="fileInputProfile"></a>
-         </div> 
-
-
-         <!-- (change)="fileChangeEvent($event)" -->
-               
-       </div>
-      </div>
-    </div>  
- </div>  
-
-
- <div *ngIf="immatForm.get('input').get('employerQuery').get('employerType').value === 'REP_DIP' || immatForm.get('input').get('employerQuery').get('employerType').value === 'PUB_PARA' ">
-  <div class="row">
-    <div class="col-md-6">
-     Demande écrite <span class="required">*</span>
-    </div>
-    <div class="col-md-6">
-     <div class="field">   
-       <div class="file">
-      
-         <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
-       </div> 
-
-
-       <!-- (change)="fileChangeEvent($event)" -->
-             
-     </div>
-    </div>
-  </div>
-  <hr>
-
-
-  <div class="row">
-    <div class="col-md-6">
-     Déclaration d'établissement visée par l'inspection du travail et de la sécurité sociale ou acte notarié <span class="required">*</span>
-    </div>
-    <div class="col-md-6">
-     <div class="field">   
-       <div class="file">
-      
-         <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'declarationEtablissement')" class="fileInputProfile"></a>
-       </div> 
-       <!-- (change)="fileChangeEvent($event)" -->       
-     </div>
-    </div>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-md-6">
-     Déclaration du mouvement du travail <span class="required">*</span>
-    </div>
-    <div class="col-md-6">
-     <div class="field">   
-       <div class="file">
-      
-         <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'dmt')" class="fileInputProfile"></a>
-       </div> 
-
-             
-     </div>
-    </div>
-  </div>
-  <hr>
-
-  <div class="row">
-    <div class="col-md-6">
-     Contrat de travail des salariés  <span class="required">*</span>
-    </div>
-    <div class="col-md-6">
-     <div class="field">   
-       <div class="file">
-      
-         <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'contratsTravail')" class="fileInputProfile"></a>
-       </div> 
-
-
-       <!-- (change)="fileChangeEvent($event)" -->
-             
-     </div>
-    </div>
-  </div>
-  <hr>
-
-  <div class="row">
-    <div class="col-md-6">
-     Photocopie carte d'identité nationale de chaque salarié ou carte consulaire si salarié étranger <span class="required">*</span>
-    </div>
-    <div class="col-md-6">
-     <div class="field">   
-       <div class="file">
-      
-         <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'carteNationaleIdentite')" class="fileInputProfile"></a>
-       </div> 
-
-
-       <!-- (change)="fileChangeEvent($event)" -->
-             
-     </div>
-    </div>
-  </div>
-  <hr>
-
-  <div class="row">
-    <div class="col-md-6">
-     Un bulletin d'adhésion à remplir ( imprimé à retirer à l'IPRES ) <span class="required">*</span>
-    </div>
-    <div class="col-md-6">
-     <div class="field">   
-       <div class="file">
-      
-         <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'bulletinsSalaire')" class="fileInputProfile"></a>
-       </div> 
-
-
-       <!-- (change)="fileChangeEvent($event)" -->
-             
-     </div>
-    </div>
-  </div>
-  <hr>
-
-  <div class="row">
-    <div class="col-md-6">
-     Copie Passport <span class="required">*</span>
-    </div>
-    <div class="col-md-6">
-     <div class="field">   
-       <div class="file">
-      
-         <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'passportDoc')" class="fileInputProfile"></a>
-       </div> 
-
-
-       <!-- (change)="fileChangeEvent($event)" -->
-             
-     </div>
-    </div>
-  </div>
-
-  
-
-</div>  
-
-
-
-<div *ngIf="this.immatForm.get('input').get('employerQuery').get('employerType').value === 'NGO'">
-<div class="row">
-  <div class="col-md-6">
-   Demande écrite <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
-     </div> 
-
-
-     <!-- (change)="fileChangeEvent($event)" -->
-           
-   </div>
-  </div>
-</div>
-<hr>
-
-
-<div class="row">
-  <div class="col-md-6">
-   Déclaration d'établissement visée par l'inspection du travail et de la sécurité sociale ou acte notarié <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'declarationEtablissement')" class="fileInputProfile"></a>
-     </div> 
-
-
-     <!-- (change)="fileChangeEvent($event)" -->
-           
-   </div>
-  </div>
-</div>
-<hr>
-
-<div class="row">
-  <div class="col-md-6">
-   Decret ou arrêté ministériel ou protocole d'accord ou convention ( pour les projets ) <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'decretMinisteriel')" class="fileInputProfile"></a>
-     </div> 
-
-
-     <!-- (change)="fileChangeEvent($event)" -->
-           
-   </div>
-  </div>
-</div>
-<hr>
-
-<div class="row">
-  <div class="col-md-6">
-    Photocopie de l'avis d'immatriculation la direction de la statistique portant attribution du NINEA  <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'avisImmatriculation')" class="fileInputProfile"></a>
-     </div> 
-
-
-           
-   </div>
-  </div>
-</div>
-<hr>
-
-
-
-
-<div class="row">
-  <div class="col-md-6">
-   Déclaration du mouvement du travail <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'dmt')" class="fileInputProfile"></a>
-     </div> 
-
-           
-   </div>
-  </div>
-</div>
-<hr>
-
-<div class="row">
-  <div class="col-md-6">
-   Contrat de travail des salariés  <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'contratsTravail')" class="fileInputProfile"></a>
-     </div> 
-
-
-     <!-- (change)="fileChangeEvent($event)" -->
-           
-   </div>
-  </div>
-</div>
-<hr>
-
-<div class="row">
-  <div class="col-md-6">
-   Photocopie carte d'identité nationale de chaque salarié ou carte consulaire si salarié étranger <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'cni')" class="fileInputProfile"></a>
-     </div> 
-
-
-     <!-- (change)="fileChangeEvent($event)" -->
-           
-   </div>
-  </div>
-</div>
-<hr>
-
-<div class="row">
-  <div class="col-md-6">
-   Un bulletin d'adhésion à remplir ( imprimé à retirer à l'IPRES ) <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'bulletinsSalaire')" class="fileInputProfile"></a>
-     </div> 
-
-
-     <!-- (change)="fileChangeEvent($event)" -->
-           
-   </div>
-  </div>
-</div>
-<hr>
-
-<div class="row">
-  <div class="col-md-6">
-   Photocopie de la pièce d'identité du gérant <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'carteNationaleIdentite')" class="fileInputProfile"></a>
-     </div> 
-
-
-     <!-- (change)="fileChangeEvent($event)" -->
-           
-   </div>
-  </div>
-</div>
-
-
-
-</div>  
-
-
-<div *ngIf="immatForm.get('input').get('employerQuery').get('employerType').value === 'MAIN'">
-<div class="row">
-  <div class="col-md-6">
-   Demande écrite <span class="required">*</span>
-  </div>
-  <div class="col-md-6">
-   <div class="field">   
-     <div class="file">
-    
-       <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'demandeEcrit')" class="fileInputProfile"></a>
-     </div> 
-
-
-     <!-- (change)="fileChangeEvent($event)" -->
-           
-   </div>
-  </div>
-</div>
-<hr>
+                <div class="row">
+                  <div class="col-md-6">
+                    Un bulletin d'adhésion à remplir ( imprimé à retirer à l'IPRES )   <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'bulletinsSalaire')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    Photocopie pièce d'identité du gérant <span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="field">   
+                    <div class="file">
+                    
+                      <a class="btn btn-sm btn-join-file"> <input type="file" (change)="fileChangeEvent($event,'carteNationaleIdentite')" class="fileInputProfile"></a>
+                    </div> 
+
+
+                    <!-- (change)="fileChangeEvent($event)" -->
+                          
+                  </div>
+                  </div>
+                </div>
+
+                
+            
+          </div>  
 
 
 
@@ -1959,7 +1975,7 @@
           </ng-template> 
           <h4 class="mt-2 mb-2">Confirmation Demande</h4><br>
           <div *ngIf="infoGen" class="report_infoFen pb-5">
-         <mat-icon class="icon">person_outline</mat-icon> <h5 >Information General</h5><br>
+         <mat-icon class="icon">person_outline</mat-icon> <h5 >Informations Générales</h5><br>
          <!-- <mat-divider class="inset"></mat-divider> -->
          <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
@@ -1968,7 +1984,7 @@
                <span>{{shortName.value}}</span>
             </div>
             <div fxFlex="50">
-                <b>Activite principale</b>
+                <b>Principal Secteur d'activité</b>
                 &nbsp;
                 <span> {{mainLineOfBusiness.value | titlecase}}</span>
             </div>     
@@ -1976,12 +1992,12 @@
           <!-- <mat-divider class="inset"></mat-divider> -->
           <div fxLayout="row" class="back_report1 pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
-              <b>Secteur d'activite</b>
+              <b>Secteur d'activité</b>
               &nbsp;
              <span> {{businessSector.value}}</span>
           </div>
            <div fxFlex="50">
-              <b>Date d'inspection</b>
+              <b>Date d'inspection </b>
               &nbsp;
                <span> {{immatForm.get('input').get('mainRegistrationForm').get('dateOfInspection').value | date:'shortDate'}}</span>
             </div> 
@@ -1994,7 +2010,7 @@
                 <span>{{immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value}}</span>
               </div>
           <div fxFlex="50">
-              <b>Region</b>
+              <b>Région</b>
               &nbsp;
               <span> {{region.value | titlecase}}</span>
             </div> 
@@ -2002,7 +2018,7 @@
           <!-- <mat-divider class="inset"></mat-divider> -->
            <div fxLayout="row" class="back_report1 pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
-              <b>Departement</b>
+              <b>Département</b>
               &nbsp;
               <span> {{department.value | titlecase}}</span>
             </div>
@@ -2020,7 +2036,7 @@
               <span> {{commune.value | titlecase}}</span>
           </div> 
             <div fxFlex="50">
-              <b>Quartie</b>
+              <b>Quartier</b>
               &nbsp;
               <span> {{qartier.value}}</span>
             </div>
@@ -2032,7 +2048,7 @@
               <span>  {{address.value}}</span>
             </div>  
           <div fxFlex="50">
-            <b>Telephone</b>
+            <b>Téléphone</b>
             &nbsp;
             <span> {{telephone.value}}</span>
         </div>
@@ -2040,7 +2056,7 @@
           <!-- <mat-divider class="inset"></mat-divider> -->
           <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
-              <b>Email entreprise</b>
+              <b>Email Entreprise</b>
               &nbsp;
              <span> {{email.value}}</span>
             </div>
@@ -2090,7 +2106,7 @@
          
         </div> 
         <div *ngIf="infoRepLeg" class="report_repLeagl pb-5">  
-          <mat-icon class="icon">person_outline</mat-icon>  <h5>Representant Legal</h5><br>
+          <mat-icon class="icon">person_outline</mat-icon>  <h5>Représentant légal</h5><br>
           <!-- <mat-divider class="inset"></mat-divider> -->
           <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
@@ -2098,7 +2114,7 @@
              <span> {{lastName.value}} </span>
             </div>
             <div fxFlex="50">
-              <b>Prenom</b>
+              <b>Prénom</b>
               &nbsp;
               <span>  {{ firstName.value }}</span>
             </div>
@@ -2112,7 +2128,7 @@
              <span> {{ immatForm.get('input').get('legalRepresentativeForm').get('birthdate').value | date:'shortDate'}}</span>
             </div>
             <div fxFlex="50">
-              <b>Naionalite</b>
+              <b>Nationalité</b>
               &nbsp;
               <span>  {{nationality.value | titlecase}}</span>
             </div>
@@ -2133,12 +2149,12 @@
           <!-- <mat-divider class="inset"></mat-divider> -->
            <div fxLayout="row" class="back_report1 pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
-              <b>Type de piece</b>
+              <b>Type de pièce d'identité</b>
               &nbsp;
             <span>  {{typeOfIdentity.value}}</span>
             </div>
             <div fxFlex="50">
-              <b>Numero piece d'identite</b>
+              <b>Numéro pièce d'identité</b>
               &nbsp;
               <span>  {{nin.value}} </span>
             </div>
@@ -2151,7 +2167,7 @@
              <span> {{ninCedeo.value}} </span>
             </div>
             <div fxFlex="50">
-              <b>Date delivrance</b>
+              <b>Date de délivrance</b>
               &nbsp;
               <span>  {{immatForm.get('input').get('legalRepresentativeForm').get('issuedDate').value | date:'shortDate'}} </span>
             </div>
@@ -2164,7 +2180,7 @@
             <span> {{immatForm.get('input').get('legalRepresentativeForm').get('expiryDate').value | date:'shortDate'}}</span> 
             </div>
             <div fxFlex="50">
-              <b>Region</b>
+              <b>Région</b>
               &nbsp;
               <span>  {{region1.value | titlecase}}</span>
             </div>
@@ -2172,12 +2188,12 @@
           <!-- <mat-divider class="inset"></mat-divider> -->
           <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
-              <b>Department</b>
+              <b>Départment</b>
               &nbsp;
             <span>  {{department1.value | titlecase}}</span>
             </div>
             <div fxFlex="50">
-              <b>Arondissement</b>
+              <b>Arrondissement</b>
               &nbsp;
               <span> {{arondissement1.value | titlecase}}</span> 
             </div>
@@ -2190,7 +2206,7 @@
             <span>  {{ commune1.value | titlecase}}</span>
             </div>
             <div fxFlex="50">
-              <b>quartier</b>
+              <b>Quartier</b>
               &nbsp;
               <span>  {{qartier1.value}}</span>
             </div>
@@ -2202,7 +2218,7 @@
               <span> {{email1.value}}</span>
             </div>
             <div fxFlex="50">
-              <b>Numero Telephone</b>
+              <b>Numéro Téléphone</b>
               &nbsp;
                <span> {{mobileNumber.value}}</span>
             </div>
@@ -2210,7 +2226,7 @@
           <!-- <mat-divider class="inset"></mat-divider> -->
           <div fxLayout="row" class="back_report1 pt-3 pb-3 pl-3" fxLayoutGap="5%">
             <div fxFlex="50">
-              <b>addresse</b>
+              <b>Adresse</b>
               &nbsp;
              <span> {{address1.value}}</span>
             </div>
@@ -2219,7 +2235,7 @@
           <!-- <mat-divider class="inset"></mat-divider> -->
         </div> 
         <div class="mt-3" fxLayoutAlign="end" fxLayoutGap="10%">
-          <button mat-raised-button mat-button matStepperPrevious>Precedent</button>
+          <button mat-raised-button mat-button matStepperPrevious>Précédent</button>
           <button class="submit-button" mat-raised-button  type="submit" (click)="addImmatriculation()" class="submit-button" mat-button matStepperNext>Soumettre</button>
         </div>
         </mat-step> 
