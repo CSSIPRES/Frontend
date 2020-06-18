@@ -66,12 +66,12 @@
               <h3 class="mt-2">Statut du dossier : </h3>
     
           
-                <span class="alert alert-dark mt-2"> <mat-spinner *ngIf="loaderStatutImmat" strokeWidth="2" [diameter]="34"></mat-spinner>{{statutCertImm}}</span>
+                <span class="alert alert-dark mt-2"> <mat-spinner *ngIf="loaderStatutImmat && statutCertImm != 'Valider'" strokeWidth="2" [diameter]="34"></mat-spinner>{{statutCertImm}}</span>
                
                 <h3 class="mt-2">Certificat d'immatriculation ( pdf ) </h3>
-               <mat-spinner *ngIf="urlCertImmat === '' && statutCertImm != 'Votre demande est en cours de traitement'" trokeWidth="2" [diameter]="34"></mat-spinner>
+               <mat-spinner *ngIf="urlCertImmat === '' && statutCertImm != 'Votre demande est en cours de traitement' && statutCertImm != 'Valider'" trokeWidth="2" [diameter]="34"></mat-spinner>
                <span *ngIf="statutCertImm == 'Votre demande est en cours de traitement'" class="alert alert-dark mt-2">En attente de validation</span>
-    
+               <span *ngIf="statutCertImm == 'Valider'" class="alert alert-dark mt-2">Non disponible</span>
                 <button *ngIf="urlCertImmat != ''" (click)="openViewPDFDialog('',urlCertImmat)" class="icon-file-dowload" mat-button> 
                   <mat-icon>cloud_download</mat-icon> Visualiser
                  </button>

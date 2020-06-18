@@ -70,26 +70,32 @@ urlCertImmat:string = '';
        // console.log(this.idDossierImmat)
       
     }
-    this.immatriculationService.getStatutCertificatImmat(processFlowId)
-    .subscribe(
-      (data:any)=>{
-        this.loaderStatutImmat = false;
-      
-                this.statutCertImm =  data.value.output.description;
-                this.immatriculationService.getUrlCertificatImmat(processFlowId)
-                .subscribe(
-                  (data:any)=>{
-                    this.loaderUrlImmat = false;
-                    this.urlCertImmat = data.value.output.url;
-                  },err=>{
-                    this.loaderUrlImmat = false;
-                  }
-                )
-      },err=>{
-        this.loaderStatutImmat = false;
+
+    if(processFlowId){
+      this.immatriculationService.getStatutCertificatImmat(processFlowId)
+      .subscribe(
+        (data:any)=>{
+          this.loaderStatutImmat = false;
         
-      }
-    )
+                  this.statutCertImm =  data.value.output.description;
+                  this.immatriculationService.getUrlCertificatImmat(processFlowId)
+                  .subscribe(
+                    (data:any)=>{
+                      this.loaderUrlImmat = false;
+                      this.urlCertImmat = data.value.output.url;
+                    },err=>{
+                      this.loaderUrlImmat = false;
+                    }
+                  )
+        },err=>{
+          this.loaderStatutImmat = false;
+        
+        }
+      )
+    }else{
+      this.statutCertImm = "Valider";
+    }
+  
   }
 
 
