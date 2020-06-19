@@ -22,7 +22,6 @@
 <!-- <perfect-scrollbar class="scroller" style="z-index:1001;position: relative; max-height: 600px;">
  -->  
  <mat-drawer-container class="example-container mat-typography" autosize>
-    
     <mat-drawer #drawer mode="side" disableClose="true" opened="true">
       <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
         <mat-icon aria-label="Menu">menu</mat-icon>
@@ -88,7 +87,7 @@
               <div class="immatCard_detail">
                 <span fxLayout="row"><p>Raison sociale</p>&nbsp; | {{emp?.raisonSociale}} </span>
                 <span fxLayout="row"><b>NINEA</b>&nbsp;<mat-toolbar>{{emp?.numeroIdentifiant}}</mat-toolbar> </span>
-                <button (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Déclarer</button>
+              <button (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Déclarer</button>
                 <a [routerLink]="['/espace-employer/',emp.id]">Voir dossier </a> 
               </div>
             </mat-card-content>

@@ -72,6 +72,9 @@ export class DeclarationComponent implements OnInit,AfterViewInit {
   totalCotRcc:number=0;
   totalCotRg:number=0;
   totSalVerse:number=0;
+  displayMonth1:boolean=false;
+  displayMonth2:boolean=false;
+  displayMonth3:boolean=false;
   displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite','action'];  
   displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
   preDnsObject:any={
@@ -232,6 +235,7 @@ initDeclarationForm(){
 informationSalaries:new FormArray([])
 })
 }
+
 dateErrors:boolean=false;
   constructor(private fb:FormBuilder,private decService:DeclarationService,private empService:EmployeExistService,  private dialog:MatDialog,
     private route : ActivatedRoute,private empExistServ:EmployeExistService,
@@ -244,16 +248,15 @@ dateErrors:boolean=false;
   id:any="";
   ngOnInit() {
   this.emp= JSON.parse(window.localStorage.getItem('employerDataInput'));
-  this.initDeclarationForm();
+  this.initDeclarationForm(); 
     /* this.initForm(); */
     this.id = this.route.snapshot.params.id;
     console.log(this.id);
     this.getEmployer(this.id);
     /* this.cumulTotal(); */
+     
   }
-  displayMonth1:boolean=false;
-  displayMonth2:boolean=false;
-  displayMonth3:boolean=false;
+ 
 
   incrementDate(event){
   this.swictActiveDesactiveButton(event); 
@@ -261,7 +264,6 @@ dateErrors:boolean=false;
   let finCot2:any=null;
   if(this.declarationForm.get('typeDeclaration').value=="MENSUEL") {
     let finCot1 = moment(debutCot).endOf('month').format('YYYY-MM-DD');
-    console.log(finCot1); 
     this.declarationForm.get('dateFinPeriodeCotisation').patchValue(finCot1);
     let monthSate1=Number.parseInt((moment(debutCot).month()).toString()); 
     let monthSemester=(monthSate1+1)%3;
@@ -285,7 +287,6 @@ dateErrors:boolean=false;
   else if(this.declarationForm.get('typeDeclaration').value=="TRIMESTRIEL"){
     let monthSate=Number.parseInt((moment(debutCot).month()).toString()); 
     let monthSemester=(monthSate+1)%3;
-    console.log(monthSemester);
     if(monthSemester==1){
     finCot2 = moment(debutCot).add(3,'month').subtract(1, 'months').endOf('month').format('YYYY-MM-DD');
     this.displayMonth1=true;
@@ -322,7 +323,7 @@ dateErrors:boolean=false;
     let d1=moment(debutCot).format('YYYY-MM-DD');
     let d2=moment(finCot).format('YYYY-MM-DD');
     this.preDnsObject.idIdentifiant=this.data1.idIdentifiant;
-    this.preDnsObject.typeIdentifiant='SCI';
+    this.preDnsObject.typeIdentifiant=this.data1.typeIdentifiant;
     this.preDnsObject.adresse=this.data1.address;
     this.preDnsObject.dateDebutCotisation=d1;
     this.preDnsObject.dateFinPeriodeCotisation=d2;
@@ -349,7 +350,7 @@ dateErrors:boolean=false;
         
         /* console.log(this.fillListDecForm(resp.value.informationSalaries)); */
        this.declarationForm=new FormGroup({
-        typeIdentifiant:new FormControl('SCI', Validators.required),
+        typeIdentifiant:new FormControl(this.data1.typeIdentifiant, Validators.required),
           idIdentifiant:new FormControl(this.data1.idIdentifiant, Validators.required),
           raisonSociale:new FormControl(this.data1.raisonSociale, Validators.required),
           adresse:new FormControl(this.data1.address),
@@ -826,6 +827,7 @@ applyFilter(filterValue: string) {
     }
      let b=totSalAssCssAtmp1+totSalAssCssAtmp2+totSalAssCssAtmp3;
      this.totSalAssCssAtmp=b;
+     console.log(this.data1.tauxAT);
      this.totalCotAtmp= Number.parseInt((this.totSalAssCssAtmp*(this.data1.tauxAT/100)).toString());
      if(listSal[i].salaireBrut1!=0){
       if( listSal[i].totSalAssIpresRcc1>=1080000){
@@ -873,6 +875,7 @@ applyFilter(filterValue: string) {
      }
     this.totSalAssIpresRcc=totSalAssIpresRcc1 + totSalAssIpresRcc2 + totSalAssIpresRcc3;
     this.totalCotRcc= Number.parseInt((this.totSalAssIpresRcc*0.06).toString());
+    console.log("totalCotRcc",this.totalCotRcc)
     if(listSal[i].salaireBrut1!=0){
       if(listSal[i].totSalAssIpresRg1>=360000){
         totSalAssIpresRg1=totSalAssIpresRg1 +360000;
@@ -926,38 +929,91 @@ applyFilter(filterValue: string) {
    } 
    this.totSalVerse=salBrut1 +salBrut2 +salBrut3;
    console.log(this.totSalVerse); 
-  }         
+  }   
+
   autoFillMontantMonth1(i){
     let listSal=(this.declarationForm.get('informationSalaries') as FormArray);
-    if(listSal.value[i].salaireBrut1>=63000 && listSal.value[i].salaireBrut1<360000){
+    let salAss1=<FormArray>this.declarationForm.controls["informationSalaries"];
+    if(listSal.value[i].salaireBrut1==0){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf1":0,
+        "totSalAssCssAtmp1":0,
+        "totSalAssIpresRg1":0,
+        "totSalAssIpresRcc1":0
+      });
+    }
+    else if(listSal.value[i].salaireBrut1<63000 && listSal.value[i].salaireBrut1>36243){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf1":listSal.value[i].salaireBrut1,
+        "totSalAssCssAtmp1":listSal.value[i].salaireBrut1,
+        "totSalAssIpresRg1":listSal.value[i].salaireBrut1
+      });
+      if(listSal.value[i].regimCompCadre1=="true") {    
+        salAss1.controls[i].patchValue({
+       "totSalAssIpresRcc1":listSal.value[i].salaireBrut1  
+        });
+      }    
+     else if(listSal.value[i].regimCompCadre1=="false"){   
+    salAss1.controls[i].patchValue({
+      "totSalAssIpresRcc1":0  
+       });
+      }
+    }
+   else if(listSal.value[i].salaireBrut1>=63000 && listSal.value[i].salaireBrut1<360000){
 
-let salAss1=<FormArray>this.declarationForm.controls["informationSalaries"];
-      salAss1.controls[i].patchValue(true);
+      
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf1":63000,
+        "totSalAssCssAtmp1":63000,
+        "totSalAssIpresRg1":listSal.value[i].salaireBrut1
+      });
 
-      listSal.value[i].totSalAssCssPf1=63000;
-      listSal.value[i].totSalAssCssPf1.patchValue(63000);
-      console.log(listSal.value[i].totSalAssCssPf1);
-      listSal.value[i].totSalAssCssAtmp1=63000;
-      listSal.value[i].totSalAssIpresRg1=listSal.value[i].salaireBrut1;
-    if(listSal.value[i].regimCompCadre1==true) {    
-          listSal.value[i].totSalAssIpresRcc1=listSal.value[i].salaireBrut1;
+    if(listSal.value[i].regimCompCadre1=="true") {    
+          salAss1.controls[i].patchValue({
+         "totSalAssIpresRcc1":listSal.value[i].salaireBrut1  
+          });
         }    
-    else{   
-          listSal.value[i].totSalAssIpresRcc1=0
+    else if(listSal.value[i].regimCompCadre1=="false"){   
+      salAss1.controls[i].patchValue({
+        "totSalAssIpresRcc1":0  
+      });
         }
       }
-    else if(listSal.value[i].salaireBrut1>=360000){
-        listSal.value[i].totSalAssCssPf1=63000;
-        listSal.value[i].totSalAssCssAtmp1=63000;
-        listSal.value[i].totSalAssIpresRg1=360000;
-          if(listSal.value[i].regimCompCadre1==true){
-          listSal.value[i].totSalAssIpresRcc1=listSal[i].value.salaireBrut1;
-        }
-          else{
-          listSal[i].value.totSalAssIpresRcc1=0
+    else if(listSal.value[i].salaireBrut1>=360000 && listSal.value[i].salaireBrut1<1080000){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf1":63000,
+        "totSalAssCssAtmp1":63000,
+        "totSalAssIpresRg1":360000
+      });
+      if(listSal.value[i].regimCompCadre1=="true") {    
+        salAss1.controls[i].patchValue({
+       "totSalAssIpresRcc1":listSal.value[i].salaireBrut1  
+        });
+      } 
+        else if(listSal.value[i].regimCompCadre1=="false"){
+            salAss1.controls[i].patchValue({
+              "totSalAssIpresRcc1":0  
+            });
         }
       }
-    
+      else if(listSal.value[i].salaireBrut1 >=1080000){
+        console.log("ok")
+        salAss1.controls[i].patchValue({
+          "totSalAssCssPf1":63000,
+          "totSalAssCssAtmp1":63000,
+          "totSalAssIpresRg1":360000
+        });
+        if(listSal.value[i].regimCompCadre1=="true") {    
+          salAss1.controls[i].patchValue({
+         "totSalAssIpresRcc1":1080000  
+          });
+        } 
+          else if(listSal.value[i].regimCompCadre1=="false"){
+              salAss1.controls[i].patchValue({
+                "totSalAssIpresRcc1":0  
+              });
+          }
+      }
   }
   get typeIdentifiant() {
     return this.declarationForm.get('typeIdentifiant');
