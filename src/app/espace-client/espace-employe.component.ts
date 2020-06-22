@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, TemplateRef ,ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatSidenav, MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
 import { ImmatriculationComponent } from '../immatriculation/immatriculation.component';
-import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { ImmatriculationExistComponent } from '../immatriculation-exist/immatriculation-exist.component';
 import { DeclarationComponent } from '../declaration/declaration.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
@@ -49,8 +48,9 @@ export class EspaceEmployeComponent implements OnInit {
   drawer: MatSidenav; 
   tok:any="";
   statusList:any=[];
-  constructor(private dialog:MatDialog,private userService:LoginService, private empExistServ:EmployeExistService,
-    private router:Router,private immatServ:ImmatriculationService) {
+  constructor(private dialog:MatDialog,private userService:LoginService, 
+    private empExistServ:EmployeExistService,private router:Router,
+    private immatServ:ImmatriculationService) {
    
    }
 
@@ -71,7 +71,7 @@ export class EspaceEmployeComponent implements OnInit {
     for(let i=0;i<resp.length;i++){
       console.log(resp[i].processFlowId);
       if(resp[i].processFlowId!=undefined){
-      console.log(this.getStatutImmatriculation(resp[i].processFlowId));
+      this.getStatutImmatriculation(resp[i].processFlowId);
       }
     } 
     if(resp.length==0){
@@ -80,6 +80,7 @@ export class EspaceEmployeComponent implements OnInit {
     }
     else{  
       this.listEmp=resp;
+      console.log(this.listEmp);
       this.welcome_card=false
       }
     });
@@ -187,7 +188,7 @@ openDemandeAttestationDialog(){
   getStatutImmatriculation(id){
     this.immatServ.getStatutCertificatImmat(id).subscribe(
       (resp:any)=>{
-      console.log(resp);
+      console.log(resp.value.output.codeStatus);
       this.statusList=resp;
       }
     )

@@ -22,7 +22,6 @@
 <!-- <perfect-scrollbar class="scroller" style="z-index:1001;position: relative; max-height: 600px;">
  -->  
  <mat-drawer-container class="example-container mat-typography" autosize>
-    
     <mat-drawer #drawer mode="side" disableClose="true" opened="true">
       <button mat-mini-fab (click)="isExpanded = !isExpanded" style="margin: 10px;">
         <mat-icon aria-label="Menu">menu</mat-icon>
@@ -69,17 +68,12 @@
             <button  (click)="openImmatPopup(choiceTemplate)"  class="submit-button" mat-raised-button><mat-icon>add</mat-icon> Immatriculer un employeur</button>
         </div>  
         <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">
-          <mat-card class="welcome" *ngIf="welcome_card">
+         <mat-card class="welcome" *ngIf="welcome_card">
             <mat-card-content fxLayout="column" fxLayoutAlign="space-between center">
               <div>
                 <h1>Bienvenue dans votre espace !</h1> 
               </div>
-           <!--  <div>
-              <h4>Immatrculer des employeurs, declarer des salaries, effectuez des 
-                pres DNS, cotisations et des payements.
-              </h4>
-             </div>
-             -->
+         
             </mat-card-content>
           </mat-card>  
           <mat-card class="immatCard mt-3" *ngFor="let emp of listEmp; let i=index;">
@@ -88,7 +82,7 @@
               <div class="immatCard_detail">
                 <span fxLayout="row"><p>Raison sociale</p>&nbsp; | {{emp?.raisonSociale}} </span>
                 <span fxLayout="row"><b>NINEA</b>&nbsp;<mat-toolbar>{{emp?.numeroIdentifiant}}</mat-toolbar> </span>
-                <button (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Déclarer</button>
+              <button (click)="getEmployer(i);openDeclarationDialog(emp)" mat-button class="small-submit">Déclarer</button>
                 <a [routerLink]="['/espace-employer/',emp.id]">Voir dossier </a> 
               </div>
             </mat-card-content>

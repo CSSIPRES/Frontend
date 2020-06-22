@@ -72,6 +72,9 @@ export class DeclarationComponent implements OnInit,AfterViewInit {
   totalCotRcc:number=0;
   totalCotRg:number=0;
   totSalVerse:number=0;
+  displayMonth1:boolean=false;
+  displayMonth2:boolean=false;
+  displayMonth3:boolean=false;
   displayedColumns: string[] = ['numeroAssureSocial', 'nomEmploye', 'prenomEmploye', 'dateNaissance','numPieceIdentite','action'];  
   displayedColumns1 = ['nomEmploye', 'prenomEmploye', 'etatCivil', 'dateNaissance'];
   preDnsObject:any={
@@ -232,6 +235,7 @@ initDeclarationForm(){
 informationSalaries:new FormArray([])
 })
 }
+
 dateErrors:boolean=false;
   constructor(private fb:FormBuilder,private decService:DeclarationService,private empService:EmployeExistService,  private dialog:MatDialog,
     private route : ActivatedRoute,private empExistServ:EmployeExistService,
@@ -244,24 +248,24 @@ dateErrors:boolean=false;
   id:any="";
   ngOnInit() {
   this.emp= JSON.parse(window.localStorage.getItem('employerDataInput'));
-  this.initDeclarationForm();
+  this.initDeclarationForm(); 
     /* this.initForm(); */
     this.id = this.route.snapshot.params.id;
     console.log(this.id);
     this.getEmployer(this.id);
-    /* this.cumulTotal(); */
+    
+    /* this.cumulTotal(); */   
   }
-  displayMonth1:boolean=false;
-  displayMonth2:boolean=false;
-  displayMonth3:boolean=false;
-
+ 
+monthName1:string="";
+onthName2:string="";
+onthName3:string="";
   incrementDate(event){
   this.swictActiveDesactiveButton(event); 
   let debutCot= this.declarationForm.get('dateDebutCotisation').value;
   let finCot2:any=null;
   if(this.declarationForm.get('typeDeclaration').value=="MENSUEL") {
     let finCot1 = moment(debutCot).endOf('month').format('YYYY-MM-DD');
-    console.log(finCot1); 
     this.declarationForm.get('dateFinPeriodeCotisation').patchValue(finCot1);
     let monthSate1=Number.parseInt((moment(debutCot).month()).toString()); 
     let monthSemester=(monthSate1+1)%3;
@@ -285,9 +289,9 @@ dateErrors:boolean=false;
   else if(this.declarationForm.get('typeDeclaration').value=="TRIMESTRIEL"){
     let monthSate=Number.parseInt((moment(debutCot).month()).toString()); 
     let monthSemester=(monthSate+1)%3;
-    console.log(monthSemester);
     if(monthSemester==1){
     finCot2 = moment(debutCot).add(3,'month').subtract(1, 'months').endOf('month').format('YYYY-MM-DD');
+    
     this.displayMonth1=true;
     this.displayMonth2=true;
     this.displayMonth3=true;
@@ -307,6 +311,7 @@ dateErrors:boolean=false;
     this.declarationForm.get('dateFinPeriodeCotisation').patchValue(finCot2);   
   }
   }
+
   swictActiveDesactiveButton(event){
     this.declarationForm.valueChanges.subscribe(
     resp=>{
@@ -316,13 +321,15 @@ dateErrors:boolean=false;
       }
     })
   }
+
   preDns(){
+    
     let debutCot= this.declarationForm.get('dateDebutCotisation').value;  
     let finCot= this.declarationForm.get('dateFinPeriodeCotisation').value;  
     let d1=moment(debutCot).format('YYYY-MM-DD');
     let d2=moment(finCot).format('YYYY-MM-DD');
     this.preDnsObject.idIdentifiant=this.data1.idIdentifiant;
-    this.preDnsObject.typeIdentifiant='SCI';
+    this.preDnsObject.typeIdentifiant=this.data1.typeIdentifiant;
     this.preDnsObject.adresse=this.data1.address;
     this.preDnsObject.dateDebutCotisation=d1;
     this.preDnsObject.dateFinPeriodeCotisation=d2;
@@ -349,7 +356,7 @@ dateErrors:boolean=false;
         
         /* console.log(this.fillListDecForm(resp.value.informationSalaries)); */
        this.declarationForm=new FormGroup({
-        typeIdentifiant:new FormControl('SCI', Validators.required),
+        typeIdentifiant:new FormControl(this.data1.typeIdentifiant, Validators.required),
           idIdentifiant:new FormControl(this.data1.idIdentifiant, Validators.required),
           raisonSociale:new FormControl(this.data1.raisonSociale, Validators.required),
           adresse:new FormControl(this.data1.address),
@@ -381,8 +388,8 @@ dateErrors:boolean=false;
      
      /* console.log(this.dataSource); */
   }
-  formaDate(){
-    
+
+  formaDate(){ 
     let salList=this.declarationForm.get('informationSalaries').value;
     console.log(salList);
     for(let i=0;i<salList.length;i++){
@@ -392,6 +399,13 @@ dateErrors:boolean=false;
       let d4=salList[i].dateEffetRegimeCadre1;
       let d5=salList[i].dateEffetRegimeCadre2;
       let d6=salList[i].dateEffetRegimeCadre3;
+
+      if(salList[i].dateSortie!=null){
+        salList[i].dateSortie=moment(d3).format('YYYY-MM-DD')
+      }
+      else{
+        salList[i].dateSortie=null;
+      }
       if(salList[i].dateEffetRegimeCadre1!=null){
         d4=salList[i].dateEffetRegimeCadre1;
         console.log(d4); 
@@ -413,14 +427,14 @@ dateErrors:boolean=false;
       if(salList[i].dateEffetRegimeCadre3!=null){
       salList[i].dateEffetRegimeCadre3=moment(d6).format("YYYY-MM-DD");
       console.log(moment(d6).format("YYYY-MM-DD"));
-      /* salList[i].dateEffetRegimeCadre3=null; */
-      }
-      else{
+      /* salList[i].dateEffetRegimeCadre3=null; */    
+      }      
+      else{               
         salList[i].dateEffetRegimeCadre3=null;
       }
       salList[i].dateNaissance=moment(d1).format('YYYY-MM-DD');
       salList[i].dateEntree=moment(d2).format('YYYY-MM-DD');
-      salList[i].dateSortie=moment(d3).format('YYYY-MM-DD');
+      /* salList[i].dateSortie=moment(d3).format('YYYY-MM-DD'); */
       /* salList[i].dateEffetRegimeCadre1=moment(d4).format('YYYY-MM-DD'); */
       /* salList[i].dateEffetRegimeCadre2=moment(d5).format('YYYY-MM-DD'); */
       /* salList[i].dateEffetRegimeCadre3=moment(d6).format('YYYY-MM-DD'); */
@@ -826,6 +840,7 @@ applyFilter(filterValue: string) {
     }
      let b=totSalAssCssAtmp1+totSalAssCssAtmp2+totSalAssCssAtmp3;
      this.totSalAssCssAtmp=b;
+     console.log(this.data1.tauxAT);
      this.totalCotAtmp= Number.parseInt((this.totSalAssCssAtmp*(this.data1.tauxAT/100)).toString());
      if(listSal[i].salaireBrut1!=0){
       if( listSal[i].totSalAssIpresRcc1>=1080000){
@@ -873,6 +888,7 @@ applyFilter(filterValue: string) {
      }
     this.totSalAssIpresRcc=totSalAssIpresRcc1 + totSalAssIpresRcc2 + totSalAssIpresRcc3;
     this.totalCotRcc= Number.parseInt((this.totSalAssIpresRcc*0.06).toString());
+    console.log("totalCotRcc",this.totalCotRcc)
     if(listSal[i].salaireBrut1!=0){
       if(listSal[i].totSalAssIpresRg1>=360000){
         totSalAssIpresRg1=totSalAssIpresRg1 +360000;
@@ -926,38 +942,259 @@ applyFilter(filterValue: string) {
    } 
    this.totSalVerse=salBrut1 +salBrut2 +salBrut3;
    console.log(this.totSalVerse); 
-  }         
+  }   
+
   autoFillMontantMonth1(i){
     let listSal=(this.declarationForm.get('informationSalaries') as FormArray);
-    if(listSal.value[i].salaireBrut1>=63000 && listSal.value[i].salaireBrut1<360000){
+    let salAss1=<FormArray>this.declarationForm.controls["informationSalaries"];
+    if(listSal.value[i].salaireBrut1==0){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf1":0,
+        "totSalAssCssAtmp1":0,
+        "totSalAssIpresRg1":0,
+        "totSalAssIpresRcc1":0
+      });
+    }
+    else if(listSal.value[i].salaireBrut1<63000 && listSal.value[i].salaireBrut1>36243){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf1":listSal.value[i].salaireBrut1,
+        "totSalAssCssAtmp1":listSal.value[i].salaireBrut1,
+        "totSalAssIpresRg1":listSal.value[i].salaireBrut1
+      });
+      if(listSal.value[i].regimCompCadre1=="true") {    
+        salAss1.controls[i].patchValue({
+       "totSalAssIpresRcc1":listSal.value[i].salaireBrut1  
+        });
+      }    
+     else if(listSal.value[i].regimCompCadre1=="false"){   
+    salAss1.controls[i].patchValue({
+      "totSalAssIpresRcc1":0  
+       });
+      }
+    }
+   else if(listSal.value[i].salaireBrut1>=63000 && listSal.value[i].salaireBrut1<360000){
 
-let salAss1=<FormArray>this.declarationForm.controls["informationSalaries"];
-      salAss1.controls[i].patchValue(true);
+      
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf1":63000,
+        "totSalAssCssAtmp1":63000,
+        "totSalAssIpresRg1":listSal.value[i].salaireBrut1
+      });
 
-      listSal.value[i].totSalAssCssPf1=63000;
-      listSal.value[i].totSalAssCssPf1.patchValue(63000);
-      console.log(listSal.value[i].totSalAssCssPf1);
-      listSal.value[i].totSalAssCssAtmp1=63000;
-      listSal.value[i].totSalAssIpresRg1=listSal.value[i].salaireBrut1;
-    if(listSal.value[i].regimCompCadre1==true) {    
-          listSal.value[i].totSalAssIpresRcc1=listSal.value[i].salaireBrut1;
+    if(listSal.value[i].regimCompCadre1=="true") {    
+          salAss1.controls[i].patchValue({
+         "totSalAssIpresRcc1":listSal.value[i].salaireBrut1  
+          });
         }    
-    else{   
-          listSal.value[i].totSalAssIpresRcc1=0
+    else if(listSal.value[i].regimCompCadre1=="false"){   
+      salAss1.controls[i].patchValue({
+        "totSalAssIpresRcc1":0  
+      });
         }
       }
-    else if(listSal.value[i].salaireBrut1>=360000){
-        listSal.value[i].totSalAssCssPf1=63000;
-        listSal.value[i].totSalAssCssAtmp1=63000;
-        listSal.value[i].totSalAssIpresRg1=360000;
-          if(listSal.value[i].regimCompCadre1==true){
-          listSal.value[i].totSalAssIpresRcc1=listSal[i].value.salaireBrut1;
-        }
-          else{
-          listSal[i].value.totSalAssIpresRcc1=0
+    else if(listSal.value[i].salaireBrut1>=360000 && listSal.value[i].salaireBrut1<1080000){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf1":63000,
+        "totSalAssCssAtmp1":63000,
+        "totSalAssIpresRg1":360000
+      });
+      if(listSal.value[i].regimCompCadre1=="true") {    
+        salAss1.controls[i].patchValue({
+       "totSalAssIpresRcc1":listSal.value[i].salaireBrut1  
+        });
+      } 
+        else if(listSal.value[i].regimCompCadre1=="false"){
+            salAss1.controls[i].patchValue({
+              "totSalAssIpresRcc1":0  
+            });
         }
       }
-    
+      else if(listSal.value[i].salaireBrut1 >=1080000){
+        console.log("ok")
+        salAss1.controls[i].patchValue({
+          "totSalAssCssPf1":63000,
+          "totSalAssCssAtmp1":63000,
+          "totSalAssIpresRg1":360000
+        });
+        if(listSal.value[i].regimCompCadre1=="true") {    
+          salAss1.controls[i].patchValue({
+         "totSalAssIpresRcc1":1080000  
+          });
+        } 
+          else if(listSal.value[i].regimCompCadre1=="false"){
+              salAss1.controls[i].patchValue({
+                "totSalAssIpresRcc1":0  
+              });
+          }
+      }
+  }
+  autoFillMontantMonth3(i){
+    let listSal=(this.declarationForm.get('informationSalaries') as FormArray);
+    let salAss1=<FormArray>this.declarationForm.controls["informationSalaries"];
+    if(listSal.value[i].salaireBrut3==0){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf3":0,
+        "totSalAssCssAtmp3":0,
+        "totSalAssIpresRg3":0,
+        "totSalAssIpresRcc3":0
+      });
+    }
+    else if(listSal.value[i].salaireBrut3<63000 && listSal.value[i].salaireBrut3>36243){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf3":listSal.value[i].salaireBrut3,
+        "totSalAssCssAtmp3":listSal.value[i].salaireBrut3,
+        "totSalAssIpresRg3":listSal.value[i].salaireBrut3
+      });
+      if(listSal.value[i].regimCompCadre3=="true") {    
+        salAss1.controls[i].patchValue({
+       "totSalAssIpresRcc3":listSal.value[i].salaireBrut3 
+        });
+      }    
+     else if(listSal.value[i].regimCompCadre3=="false"){   
+    salAss1.controls[i].patchValue({
+      "totSalAssIpresRcc3":0  
+       });
+      }
+    }
+   else if(listSal.value[i].salaireBrut3>=63000 && listSal.value[i].salaireBrut3<360000){
+
+      
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf3":63000,
+        "totSalAssCssAtmp3":63000,
+        "totSalAssIpresRg3":listSal.value[i].salaireBrut3
+      });
+
+    if(listSal.value[i].regimCompCadre3=="true") {    
+          salAss1.controls[i].patchValue({
+         "totSalAssIpresRcc3":listSal.value[i].salaireBrut3  
+          });
+        }    
+    else if(listSal.value[i].regimCompCadre3=="false"){   
+      salAss1.controls[i].patchValue({
+        "totSalAssIpresRcc3":0  
+      });
+        }
+      }
+    else if(listSal.value[i].salaireBrut3>=360000 && listSal.value[i].salaireBrut3<1080000){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf3":63000,
+        "totSalAssCssAtmp3":63000,
+        "totSalAssIpresRg3":360000
+      });
+      if(listSal.value[i].regimCompCadre3=="true") {    
+        salAss1.controls[i].patchValue({
+       "totSalAssIpresRcc3":listSal.value[i].salaireBrut3 
+        });
+      } 
+        else if(listSal.value[i].regimCompCadre3=="false"){
+            salAss1.controls[i].patchValue({
+              "totSalAssIpresRcc3":0  
+            });
+        }
+      }
+      else if(listSal.value[i].salaireBrut3 >=1080000){
+        console.log("ok")
+        salAss1.controls[i].patchValue({
+          "totSalAssCssPf3":63000,
+          "totSalAssCssAtmp3":63000,
+          "totSalAssIpresRg3":360000
+        });
+        if(listSal.value[i].regimCompCadre3=="true") {    
+          salAss1.controls[i].patchValue({
+         "totSalAssIpresRcc3":1080000  
+          });
+        } 
+          else if(listSal.value[i].regimCompCadre3=="false"){
+              salAss1.controls[i].patchValue({
+                "totSalAssIpresRcc3":0  
+              });
+          }
+      }       
+  }       
+  autoFillMontantMonth2(i){
+    let listSal=(this.declarationForm.get('informationSalaries') as FormArray);
+    let salAss1=<FormArray>this.declarationForm.controls["informationSalaries"];
+    if(listSal.value[i].salaireBrut2==0){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf2":0,
+        "totSalAssCssAtmp2":0,
+        "totSalAssIpresRg2":0,
+        "totSalAssIpresRcc2":0
+      });
+    }
+    else if(listSal.value[i].salaireBrut2<63000 && listSal.value[i].salaireBrut2>36243){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf2":listSal.value[i].salaireBrut2,
+        "totSalAssCssAtmp2":listSal.value[i].salaireBrut2,
+        "totSalAssIpresRg2":listSal.value[i].salaireBrut2
+      });
+      if(listSal.value[i].regimCompCadre2=="true") {    
+        salAss1.controls[i].patchValue({
+       "totSalAssIpresRcc2":listSal.value[i].salaireBrut2  
+        });
+      }    
+     else if(listSal.value[i].regimCompCadre2=="false"){   
+    salAss1.controls[i].patchValue({
+      "totSalAssIpresRcc2":0  
+       });
+      }
+    }
+   else if(listSal.value[i].salaireBrut2>=63000 && listSal.value[i].salaireBrut2<360000){
+
+      
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf2":63000,
+        "totSalAssCssAtmp2":63000,
+        "totSalAssIpresRg2":listSal.value[i].salaireBrut2
+      });
+
+    if(listSal.value[i].regimCompCadre2=="true") {    
+          salAss1.controls[i].patchValue({
+         "totSalAssIpresRcc2":listSal.value[i].salaireBrut2  
+          });
+        }    
+    else if(listSal.value[i].regimCompCadre2=="false"){   
+      salAss1.controls[i].patchValue({
+        "totSalAssIpresRcc2":0  
+      });
+        }
+      }
+    else if(listSal.value[i].salaireBrut2>=360000 && listSal.value[i].salaireBrut2<1080000){
+      salAss1.controls[i].patchValue({
+        "totSalAssCssPf2":63000,
+        "totSalAssCssAtmp2":63000,
+        "totSalAssIpresRg2":360000
+      });
+      if(listSal.value[i].regimCompCadre2=="true") {    
+        salAss1.controls[i].patchValue({
+       "totSalAssIpresRcc2":listSal.value[i].salaireBrut2 
+        });
+      } 
+        else if(listSal.value[i].regimCompCadre2=="false"){
+            salAss1.controls[i].patchValue({
+              "totSalAssIpresRcc2":0  
+            });
+        }
+      }
+      else if(listSal.value[i].salaireBrut2 >=1080000){
+        console.log("ok")
+        salAss1.controls[i].patchValue({
+          "totSalAssCssPf2":63000,
+          "totSalAssCssAtmp2":63000,
+          "totSalAssIpresRg2":360000
+        });
+        if(listSal.value[i].regimCompCadre2=="true") {    
+          salAss1.controls[i].patchValue({
+         "totSalAssIpresRcc2":1080000  
+          });
+        } 
+          else if(listSal.value[i].regimCompCadre2=="false"){
+              salAss1.controls[i].patchValue({
+                "totSalAssIpresRcc2":0  
+              });
+          }
+      }
   }
   get typeIdentifiant() {
     return this.declarationForm.get('typeIdentifiant');
