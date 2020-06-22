@@ -48,3 +48,6 @@ table{
     position: relative;
     font-size: 25px;
 }
+.empCard1{
+  max-height: 50px;
+}

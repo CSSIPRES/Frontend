@@ -292,13 +292,13 @@
                     </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis PF1</mat-label>
-                        <input type="number" formControlName="totSalAssCssPf1" matInput />
+                        <input type="number" formControlName="totSalAssCssPf1" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis ATMP1</mat-label>
-                        <input  type="number" formControlName="totSalAssCssAtmp1" matInput />
+                        <input  type="number" formControlName="totSalAssCssAtmp1" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>       
@@ -306,13 +306,13 @@
                     <div fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field fxFlex="35" appearance="outline">
                         <mat-label>Total salaires assujettis IPRES RG1</mat-label>
-                        <input  type="number" formControlName="totSalAssIpresRg1" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRg1" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex="35" appearance="outline">
                         <mat-label>Total salaires assujettis IPRES RCC1</mat-label>
-                        <input  type="number" formControlName="totSalAssIpresRcc1" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRcc1" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -374,19 +374,19 @@
                     <div class="mt-5" fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Salaire brut</mat-label>
-                        <input  type="number" formControlName="salaireBrut2" matInput />
+                        <input (blur)="autoFillMontantMonth2(i)"  type="number" formControlName="salaireBrut2" matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis PF2</mat-label>
-                        <input  type="number" formControlName="totSalAssCssPf2" matInput />
+                        <input  type="number" formControlName="totSalAssCssPf2" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis ATMP2</mat-label>
-                        <input  type="number" formControlName="totSalAssCssAtmp2" matInput />
+                        <input  type="number" formControlName="totSalAssCssAtmp2" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>     
@@ -394,13 +394,13 @@
                     <div fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis IPRES RG2</mat-label>
-                        <input  type="number" formControlName="totSalAssIpresRg2" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRg2" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis IPRES RCC2</mat-label>
-                        <input  type="number" formControlName="totSalAssIpresRcc2" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRcc2" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -460,19 +460,19 @@
                     <div class="mt-5" fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Salaire brut</mat-label>
-                        <input  type="number" formControlName="salaireBrut3" matInput />
+                        <input (blur)="autoFillMontantMonth3(i)"  type="number" formControlName="salaireBrut3" matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis PF3</mat-label>
-                        <input  type="number" formControlName="totSalAssCssPf3" matInput />
+                        <input  type="number" formControlName="totSalAssCssPf3" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis ATMP3</mat-label>
-                        <input  type="number" formControlName="totSalAssCssAtmp3" matInput />
+                        <input  type="number" formControlName="totSalAssCssAtmp3" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
@@ -481,13 +481,13 @@
                     <div fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis IPRES RG3</mat-label>
-                        <input  type="number" formControlName="totSalAssIpresRg3" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRg3" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline">
                         <mat-label>Total salaires assujettis IPRES RCC3</mat-label>
-                        <input  type="number" formControlName="totSalAssIpresRcc3" matInput />
+                        <input  type="number" formControlName="totSalAssIpresRcc3" readonly matInput />
                         <div class="matSuff"  matSuffix>FCFA</div>
                         <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field> 
@@ -596,22 +596,22 @@
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex=50>
-              <span><b>Montant cotisation Pf par Employe</b> &nbsp;
+              <span><b>Montant cotisation PF</b> &nbsp;
                 {{ totalCotPf }}</span>
             </div>
             <div fxFlex="50">
-              <span><b>Montant cotisation Atmp par Employeur</b> &nbsp;
+              <span><b>Montant cotisation AT/MP</b> &nbsp;
                 {{ totalCotAtmp }}</span>
             </div>
           </div>
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex="50">
-              <span><b>Montant cotisation RG par Employe</b> &nbsp;
+              <span><b>Montant cotisation RG</b> &nbsp;
                 {{ totalCotRg }}</span>
             </div>
             <div fxFlex="50">
-              <span><b>Montant cotisation RCC par Employeur</b> &nbsp;
+              <span><b>Montant cotisation RCC</b> &nbsp;
                 {{ totalCotRcc }}</span>
             </div>
           </div>

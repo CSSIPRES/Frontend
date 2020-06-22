@@ -68,17 +68,12 @@
             <button  (click)="openImmatPopup(choiceTemplate)"  class="submit-button" mat-raised-button><mat-icon>add</mat-icon> Immatriculer un employeur</button>
         </div>  
         <div class="container ml-5" fxLayout="row wrap"  fxLayoutGap="5%">
-          <mat-card class="welcome" *ngIf="welcome_card">
+         <mat-card class="welcome" *ngIf="welcome_card">
             <mat-card-content fxLayout="column" fxLayoutAlign="space-between center">
               <div>
                 <h1>Bienvenue dans votre espace !</h1> 
               </div>
-           <!--  <div>
-              <h4>Immatrculer des employeurs, declarer des salaries, effectuez des 
-                pres DNS, cotisations et des payements.
-              </h4>
-             </div>
-             -->
+         
             </mat-card-content>
           </mat-card>  
           <mat-card class="immatCard mt-3" *ngFor="let emp of listEmp; let i=index;">

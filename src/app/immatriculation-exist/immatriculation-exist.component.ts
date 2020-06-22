@@ -73,6 +73,7 @@ export class ImmatriculationExistComponent implements OnInit {
 
   ngOnInit() {
      this.userName=window.localStorage.getItem("user");
+     console.log(this.userName);
     this.getUser();
   }
 
@@ -166,16 +167,16 @@ export class ImmatriculationExistComponent implements OnInit {
   this.employeInfo.statutDossier=outputValue.statutDossier;
   this.employeInfo.statutImmatriculation=outputValue.statutImmatriculation;
   this.employeInfo.idDossiers=null;
- this.employeInfo.documents=null;
+  this.employeInfo.documents=null;
   this.employeInfo.user.id=this.currentUser.id;
- this.employeInfo.user.login=this.currentUser.login;
- this.employeInfo.user.firstName=this.currentUser.firstName;
- this.employeInfo.user.lastName=this.currentUser.lastName;
- this.employeInfo.user.email=this.currentUser.email;
- this.employeInfo.user.activated='true';
- this.employeInfo.user.langKey="fr";
- this.employeInfo.user.imageUrl="";
- this.employeInfo.user.resetDate=null;
+  this.employeInfo.user.login=this.currentUser.login;
+  this.employeInfo.user.firstName=this.currentUser.firstName;
+  this.employeInfo.user.lastName=this.currentUser.lastName;
+  this.employeInfo.user.email=this.currentUser.email;
+  this.employeInfo.user.activated='true';
+  this.employeInfo.user.langKey="fr";
+  this.employeInfo.user.imageUrl="";
+  this.employeInfo.user.resetDate=null;
 
   console.log(this.employeInfo);
   return this.employeInfo;
