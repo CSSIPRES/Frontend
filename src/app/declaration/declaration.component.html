@@ -281,7 +281,7 @@
                   </mat-form-field>
                 </div>       
                 <mat-tab-group fxLayoutGap="20" mat-align-tabs="center">
-                 <mat-tab *ngIf="displayMonth1" label="Montant cotisation du Mois 1"> 
+                 <mat-tab *ngIf="displayMonth1" label="Cotisation du Mois 1"> 
                   
                   <div class="mt-5" fxLayout="row" fxLayoutGap="5%">
                     <mat-form-field appearance="outline">
@@ -370,7 +370,7 @@
                       </mat-form-field>
                     </div>
                   </mat-tab>
-                  <mat-tab *ngIf="displayMonth2" label="Montant cotisation du Mois 2">
+                  <mat-tab *ngIf="displayMonth2" label="Cotisation du Mois 2">
                     <div class="mt-5" fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Salaire brut</mat-label>
@@ -456,7 +456,7 @@
                       </mat-form-field>
                     </div> 
                   </mat-tab>
-                  <mat-tab *ngIf="displayMonth3" label="Montant cotisation du Mois 3">
+                  <mat-tab *ngIf="displayMonth3" label="Cotisation du Mois 3">
                     <div class="mt-5" fxLayout="row" fxLayoutGap="2%">
                       <mat-form-field appearance="outline">
                         <mat-label>Salaire brut</mat-label>
@@ -567,7 +567,7 @@
             </div>
             <div fxFlex="50">
               <span>
-                <b> Cumule total salaire assujetis Ipres RG &nbsp;</b>
+                <b> Cumul total salaires assujettis IPRES RG &nbsp;</b>
                 {{ totSalAssIpresRg }}
               </span>
             </div>
@@ -575,22 +575,22 @@
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex="50">
-              <span><b>Cumule total salaire assujetis CSS PF</b> &nbsp;
+              <span><b>Cumul total salaires assujettis CSS PF</b> &nbsp;
                 {{ totSalAssCssPf }}</span>
             </div>
             <div fxFlex="50">
-              <span><b>Cumule total salaire assujetis Ass Css Atmp</b> &nbsp;
+              <span><b>Cumul total salaires assujettis CSS AT/MP</b> &nbsp;
                 {{ totSalAssCssAtmp }}</span>
             </div>
           </div>
           <mat-divider class="inset mt-3"></mat-divider>
           <div class="mt-3" fxFlex="row" fxLayoutGap="5%">
             <div fxFlex="50">
-              <span><b>Cumule total salaire assujetis Ipres RCC</b> &nbsp;
+              <span><b>Cumul total salaires assujettis IPRES RCC</b> &nbsp;
                 {{ totSalAssIpresRcc }}</span>
             </div>
             <div fxFlex=50>
-              <span><b>Total salaire verses</b> &nbsp; {{ totSalVerse  }}</span>
+              <span><b>Total des salaires versés</b> &nbsp; {{ totSalVerse  }}</span>
             </div>
           </div>
           <mat-divider class="inset mt-3"></mat-divider>

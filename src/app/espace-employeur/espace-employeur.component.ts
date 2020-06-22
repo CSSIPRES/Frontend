@@ -165,4 +165,9 @@ constructor(private route : ActivatedRoute,
       dialogConfig.height='600px'
     let dialogRef= this.dialog.open(SuiviDemandeComponent, dialogConfig);
 } 
+
+goToProfil(){
+  this.router.navigate(['/mon-profil']);
+}
+
 }
