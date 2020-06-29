@@ -46,22 +46,22 @@ export class LoginService {
   activatedAccount(key:string){
     let token = "";
 
-    this.authenticate({username:"admin",password:"admin"})
+    /* this.authenticate({username:"admin",password:"admin"})
     .subscribe(
       (data:any)=>{
         console.log(data.id_token);
-       token = data.id_token;
-       this.httpCli.get(environment.BASE_URL + "activate/"+key
+       token = data.id_token; */
+       this.httpCli.get(environment.BASE_URL + "activate?key="+key
          // {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU5MjA2NTU1MH0.613aRZLzBmxKuHkhvBshCEQVbLavHeh8tCn2gc8RTgDl3URKCtbaiMh1BW35ZLBCswd_sURhOfDPrDKk3l0cVw'})} 
           )
           .subscribe((resp)=>{
                 console.log("Compte activé");
           },err=>{
             console.log("Compte non activé");
-            console.log(data.id_token);
+            //console.log(data.id_token);
           })
-      }
-    );
+    /*   }
+    ); */
    /* return this.httpCli.get(environment.BASE_URL + "activate/"+key,
     {headers: new HttpHeaders({'Content-Type':  'application/json','Authorization': 'Bearer'+' '+token})} ); */
   }

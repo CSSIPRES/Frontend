@@ -50,7 +50,7 @@ export class AccueilComponent implements OnInit {
          if(this.key){
            if(this.key.length > 10){
 
-              // this.login.activatedAccount(this.key);
+              this.login.activatedAccount(this.key);
               this.opensweetalert("","success","Votre compte est activé avec succès ! Veuillez vous connecter avec vos nouveaux identifiants");
             
            }else{
