@@ -169,7 +169,7 @@
             </div>
 
             <div fxLayoutAlign="end" fxLayoutGap="5%">
-              <button [disabled]="!immatForm.get('input').get('employerQuery').valid" class="submit-button"
+              <button  [disabled]="!immatForm.get('input').get('employerQuery').valid" class="submit-button"
                 mat-raised-button (click)="goForward($event)">Suivant<mat-icon>arrow_forward</mat-icon></button>
             </div>
           </div>
@@ -952,13 +952,6 @@
                     </mat-form-field>
                   </div>
                   <div fxLayout="row" fxLayoutGap="5%">
-                    <mat-form-field appearance="outline">
-                      <mat-label>Date d'expiration</mat-label>
-                      <input matInput formControlName="expireLe" required [matDatepicker]="expireLe">
-                      <mat-datepicker-toggle matSuffix [for]="expireLe"></mat-datepicker-toggle>
-                      <mat-datepicker #expireLe></mat-datepicker>
-                      <mat-error>Ce champ est obligatoire.</mat-error>
-                    </mat-form-field>
                     <mat-form-field *ngIf="immatForm.get('input').get('employeList').value[i].typePieceIdentite=='NIN'"
                       appearance="outline">
                       <mat-label>Numero de carte d'identité</mat-label>
@@ -984,6 +977,14 @@
                       <input matInput formControlName="numPieceIdentite">
                       <mat-error>Ce champ est obligatoire.</mat-error>
                     </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Date d'expiration</mat-label>
+                      <input matInput formControlName="expireLe" required [matDatepicker]="expireLe">
+                      <mat-datepicker-toggle matSuffix [for]="expireLe"></mat-datepicker-toggle>
+                      <mat-datepicker #expireLe></mat-datepicker>
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
+                    
                     <mat-form-field appearance="outline">
                       <mat-label>Lieu delivrance</mat-label>
                       <mat-select formControlName="lieuDelivrance" required>
@@ -2268,7 +2269,7 @@
               <div fxFlex="50">
                 <b> Nom de l'entreprise</b>
                 &nbsp;
-                <span>{{shortName.value}}</span>
+                <span>{{employerName.value}}</span>
               </div>
               <div fxFlex="50">
                 <b>Activité Principale</b>
@@ -2295,7 +2296,7 @@
               <div fxFlex="50">
                 <b>Date d'ouverture</b>
                 &nbsp;
-                <span>{{immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value}}</span>
+                <span>{{immatForm.get('input').get('mainRegistrationForm').get('dateOfFirstHire').value | date:'shortDate'}}</span>
               </div>
               <div fxFlex="50">
                 <b>Région</b>
@@ -2379,19 +2380,19 @@
                 <span>{{employerName.value}}</span>
               </div>
               <div fxFlex="50">
-                <b>Numero ninea</b>
+                <b>NINEA</b>
                 &nbsp;
                 <span>{{nineaNumber.value}}</span>
               </div>
             </div>
 
-            <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
+            <!-- <div fxLayout="row" class="back_report pt-3 pb-3 pl-3" fxLayoutGap="5%">
               <div fxFlex="50">
                 <b>Numero ninet</b>
                 &nbsp;
                 <span> {{regType.value}}</span>
               </div>
-            </div>
+            </div> -->
 
           </div>
           <div *ngIf="infoRepLeg" class="report_repLeagl pb-5">

@@ -54,18 +54,18 @@
           <div class="container"  fxLayout="row wrap" fxLayoutAlign="center">
             <mat-card fxFlex="80" class="empCard1 mt-3">
             <mat-card-content>
-              <h4>Numero dossier: {{empInfo?.processFlowId}}</h4>
+              <h4>Numéro du dossier d'immatriculation: <strong>{{empInfo?.processFlowId}}</strong></h4>
             </mat-card-content> 
             </mat-card> 
           </div>
-          <div class="container" fxLayout="row wrap" fxLayoutAlign="center"  fxLayoutGap="5%">  
+          <div class="container" fxLayout="row wrap" fxLayoutAlign="center"  fxLayoutGap="10%">  
             <mat-card class="empCard mt-3">
               <mat-card-header><h4>Information employeur</h4></mat-card-header>
             <mat-card-content>  
               <div fxLayout="column wrap">
               <div>
-              <span class="mt-2">Nom: {{empInfo?.firstName}}</span>  
-              <span class="mt-2">Prenom: {{empInfo?.lastName}}</span>
+              <!--<span class="mt-2">Nom: {{empInfo?.firstName}}</span>  
+              <span class="mt-2">Prenom: {{empInfo?.lastName}}</span>-->
             </div>
               <span class="mt-2">Numero identifiant:  {{empInfo?.numeroIdentifiant}}</span>
              <!--  <div *ngIf="employerType=='PVT'"> -->
@@ -73,7 +73,7 @@
               <!-- </div> -->
               <span class="mt-2">Numero dossier: {{empInfo?.processFlowId}}</span>
               <!-- <span class="mt-2">tauxAt:  {{empInfo?.tauxAT}}</span> -->
-              <span class="mt-2">Telephone  <strong>{{empInfo?.telephone}}</strong></span> 
+              <span class="mt-2">Telephone:  {{empInfo?.telephone}}</span> 
               <span class="mt-2">Quartier: {{empInfo?.qartier}}</span>
              
              </div>
@@ -102,6 +102,53 @@
           </div>
           <div class="container" fxLayout="row wrap"  fxLayoutGap="5%">  
             
+          </div>
+          <div class="container"  fxLayout="row wrap" fxLayoutAlign="center">
+            <mat-card fxFlex="80" class="empCard mt-3">
+              <mat-card-header><h4>Liste de mes demandes de services</h4></mat-card-header>
+            <mat-card-content>
+              <table *ngIf="dataSource!=null" mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="typeDemande">
+                  <th mat-header-cell *matHeaderCellDef> Type de demande </th>
+                  <td mat-cell *matCellDef="let element"> {{element.typeDemande}} </td>
+                </ng-container>
+                <ng-container matColumnDef="idDossier">
+                  <th mat-header-cell *matHeaderCellDef> Numéro de dossier</th>
+                  <td mat-cell *matCellDef="let element"> {{element.idDossier}} </td>
+                </ng-container>
+                <ng-container matColumnDef="statutDossier">
+                  <th mat-header-cell *matHeaderCellDef> Statut de la demande </th>
+                  <td mat-cell *matCellDef="let element"> {{element.statutDossier}} </td>
+                </ng-container>
+                <ng-container matColumnDef="urlDocument">
+                  <th mat-header-cell *matHeaderCellDef> Document </th>
+                  <td mat-cell *matCellDef="let element"  >
+                    <span *ngIf="element.urlDocument  == 'Non disponible'">  {{element.urlDocument}} </span> 
+
+                     <button *ngIf="element.urlDocument  != 'Non disponible'" (click)="openAttestationDialog('',element.urlDocument)" class="icon-file-dowload" mat-button> 
+                      <mat-icon>cloud_download</mat-icon> Visualiser
+                     </button>
+                    </td>
+                </ng-container>
+                 
+                <!-- <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>Action </th>
+                  <td mat-cell *matCellDef="let element; let j=index;">
+                    <button mat-fab (click)="fillEmpForm(j)" mat-mini-fab>
+                      <mat-icon class="edit">edit</mat-icon>
+                    </button> &nbsp;
+                    <button mat-fab mat-mini-fab (click)="removeEmp(j)">
+                      <mat-icon class="delete">delete_outline</mat-icon>
+                    </button> </td>
+                  <td mat-cell *matCellDef="let element"> </td>
+                </ng-container> -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <mat-paginator #paginator [pageSize]="3" [pageSizeOptions]="[3, 5, 10]">
+                </mat-paginator>
+              </table>
+            </mat-card-content> 
+            </mat-card> 
           </div>
         </div>
       </div>

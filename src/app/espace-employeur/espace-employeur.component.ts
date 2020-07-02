@@ -7,6 +7,11 @@ import { ViewPdfComponent } from '../view-pdf/view-pdf.component';
 import { PaiementComponent } from '../paiement/paiement.component';
 import { SuiviDemandeComponent } from '../suivi-demande/suivi-demande.component';
 import { LoginService } from '../services/login.service';
+import {
+    MatSnackBar, NativeDateAdapter
+  , MatTableDataSource, MatDatepickerInputEvent, DateAdapter, MAT_DATE_FORMATS, MatStepper
+} from '@angular/material';
+import { DemandesServiceService } from '../services/demandes-service.service';
 @Component({
   selector: 'app-espace-employeur',
   templateUrl: './espace-employeur.component.html',
@@ -16,6 +21,12 @@ export class EspaceEmployeurComponent implements OnInit {
 id:number;
 isExpanded:boolean=false;
 empInfo:any=[];
+
+displayedColumns: string[] = ['typeDemande', 'idDossier', 'statutDossier', 'urlDocument'];
+dataSource: MatTableDataSource<any>;
+
+demandes:any = [];
+
 
 // Loader Statut and URL certification
 loaderUrlImmat:boolean = false;
@@ -28,7 +39,7 @@ userName:string="";
 tok:string="";
 checkConn:boolean=false;
 constructor(private route : ActivatedRoute,
-    private immatriculationService:ImmatriculationService,
+    private immatriculationService:ImmatriculationService, private demandeService:DemandesServiceService,
     private dialog:MatDialog,
     private empService:EmployeExistService,private userService:LoginService,private router:Router) { }
     
@@ -48,6 +59,7 @@ constructor(private route : ActivatedRoute,
     this.id = this.route.snapshot.params.id;
     console.log(this.id);
     this.getEmployer(this.id);
+    this.getDemandesByEmployeur(this.id);
 
   }
 
@@ -79,8 +91,105 @@ constructor(private route : ActivatedRoute,
     })
   }
 
+  getDemandesByEmployeur(id){
+    this.demandeService.getDemandeByEmployeur(id).subscribe((resp:any)=>{
+    
+      if (resp){
+         for (let i = 0; i < resp.length; i++) {
+          let demande:any= {} ;
+          demande.typeDemande = resp[i].typeDemande;
+          demande.idDossier = resp[i].idDossier;
+
+          this.immatriculationService.getStatusAttestationRegularite(resp[i].idDossier)
+                .subscribe(
+                  (data:any)=>{
+                    console.log(data);
+                    if(data){
+                      demande.statutDossier = data.value.output.description ;
+
+                      if( data.value.output.codeStatus == 'IMPRESSION' && data.value.output.codeStatus != null){
+                        this.immatriculationService.getUrlAttestationRegularite(resp[i].idDossier)
+                        .subscribe(
+                          (data:any)=>{
+                            console.log(data);
+                            if(data){
+                              demande.statutDossier = "Votre demande a été traitée avec succès" ;
+                              demande.urlDocument = data.value.output.url  ;
+                              //this.urlAtt = data.value.output.url;
+                              //this.loader = false;
+                            }
+                          },err=>{
+                            //this.loader = false;
+                            console.log(err);
+                          }
+                        )
+
+                      }
+                      else if(data.value.output.codeStatus == 'REJETER'){
+                        demande.statutDossier = "Votre demande a été rejetée" ;
+                        demande.urlDocument = "Non disponible";
+                      }
+                      else {
+                        demande.urlDocument = "Non disponible";
+                      }
+                      
+                       
+                    }
+                  },err=>{
+                    console.log(err);
+                     
+                  });
+                   
+             this.demandes.push(demande);
+             
+        }
+                
+                  console.log(this.demandes);
+
+                  this.dataSource = this.demandes ;
+                  console.log(this.dataSource);
+                  //console.log(this.dataSource.length)
+      }
+          
+    
+})
+  }
+
+     getStatutDemande(idDossier){
+    this.immatriculationService.getStatusAttestationRegularite(idDossier)
+                .subscribe(
+                  (data:any)=>{
+                    console.log(data);
+                    if(data){
+                      let statut = data.value.output.description ;
+                       
+                    }
+                  },err=>{
+                    console.log(err);
+                     
+                  });
+ 
+                  
+
+  }
 
 
+
+  getUrlAttestation(idDossier){
+    this.immatriculationService.getUrlAttestationRegularite(idDossier)
+                .subscribe(
+                  (data:any)=>{
+                    console.log(data);
+                    if(data){
+                      //this.urlAtt = data.value.output.url;
+                      //this.loader = false;
+                    }
+                  },err=>{
+                    //this.loader = false;
+                    console.log(err);
+                  }
+                )
+  }
 
 
 
@@ -128,6 +237,23 @@ constructor(private route : ActivatedRoute,
 
   openViewPDFDialog(titre:string,url){
     titre = "Certificat d'immatriculation";
+    this.immatriculationService.attestationType = titre;
+    this.immatriculationService.urlAttestation = url;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+      dialogConfig.data={
+        title:titre, 
+      }
+      dialogConfig.width='1000px',
+      dialogConfig.height='800px'
+     this.dialog.open(ViewPdfComponent, dialogConfig);
+  }
+
+
+
+  openAttestationDialog(titre:string,url){
+    titre = "Attestation de régularité";
     this.immatriculationService.attestationType = titre;
     this.immatriculationService.urlAttestation = url;
     const dialogConfig = new MatDialogConfig();

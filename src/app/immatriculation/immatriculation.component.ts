@@ -188,30 +188,7 @@ export class ImmatriculationComponent implements OnInit {
       langKey: "",
       imageUrl: "",
       resetDate: ""
-    },
-    documents: {
-      demandeEcrit: { url: "" },
-      formDemande: { url: "" },
-      registreCommerce: { url: "" },
-      declarationEtablissement: { url: "" },
-      photocopieStatus: { url: "" },
-      decretMinisteriel: { url: "" },
-      avisImmatriculation: { url: "" },
-      dmt: { url: "" },
-      contratsTravail: { url: "" },
-      cni: { url: "" },
-      carteIdentiteConsulaire: { url: "" },
-      etatRecensement: { url: "" },
-      attestationChomage: { url: "" },
-      bulletinsSalaire: { url: "" },
-      cessationActivity: { url: "" },
-      carteNationaleIdentite: { url: "" },
-      derniersBulletins: { url: "" },
-      manuscriteAdessee: { url: "" },
-      passportDoc: { url: "" },
-      pieceIdDoc: { url: "" },
-      pieceIdGerantDoc: { url: "" }
-    }
+    } 
 
   }
 
@@ -830,7 +807,7 @@ export class ImmatriculationComponent implements OnInit {
     this.employeInfo.statutDossier = "statutDossier";
     this.employeInfo.statutImmatriculation = "";
     this.employeInfo.idDossiers = null;
-    this.employeInfo.documents = null;
+    //this.employeInfo.documents = null;
     this.employeInfo.user.id = this.currentUser.id;
     this.employeInfo.user.login = this.currentUser.login;
     this.employeInfo.user.firstName = this.currentUser.firstName;
@@ -1266,7 +1243,7 @@ export class ImmatriculationComponent implements OnInit {
           this.immatForm.get('input').get('documents').get('demandeEcrit').get('url').patchValue(docBase64Path);
 
           
-          console.log(this.employeInfo.documents.demandeEcrit.url);
+          //console.log(this.employeInfo.documents.demandeEcrit.url);
         }
         if (fileName == "formDemande" && fileInput.target.files[0].size != 0) {
           this.immatForm.get('input').get('documents').get('formDemande').get('url').patchValue(docBase64Path);
@@ -1407,7 +1384,7 @@ export class ImmatriculationComponent implements OnInit {
     console.log(this.myStepper.selected);
     /*  this.myStepper.selected.stepControl.dirty=false;
      this.myStepper.selected.stepControl.touched=false; */
-    this.myStepper.selected.stepControl.pristine = false;
+    //this.myStepper.selected.stepControl.pristine = false;
     /*  this.myStepper.selected.completed=false
      console.log(this.myStepper.selected._displayDefaultIndicatorType); */
     /* this.immatForm.get('input').get('employerQuery').markAsUntouched(); 

@@ -72,17 +72,32 @@
                   </mat-select>
                   <mat-error>Ce champ est obligatoire</mat-error>
                 </mat-form-field>
-                <mat-form-field   appearance="outline">
-                    <mat-label>Numéro NINEA</mat-label>
-                    <input  matInput formControlName="identifiant" required/>
-                  <mat-error>Ce champ est obligatoire</mat-error> 
+                 
+                
+                <mat-form-field appearance="outline">
+                  <mat-label>Employeur </mat-label>
+                  <mat-select   formControlName="identifiant" required>
+                    <perfect-scrollbar style="height: 100%;">
+                      <mat-option *ngFor="let employeur of employeurs"
+                        [value]="employeur.numeroIdentifiant">{{ employeur.raisonSociale}}</mat-option>
+                    </perfect-scrollbar>
+                  </mat-select>
+                  <mat-error>Ce champ est obligatoire</mat-error>
                 </mat-form-field>
-                <button (click)="createAttestationregularite()" class="submit-button" mat-button [disabled]="loader">Valider</button>
+                
+                
+                
+                  <div *ngIf="loader" class="center">
+                    <mat-progress-spinner strokeWidth="3" diameter=35 mode="indeterminate" color="primary">
+                    </mat-progress-spinner>
+                  </div>
+                 
+                <button (click)="createAttestationregularite()" class="submit-button" mat-button [disabled]="loader">Soumettre</button>
        
       </div>
     </form>
       
-        <div class="file-label" fxLayout="row" fxLayoutGap="5%">
+        <!-- <div class="file-label" fxLayout="row" fxLayoutGap="5%">
          <span> <mat-icon>picture_as_pdf</mat-icon> </span>
          <span class="first">  ATTESTATION DE REGULARITE   </span> 
        
@@ -107,7 +122,7 @@
           <span>{{statutAtt}}</span>
 
          </div>
-        <hr>
+        <hr> -->
        
 
  
