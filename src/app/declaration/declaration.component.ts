@@ -164,7 +164,7 @@ opensweetalert(title, icon, text){
         ws.AS2.v = "regimCompCadre3";
         ws.AT2.v = "dateEffetRegimeCadre3";
 
-
+        this.sheet_set_column_format(ws,5,'0');
         this.data = <any>(XLSX.utils.sheet_to_json(ws, 
           { raw: false,
           dateNF: "YYYY-MM-DD",
@@ -211,6 +211,21 @@ opensweetalert(title, icon, text){
       }
     }
   }
+
+
+  sheet_set_column_format(wss, C, Z) {
+    var range = XLSX.utils.decode_range(wss["!ref"]);
+    /* this loop starts on the second row, as it assumes the first row is a header */
+    for(var R = range.s.r + 1; R <= range.e.r; ++R) {
+      var cell = wss[XLSX.utils.encode_cell({r:R,c:C})];
+      if(!cell) continue;
+      cell.z = Z;
+    }
+  }
+
+
+
+
 initDeclarationForm(){
   console.log(this.data1);
   this.declarationForm=this.fb.group({

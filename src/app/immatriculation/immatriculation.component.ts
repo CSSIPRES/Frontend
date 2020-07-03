@@ -258,6 +258,9 @@ export class ImmatriculationComponent implements OnInit {
         ws.AL1.v = "salaireContractuel";
         ws.AM1.v = "tempsTravail";
         ws.AN1.v = "categorie";
+        
+        
+        this.sheet_set_column_format(ws,13,'0');
         this.data = <any>(XLSX.utils.sheet_to_json(ws,
           {
             raw: false,
@@ -267,8 +270,11 @@ export class ImmatriculationComponent implements OnInit {
             range: 0
           }));
       };
+      ///this.sheet_set_column_format(ws,13,'0');
       reader.readAsBinaryString(target.files[0]);
+      
       console.log(this.data);
+      //this.sheet_set_column_format(ws,13,'0');
     }
   }
 
@@ -288,14 +294,31 @@ export class ImmatriculationComponent implements OnInit {
     console.log(this.employeData);
     let decXslsFile = this.immatForm.get('input').get('employeList') as FormArray;
     for (let i = 0; i < this.employeData.length; i++) {
+       
       decXslsFile.push(this.fillEmployeeForm(this.employeData[i]));
     }
     console.log(decXslsFile);
 
     console.log(decXslsFile.value);
     this.dataSource = this.immatForm.get('input').get('employeList').value;
+
+    
     /* this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort; */
+  }
+
+
+
+  //Formatage du NIN
+
+  sheet_set_column_format(wss, C, Z) {
+    var range = XLSX.utils.decode_range(wss["!ref"]);
+    /* this loop starts on the second row, as it assumes the first row is a header */
+    for(var R = range.s.r + 1; R <= range.e.r; ++R) {
+      var cell = wss[XLSX.utils.encode_cell({r:R,c:C})];
+      if(!cell) continue;
+      cell.z = Z;
+    }
   }
 
   ////// End File Upload 
